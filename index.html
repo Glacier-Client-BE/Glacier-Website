@@ -9,48 +9,35 @@
 </head>
 <body>
     <header class="site-header">
-    <div class="container header-content">
-        <div class="logo">
-            <img src="assets/logo.png" alt="Logo">
-            <span>Glacier Client</span>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Glacier Client Logo">
+                <span>Glacier Client</span>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="#main">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger-menu">
+                <div class="hamburger-bar"></div>
+                <div class="hamburger-bar"></div>
+                <div class="hamburger-bar"></div>
+            </div>
         </div>
-        
-        <nav class="main-nav">
-            <ul class="nav-links">
-                <li><a href="#main">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#faq">FAQ</a></li>
-            </ul>
-        </nav>
-        
-        <div class="hamburger-menu">
-            <div class="hamburger-bar"></div>
-            <div class="hamburger-bar"></div>
-            <div class="hamburger-bar"></div>
-        </div>
-    </div>
-</header>
-
-<main id="main" class="hero-section">
-    <div class="container hero-content">
-        <div class="hero-text">
-            <h1>Glacier Client v5</h1>
-            <p>Experience next-level performance</p>
-            <button class="btn-download">Download Now</button>
-        </div>
-        <img src="assets/mod-menu.png" class="mod-menu-image" alt="Mod Interface">
-    </div>
-</main>
+    </header>
 
     <main id="main" class="hero-section section-animated">
         <div class="container hero-content">
             <div class="hero-text">
                 <h1>Glacier Client v5</h1>
                 <p>IS OUT NOW!</p>
-                <a href="#" class="btn-download"><span>DOWNLOAD</span></a>
+                <button class="btn-download">Download Now</button>
             </div>
-            <div class="mod-menu-image-placeholder">
-                <img src="assets/images/mod_menu.png" alt="Mod Menu Placeholder">
+            <div class="mod-menu-image">
+                <img src="assets/images/mod_menu.png" alt="Mod Interface">
             </div>
         </div>
     </main>
@@ -60,18 +47,18 @@
             <h2>Features</h2>
             <div class="features-grid">
                 <div class="feature-item">
-                    <div class="feature-image-placeholder">
-                        <img src="https://via.placeholder.com/300x200/292929/FFFFFF?text=Feature+Image+1" alt="Feature 1 Placeholder">
+                    <div class="feature-image">
+                        <img src="https://via.placeholder.com/300x200/292929/FFFFFF?text=Feature+1" alt="Feature 1">
                     </div>
-                    <h3>Small, but Featurefull!</h3>
-                    <p>Glacier Client is only 1.58mb, but has many modules and settings!</p>
+                    <h3>Compact & Powerful</h3>
+                    <p>Just 1.58MB with countless customization options</p>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-image-placeholder">
-                        <img src="https://via.placeholder.com/300x200/292929/FFFFFF?text=Feature+Image+2" alt="Feature 2 Placeholder">
+                    <div class="feature-image">
+                        <img src="https://via.placeholder.com/300x200/292929/FFFFFF?text=Feature+2" alt="Feature 2">
                     </div>
-                    <h3>Small, but Featurefull!</h3>
-                    <p>Glacier Client is only 1.58mb, but has many modules and settings!</p>
+                    <h3>Optimized Performance</h3>
+                    <p>Buttery smooth experience even on low-end devices</p>
                 </div>
             </div>
         </div>
@@ -82,15 +69,15 @@
             <h2>FAQ</h2>
             <div class="faq-items">
                 <details class="faq-item">
-                    <summary>Question one</summary>
+                    <summary>Is Glacier Client free to use?</summary>
                     <div class="faq-answer">
-                        <p>Amazing answer here</p>
+                        <p>Yes, Glacier Client is completely free and open source.</p>
                     </div>
                 </details>
                 <details class="faq-item">
-                    <summary>Question two</summary>
+                    <summary>What platforms are supported?</summary>
                     <div class="faq-answer">
-                        <p>Amazing answer here</p>
+                        <p>Currently available for Windows, Linux, and macOS.</p>
                     </div>
                 </details>
             </div>
@@ -99,29 +86,25 @@
 
     <footer id="footer">
         <div class="gc-footer container">
-            <div class="footer-column">
-                <div class="footer-box">
-                    <div class="links">
-                        <a href="https://dsc.gg/glacierclientmcbe" class="social-link">
-                            <i class="fab fa-discord"></i> Discord
-                        </a>
-                        <a href="https://youtube.com/@glacierclient" class="social-link">
-                            <i class="fab fa-youtube"></i> YouTube
-                        </a>
-                        <a href="https://x.com/glacierclientbe" class="social-link">
-                            <i class="fab fa-twitter"></i> Twitter
-                        </a>
-                        <a href="https://www.instagram.com/glacierclientmcbe" class="social-link">
-                            <i class="fab fa-instagram"></i> Instagram
-                        </a>
-                    </div>
+            <div class="footer-column social-column">
+                <div class="social-links">
+                    <a href="https://dsc.gg/glacierclientmcbe" class="social-link">
+                        <i class="fab fa-discord"></i> Discord
+                    </a>
+                    <a href="https://youtube.com/@glacierclient" class="social-link">
+                        <i class="fab fa-youtube"></i> YouTube
+                    </a>
+                    <a href="https://x.com/glacierclientbe" class="social-link">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                    <a href="https://instagram.com/glacierclientmcbe" class="social-link">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
                 </div>
             </div>
-            <div class="footer-column">
-                <div class="footer-box copyright">
-                    <div class="glacier-brand">
-                        <p><!-- Year will be inserted by JS --></p>
-                    </div>
+            <div class="footer-column legal-column">
+                <div class="glacier-brand">
+                    <p><!-- Year injected by JS --></p>
                 </div>
             </div>
         </div>
