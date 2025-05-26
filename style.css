@@ -147,7 +147,7 @@ img {
 
 /* Hero Section */
 .hero-section {
-    background-image: url('assets/bg.png'); /* Replace with your background image */
+    background-image: url('assets/BG.png'); /* Replace with your background image */
     background-size: cover;
     background-position: center;
     height: 70vh; /* Adjust as needed */
