@@ -147,7 +147,7 @@ img {
 
 /* Hero Section */
 .hero-section {
-    background-image: url('https://via.placeholder.com/1920x800/1D1D1D/D9D9D9?text=YOUR+BACKGROUND+IMAGE+HERE'); /* Replace with your background image */
+    background-image: url('assets/bg.png'); /* Replace with your background image */
     background-size: cover;
     background-position: center;
     height: 70vh; /* Adjust as needed */
