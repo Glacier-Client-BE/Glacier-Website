@@ -1,22 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Menu
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mainNav = document.querySelector('.main-nav');
-    
-    mobileMenuToggle.addEventListener('click', () => {
-        mainNav.classList.toggle('active');
-        mobileMenuToggle.classList.toggle('active');
-    });
+    // Update copyright year
+    const copyright = document.querySelector('.glacier-brand p');
+    if (copyright) {
+        const year = new Date().getFullYear();
+        copyright.innerHTML = `© ${year} Copyright Glacier Productions.<br>All Rights Reserved.`;
+    }
 
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-            mainNav.classList.remove('active');
-            mobileMenuToggle.classList.remove('active');
-        }
-    });
-
-    // Smooth scroll
+    // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -29,9 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // Update copyright year
-    document.getElementById('current-year').textContent = new Date().getFullYear();
 
     // Scroll animations
     const observer = new IntersectionObserver((entries) => {
