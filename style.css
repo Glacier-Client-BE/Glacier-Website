@@ -1,15 +1,13 @@
-/* Variables for colors */
 :root {
-    --color-dark-bg: #1D1D1D; /* Used for main background */
-    --color-lighter-bg: #292929; /* Used for cards/sections */
+    --color-dark-bg: #1D1D1D;
+    --color-lighter-bg: #292929;
     --color-text-light: #FFFFFF;
     --color-text-faded: #D9D9D9;
-    --color-accent-blue: #7289DA; /* Discord blue */
+    --color-accent-blue: #7289DA;
     --color-black: #000000;
     --color-white: #FFFFFF;
 }
 
-/* Basic Reset & Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -21,7 +19,7 @@ body {
     background-color: var(--color-dark-bg);
     color: var(--color-text-light);
     line-height: 1.6;
-    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+    overflow-x: hidden;
 }
 
 .container {
@@ -37,7 +35,7 @@ a {
 }
 
 a:hover {
-    color: #5b6fb8; /* Slightly darker blue on hover */
+    color: #5b6fb8;
 }
 
 h1, h2, h3 {
@@ -75,7 +73,6 @@ img {
     transform: translateY(-2px);
 }
 
-/* Header Styling */
 .site-header {
     background-color: var(--color-dark-bg);
     padding: 15px 0;
@@ -87,7 +84,7 @@ img {
 }
 
 .site-header.scrolled {
-    background-color: rgba(29, 29, 29, 0.95); /* Slightly transparent when scrolled */
+    background-color: rgba(29, 29, 29, 0.95);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -106,6 +103,9 @@ img {
 
 .logo img {
     margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
 .main-nav .nav-links {
@@ -140,17 +140,16 @@ img {
 }
 
 .mobile-menu-toggle {
-    display: none; /* Hidden on desktop */
+    display: none;
     font-size: 1.8em;
     cursor: pointer;
 }
 
-/* Hero Section */
 .hero-section {
-    background-image: url('assets/BG.png'); /* Replace with your background image */
+    background-image: url('assets/BG.png');
     background-size: cover;
     background-position: center;
-    height: 70vh; /* Adjust as needed */
+    height: 70vh;
     display: flex;
     align-items: center;
     text-align: left;
@@ -168,7 +167,7 @@ img {
 
 .hero-text {
     flex: 1;
-    z-index: 1; /* Ensure text is above background elements */
+    z-index: 1;
 }
 
 .hero-text h1 {
@@ -187,7 +186,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 350px; /* Ensure a minimum height for the placeholder */
+    min-height: 350px;
     background-color: var(--color-lighter-bg);
     border-radius: 8px;
     overflow: hidden;
@@ -197,13 +196,12 @@ img {
 .mod-menu-image-placeholder img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cover the placeholder area */
+    object-fit: cover;
 }
 
-/* Features Section */
 .features-section {
     padding: 80px 0;
-    background-color: var(--color-black); /* Slightly darker background for this section */
+    background-color: var(--color-black);
 }
 
 .features-grid {
@@ -254,7 +252,6 @@ img {
     color: var(--color-text-faded);
 }
 
-/* FAQ Section */
 .faq-section {
     padding: 80px 0;
     background-color: var(--color-dark-bg);
@@ -275,23 +272,23 @@ img {
 }
 
 .faq-item summary {
-    display: block; /* Ensures the whole summary is clickable */
+    display: block;
     padding: 20px;
     font-size: 1.2em;
     font-weight: bold;
     cursor: pointer;
     position: relative;
     color: var(--color-text-light);
-    outline: none; /* Remove default focus outline */
+    outline: none;
     transition: background-color 0.3s ease;
 }
 
 .faq-item summary::-webkit-details-marker {
-    display: none; /* Hide default arrow */
+    display: none;
 }
 
 .faq-item summary::after {
-    content: '\2b'; /* Plus sign */
+    content: '\2b';
     position: absolute;
     right: 20px;
     top: 50%;
@@ -301,12 +298,12 @@ img {
 }
 
 .faq-item[open] summary::after {
-    content: '\2212'; /* Minus sign */
+    content: '\2212';
     transform: translateY(-50%) rotate(180deg);
 }
 
 .faq-item summary:hover {
-    background-color: #3a3a3a; /* Slightly lighter on hover */
+    background-color: #3a3a3a;
 }
 
 .faq-answer {
@@ -316,7 +313,6 @@ img {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Footer Styling */
 .site-footer {
     background-color: var(--color-black);
     padding: 40px 0;
@@ -340,6 +336,9 @@ img {
 
 .footer-logo img {
     margin-bottom: 10px;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
 .footer-logo span {
@@ -364,7 +363,6 @@ img {
     transform: translateY(-3px);
 }
 
-/* Animations */
 .section-animated {
     opacity: 0;
     transform: translateY(50px);
@@ -389,10 +387,7 @@ img {
 
 .features-section.is-visible .feature-item:nth-child(1) { transition-delay: 0.2s; }
 .features-section.is-visible .feature-item:nth-child(2) { transition-delay: 0.4s; }
-/* Add more for more feature items if needed */
 
-
-/* Mobile Navigation */
 .main-nav.mobile-active {
     display: flex;
     position: fixed;
@@ -428,7 +423,6 @@ img {
     display: block;
 }
 
-/* Mobile Toggle for 'X' icon */
 .mobile-menu-toggle .fa-bars {
     display: block;
 }
@@ -443,21 +437,20 @@ img {
 
 .mobile-menu-toggle.active .fa-times {
     display: block;
-    position: fixed; /* Keep 'X' visible when menu is open */
+    position: fixed;
     top: 20px;
     right: 20px;
-    z-index: 1001; /* Above the menu */
+    z-index: 1001;
     color: var(--color-white);
 }
 
-/* Media Queries for Mobile Support */
 @media (max-width: 768px) {
     .main-nav {
-        display: none; /* Hide main nav on small screens by default */
+        display: none;
     }
 
     .mobile-menu-toggle {
-        display: block; /* Show hamburger icon */
+        display: block;
     }
 
     .hero-content {
@@ -475,12 +468,12 @@ img {
     }
 
     .mod-menu-image-placeholder {
-        width: 90%; /* Adjust width for smaller screens */
+        width: 90%;
         height: 250px;
     }
 
     .features-grid {
-        grid-template-columns: 1fr; /* Stack features on top of each other */
+        grid-template-columns: 1fr;
     }
 
     .feature-item {
@@ -527,6 +520,11 @@ img {
     }
 
     .logo img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .footer-logo img {
         width: 30px;
         height: 30px;
     }
