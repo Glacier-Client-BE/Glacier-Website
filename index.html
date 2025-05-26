@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glacier Client | Minecraft BE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="brand">
+                <img src="assets/logo.png" alt="Glacier Logo" class="brand-logo">
+                <span class="brand-name">Glacier</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
+                    <li class="nav-item"><a href="#faq" class="nav-link">FAQ</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-menu-toggle">
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="home-section">
+        <div class="container home-container">
+            <div class="home-content">
+                <h1 class="home-title">Next Gen Minecraft Experience</h1>
+                <p class="home-subtext">Optimized Client for Bedrock Edition</p>
+                <button class="download-button">
+                    <i class="fas fa-download"></i>
+                    Download v5.0
+                </button>
+            </div>
+            <div class="interface-preview">
+                <img src="assets/images/mod_menu.png" alt="Mod Interface" class="interface-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2 class="section-title">Core Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <img src="assets/icons/modules.png" alt="Modules" class="feature-icon">
+                    <h3 class="feature-title">24+ Custom Mods</h3>
+                    <p class="feature-desc">Extensive modules with real-time configuration</p>
+                </div>
+                
+                <div class="feature-card">
+                    <img src="assets/icons/gui.png" alt="GUI" class="feature-icon">
+                    <h3 class="feature-title">Smart Interface</h3>
+                    <p class="feature-desc">Drag & drop mod positioning system</p>
+                </div>
+                
+                <div class="feature-card">
+                    <img src="assets/icons/user.png" alt="Optimized" class="feature-icon">
+                    <h3 class="feature-title">Lightweight</h3>
+                    <p class="feature-desc">Only 2MB with zero performance impact</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Common Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <details class="faq-card">
+                        <summary class="faq-question">
+                            What devices are supported?
+                            <i class="fas fa-chevron-down"></i>
+                        </summary>
+                        <p class="faq-answer">All devices running Minecraft Bedrock Edition 1.20+</p>
+                    </details>
+                </div>
+                
+                <div class="faq-item">
+                    <details class="faq-card">
+                        <summary class="faq-question">
+                            Is it completely free?
+                            <i class="fas fa-chevron-down"></i>
+                        </summary>
+                        <p class="faq-answer">Yes! Glacier will always be 100% free to use</p>
+                    </details>
+                </div>
+                
+                <div class="faq-item">
+                    <details class="faq-card">
+                        <summary class="faq-question">
+                            Texture pack required?
+                            <i class="fas fa-chevron-down"></i>
+                        </summary>
+                        <p class="faq-answer">Works with any pack - no dependencies</p>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-social">
+                <a href="#" class="social-link">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <p class="copyright-text">© 2023 Glacier Client. Not affiliated with Mojang/Microsoft</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
