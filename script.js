@@ -1,16 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Menu Toggle
+    // Mobile Menu
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     const mainNav = document.querySelector('.main-nav');
     
-    if (mobileMenuToggle && mainNav) {
-        mobileMenuToggle.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-            mobileMenuToggle.classList.toggle('active');
-        });
-    }
+    mobileMenuToggle.addEventListener('click', () => {
+        mainNav.classList.toggle('active');
+        mobileMenuToggle.classList.toggle('active');
+    });
 
-    // Close mobile menu on click outside
+    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
             mainNav.classList.remove('active');
@@ -18,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Smooth scroll for navigation links
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -33,10 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Update copyright year
-    const yearElement = document.getElementById('current-year');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
-    }
+    document.getElementById('current-year').textContent = new Date().getFullYear();
 
     // Scroll animations
     const observer = new IntersectionObserver((entries) => {
