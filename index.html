@@ -1,87 +1,98 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Glacier Client | Glacier Productions</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="bg-image">
-      <div class="bg-header">
-        <div class="logo">
-          <img src="assets/logo.png" alt="Logo" />
-        </div>
-        <div class="header-buttons">
-          <a href="faq.html" class="button">FAQ</a>
-          <a href="https://dsc.gg/glacierclientmcbe" class="button">Download</a>
-        </div>
-      </div>
-      <div class="version-info">
-        <p class="glacierclientv4">Glacier Client V4</p>
-        <p class="isOutNow" style="color: grey">Is Out Now</p>
-        <a href="https://dsc.gg/glacierclientmcbe" target="_blank">
-           <button class="download-button">Download</button>
-        </a>
-      </div>
-      <img
-        src="assets/images/mod_menu.png"
-        alt="Description"
-        class="mod-menu-image"
-      />
-    </div>
-    <div id="r2">
-      <div>
-        <img src="assets/icons/gui.png">
-        <div class="header">Sleek UI</div>
-        <div id="hr"></div>
-        <div class="description">A sleek, minimalistic and dark UI for good visuals.</div>
-      </div>
-      <div>
-        <img src="assets/icons/modules.png">
-        <div class="header">24+ Modules</div>
-        <div id="hr"></div>
-        <div class="description">Modules that improve Survival and PvP experience.</div>
-      </div>
-      <div>
-        <img src="assets/icons/user.png">
-        <div class="header">User Friendly</div>
-        <div id="hr"></div>
-        <div class="description">Easy to use and optimized for best performances.</div>
-      </div>
-    </div>
-    <footer id="footer">
-      <div class="gc-footer row">
-        <div class="col-sm-4">
-        </div>
-        <div class="col-sm-2">
-          <div class="footer-box">
-            <div class="link-wrapper">
-              <div class="links">
-                <a class="title">Glacier Client</a>
-                <a href="https://dsc.gg/glacierclientmcbe">Discord</a>
-                <a href="https://youtube.com/@glacierclient">Youtube</a>
-                <a href="https://x.com/glacierclientbe">Twitter</a>
-                <a href="https://www.instagram.com/glacierclientmcbe?igsh=dDN1ZDl6azBna3l1">Instagram</a>
-              </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glacier Client v4</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo">
+                <img src="https://via.placeholder.com/40x40" alt="Glacier Client Logo"> <span>Glacier Client</span>
             </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="footer-box copyright no-select">
-            <a class="title">Legal</a>
-            <div class="glacier-brand">
-              <div class="row">
-                <div class="col-sm-2">
-                </div>
-                <div class="col-sm-10">
-                  <p>© 2024 Copyright Glacier Productions.<br>All Rights Reserved.</p>
-                </div>
-              </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="#main">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
             </div>
-          </div>
         </div>
-      </div>
+    </header>
+
+    <main id="main" class="hero-section section-animated">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Glacier Client v4</h1>
+                <p>IS OUT NOW!</p>
+                <a href="#" class="btn-download">DOWNLOAD</a>
+            </div>
+            <div class="mod-menu-image-placeholder">
+                <img src="https://via.placeholder.com/600x350/1D1D1D/FFFFFF?text=MOD+MENU+IMAGE" alt="Mod Menu Placeholder">
+            </div>
+        </div>
+    </main>
+
+    <section id="features" class="features-section section-animated">
+        <div class="container">
+            <h2>Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-image-placeholder">
+                        <img src="https://via.placeholder.com/300x200/292929/FFFFFF?text=Feature+Image+1" alt="Feature 1 Placeholder">
+                    </div>
+                    <h3>Small, but Featurefull!</h3>
+                    <p>Glacier Client is only 1.58mb, but has many modules and settings!</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image-placeholder">
+                        <img src="https://via.placeholder.com/300x200/292929/FFFFFF?text=Feature+Image+2" alt="Feature 2 Placeholder">
+                    </div>
+                    <h3>Small, but Featurefull!</h3>
+                    <p>Glacier Client is only 1.58mb, but has many modules and settings!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section section-animated">
+        <div class="container">
+            <h2>FAQ</h2>
+            <div class="faq-items">
+                <details class="faq-item">
+                    <summary>Question one</summary>
+                    <div class="faq-answer">
+                        <p>Amazing answer here</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>Question two</summary>
+                    <div class="faq-answer">
+                        <p>Amazing answer here</p>
+                    </div>
+                </details>
+                </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <img src="https://via.placeholder.com/40x40" alt="Glacier Client Logo"> <span>Glacier Client</span>
+                <p>Glacier Client</p>
+            </div>
+            <div class="footer-social">
+                <a href="#" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            </div>
+        </div>
     </footer>
-  </body>
+
+    <script src="script.js"></script>
+</body>
 </html>
