@@ -22,21 +22,21 @@ body {
     overflow-x: hidden;
 }
 
+.site-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(29, 29, 29, 0.95);
+    padding: 15px 0;
+    z-index: 1000;
+    border-bottom: 2px solid var(--color-accent-blue);
+    backdrop-filter: blur(10px);
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-}
-
-.site-header {
-    background-color: var(--color-dark-bg);
-    padding: 15px 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    border-bottom: 2px solid var(--color-accent-blue);
-    backdrop-filter: blur(10px);
 }
 
 .header-content {
@@ -49,14 +49,12 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-weight: bold;
     font-size: 1.2rem;
 }
 
 .logo img {
     width: 40px;
     height: 40px;
-    object-fit: contain;
 }
 
 .main-nav .nav-links {
@@ -65,14 +63,14 @@ body {
     gap: 30px;
 }
 
-.main-nav .nav-links a {
+.main-nav a {
     color: var(--color-text-light);
-    font-weight: 500;
+    text-decoration: none;
     position: relative;
     padding: 5px 0;
 }
 
-.main-nav .nav-links a::after {
+.main-nav a::after {
     content: '';
     position: absolute;
     bottom: -3px;
@@ -83,7 +81,7 @@ body {
     transition: width 0.3s ease;
 }
 
-.main-nav .nav-links a:hover::after {
+.main-nav a:hover::after {
     width: 100%;
 }
 
@@ -127,13 +125,12 @@ body {
 }
 
 .btn-download {
-    display: inline-block;
     background: var(--color-accent-blue);
     color: var(--color-white);
     padding: 12px 35px;
+    border: none;
     border-radius: 5px;
     font-weight: bold;
-    border: none;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -143,14 +140,10 @@ body {
     transform: translateY(-2px);
 }
 
-.btn-download:active {
-    transform: translateY(0);
-}
-
-.mod-menu-image {
-    flex: 1;
+.mod-menu-image img {
+    width: 100%;
+    max-width: 600px;
     border-radius: 10px;
-    overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
@@ -164,19 +157,31 @@ body {
     gap: 30px;
 }
 
-.feature-card {
+.feature-item {
     background: var(--color-lighter-bg);
     padding: 30px;
     border-radius: 10px;
     transition: transform 0.3s ease;
 }
 
-.feature-card:hover {
+.feature-item:hover {
     transform: translateY(-5px);
+}
+
+.feature-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
 .faq-section {
     padding: 80px 0;
+}
+
+.faq-items {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .faq-item {
@@ -202,6 +207,37 @@ body {
     color: var(--color-text-faded);
 }
 
+#footer {
+    background: var(--color-lighter-bg);
+    padding: 40px 0;
+    margin-top: 60px;
+}
+
+.gc-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-text-faded);
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--color-accent-blue);
+}
+
 @media (max-width: 768px) {
     .hamburger-menu {
         display: flex;
@@ -213,8 +249,9 @@ body {
         right: -100%;
         width: 80%;
         height: 100vh;
-        background: var(--color-dark-bg);
+        background: rgba(41, 41, 41, 0.95);
         padding: 100px 30px;
+        backdrop-filter: blur(10px);
         transition: right 0.3s ease;
     }
     
@@ -247,4 +284,15 @@ body {
     .hamburger-menu.active .hamburger-bar:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -5px);
     }
+}
+
+.section-animated {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-animated.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
