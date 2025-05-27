@@ -1,6 +1,4 @@
-// script.js
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Menu
     const menuToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
     
@@ -9,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
         navMenu.classList.toggle('active');
     });
 
-    // Smooth Scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -31,11 +28,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Close menu on outside click
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
     document.addEventListener('click', (e) => {
         if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
             menuToggle.classList.remove('active');
             navMenu.classList.remove('active');
         }
+    });
+
+    const faqItems = document.querySelectorAll('.faq-card');
+    faqItems.forEach(item => {
+        item.addEventListener('toggle', () => {
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.open) {
+                    otherItem.open = false;
+                }
+            });
+        });
     });
 });
