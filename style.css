@@ -339,3 +339,123 @@ body {
         justify-content: center;
     }
 }
+
+/* Downloads Section */
+.downloads-section {
+    padding: 4rem 0;
+    background: var(--color-dark-alt);
+}
+
+.version-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.version-card {
+    background: var(--color-dark);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 2px solid var(--color-primary);
+    transition: transform 0.3s ease;
+}
+
+.version-card:hover {
+    transform: translateY(-5px);
+}
+
+.version-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.version-tag {
+    background: var(--color-primary);
+    color: var(--color-text);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.version-tag.legacy {
+    background: #666;
+}
+
+.version-details p {
+    margin: 0.8rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-alt);
+}
+
+.download-options {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.download-btn {
+    background: var(--color-primary);
+    color: var(--color-text);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+}
+
+.download-btn.small {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+}
+
+.extensions-section {
+    margin-top: 3rem;
+}
+
+.subsection-title {
+    color: var(--color-primary);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.extensions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.extension-card {
+    background: var(--color-dark);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid #444;
+    transition: border-color 0.3s ease;
+}
+
+.extension-card:hover {
+    border-color: var(--color-primary);
+}
+
+.extension-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+}
+
+.extension-card p {
+    color: var(--color-text-alt);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
