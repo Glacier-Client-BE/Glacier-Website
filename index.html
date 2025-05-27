@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navigation -->
     <header class="main-header">
         <div class="container header-container">
             <div class="brand">
@@ -33,7 +33,6 @@
         </div>
     </header>
 
-    <!-- Home Section -->
     <section id="home" class="home-section">
         <div class="container home-container">
             <div class="home-content">
@@ -50,7 +49,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section id="features" class="features-section">
         <div class="container">
             <h2 class="section-title">Core Features</h2>
@@ -76,7 +74,6 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
     <section id="faq" class="faq-section">
         <div class="container">
             <h2 class="section-title">Common Questions</h2>
@@ -84,37 +81,42 @@
                 <div class="faq-item">
                     <details class="faq-card">
                         <summary class="faq-question">
-                            What devices are supported?
+                            <span>What devices are supported?</span>
                             <i class="fas fa-chevron-down"></i>
                         </summary>
-                        <p class="faq-answer">All devices running Minecraft Bedrock Edition 1.20+</p>
+                        <div class="faq-answer">
+                            <p>All devices running Minecraft Bedrock Edition 1.20+</p>
+                        </div>
                     </details>
                 </div>
                 
                 <div class="faq-item">
                     <details class="faq-card">
                         <summary class="faq-question">
-                            Is it completely free?
+                            <span>Is it completely free?</span>
                             <i class="fas fa-chevron-down"></i>
                         </summary>
-                        <p class="faq-answer">Yes! Glacier will always be 100% free to use</p>
+                        <div class="faq-answer">
+                            <p>Yes! Glacier will always be 100% free to use</p>
+                        </div>
                     </details>
                 </div>
                 
                 <div class="faq-item">
                     <details class="faq-card">
                         <summary class="faq-question">
-                            Texture pack required?
+                            <span>Texture pack required?</span>
                             <i class="fas fa-chevron-down"></i>
                         </summary>
-                        <p class="faq-answer">Works with any pack - no dependencies</p>
+                        <div class="faq-answer">
+                            <p>Works with any pack - no dependencies</p>
+                        </div>
                     </details>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="main-footer">
         <div class="container footer-container">
             <div class="footer-social">
@@ -128,7 +130,7 @@
                     <i class="fab fa-twitter"></i>
                 </a>
             </div>
-            <p class="copyright-text">© 2025 Glacier Client. Not affiliated with Mojang/Microsoft</p>
+            <p class="copyright-text">© <span id="currentYear"></span> Glacier Client. Not affiliated with Mojang/Microsoft</p>
         </div>
     </footer>
 
