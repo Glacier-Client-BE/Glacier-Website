@@ -1382,14 +1382,7 @@
                 tags: ['HUD', 'Utility', 'PvP'],
                 categories: ['hud', 'utility', 'pvp']
             },
-            {
-                id: 'betteranimations',
-                icon: 'assets/mods/betteranimations.png',
-                title: 'Better Animations',
-                description: 'Smoother and more fluid player and entity animations.',
-                tags: ['Cosmetic', 'Visual'],
-                categories: ['cosmetic', 'visual']
-            },
+            // Removed 'Better Animations'
             {
                 id: 'bowindicator',
                 icon: 'assets/mods/bowindicator.png',
@@ -1407,10 +1400,10 @@
                 categories: ['utility']
             },
             {
-                id: 'chunkmap',
-                icon: 'assets/mods/chunkmap.png',
-                title: 'Chunk Map',
-                description: 'Shows a visual representation of the current chunk boundaries.',
+                id: 'chunkborder', // New mod
+                icon: 'assets/mods/chunkborders.png', // Corrected icon path
+                title: 'Chunk Border',
+                description: 'Displays the chunk when holding a nautilus shell in offhand while in 3rd person.',
                 tags: ['Visual', 'Utility'],
                 categories: ['visual', 'utility']
             },
@@ -1469,6 +1462,22 @@
                 description: 'Forces coordinates display even when normally hidden.',
                 tags: ['Utility'],
                 categories: ['utility']
+            },
+            {
+                id: 'hitbox', // New mod
+                icon: 'assets/mods/hitbox.png',
+                title: 'Hitbox',
+                description: 'Displays a hitbox on the player.',
+                tags: ['Visual', 'PvP'],
+                categories: ['visual', 'pvp']
+            },
+            {
+                id: 'hitcolor', // New mod
+                icon: 'assets/mods/hitcolor.png', // Assuming a new icon for hitcolor
+                title: 'Hit Color',
+                description: 'Changes the color of the player when getting hit.',
+                tags: ['Visual', 'PvP'],
+                categories: ['visual', 'pvp']
             },
             {
                 id: 'hotbar',
@@ -1597,6 +1606,14 @@
                 description: 'Displays the total distance you have walked in the game.',
                 tags: ['HUD', 'Utility'],
                 categories: ['hud', 'utility']
+            },
+            {
+                id: 'waypointsplus', // New mod
+                icon: 'assets/mods/waypointsplus.png', // Assuming a new icon for waypoints
+                title: 'Waypoints+',
+                description: 'Waypoints, death points, green screen visual.',
+                tags: ['Utility', 'Visual'],
+                categories: ['utility', 'visual']
             },
         ].sort((a, b) => a.title.localeCompare(b.title)); // Sort alphabetically by title
 
