@@ -841,9 +841,9 @@
 
         .download-button {
             justify-content: center;
-            width: 100%; /* Full width button */
-            max-width: 300px; /* Max width for button */
-            margin: 0 auto; /* Center the button */
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
         }
 
         .interface-preview {
@@ -856,15 +856,15 @@
         }
 
         .features-grid, .version-grid, .extensions-grid {
-            grid-template-columns: 1fr; /* Single column layout */
+            grid-template-columns: 1fr;
         }
 
         .feature-card, .version-card, .extension-card, .faq-card {
-            padding: 1.5rem; /* Reduce padding for smaller screens */
+            padding: 1.5rem;
         }
 
         .download-options {
-            justify-content: center; /* Center download buttons */
+            justify-content: center;
         }
 
         /* Mods page specific responsive adjustments */
@@ -890,7 +890,7 @@
         }
 
         .mods-section {
-            padding-top: 90px; /* Adjust for mobile header */
+            padding-top: 90px;
         }
     }
 
@@ -1383,6 +1383,14 @@
                 categories: ['hud', 'utility', 'pvp']
             },
             {
+                id: 'betteranimations',
+                icon: 'assets/mods/betteranimations.png',
+                title: 'Better Animations',
+                description: 'Smoother and more fluid player and entity animations.',
+                tags: ['Cosmetic', 'Visual'],
+                categories: ['cosmetic', 'visual']
+            },
+            {
                 id: 'bowindicator',
                 icon: 'assets/mods/bowindicator.png',
                 title: 'Bow Indicator',
@@ -1506,7 +1514,7 @@
                 id: 'mainhandhud',
                 icon: 'assets/mods/mainhandhud.png',
                 title: 'Main Hand HUD',
-                description: 'Shows the item held in your main hand with it's durability.',
+                description: 'Shows the item held in your main hand with it\'s durability.',
                 tags: ['HUD', 'Utility', 'PvP'],
                 categories: ['hud', 'utility', 'pvp']
             },
@@ -1634,7 +1642,7 @@
             if (show) {
                 modsSection.classList.add('is-open');
                 document.body.classList.add('no-scroll'); // Prevent main page scrolling
-                renderMods(allMods); // Render mods when opening
+                filterAndSearchMods(); // Call filterAndSearchMods to render based on current filters/search
                 // Observe elements within the mods section for animation
                 const modsPageAnimatedElements = modsSection.querySelectorAll('.animate-fade-in-up');
                 modsPageAnimatedElements.forEach(element => {
@@ -1680,7 +1688,7 @@
                 const tagsHtml = mod.tags.map(tag => `<span class="mod-tag">${tag}</span>`).join('');
 
                 modCard.innerHTML = `
-                    <img src="${mod.icon}" alt="${mod.title} Icon" class="mod-icon" loading="lazy" />
+                    <img src="${mod.icon}" alt="${mod.title} Icon" class="mod-icon" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/80x80/7289DA/FFFFFF?text=Mod';" />
                     <h3 class="mod-title">${mod.title}</h3>
                     <p class="mod-description">${mod.description}</p>
                     <div class="mod-tags">${tagsHtml}</div>
@@ -1720,7 +1728,7 @@
 
         // Initial render of mods when the page loads (or overlay opens)
         // This ensures the modules count is correct from the start.
-        renderMods(allMods); 
+        filterAndSearchMods(); // Call this to ensure initial filtering is applied
     });
   </script>
 </body>
