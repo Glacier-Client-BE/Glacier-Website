@@ -6,21 +6,981 @@
   <title>Glacier Client | Minecraft BE</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+        --color-primary: #7289DA;
+        --color-dark: #1A1A1A;
+        --color-dark-alt: #2D2D2D;
+        --color-text: #FFFFFF;
+        --color-text-alt: #D9D9D9;
+    }
+
+    /* Base Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        background: var(--color-dark);
+        color: var(--color-text);
+        line-height: 1.6;
+        overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+    }
+
+    /* Utility Classes */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    /* Header */
+    .main-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(26, 26, 26, 0.95);
+        backdrop-filter: blur(10px); /* Glassmorphic effect */
+        border-bottom: 2px solid var(--color-primary);
+        z-index: 1000;
+        transition: background 0.3s ease;
+    }
+
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .brand-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px; /* Rounded corners for logo */
+    }
+
+    .brand-name {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--color-text);
+    }
+
+    .nav-list {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+    }
+
+    .nav-link {
+        color: var(--color-text-alt);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease, transform 0.2s ease;
+        position: relative;
+    }
+
+    .nav-link:hover, .nav-link.active {
+        color: var(--color-primary);
+        transform: translateY(-2px);
+    }
+
+    .nav-link::after { /* Underline effect */
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background: var(--color-primary);
+        left: 0;
+        bottom: -5px;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after, .nav-link.active::after {
+        width: 100%;
+    }
+
+    .mobile-menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        z-index: 1001;
+        transition: transform 0.3s ease;
+    }
+
+    .menu-bar {
+        width: 25px;
+        height: 3px;
+        background: var(--color-text);
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    /* Home Section */
+    .home-section {
+        padding: 120px 0;
+        margin-top: 70px;
+        background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('assets/BG.png'); /* Updated BG path */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Parallax effect */
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .home-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        text-align: left;
+    }
+
+    .home-title {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        line-height: 1.1;
+        color: var(--color-text);
+        text-shadow: 0 0 15px rgba(114, 137, 218, 0.5); /* Subtle glow */
+    }
+
+    .home-subtext {
+        color: var(--color-text-alt);
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+    }
+
+    .download-button {
+        background: var(--color-primary);
+        color: var(--color-text);
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 8px; /* More rounded */
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4); /* Button shadow */
+        text-decoration: none; /* Ensure it looks like a button */
+    }
+
+    .download-button:hover {
+        transform: translateY(-5px); /* More pronounced lift */
+        box-shadow: 0 8px 20px rgba(114, 137, 218, 0.6);
+    }
+
+    .interface-image {
+        width: 100%;
+        max-width: 600px; /* Limit image size for better control */
+        border-radius: 16px; /* More rounded corners */
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6); /* Stronger shadow */
+        border: 2px solid rgba(114, 137, 218, 0.3); /* Subtle border */
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+
+    /* New entrance animations */
+    .animate-fade-in-up {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .animate-fade-in-up.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+    /* Add more delays as needed */
+    .delay-6 { transition-delay: 0.6s; }
+    .delay-7 { transition-delay: 0.7s; }
+    .delay-8 { transition-delay: 0.8s; }
+    .delay-9 { transition-delay: 0.9s; }
+    .delay-10 { transition-delay: 1.0s; }
+
+
+    .animate-float {
+        animation: float 3s ease-in-out infinite;
+    }
+
+
+    /* Features Section */
+    .features-section {
+        padding: 6rem 0; /* More padding */
+        background: var(--color-dark-alt); /* Use dark-alt for section background */
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 4rem; /* More margin */
+        font-size: 2.5rem; /* Larger title */
+        color: var(--color-primary); /* Primary color for titles */
+        text-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted min-width */
+        gap: 2.5rem; /* More gap */
+    }
+
+    .feature-card {
+        background: var(--color-dark); /* Darker background for cards */
+        padding: 2.5rem; /* More padding */
+        border-radius: 16px; /* More rounded */
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+        border: 1px solid rgba(114, 137, 218, 0.2); /* Subtle border */
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* Card shadow */
+        position: relative; /* For pseudo-element glow */
+        overflow: hidden;
+    }
+
+    .feature-card::before { /* Subtle glow on hover */
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(114, 137, 218, 0.1) 0%, transparent 70%);
+        transform: rotate(45deg);
+        transition: transform 0.5s ease;
+        opacity: 0;
+        z-index: 0;
+    }
+
+    .feature-card:hover::before {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px); /* More pronounced lift */
+        box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+        border-color: var(--color-primary); /* Highlight border on hover */
+    }
+
+    .feature-icon {
+        width: 70px; /* Larger icons */
+        height: 70px;
+        margin-bottom: 1.5rem;
+        transition: transform 0.3s ease;
+        filter: drop-shadow(0 0 10px rgba(114, 137, 218, 0.5)); /* Icon glow */
+    }
+
+    .feature-card:hover .feature-icon {
+        transform: scale(1.15) rotate(5deg); /* More dynamic icon hover */
+    }
+
+    .feature-title {
+        font-size: 1.4rem;
+        margin-bottom: 0.8rem;
+        color: var(--color-text);
+    }
+
+    .feature-desc {
+        color: var(--color-text-alt);
+        font-size: 1rem;
+    }
+
+    /* Downloads Section */
+    .downloads-section {
+        padding: 6rem 0;
+        background: var(--color-dark); /* Dark background for this section */
+    }
+
+    .version-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .version-card {
+        background: var(--color-dark-alt);
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px solid var(--color-primary);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .version-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+        border-color: var(--color-text); /* Subtle change on hover */
+    }
+
+    .version-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.2rem;
+    }
+
+    .version-header h3 {
+        font-size: 1.5rem;
+        color: var(--color-text);
+    }
+
+    .version-tag {
+        background: var(--color-primary);
+        color: var(--color-text);
+        padding: 0.4rem 1rem;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .version-tag.legacy {
+        background: #666;
+    }
+
+    .version-details p {
+        margin: 0.7rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        color: var(--color-text-alt);
+        font-size: 0.95rem;
+    }
+
+    .version-details p i {
+        color: var(--color-primary);
+    }
+
+    .download-options {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.8rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .download-btn {
+        background: var(--color-primary);
+        color: var(--color-text);
+        padding: 0.9rem 1.8rem;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(114, 137, 218, 0.3);
+    }
+
+    .download-btn:hover {
+        transform: translateY(-3px);
+        background: #5b6eae; /* Slightly darker on hover */
+        box-shadow: 0 6px 15px rgba(114, 137, 218, 0.5);
+    }
+
+    .download-btn.small {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    .extensions-section {
+        margin-top: 5rem;
+    }
+
+    .subsection-title {
+        color: var(--color-primary);
+        margin-bottom: 2.5rem;
+        font-size: 2rem; /* Larger sub-title */
+        text-align: center;
+    }
+
+    .extensions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.8rem;
+    }
+
+    .extension-card {
+        background: var(--color-dark-alt);
+        padding: 1.8rem;
+        border-radius: 16px;
+        border: 2px solid rgba(114, 137, 218, 0.2); /* Primary color border */
+        transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .extension-card:hover {
+        border-color: var(--color-primary);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .extension-card h4 {
+        margin-bottom: 0.6rem;
+        color: var(--color-text); /* Changed to text color for better contrast */
+        font-size: 1.2rem;
+    }
+
+    .extension-card p {
+        color: var(--color-text-alt);
+        margin-bottom: 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+        padding: 6rem 0;
+        background: var(--color-dark-alt); /* Consistent background */
+    }
+
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .faq-item {
+        margin-bottom: 1.2rem;
+    }
+
+    .faq-card {
+        background: var(--color-dark); /* Darker background for FAQ cards */
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(114, 137, 218, 0.1); /* Subtle border */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .faq-card[open] {
+        background: var(--color-dark-alt); /* Slightly lighter when open */
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        border-color: var(--color-primary);
+    }
+
+    .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem; /* More padding */
+        cursor: pointer;
+        list-style: none;
+        font-weight: 600;
+        color: var(--color-text);
+    }
+
+    .faq-question:hover {
+        background: rgba(114, 137, 218, 0.1); /* Subtle hover background */
+        color: var(--color-primary);
+    }
+
+    .faq-question::-webkit-details-marker {
+        display: none;
+    }
+
+    .faq-question i {
+        transition: transform 0.3s ease;
+        color: var(--color-primary);
+    }
+
+    .faq-card[open] .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        padding: 0 1.5rem 1.5rem; /* Consistent padding */
+        color: var(--color-text-alt);
+        animation: slideDown 0.3s ease-out;
+        font-size: 0.95rem;
+    }
+
+    .faq-answer ul {
+        list-style: disc;
+        margin-left: 1.5rem;
+        padding-top: 0.5rem;
+    }
+
+    .faq-answer li {
+        margin-bottom: 0.5rem;
+    }
+
+    .faq-answer a {
+        color: var(--color-primary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .faq-answer a:hover {
+        text-decoration: underline;
+    }
+
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer */
+    .main-footer {
+        border-top: 2px solid var(--color-primary);
+        padding: 2.5rem 0; /* More padding */
+        margin-top: 5rem; /* More margin */
+        background: var(--color-dark);
+    }
+
+    .footer-container {
+        text-align: center;
+    }
+
+    .footer-social {
+        display: flex;
+        justify-content: center;
+        gap: 1.8rem; /* More gap */
+        margin-bottom: 1.5rem;
+    }
+
+    .social-link {
+        color: var(--color-text-alt);
+        font-size: 1.8rem; /* Larger icons */
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .social-link:hover {
+        color: var(--color-primary);
+        transform: translateY(-3px) scale(1.1); /* Lift and grow */
+    }
+
+    .copyright-text {
+        color: var(--color-text-alt);
+        font-size: 0.9rem;
+    }
+
+    /* All Mods Section (Overlay) */
+    .mods-section {
+        position: fixed; /* Fixed to cover viewport */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--color-dark-alt); /* Dark background for the overlay */
+        z-index: 1000; /* Above main content */
+        overflow-y: auto; /* Enable scrolling within the overlay */
+        padding: 70px 0 6rem; /* Adjust padding for header */
+
+        /* Initial state: hidden off-screen and transparent */
+        transform: translateY(100%);
+        opacity: 0;
+        visibility: hidden; /* Hide completely when not active */
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out, visibility 0s linear 0.5s; /* Delay visibility change */
+    }
+
+    .mods-section.is-open {
+        transform: translateY(0); /* Slide in from bottom */
+        opacity: 1;
+        visibility: visible;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out; /* No delay on visibility when opening */
+    }
+
+    .mods-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-top: 2rem; /* Give some space from the top */
+    }
+
+    .mods-header h1 {
+        font-size: 2.8rem;
+        color: var(--color-primary);
+        margin-bottom: 1rem;
+        text-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
+    }
+
+    .mods-header p {
+        color: var(--color-text-alt);
+        font-size: 1.1rem;
+    }
+
+    .filter-controls {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+    }
+
+    .filter-button {
+        background: var(--color-dark);
+        color: var(--color-text-alt);
+        padding: 0.7rem 1.5rem;
+        border: 1px solid var(--color-primary);
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    }
+
+    .filter-button:hover, .filter-button.active {
+        background: var(--color-primary);
+        color: var(--color-text);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(114, 137, 218, 0.3);
+    }
+
+    .search-bar {
+        width: 100%;
+        max-width: 400px;
+        margin: 1.5rem auto 3rem;
+        position: relative;
+    }
+
+    .search-bar input {
+        width: 100%;
+        padding: 0.8rem 1rem 0.8rem 2.8rem; /* Left padding for icon */
+        border: 2px solid var(--color-primary);
+        border-radius: 25px;
+        background: var(--color-dark);
+        color: var(--color-text);
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .search-bar input:focus {
+        border-color: var(--color-text);
+        box-shadow: 0 0 10px rgba(114, 137, 218, 0.5);
+    }
+
+    .search-bar i {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--color-text-alt);
+    }
+
+    .mods-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    .mod-card {
+        background: var(--color-dark);
+        padding: 1.8rem;
+        border-radius: 16px;
+        border: 1px solid rgba(114, 137, 218, 0.2);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        text-align: center;
+    }
+
+    .mod-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+        border-color: var(--color-primary);
+    }
+
+    .mod-icon {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1rem;
+        border-radius: 12px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 8px rgba(114, 137, 218, 0.4));
+    }
+
+    .mod-title {
+        font-size: 1.4rem;
+        color: var(--color-text);
+        margin-bottom: 0.5rem;
+    }
+
+    .mod-description {
+        color: var(--color-text-alt);
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        min-height: 45px; /* Ensure consistent height for descriptions */
+    }
+
+    .mod-tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .mod-tag {
+        background: rgba(114, 137, 218, 0.2);
+        color: var(--color-primary);
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .close-mods-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: var(--color-text);
+        cursor: pointer;
+        transition: transform 0.3s ease, color 0.3s ease;
+        z-index: 1001; /* Ensure it's above other elements in the overlay */
+    }
+
+    .close-mods-btn:hover {
+        color: var(--color-primary);
+        transform: rotate(90deg);
+    }
+
+    /* Body scroll lock when overlay is open */
+    body.no-scroll {
+        overflow: hidden;
+    }
+
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .header-container {
+            padding: 0 1rem; /* Adjust padding for smaller screens */
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 70px;
+            right: -100%;
+            width: 280px;
+            height: calc(100vh - 70px);
+            background: rgba(45,45,45,0.98);
+            backdrop-filter: blur(15px); /* Stronger blur for mobile menu */
+            padding: 2rem;
+            transition: right 0.4s ease-in-out; /* Smoother transition */
+            box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-list {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.8rem; /* More gap */
+        }
+
+        .nav-link {
+            font-size: 1.2rem; /* Larger links for touch */
+        }
+
+        .mobile-menu-toggle {
+            display: flex;
+        }
+
+        .mobile-menu-toggle.active .menu-bar:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px); /* Adjusted transform */
+        }
+
+        .mobile-menu-toggle.active .menu-bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .menu-bar:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px); /* Adjusted transform */
+        }
+
+        .home-container {
+            grid-template-columns: 1fr;
+            text-align: center;
+            padding-top: 2rem; /* Adjust padding for mobile */
+            padding-bottom: 2rem;
+        }
+
+        .home-title {
+            font-size: 2.5rem; /* Smaller title on mobile */
+        }
+
+        .home-subtext {
+            font-size: 1rem;
+        }
+
+        .download-button {
+            justify-content: center;
+            width: 100%; /* Full width button */
+            max-width: 300px; /* Max width for button */
+            margin: 0 auto; /* Center the button */
+        }
+
+        .interface-preview {
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid, .version-grid, .extensions-grid {
+            grid-template-columns: 1fr; /* Single column layout */
+        }
+
+        .feature-card, .version-card, .extension-card, .faq-card {
+            padding: 1.5rem; /* Reduce padding for smaller screens */
+        }
+
+        .download-options {
+            justify-content: center; /* Center download buttons */
+        }
+
+        /* Mods page specific responsive adjustments */
+        .mods-header h1 {
+            font-size: 2.2rem;
+        }
+        .mods-header p {
+            font-size: 1rem;
+        }
+        .filter-controls {
+            flex-direction: column;
+            align-items: center;
+        }
+        .filter-button {
+            width: 80%;
+            max-width: 250px;
+        }
+        .search-bar {
+            width: 90%;
+        }
+        .mods-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .mods-section {
+            padding-top: 90px; /* Adjust for mobile header */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .home-title {
+            font-size: 2rem;
+        }
+
+        .download-button {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+        }
+
+        .version-header h3 {
+            font-size: 1.3rem;
+        }
+
+        .version-tag {
+            font-size: 0.75rem;
+        }
+
+        .download-btn {
+            padding: 0.7rem 1.2rem;
+            font-size: 0.85rem;
+        }
+
+        .faq-question {
+            font-size: 1rem;
+            padding: 1.2rem;
+        }
+
+        .faq-answer {
+            font-size: 0.85rem;
+            padding: 0 1.2rem 1.2rem;
+        }
+
+        .footer-social {
+            gap: 1rem;
+        }
+
+        .social-link {
+            font-size: 1.5rem;
+        }
+
+        .copyright-text {
+            font-size: 0.8rem;
+        }
+
+        .close-mods-btn {
+            font-size: 1.5rem;
+            top: 15px;
+            right: 15px;
+        }
+    }
+  </style>
 </head>
 <body>
   <header class="main-header">
     <div class="container header-container">
       <div class="brand">
-        <img src="assets/logo.png" alt="Glacier Logo" class="brand-logo" />
+        <!-- Placeholder for Glacier Logo -->
+        <img src="assets/logo.png" alt="Glacier Logo" class="brand-logo" loading="lazy" />
         <span class="brand-name">Glacier</span>
       </div>
       <nav class="nav-menu">
         <ul class="nav-list">
+          <!-- These links now use standard anchor scrolling -->
           <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
           <li class="nav-item"><a href="#downloads" class="nav-link">Downloads</a></li>
           <li class="nav-item"><a href="#faq" class="nav-link">FAQ</a></li>
+          <!-- This link triggers the overlay -->
+          <li class="nav-item"><a href="#" class="nav-link" id="allModsNavLink">All Mods</a></li>
         </ul>
       </nav>
       <div class="mobile-menu-toggle">
@@ -31,285 +991,320 @@
     </div>
   </header>
 
-  <section id="home" class="home-section">
-    <div class="container home-container">
-      <div class="home-content">
-        <h1 class="home-title">Next Gen Minecraft Experience</h1>
-        <p class="home-subtext">Optimized Texture Pack Client for Bedrock Edition</p>
-        <a href="#downloads" class="download-button">
-          <i class="fas fa-download"></i> Download Latest
-        </a>
+  <main id="main-content">
+    <section id="home" class="home-section">
+      <div class="container home-container">
+        <div class="home-content">
+          <h1 class="home-title animate-fade-in-up">Next Gen Minecraft Experience</h1>
+          <p class="home-subtext animate-fade-in-up delay-1">Optimized Texture Pack Client for Bedrock Edition</p>
+          <a href="#downloads" class="download-button animate-fade-in-up delay-2">
+            <i class="fas fa-download"></i> Download Latest
+          </a>
+        </div>
+        <div class="interface-preview">
+          <!-- Placeholder for Mod Interface Image -->
+          <img src="assets/mod_menu.png" alt="Mod Interface" class="interface-image animate-float" loading="lazy" />
+        </div>
       </div>
-      <div class="interface-preview">
-        <img src="assets/mod_menu.png" alt="Mod Interface" class="interface-image" />
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="features" class="features-section">
+    <section id="features" class="features-section">
+      <div class="container">
+        <h2 class="section-title animate-fade-in-up">Core Features</h2>
+        <div class="features-grid">
+          <div class="feature-card animate-fade-in-up delay-1">
+            <!-- Updated Modules Icon -->
+            <img src="assets/icons/modules.png" alt="Modules" class="feature-icon" loading="lazy" />
+            <h3 class="feature-title" id="modulesCount"></h3>
+            <p class="feature-desc">Extensive modules with real-time configuration</p>
+          </div>
+          <div class="feature-card animate-fade-in-up delay-2">
+            <!-- Updated GUI Icon -->
+            <img src="assets/icons/gui.png" alt="GUI" class="feature-icon" loading="lazy" />
+            <h3 class="feature-title">Draggable Mods</h3>
+            <p class="feature-desc">Modules are movable to change the place as your wish.</p>
+          </div>
+          <div class="feature-card animate-fade-in-up delay-3">
+            <!-- Updated Optimized Icon -->
+            <img src="assets/icons/user.png" alt="Optimized" class="feature-icon" loading="lazy" />
+            <h3 class="feature-title">Lightweight</h3>
+            <p class="feature-desc">Only 2MB with zero performance impact</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="downloads" class="downloads-section">
+      <div class="container">
+        <h2 class="section-title animate-fade-in-up">Client Downloads</h2>
+
+        <div class="version-grid">
+          <!-- Version 5 -->
+          <div class="version-card animate-fade-in-up delay-1">
+            <div class="version-header">
+              <h3>Glacier v5</h3>
+              <span class="version-tag">Latest</span>
+            </div>
+            <div class="version-details">
+              <p><i class="fas fa-calendar"></i> Release: 2025-07-06</p>
+              <p><i class="fas fa-database"></i> Size: 2.77MB</p>
+              <div class="download-options">
+                <a href="https://link-center.net/499358/KEBMHbdFAIOT" class="download-btn" target="_blank">
+                  <i class="fas fa-download"></i> Linkvertise
+                </a>
+                <a href="https://lootdest.org/s?b6cpLNDy" class="download-btn" target="_blank">
+                  <i class="fas fa-download"></i> LootLabs
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Version 4 -->
+          <div class="version-card animate-fade-in-up delay-2">
+            <div class="version-header">
+              <h3>Glacier v4</h3>
+              <span class="version-tag legacy">Archived</span>
+            </div>
+            <div class="version-details">
+              <p><i class="fas fa-calendar"></i> Release: 2024-10-26</p>
+              <p><i class="fas fa-database"></i> Size: 1.75MB</p>
+              <div class="download-options">
+                <a href="https://link-center.net/499358/glacier-client-v4" class="download-btn" target="_blank">
+                  <i class="fas fa-download"></i> Download
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Version 3 -->
+          <div class="version-card animate-fade-in-up delay-3">
+            <div class="version-header">
+              <h3>Glacier v3</h3>
+              <span class="version-tag legacy">Archived</span>
+            </div>
+            <div class="version-details">
+              <p><i class="fas fa-calendar"></i> Release: 2022-10-01</p>
+              <p><i class="fas fa-database"></i> Size: 1.93MB</p>
+              <div class="download-options">
+                <a href="https://www.mediafire.com/file/3ij9ibl2x0jbpdk/GlacierClientV3.mcpack/file" class="download-btn" target="_blank">
+                  <i class="fas fa-download"></i> Download
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Version 2 -->
+          <div class="version-card animate-fade-in-up delay-4">
+            <div class="version-header">
+              <h3>Glacier v2</h3>
+              <span class="version-tag legacy">Archived</span>
+            </div>
+            <div class="version-details">
+              <p><i class="fas fa-calendar"></i> Release: 2022-09-15</p>
+              <p><i class="fas fa-database"></i> Size: 13.53MB</p>
+              <div class="download-options">
+                <a href="https://www.mediafire.com/file/j6u8vlf6o5q5j9g/GlacierClient.zip/file" class="download-btn" target="_blank">
+                  <i class="fas fa-download"></i> Download
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Version 1 -->
+          <div class="version-card animate-fade-in-up delay-5">
+            <div class="version-header">
+              <h3>Glacier v1</h3>
+              <span class="version-tag legacy">Archived</span>
+            </div>
+            <div class="version-details">
+              <p><i class="fas fa-calendar"></i> Release: 2022-08-20</p>
+              <p><i class="fas fa-database"></i> Size: 21.25MB</p>
+              <div class="download-options">
+                <a href="https://www.mediafire.com/file/s7xv3ejoqxg5ntn/GlacierClient.mcpack/file" class="download-btn" target="_blank">
+                  <i class="fas fa-download"></i> Download
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- v5 Extensions -->
+        <div class="extensions-section">
+          <h3 class="subsection-title animate-fade-in-up">Glacier v5 Official Extensions</h3>
+          <div class="extensions-grid">
+            <div class="extension-card animate-fade-in-up delay-1">
+              <h4>Cape Physics</h4>
+              <p>Adds dynamic physics to player capes for enhanced realism.</p>
+              <div class="download-options">
+                <a href="https://link-target.net/499358/WCp3rcHJiJ21" class="download-btn small" target="_blank">
+                  <i class="fas fa-download"></i> Linkvertise
+                </a>
+                <a href="https://lootdest.org/s?wulDc3e9" class="download-btn small" target="_blank">
+                  <i class="fas fa-download"></i> LootLabs
+                </a>
+              </div>
+            </div>
+
+            <div class="extension-card animate-fade-in-up delay-2">
+              <h4>Hit Color</h4>
+              <p>Changes the color of the player when getting hit.</p>
+              <div class="download-options">
+                <a href="https://link-target.net/499358/O3EPrFMabbut" class="download-btn small" target="_blank">
+                  <i class="fas fa-download"></i> Linkvertise
+                </a>
+                <a href="https://lootdest.org/s?xt8Clcln" class="download-btn small" target="_blank">
+                  <i class="fas fa-download"></i> LootLabs
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- v4 Extensions -->
+        <div class="extensions-section">
+          <h3 class="subsection-title animate-fade-in-up">Glacier v4 Official Extensions</h3>
+          <div class="extensions-grid">
+            <div class="extension-card animate-fade-in-up delay-1">
+              <h4>Chunk Border</h4>
+              <p>Displays the chunk when holding a nautilus shell in offhand while in 3rd person.</p>
+              <a href="https://link-hub.net/499358/glacier-v4-chunk-border" class="download-btn small" target="_blank">
+                <i class="fas fa-download"></i> Download
+              </a>
+            </div>
+
+            <div class="extension-card animate-fade-in-up delay-2">
+              <h4>Freelook</h4>
+              <p>Crouch in 3rd person mode to enable the freelook.</p>
+              <a href="https://direct-link.net/499358/glacier-v4-freelook" class="download-btn small" target="_blank">
+                <i class="fas fa-download"></i> Download
+              </a>
+            </div>
+
+            <div class="extension-card animate-fade-in-up delay-3">
+              <h4>Hitbox</h4>
+              <p>Displays a hitbox on the player.</p>
+              <a href="https://direct-link.net/499358/glacier-v4-hitbox" class="download-btn small" target="_blank">
+                <i class="fas fa-download"></i> Download
+              </a>
+            </div>
+
+            <div class="extension-card animate-fade-in-up delay-4">
+              <h4>Hit Color</h4>
+              <p>Changes the color of player when getting hit.</p>
+              <a href="https://link-center.net/499358/glacier-v4-hitcolor" class="download-btn small" target="_blank">
+                <i class="fas fa-download"></i> Download
+              </a>
+            </div>
+
+            <div class="extension-card animate-fade-in-up delay-5">
+              <h4>Waypoints+</h4>
+              <p>Allows the player to make Waypoints, Greenscreen or Deathpoints!</p>
+              <a href="https://link-target.net/499358/glacier-v4-waypoints" class="download-btn small" target="_blank">
+                <i class="fas fa-download"></i> Download
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+      <div class="container">
+        <h2 class="section-title animate-fade-in-up">Common Questions</h2>
+        <div class="faq-container">
+          <div class="faq-item animate-fade-in-up delay-1">
+            <details class="faq-card">
+              <summary class="faq-question">
+                <span>What devices are supported?</span>
+                <i class="fas fa-chevron-down"></i>
+              </summary>
+              <div class="faq-answer">
+                <p>All devices running Minecraft Bedrock Edition 1.21+</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item animate-fade-in-up delay-2">
+            <details class="faq-card">
+              <summary class="faq-question">
+                <span>Is it completely free?</span>
+                <i class="fas fa-chevron-down"></i>
+              </summary>
+              <div class="faq-answer">
+                <p>Yes! Glacier will always be 100% free to use.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item animate-fade-in-up delay-3">
+            <details class="faq-card">
+              <summary class="faq-question">
+                <span>Is Glacier Client a virus?</span>
+                <i class="fas fa-chevron-down"></i>
+              </summary>
+              <div class="faq-answer">
+                <p>No! Since it’s a texture pack client and not an executable or injector.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item animate-fade-in-up delay-4">
+            <details class="faq-card">
+              <summary class="faq-question">
+                <span>How to bypass the Linkvertise link?</span>
+                <i class="fas fa-chevron-down"></i>
+              </summary>
+              <div class="faq-answer">
+                <p>Here's a Tutorial: <a href="https://youtu.be/7Nnc5ff5840?si=dsc2jrEL3nhG2kfU" target="_blank">Watch Here</a></p>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item animate-fade-in-up delay-5">
+            <details class="faq-card">
+              <summary class="faq-question">
+                <span>Why is Glacier Client not working?</span>
+                <i class="fas fa-chevron-down"></i>
+              </summary>
+              <div class="faq-answer">
+                <p>Issues that can't be fixed which may cause the Client to not work:</p>
+                <ul>
+                  <li>A pack or add-on which changes <code>player.entity.json</code> or <code>hud_screen.json</code>.<br>Example: Actions & Stuff</li>
+                  <li>A server not allowing packs overriding their UI.<br>Example: Minecraft Event servers</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- All Mods Section (Overlay) -->
+  <section id="all-mods" class="mods-section">
+    <button class="close-mods-btn" id="closeModsBtn"><i class="fas fa-times"></i></button>
     <div class="container">
-      <h2 class="section-title">Core Features</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <img src="assets/icons/modules.png" alt="Modules" class="feature-icon" />
-          <h3 class="feature-title">24+ Modules</h3>
-          <p class="feature-desc">Extensive modules with real-time configuration</p>
-        </div>
-        <div class="feature-card">
-          <img src="assets/icons/gui.png" alt="GUI" class="feature-icon" />
-          <h3 class="feature-title">Draggable Mods</h3>
-          <p class="feature-desc">Modules are movable to change the place as your wish.</p>
-        </div>
-        <div class="feature-card">
-          <img src="assets/icons/user.png" alt="Optimized" class="feature-icon" />
-          <h3 class="feature-title">Lightweight</h3>
-          <p class="feature-desc">Only 2MB with zero performance impact</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="downloads" class="downloads-section">
-    <div class="container">
-      <h2 class="section-title">Client Downloads</h2>
-
-      <div class="version-grid">
-        <!-- Version 5 -->
-        <div class="version-card">
-          <div class="version-header">
-            <h3>Glacier v5</h3>
-            <span class="version-tag">Latest</span>
-          </div>
-          <div class="version-details">
-            <p><i class="fas fa-calendar"></i> Release: 2025-07-06</p>
-            <p><i class="fas fa-database"></i> Size: 2.77MB</p>
-            <div class="download-options">
-              <a href="https://link-center.net/499358/KEBMHbdFAIOT" class="download-btn">
-                <i class="fas fa-download"></i> Linkvertise
-              </a>
-              <a href="https://lootdest.org/s?b6cpLNDy" class="download-btn">
-                <i class="fas fa-download"></i> LootLabs
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Version 4 -->
-        <div class="version-card">
-          <div class="version-header">
-            <h3>Glacier v4</h3>
-            <span class="version-tag legacy">Archived</span>
-          </div>
-          <div class="version-details">
-            <p><i class="fas fa-calendar"></i> Release: 2024-10-26</p>
-            <p><i class="fas fa-database"></i> Size: 1.75MB</p>
-            <div class="download-options">
-              <a href="https://link-center.net/499358/glacier-client-v4" class="download-btn">
-                <i class="fas fa-download"></i> Download
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Version 3 -->
-        <div class="version-card">
-          <div class="version-header">
-            <h3>Glacier v3</h3>
-            <span class="version-tag legacy">Archived</span>
-          </div>
-          <div class="version-details">
-            <p><i class="fas fa-calendar"></i> Release: 2022-10-01</p>
-            <p><i class="fas fa-database"></i> Size: 1.93MB</p>
-            <div class="download-options">
-              <a href="https://www.mediafire.com/file/3ij9ibl2x0jbpdk/GlacierClientV3.mcpack/file" class="download-btn">
-                <i class="fas fa-download"></i> Download
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Version 2 -->
-        <div class="version-card">
-          <div class="version-header">
-            <h3>Glacier v2</h3>
-            <span class="version-tag legacy">Archived</span>
-          </div>
-          <div class="version-details">
-            <p><i class="fas fa-calendar"></i> Release: 2022-09-15</p>
-            <p><i class="fas fa-database"></i> Size: 13.53MB</p>
-            <div class="download-options">
-              <a href="https://www.mediafire.com/file/j6u8vlf6o5q5j9g/GlacierClient.zip/file" class="download-btn">
-                <i class="fas fa-download"></i> Download
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Version 1 -->
-        <div class="version-card">
-          <div class="version-header">
-            <h3>Glacier v1</h3>
-            <span class="version-tag legacy">Archived</span>
-          </div>
-          <div class="version-details">
-            <p><i class="fas fa-calendar"></i> Release: 2022-08-20</p>
-            <p><i class="fas fa-database"></i> Size: 21.25MB</p>
-            <div class="download-options">
-              <a href="https://www.mediafire.com/file/s7xv3ejoqxg5ntn/GlacierClient.mcpack/file" class="download-btn">
-                <i class="fas fa-download"></i> Download
-              </a>
-            </div>
-          </div>
-        </div>
+      <div class="mods-header animate-fade-in-up">
+        <h1>Explore All Glacier Mods</h1>
+        <p>Discover a wide range of modules to enhance your Minecraft Bedrock Edition experience.</p>
       </div>
 
-      <!-- v5 Extensions -->
-      <div class="extensions-section">
-        <h3 class="subsection-title">Glacier v5 Official Extensions</h3>
-        <div class="extensions-grid">
-          <div class="extension-card">
-            <h4>Cape Physics</h4>
-            <p>Adds dynamic physics to player capes for enhanced realism.</p>
-            <div class="download-options">
-              <a href="https://link-target.net/499358/WCp3rcHJiJ21" class="download-btn small">
-                <i class="fas fa-download"></i> Linkvertise
-              </a>
-              <a href="https://lootdest.org/s?wulDc3e9" class="download-btn small">
-                <i class="fas fa-download"></i> LootLabs
-              </a>
-            </div>
-          </div>
-
-          <div class="extension-card">
-            <h4>Hit Color</h4>
-            <p>Changes the color of the player when getting hit.</p>
-            <div class="download-options">
-              <a href="https://link-target.net/499358/O3EPrFMabbut" class="download-btn small">
-                <i class="fas fa-download"></i> Linkvertise
-              </a>
-              <a href="https://lootdest.org/s?xt8Clcln" class="download-btn small">
-                <i class="fas fa-download"></i> LootLabs
-              </a>
-            </div>
-          </div>
-        </div>
+      <div class="filter-controls animate-fade-in-up delay-1">
+        <button class="filter-button active" data-category="all">All Mods</button>
+        <button class="filter-button" data-category="hud">HUD</button>
+        <button class="filter-button" data-category="cosmetic">Cosmetic</button>
+        <button class="filter-button" data-category="pvp">PvP</button>
+        <button class="filter-button" data-category="utility">Utility</button>
+        <button class="filter-button" data-category="visual">Visual</button>
       </div>
 
-      <!-- v4 Extensions -->
-      <div class="extensions-section">
-        <h3 class="subsection-title">Glacier v4 Official Extensions</h3>
-        <div class="extensions-grid">
-          <div class="extension-card">
-            <h4>Chunk Border</h4>
-            <p>Displays the chunk when holding a nautilus shell in offhand while in 3rd person.</p>
-            <a href="https://link-hub.net/499358/glacier-v4-chunk-border" class="download-btn small">
-              <i class="fas fa-download"></i> Download
-            </a>
-          </div>
-
-          <div class="extension-card">
-            <h4>Freelook</h4>
-            <p>Crouch in 3rd person mode to enable the freelook.</p>
-            <a href="https://direct-link.net/499358/glacier-v4-freelook" class="download-btn small">
-              <i class="fas fa-download"></i> Download
-            </a>
-          </div>
-
-          <div class="extension-card">
-            <h4>Hitbox</h4>
-            <p>Displays a hitbox on the player.</p>
-            <a href="https://direct-link.net/499358/glacier-v4-hitbox" class="download-btn small">
-              <i class="fas fa-download"></i> Download
-            </a>
-          </div>
-
-          <div class="extension-card">
-            <h4>Hit Color</h4>
-            <p>Changes the color of player when getting hit.</p>
-            <a href="https://link-center.net/499358/glacier-v4-hitcolor" class="download-btn small">
-              <i class="fas fa-download"></i> Download
-            </a>
-          </div>
-
-          <div class="extension-card">
-            <h4>Waypoints+</h4>
-            <p>Allows the player to make Waypoints, Greenscreen or Deathpoints!</p>
-            <a href="https://link-target.net/499358/glacier-v4-waypoints" class="download-btn small">
-              <i class="fas fa-download"></i> Download
-            </a>
-          </div>
-        </div>
+      <div class="search-bar animate-fade-in-up delay-2">
+        <i class="fas fa-search"></i>
+        <input type="text" id="modSearch" placeholder="Search for a mod..." />
       </div>
-    </div>
-  </section>
 
-  <section id="faq" class="faq-section">
-    <div class="container">
-      <h2 class="section-title">Common Questions</h2>
-      <div class="faq-container">
-        <div class="faq-item">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>What devices are supported?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>All devices running Minecraft Bedrock Edition 1.21+</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>Is it completely free?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>Yes! Glacier will always be 100% free to use.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>Is Glacier Client a virus?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>No! Since it’s a texture pack client and not an executable or injector.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>How to bypass the Linkvertise link?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>Here's a Tutorial: <a href="https://youtu.be/7Nnc5ff5840?si=dsc2jrEL3nhG2kfU" target="_blank">Watch Here</a></p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>Why is Glacier Client not working?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>Issues that can't be fixed which may cause the Client to not work:</p>
-              <ul>
-                <li>A pack or add-on which changes <code>player.entity.json</code> or <code>hud_screen.json</code>.<br>Example: Actions & Stuff</li>
-                <li>A server not allowing packs overriding their UI.<br>Example: Minecraft Event servers</li>
-              </ul>
-            </div>
-          </details>
-        </div>
+      <div class="mods-grid" id="modsGrid">
+        <!-- Mod cards will be dynamically loaded here by JavaScript -->
       </div>
     </div>
   </section>
@@ -329,6 +1324,412 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Select DOM elements
+        const menuToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const header = document.querySelector('.main-header');
+        const currentYearSpan = document.getElementById('currentYear');
+        const faqItems = document.querySelectorAll('.faq-card');
+        
+        const allModsNavLink = document.getElementById('allModsNavLink');
+        const modsSection = document.getElementById('all-mods');
+        const closeModsBtn = document.getElementById('closeModsBtn');
+
+        const modulesCountElement = document.getElementById('modulesCount'); // Get the element to update
+        const modsGrid = document.getElementById('modsGrid');
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const modSearchInput = document.getElementById('modSearch');
+
+        // --- Intersection Observer Setup ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Elements to animate on scroll (for main page sections)
+        const mainPageAnimatedElements = document.querySelectorAll('section:not(#all-mods) .animate-fade-in-up'); 
+        mainPageAnimatedElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Sample Mod Data (UPDATED WITH NEW MODS AND ORDERED)
+        const allMods = [
+            {
+                id: 'capephysics',
+                icon: 'assets/icons/mods/capephysics.png',
+                title: 'Cape Physics',
+                description: 'Adds dynamic physics to player capes for enhanced realism.',
+                tags: ['Cosmetic', 'Visual'],
+                categories: ['cosmetic', 'visual']
+            },
+            {
+                id: 'armorhud',
+                icon: 'assets/icons/mods/armorhud.png',
+                title: 'Armor HUD',
+                description: 'Displays your equipped armor and its durability on screen.',
+                tags: ['HUD', 'Utility', 'PvP'],
+                categories: ['hud', 'utility', 'pvp']
+            },
+            {
+                id: 'betteranimations',
+                icon: 'assets/icons/mods/betteranimations.png',
+                title: 'Better Animations',
+                description: 'Smoother and more fluid player and entity animations.',
+                tags: ['Cosmetic', 'Visual'],
+                categories: ['cosmetic', 'visual']
+            },
+            {
+                id: 'bowindicator',
+                icon: 'assets/icons/mods/bowindicator.png',
+                title: 'Bow Indicator',
+                description: 'Shows the charge level of your bow for accurate shots.',
+                tags: ['HUD', 'PvP'],
+                categories: ['hud', 'pvp']
+            },
+            {
+                id: 'chat',
+                icon: 'assets/icons/mods/chat.png',
+                title: 'Chat',
+                description: 'Enhances the in-game chat experience with various features.',
+                tags: ['Utility'],
+                categories: ['utility']
+            },
+            {
+                id: 'chunkmap',
+                icon: 'assets/icons/mods/chunkmap.png',
+                title: 'Chunk Map',
+                description: 'Shows a visual representation of the current chunk boundaries.',
+                tags: ['Visual', 'Utility'],
+                categories: ['visual', 'utility']
+            },
+            {
+                id: 'coordinates',
+                icon: 'assets/icons/mods/coordinates.png',
+                title: 'Coordinates',
+                description: 'Displays your current X, Y, Z coordinates on screen.',
+                tags: ['HUD', 'Utility'],
+                categories: ['hud', 'utility']
+            },
+            {
+                id: 'crosshairchanger',
+                icon: 'assets/icons/mods/crosshairchanger.png',
+                title: 'Crosshair Changer',
+                description: 'Allows you to customize the appearance of your crosshair.',
+                tags: ['Cosmetic', 'Visual', 'PvP'],
+                categories: ['cosmetic', 'visual', 'pvp']
+            },
+            {
+                id: 'dayevent',
+                icon: 'assets/icons/mods/dayevent.png',
+                title: 'Day Event',
+                description: 'Notifies you about significant in-game day events.',
+                tags: ['Utility'],
+                categories: ['utility']
+            },
+            {
+                id: 'daycounter',
+                icon: 'assets/icons/mods/daycounter.png',
+                title: 'Day Counter',
+                description: 'Keeps track of the number of days passed in your Minecraft world.',
+                tags: ['HUD', 'Utility'],
+                categories: ['hud', 'utility']
+            },
+            {
+                id: 'directionhud',
+                icon: 'assets/icons/mods/directionhud.png',
+                title: 'Direction HUD',
+                description: 'Displays your current facing direction (North, South, East, West).',
+                tags: ['HUD', 'Utility'],
+                categories: ['hud', 'utility']
+            },
+            {
+                id: 'expcalculator',
+                icon: 'assets/icons/mods/expcalculator.png',
+                title: 'Exp Calculator',
+                description: 'Calculates experience needed for the next level or specific enchantments.',
+                tags: ['Utility'],
+                categories: ['utility']
+            },
+            {
+                id: 'forcecoords',
+                icon: 'assets/icons/mods/forcecoords.png',
+                title: 'ForceCoords',
+                description: 'Forces coordinates display even when normally hidden.',
+                tags: ['Utility'],
+                categories: ['utility']
+            },
+            {
+                id: 'hotbar',
+                icon: 'assets/icons/mods/hotbar.png',
+                title: 'Hotbar',
+                description: 'Customizable hotbar display with additional information.',
+                tags: ['HUD', 'Visual'],
+                categories: ['hud', 'visual']
+            },
+            {
+                id: 'hudpopup',
+                icon: 'assets/icons/mods/hudpopup.png',
+                title: 'HUD Popup',
+                description: 'Displays customizable pop-up messages on your HUD.',
+                tags: ['HUD', 'Utility'],
+                categories: ['hud', 'utility']
+            },
+            {
+                id: 'inventoryhud',
+                icon: 'assets/icons/mods/inventoryhud.png',
+                title: 'InventoryHUD',
+                description: 'An enhanced inventory display directly on your screen.',
+                tags: ['HUD', 'Utility', 'PvP'],
+                categories: ['hud', 'utility', 'pvp']
+            },
+            {
+                id: 'itemcounter',
+                icon: 'assets/icons/mods/itemcounter.png',
+                title: 'Item Counter',
+                description: 'Counts specific items in your inventory or hotbar.',
+                tags: ['HUD', 'Utility', 'PvP'],
+                categories: ['hud', 'utility', 'pvp']
+            },
+            {
+                id: 'lowdurability',
+                icon: 'assets/icons/mods/lowdurability.png',
+                title: 'Low Durability',
+                description: 'Alerts you when your equipped items have low durability.',
+                tags: ['HUD', 'Utility', 'PvP'],
+                categories: ['hud', 'utility', 'pvp']
+            },
+            {
+                id: 'mainhandhud',
+                icon: 'assets/icons/mods/mainhandhud.png',
+                title: 'Main Hand HUD',
+                description: 'Shows details about the item held in your main hand.',
+                tags: ['HUD', 'Utility', 'PvP'],
+                categories: ['hud', 'utility', 'pvp']
+            },
+            {
+                id: 'offhandhud',
+                icon: 'assets/icons/mods/offhandhud.png',
+                title: 'Offhand HUD',
+                description: 'Shows details about the item held in your offhand.',
+                tags: ['HUD', 'Utility', 'PvP'],
+                categories: ['hud', 'utility', 'pvp']
+            },
+            {
+                id: 'playerlist',
+                icon: 'assets/icons/mods/playerlist.png',
+                title: 'Playerlist',
+                description: 'Displays a list of players currently in your vicinity or server.',
+                tags: ['HUD', 'Utility'],
+                categories: ['hud', 'utility']
+            },
+            {
+                id: 'saturationdisplaychanger',
+                icon: 'assets/icons/mods/saturationdisplaychanger.png',
+                title: 'Saturation Display Changer',
+                description: 'Modifies how your saturation level is displayed on the HUD.',
+                tags: ['HUD', 'Visual'],
+                categories: ['hud', 'visual']
+            },
+            {
+                id: 'serverdisplay',
+                icon: 'assets/icons/mods/serverdisplay.png',
+                title: 'Server Display',
+                description: 'Shows information about the server you are currently on.',
+                tags: ['HUD', 'Utility'],
+                categories: ['hud', 'utility']
+            },
+            {
+                id: 'slotcounter',
+                icon: 'assets/icons/mods/slotcounter.png',
+                title: 'Slot Counter',
+                description: 'Counts the number of occupied and empty slots in your inventory.',
+                tags: ['HUD', 'Utility'],
+                categories: ['hud', 'utility']
+            },
+            {
+                id: 'speedometer',
+                icon: 'assets/icons/mods/speedometer.png',
+                title: 'Speedometer',
+                description: 'Displays your current movement speed in blocks per second.',
+                tags: ['HUD', 'Utility'],
+                categories: ['hud', 'utility']
+            },
+            {
+                id: 'statushud',
+                icon: 'assets/icons/mods/statushud.png',
+                title: 'Status HUD',
+                description: 'Displays various player status effects and their durations.',
+                tags: ['HUD', 'Utility'],
+                categories: ['hud', 'utility']
+            },
+            {
+                id: 'targethud',
+                icon: 'assets/icons/mods/targethud.png',
+                title: 'Target HUD',
+                description: 'Shows information about the entity you are currently targeting.',
+                tags: ['HUD', 'PvP'],
+                categories: ['hud', 'pvp']
+            },
+            {
+                id: 'timerhud',
+                icon: 'assets/icons/mods/timerhud.png',
+                title: 'Timer HUD',
+                description: 'A customizable timer display for various in-game activities.',
+                tags: ['HUD', 'Utility'],
+                categories: ['hud', 'utility']
+            },
+            {
+                id: 'walkdistance',
+                icon: 'assets/icons/mods/walkdistance.png',
+                title: 'Walk Distance',
+                description: 'Displays the total distance you have walked in the game.',
+                tags: ['HUD', 'Utility'],
+                categories: ['hud', 'utility']
+            },
+        ].sort((a, b) => a.title.localeCompare(b.title)); // Sort alphabetically by title
+
+        // Update the modules count dynamically
+        if (modulesCountElement) {
+            modulesCountElement.textContent = `${allMods.length}+ Modules`;
+        }
+
+        // --- Mobile Menu Toggle ---
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // --- Update Current Year in Footer ---
+        if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear();
+        }
+
+        // --- Close Mobile Menu on Outside Click ---
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // --- FAQ Accordion Behavior ---
+        faqItems.forEach(item => {
+            item.addEventListener('toggle', () => {
+                if (item.open) {
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.open) {
+                            otherItem.open = false;
+                        }
+                    });
+                }
+            });
+        });
+
+        // --- All Mods Overlay Logic ---
+        function toggleModsOverlay(show) {
+            if (show) {
+                modsSection.classList.add('is-open');
+                document.body.classList.add('no-scroll'); // Prevent main page scrolling
+                renderMods(allMods); // Render mods when opening
+                // Observe elements within the mods section for animation
+                const modsPageAnimatedElements = modsSection.querySelectorAll('.animate-fade-in-up');
+                modsPageAnimatedElements.forEach(element => {
+                    element.classList.remove('is-visible'); // Reset animation state
+                    observer.unobserve(element); // Stop observing if already observed
+                    observer.observe(element); // Re-observe to trigger animation
+                });
+            } else {
+                modsSection.classList.remove('is-open');
+                document.body.classList.remove('no-scroll'); // Re-enable main page scrolling
+            }
+            // Close mobile menu if it's open
+            if (navMenu.classList.contains('active')) {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        }
+
+        // Event listener for "All Mods" navigation link
+        allModsNavLink.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default anchor behavior
+            toggleModsOverlay(true);
+        });
+
+        // Event listener for the close button inside the "All Mods" overlay
+        closeModsBtn.addEventListener('click', () => {
+            toggleModsOverlay(false);
+        });
+
+        // --- Mods Page Content Rendering and Filtering ---
+        function renderMods(modsToDisplay) {
+            modsGrid.innerHTML = '';
+            if (modsToDisplay.length === 0) {
+                modsGrid.innerHTML = '<p style="color: var(--color-text-alt); text-align: center; grid-column: 1 / -1;">No mods found matching your criteria.</p>';
+                return;
+            }
+
+            modsToDisplay.forEach((mod, index) => {
+                const modCard = document.createElement('div');
+                modCard.classList.add('mod-card', 'animate-fade-in-up');
+                modCard.style.setProperty('--animation-delay', `${0.1 * index}s`);
+
+                const tagsHtml = mod.tags.map(tag => `<span class="mod-tag">${tag}</span>`).join('');
+
+                modCard.innerHTML = `
+                    <img src="${mod.icon}" alt="${mod.title} Icon" class="mod-icon" loading="lazy" />
+                    <h3 class="mod-title">${mod.title}</h3>
+                    <p class="mod-description">${mod.description}</p>
+                    <div class="mod-tags">${tagsHtml}</div>
+                `;
+                modsGrid.appendChild(modCard);
+
+                // IMPORTANT: Observe the newly added mod card for animation
+                observer.observe(modCard);
+            });
+        }
+
+        function filterAndSearchMods() {
+            const searchQuery = modSearchInput.value.toLowerCase();
+            const activeCategoryButton = document.querySelector('.filter-button.active');
+            const selectedCategory = activeCategoryButton ? activeCategoryButton.dataset.category : 'all';
+
+            const filteredMods = allMods.filter(mod => {
+                const matchesCategory = selectedCategory === 'all' || mod.categories.includes(selectedCategory);
+                const matchesSearch = mod.title.toLowerCase().includes(searchQuery) ||
+                                      mod.description.toLowerCase().includes(searchQuery) ||
+                                      mod.tags.some(tag => tag.toLowerCase().includes(searchQuery));
+                return matchesCategory && matchesSearch;
+            });
+
+            renderMods(filteredMods);
+        }
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                filterAndSearchMods();
+            });
+        });
+
+        modSearchInput.addEventListener('input', filterAndSearchMods);
+
+        // Initial render of mods when the page loads (or overlay opens)
+        // This ensures the modules count is correct from the start.
+        renderMods(allMods); 
+    });
+  </script>
 </body>
 </html>
