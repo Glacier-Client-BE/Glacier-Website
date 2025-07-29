@@ -1,0 +1,250 @@
+[
+    {
+        "id": "capephysics",
+        "icon": "assets/mods/capephysics.png",
+        "title": "Cape Physics",
+        "description": "Adds dynamic physics to player capes for enhanced realism.",
+        "tags": ["Cosmetic", "Visual"],
+        "categories": ["cosmetic", "visual"]
+    },
+    {
+        "id": "armorhud",
+        "icon": "assets/mods/armorhud.png",
+        "title": "Armor HUD",
+        "description": "Displays your equipped armor on the HUD.",
+        "tags": ["HUD", "Utility", "PvP"],
+        "categories": ["hud", "utility", "pvp"]
+    },
+    {
+        "id": "bowindicator",
+        "icon": "assets/mods/bowindicator.png",
+        "title": "Bow Indicator",
+        "description": "Shows the charge level of your bow for accurate shots.",
+        "tags": ["HUD", "PvP"],
+        "categories": ["hud", "pvp"]
+    },
+    {
+        "id": "chat",
+        "icon": "assets/mods/chat.png",
+        "title": "Chat",
+        "description": "Enhances the in-game chat experience with various features.",
+        "tags": ["Utility"],
+        "categories": ["utility"]
+    },
+    {
+        "id": "chunkborder",
+        "icon": "assets/mods/chunkborders.png",
+        "title": "Chunk Border",
+        "description": "Displays the chunk when holding a nautilus shell in offhand while in 3rd person.",
+        "tags": ["Visual", "Utility"],
+        "categories": ["visual", "utility"]
+    },
+    {
+        "id": "coordinates",
+        "icon": "assets/mods/coordinates.png",
+        "title": "Coordinates",
+        "description": "Displays your current X, Y, Z coordinates on screen with other useful information.",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
+    },
+    {
+        "id": "crosshairchanger",
+        "icon": "assets/mods/crosshairs.png",
+        "title": "Crosshair Changer",
+        "description": "Allows you to customize the appearance of your crosshair.",
+        "tags": ["Cosmetic", "Visual", "PvP"],
+        "categories": ["cosmetic", "visual", "pvp"]
+    },
+    {
+        "id": "dayevent",
+        "icon": "assets/mods/dayevent.png",
+        "title": "Day Event",
+        "description": "Displays in-game day events on the HUD.",
+        "tags": ["Utility"],
+        "categories": ["utility"]
+    },
+    {
+        "id": "daycounter",
+        "icon": "assets/mods/daycounter.png",
+        "title": "Day Counter",
+        "description": "Keeps track of the number of days passed in your Minecraft world.",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
+    },
+    {
+        "id": "directionhud",
+        "icon": "assets/mods/directionhud.png",
+        "title": "Direction HUD",
+        "description": "Displays your current facing direction (North, South, East, West).",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
+    },
+    {
+        "id": "expcalculator",
+        "icon": "assets/mods/expcalculator.png",
+        "title": "Exp Calculator",
+        "description": "Calculates experience needed for the next level.",
+        "tags": ["Utility"],
+        "categories": ["utility"]
+    },
+    {
+        "id": "forcecoords",
+        "icon": "assets/mods/forcecoords.png",
+        "title": "ForceCoords",
+        "description": "Forces coordinates display even when normally hidden.",
+        "tags": ["Utility"],
+        "categories": ["utility"]
+    },
+    {
+        "id": "hitbox",
+        "icon": "assets/mods/hitbox.png",
+        "title": "Hitbox",
+        "description": "Displays a hitbox on the player.",
+        "tags": ["Visual", "PvP"],
+        "categories": ["visual", "pvp"]
+    },
+    {
+        "id": "hitcolor",
+        "icon": "assets/mods/hitcolor.png",
+        "title": "Hit Color",
+        "description": "Changes the color of the player when getting hit.",
+        "tags": ["Visual", "PvP"],
+        "categories": ["visual", "pvp"]
+    },
+    {
+        "id": "hotbar",
+        "icon": "assets/mods/hotbar.png",
+        "title": "Hotbar",
+        "description": "Customizable hotbar display with additional information.",
+        "tags": ["HUD", "Visual"],
+        "categories": ["hud", "visual"]
+    },
+    {
+        "id": "hudpopup",
+        "icon": "assets/mods/hudpopup.png",
+        "title": "HUD Popup",
+        "description": "Displays bug report pop-up message on your HUD.",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
+    },
+    {
+        "id": "inventoryhud",
+        "icon": "assets/mods/inventoryhud.png",
+        "title": "InventoryHUD",
+        "description": "An enhanced inventory display directly on your screen.",
+        "tags": ["HUD", "Utility", "PvP"],
+        "categories": ["hud", "utility", "pvp"]
+    },
+    {
+        "id": "itemcounter",
+        "icon": "assets/mods/itemcounter.png",
+        "title": "Item Counter",
+        "description": "Counts Arrows, Potions and Totems items in your inventory or hotbar.",
+        "tags": ["HUD", "Utility", "PvP"],
+        "categories": ["hud", "utility", "pvp"]
+    },
+    {
+        "id": "lowdurability",
+        "icon": "assets/mods/lowdurability.png",
+        "title": "Low Durability",
+        "description": "Alerts you when your equipped items have low durability.",
+        "tags": ["HUD", "Utility", "PvP"],
+        "categories": ["hud", "utility", "pvp"]
+    },
+    {
+        "id": "mainhandhud",
+        "icon": "assets/mods/mainhandhud.png",
+        "title": "Main Hand HUD",
+        "description": "Shows the item held in your main hand with it's durability.",
+        "tags": ["HUD", "Utility", "PvP"],
+        "categories": ["hud", "utility", "pvp"]
+    },
+    {
+        "id": "offhandhud",
+        "icon": "assets/mods/offhandhud.png",
+        "title": "Offhand HUD",
+        "description": "Shows the item held in your offhand.",
+        "tags": ["HUD", "Utility", "PvP"],
+        "categories": ["hud", "utility", "pvp"]
+    },
+    {
+        "id": "playerlist",
+        "icon": "assets/mods/playerlist.png",
+        "title": "Playerlist",
+        "description": "Displays a list of players currently in your world or server.",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
+    },
+    {
+        "id": "saturationdisplaychanger",
+        "icon": "assets/mods/display.png",
+        "title": "Saturation Display Changer",
+        "description": "Adds a saturated overlay on your screen.",
+        "tags": ["HUD", "Visual"],
+        "categories": ["hud", "visual"]
+    },
+    {
+        "id": "serverdisplay",
+        "icon": "assets/mods/serverdisplay.png",
+        "title": "Server Display",
+        "description": "Shows information about the server you are currently on.",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
+    },
+    {
+        "id": "slotcounter",
+        "icon": "assets/mods/slotcounter.png",
+        "title": "Slot Counter",
+        "description": "Counts the number of occupied and empty slots in your inventory.",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
+    },
+    {
+        "id": "speedometer",
+        "icon": "assets/mods/speedometer.png",
+        "title": "Speedometer",
+        "description": "Displays your current movement speed in blocks per second.",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
+    },
+    {
+        "id": "statushud",
+        "icon": "assets/mods/statushud.png",
+        "title": "Status HUD",
+        "description": "Displays various player status.",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
+    },
+    {
+        "id": "targethud",
+        "icon": "assets/mods/targethud.png",
+        "title": "Target HUD",
+        "description": "Shows information about the player you are currently targeting.",
+        "tags": ["HUD", "PvP"],
+        "categories": ["hud", "pvp"]
+    },
+    {
+        "id": "timerhud",
+        "icon": "assets/mods/timerhud.png",
+        "title": "Timer HUD",
+        "description": "A timer display to keep track of your session time.",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
+    },
+    {
+        "id": "walkdistance",
+        "icon": "assets/mods/walkdistance.png",
+        "title": "Walk Distance",
+        "description": "Displays the total distance you have walked in the game.",
+        "tags": ["Utility"],
+        "categories": ["utility"]
+    },
+    {
+        "id": "waypointsplus",
+        "icon": "assets/mods/waypointsplus.png",
+        "title": "Waypoints+",
+        "description": "Waypoints, death points, green screen visual.",
+        "tags": ["Utility", "Visual"],
+        "categories": ["utility", "visual"]
+    }
+]
