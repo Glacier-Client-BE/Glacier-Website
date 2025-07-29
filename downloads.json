@@ -1,0 +1,111 @@
+{
+  "clients": {
+    "working": [
+      {
+        "version": "Glacier v5",
+        "tag": "Latest",
+        "release": "2025-07-06",
+        "size": "2.77MB",
+        "options": [
+          {"name": "Linkvertise", "url": "https://link-center.net/499358/KEBMHbdFAIOT"},
+          {"name": "LootLabs", "url": "https://lootdest.org/s?b6cpLNDy"}
+        ]
+      },
+      {
+        "version": "Glacier v4",
+        "tag": "Working",
+        "release": "2024-10-26",
+        "size": "1.75MB",
+        "options": [
+          {"name": "Download", "url": "https://link-center.net/499358/glacier-client-v4"}
+        ]
+      }
+    ],
+    "legacy": [
+      {
+        "version": "Glacier v3",
+        "tag": "Archived",
+        "release": "2022-10-01",
+        "size": "1.93MB",
+        "options": [
+          {"name": "Download", "url": "https://www.mediafire.com/file/3ij9ibl2x0jbpdk/GlacierClientV3.mcpack/file"}
+        ]
+      },
+      {
+        "version": "Glacier v2",
+        "tag": "Archived",
+        "release": "2022-09-15",
+        "size": "13.53MB",
+        "options": [
+          {"name": "Download", "url": "https://www.mediafire.com/file/j6u8vlf6o5q5j9g/GlacierClient.zip/file"}
+        ]
+      },
+      {
+        "version": "Glacier v1",
+        "tag": "Archived",
+        "release": "2022-08-20",
+        "size": "21.25MB",
+        "options": [
+          {"name": "Download", "url": "https://www.mediafire.com/file/s7xv3ejoqxg5ntn/GlacierClient.mcpack/file"}
+        ]
+      }
+    ]
+  },
+  "extensions": {
+    "working": [
+      {
+        "version": "Cape Physics (v5)",
+        "description": "Adds dynamic physics to player capes for enhanced realism.",
+        "options": [
+          {"name": "Linkvertise", "url": "https://link-target.net/499358/WCp3rcHJiJ21"},
+          {"name": "LootLabs", "url": "https://lootdest.org/s?wulDc3e9"}
+        ]
+      },
+      {
+        "version": "Hit Color (v5)",
+        "description": "Changes the color of the player when getting hit.",
+        "options": [
+          {"name": "Linkvertise", "url": "https://link-target.net/499358/O3EPrFMabbut"},
+          {"name": "LootLabs", "url": "https://lootdest.org/s?xt8Clcln"}
+        ]
+      }
+    ],
+    "legacy": [
+      {
+        "version": "Chunk Border (v4)",
+        "description": "Displays the chunk when holding a nautilus shell in offhand while in 3rd person.",
+        "options": [
+          {"name": "Download", "url": "https://link-hub.net/499358/glacier-v4-chunk-border"}
+        ]
+      },
+      {
+        "version": "Freelook (v4)",
+        "description": "Crouch in 3rd person mode to enable the freelook.",
+        "options": [
+          {"name": "Download", "url": "https://direct-link.net/499358/glacier-v4-freelook"}
+        ]
+      },
+      {
+        "version": "Hitbox (v4)",
+        "description": "Displays a hitbox on the player.",
+        "options": [
+          {"name": "Download", "url": "https://direct-link.net/499358/glacier-v4-hitbox"}
+        ]
+      },
+      {
+        "version": "Hit Color (v4)",
+        "description": "Changes the color of player when getting hit.",
+        "options": [
+          {"name": "Download", "url": "https://link-center.net/499358/glacier-v4-hitcolor"}
+        ]
+      },
+      {
+        "version": "Waypoints+ (v4)",
+        "description": "Allows the player to make Waypoints, Greenscreen or Deathpoints!",
+        "options": [
+          {"name": "Download", "url": "https://link-target.net/499358/glacier-v4-waypoints"}
+        ]
+      }
+    ]
+  }
+}
