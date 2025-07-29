@@ -661,9 +661,10 @@
     .mod-icon {
         width: 80px;
         height: 80px;
-        margin-bottom: 1rem;
+        display: block; /* Ensure it behaves as a block element */
+        margin: 0 auto 1rem; /* Center the block image horizontally and add bottom margin */
         border-radius: 8px;
-        object-fit: cover;
+        object-fit: cover; /* Fill the 80x80 area, cropping if necessary */
     }
 
     .mod-title {
@@ -1003,7 +1004,6 @@
             justify-content: center;
             width: 100%;
             max-width: 300px;
-            margin: 0 auto;
         }
 
         .download-button {
@@ -1256,7 +1256,6 @@
           <h2>Join Our Discord Community!</h2>
           <div>
             <p>Connect with other Glacier Client users, get support, share your creations, and stay up-to-date with the latest news and updates.</p>
-            <p>Our community is the best place to:</p>
             <ul>
               <li>Get help with installation and troubleshooting.</li>
               <li>Suggest new features and modules.</li>
@@ -1847,7 +1846,7 @@
                 const tagsHtml = mod.tags.map(tag => `<span class="mod-tag">${tag}</span>`).join('');
 
                 modCard.innerHTML = `
-                    <img src="${mod.icon}" alt="${mod.title} Icon" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/80x80/7289DA/FFFFFF?text=Mod';" />
+                    <img src="${mod.icon}" alt="${mod.title} Icon" class="mod-icon" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/80x80/7289DA/FFFFFF?text=Mod';" />
                     <h3 class="mod-title">${mod.title}</h3>
                     <p class="mod-description">${mod.description}</p>
                     <div class="mod-tags">${tagsHtml}</div>
