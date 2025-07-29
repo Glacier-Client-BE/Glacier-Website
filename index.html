@@ -15,7 +15,6 @@
         --color-text-alt: #D9D9D9;
     }
 
-    /* Base Styles */
     * {
         margin: 0;
         padding: 0;
@@ -27,24 +26,22 @@
         background: var(--color-dark);
         color: var(--color-text);
         line-height: 1.6;
-        overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+        overflow-x: hidden;
     }
 
-    /* Utility Classes */
     .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 1.5rem;
     }
 
-    /* Header */
     .main-header {
         position: fixed;
         top: 0;
         width: 100%;
         background: rgba(26, 26, 26, 0.95);
-        backdrop-filter: blur(10px); /* Glassmorphic effect */
-        -webkit-backdrop-filter: blur(10px); /* Safari support */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         border-bottom: 2px solid var(--color-primary);
         z-index: 1000;
         transition: background 0.3s ease;
@@ -66,7 +63,7 @@
     .brand-logo {
         width: 40px;
         height: 40px;
-        border-radius: 8px; /* Rounded corners for logo */
+        border-radius: 8px;
     }
 
     .brand-name {
@@ -94,7 +91,7 @@
         transform: translateY(-2px);
     }
 
-    .nav-link::after { /* Underline effect */
+    .nav-link::after {
         content: '';
         position: absolute;
         width: 0;
@@ -126,14 +123,13 @@
         transition: all 0.3s ease;
     }
 
-    /* Home Section */
     .home-section {
         padding: 120px 0;
         margin-top: 70px;
-        background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('assets/BG.png'); /* Updated BG path */
+        background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('assets/BG.png');
         background-size: cover;
         background-position: center;
-        background-attachment: fixed; /* Parallax effect */
+        background-attachment: fixed;
         min-height: 80vh;
         display: flex;
         align-items: center;
@@ -152,7 +148,7 @@
     .home-content {
         display: flex;
         flex-direction: column;
-        align-items: flex-start; /* Align items to the start for text */
+        align-items: flex-start;
     }
 
     .home-title {
@@ -160,7 +156,7 @@
         margin-bottom: 1rem;
         line-height: 1.1;
         color: var(--color-text);
-        text-shadow: 0 0 15px rgba(114, 137, 218, 0.5); /* Subtle glow */
+        text-shadow: 0 0 15px rgba(114, 137, 218, 0.5);
     }
 
     .home-subtext {
@@ -171,8 +167,8 @@
 
     .home-buttons {
         display: flex;
-        gap: 1.5rem; /* Space between buttons */
-        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        gap: 1.5rem;
+        flex-wrap: wrap;
     }
 
     .download-button {
@@ -180,7 +176,7 @@
         color: var(--color-text);
         padding: 1rem 2rem;
         border: none;
-        border-radius: 8px; /* More rounded */
+        border-radius: 8px;
         font-size: 1rem;
         font-weight: 600;
         cursor: pointer;
@@ -188,24 +184,23 @@
         align-items: center;
         gap: 0.75rem;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4); /* Button shadow */
-        text-decoration: none; /* Ensure it looks like a button */
+        box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4);
+        text-decoration: none;
     }
 
     .download-button:hover {
-        transform: translateY(-5px); /* More pronounced lift */
+        transform: translateY(-5px);
         box-shadow: 0 8px 20px rgba(114, 137, 218, 0.6);
     }
 
     .interface-image {
         width: 100%;
-        max-width: 600px; /* Limit image size for better control */
-        border-radius: 16px; /* More rounded corners */
-        box-shadow: 0 15px 40px rgba(0,0,0,0.6); /* Stronger shadow */
-        border: 2px solid rgba(114, 137, 218, 0.3); /* Subtle border */
+        max-width: 600px;
+        border-radius: 16px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        border: 2px solid rgba(114, 137, 218, 0.3);
     }
 
-    /* Animations */
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
@@ -221,7 +216,6 @@
         50% { transform: translateY(-20px); }
     }
 
-    /* New entrance animations */
     .animate-fade-in-up {
         opacity: 0;
         transform: translateY(20px);
@@ -238,52 +232,54 @@
     .delay-3 { transition-delay: 0.3s; }
     .delay-4 { transition-delay: 0.4s; }
     .delay-5 { transition-delay: 0.5s; }
-    /* Add more delays as needed */
     .delay-6 { transition-delay: 0.6s; }
     .delay-7 { transition-delay: 0.7s; }
     .delay-8 { transition-delay: 0.8s; }
     .delay-9 { transition-delay: 0.9s; }
     .delay-10 { transition-delay: 1.0s; }
 
-
     .animate-float {
         animation: float 3s ease-in-out infinite;
     }
 
-
-    /* Features Section */
     .features-section {
-        padding: 6rem 0; /* More padding */
-        background: var(--color-dark-alt); /* Use dark-alt for section background */
+        padding: 6rem 0;
+        background: var(--color-dark-alt);
     }
 
     .section-title {
         text-align: center;
-        margin-bottom: 4rem; /* More margin */
-        font-size: 2.5rem; /* Larger title */
-        color: var(--color-primary); /* Primary color for titles */
+        margin-bottom: 4rem;
+        font-size: 2.5rem;
+        color: var(--color-primary);
         text-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
     }
 
     .features-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted min-width */
-        gap: 2.5rem; /* More gap */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
     }
 
     .feature-card {
-        background: var(--color-dark); /* Darker background for cards */
-        padding: 2.5rem; /* More padding */
-        border-radius: 16px; /* More rounded */
+        background: var(--color-dark);
+        padding: 2.5rem;
+        border-radius: 16px;
         text-align: center;
         transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-        border: 1px solid rgba(114, 137, 218, 0.2); /* Subtle border */
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* Card shadow */
-        position: relative; /* For pseudo-element glow */
+        border: 1px solid rgba(114, 137, 218, 0.2);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        position: relative;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
     }
 
-    .feature-card::before { /* Subtle glow on hover */
+    .feature-card::before {
         content: '';
         position: absolute;
         top: -50%;
@@ -303,21 +299,29 @@
     }
 
     .feature-card:hover {
-        transform: translateY(-10px); /* More pronounced lift */
+        transform: translateY(-10px);
         box-shadow: 0 12px 25px rgba(0,0,0,0.5);
-        border-color: var(--color-primary); /* Highlight border on hover */
+        border-color: var(--color-primary);
     }
 
     .feature-icon {
-        width: 70px; /* Larger icons */
+        width: 70px;
         height: 70px;
-        margin-bottom: 1.5rem;
+        margin-bottom: 0;
         transition: transform 0.3s ease;
-        filter: drop-shadow(0 0 10px rgba(114, 137, 218, 0.5)); /* Icon glow */
+        filter: drop-shadow(0 0 10px rgba(114, 137, 218, 0.5));
+        flex-shrink: 0;
     }
 
     .feature-card:hover .feature-icon {
-        transform: scale(1.15) rotate(5deg); /* More dynamic icon hover */
+        transform: scale(1.15) rotate(5deg);
+    }
+
+    .feature-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: center;
     }
 
     .feature-title {
@@ -331,363 +335,289 @@
         font-size: 1rem;
     }
 
-    /* Downloads Section */
     .downloads-section {
         padding: 6rem 0;
-        background: var(--color-dark); /* Dark background for this section */
+        background: var(--color-dark);
     }
 
-    .version-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-        margin-bottom: 4rem;
-    }
-
-    .version-card {
-        background: var(--color-dark-alt);
-        border-radius: 16px;
-        padding: 2rem;
-        border: 2px solid var(--color-primary);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-
-    .version-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 25px rgba(0,0,0,0.5);
-        border-color: var(--color-text); /* Subtle change on hover */
-    }
-
-    .version-header {
+    .downloads-content {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.2rem;
+        flex-direction: column;
+        gap: 3rem;
     }
 
-    .version-header h3 {
-        font-size: 1.5rem;
+    .subsection-title {
+        color: var(--color-primary);
+        margin-bottom: 2.5rem;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .version-list, .extensions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .version-item, .extension-item {
+        background: var(--color-dark-alt);
+        padding: 1.2rem 1.8rem;
+        border-radius: 12px;
+        border: 1px solid rgba(114, 137, 218, 0.1);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .version-item:hover, .extension-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        background-color: var(--color-dark);
+    }
+
+    .version-item-content, .extension-item-content {
+        flex-grow: 1;
+    }
+
+    .version-item h4, .extension-item h4 {
+        font-size: 1.1rem;
         color: var(--color-text);
+        margin-bottom: 0.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .version-item p, .extension-item p {
+        font-size: 0.9rem;
+        color: var(--color-text-alt);
+        margin-bottom: 0;
     }
 
     .version-tag {
         background: var(--color-primary);
         color: var(--color-text);
-        padding: 0.4rem 1rem;
-        border-radius: 25px;
-        font-size: 0.9rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 15px;
+        font-size: 0.75rem;
         font-weight: 600;
         text-transform: uppercase;
+        flex-shrink: 0;
     }
 
     .version-tag.legacy {
         background: #666;
     }
 
-    .version-details p {
-        margin: 0.7rem 0;
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        color: var(--color-text-alt);
-        font-size: 0.95rem;
-    }
-
-    .version-details p i {
-        color: var(--color-primary);
-    }
-
     .download-options {
         display: flex;
-        gap: 1rem;
-        margin-top: 1.8rem;
+        gap: 0.8rem;
         flex-wrap: wrap;
-        justify-content: flex-start;
+        justify-content: flex-end;
+        flex-shrink: 0;
     }
 
     .download-btn {
         background: var(--color-primary);
         color: var(--color-text);
-        padding: 0.9rem 1.8rem;
+        padding: 0.6rem 1.2rem;
         border-radius: 8px;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
-        gap: 0.6rem;
+        gap: 0.5rem;
         transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
         font-weight: 600;
-        box-shadow: 0 4px 10px rgba(114, 137, 218, 0.3);
+        box-shadow: 0 3px 8px rgba(114, 137, 218, 0.3);
     }
 
     .download-btn:hover {
-        transform: translateY(-3px);
-        background: #5b6eae; /* Slightly darker on hover */
-        box-shadow: 0 6px 15px rgba(114, 137, 218, 0.5);
+        transform: translateY(-2px);
+        background: #5b6eae;
+        box-shadow: 0 5px 12px rgba(114, 137, 218, 0.5);
     }
 
     .download-btn.small {
-        padding: 0.7rem 1.2rem;
+        padding: 0.6rem 1.2rem;
         font-size: 0.85rem;
     }
 
-    .extensions-section {
-        margin-top: 5rem;
-    }
-
-    .subsection-title {
-        color: var(--color-primary);
-        margin-bottom: 2.5rem;
-        font-size: 2rem; /* Larger sub-title */
-        text-align: center;
-    }
-
-    .extensions-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.8rem;
-    }
-
-    .extension-card {
-        background: var(--color-dark-alt);
-        padding: 1.8rem;
-        border-radius: 16px;
-        border: 2px solid rgba(114, 137, 218, 0.2); /* Primary color border */
-        transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .extension-card:hover {
-        border-color: var(--color-primary);
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }
-
-    .extension-card h4 {
-        margin-bottom: 0.6rem;
-        color: var(--color-text); /* Changed to text color for better contrast */
-        font-size: 1.2rem;
-    }
-
-    .extension-card p {
-        color: var(--color-text-alt);
-        margin-bottom: 1.2rem;
-        font-size: 0.95rem;
-    }
-
-    /* FAQ Section */
-    .faq-section {
-        padding: 6rem 0;
-        background: var(--color-dark-alt); /* Consistent background */
-    }
-
-    .faq-container {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .faq-item {
-        margin-bottom: 1.2rem;
-    }
-
-    .faq-card {
-        background: var(--color-dark); /* Darker background for FAQ cards */
-        border-radius: 12px;
+    .legacy-versions-container {
+        position: relative;
         overflow: hidden;
-        transition: all 0.3s ease, box-shadow 0.3s ease;
-        border: 1px solid rgba(114, 137, 218, 0.1); /* Subtle border */
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        max-height: 150px;
+        transition: max-height 0.7s ease-in-out;
+        padding-bottom: 20px;
     }
 
-    .faq-card[open] {
-        background: var(--color-dark-alt); /* Slightly lighter when open */
-        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        border-color: var(--color-primary);
+    .legacy-versions-container.expanded {
+        max-height: 1000px;
     }
 
-    .faq-question {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.5rem; /* More padding */
-        cursor: pointer;
-        list-style: none;
-        font-weight: 600;
+    .legacy-versions-container::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        background: linear-gradient(to top, var(--color-dark) 0%, transparent 100%);
+        pointer-events: none;
+        transition: opacity 0.7s ease-in-out;
+        z-index: 1;
+    }
+
+    .legacy-versions-container.expanded::after {
+        opacity: 0;
+    }
+
+    .hidden-legacy, .hidden-legacy-ext {
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: opacity 0.3s ease, height 0.3s ease;
+    }
+
+    .legacy-versions-container.expanded .hidden-legacy,
+    .legacy-versions-container.expanded .hidden-legacy-ext {
+        opacity: 1;
+        height: auto;
+    }
+
+    .view-all-button-overlay {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        background: var(--color-primary);
         color: var(--color-text);
-    }
-
-    .faq-question:hover {
-        background: rgba(114, 137, 218, 0.1); /* Subtle hover background */
-        color: var(--color-primary);
-    }
-
-    .faq-question::-webkit-details-marker {
-        display: none;
-    }
-
-    .faq-question i {
-        transition: transform 0.3s ease;
-        color: var(--color-primary);
-    }
-
-    .faq-card[open] .faq-question i {
-        transform: rotate(180deg);
-    }
-
-    .faq-answer {
-        padding: 0 1.5rem 1.5rem; /* Consistent padding */
-        color: var(--color-text-alt);
-        animation: slideDown 0.3s ease-out;
-        font-size: 0.95rem;
-    }
-
-    .faq-answer ul {
-        list-style: disc;
-        margin-left: 1.5rem;
-        padding-top: 0.5rem;
-    }
-
-    .faq-answer li {
-        margin-bottom: 0.5rem;
-    }
-
-    .faq-answer a {
-        color: var(--color-primary);
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    .faq-answer a:hover {
-        text-decoration: underline;
-    }
-
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Footer */
-    .main-footer {
-        border-top: 2px solid var(--color-primary);
-        padding: 2.5rem 0; /* More padding */
-        margin-top: 5rem; /* More margin */
-        background: var(--color-dark);
-        display: flex; /* Use flexbox for layout */
-        flex-direction: column; /* Stack items vertically */
-        align-items: center; /* Center items horizontally */
-        gap: 2rem; /* Space between footer elements */
-    }
-
-    .footer-container {
-        text-align: center;
-    }
-
-    .footer-social {
+        padding: 0.8rem 1.8rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
         display: flex;
-        justify-content: center;
-        gap: 1.8rem; /* More gap */
-        margin-bottom: 1.5rem;
+        align-items: center;
+        gap: 0.75rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4);
     }
 
-    .social-link {
-        color: var(--color-text-alt);
-        font-size: 1.8rem; /* Larger icons */
-        transition: color 0.3s ease, transform 0.3s ease;
+    .view-all-button-overlay:hover {
+        transform: translateX(-50%) translateY(-3px);
+        box-shadow: 0 8px 20px rgba(114, 137, 218, 0.6);
     }
 
-    .social-link:hover {
-        color: var(--color-primary);
-        transform: translateY(-3px) scale(1.1); /* Lift and grow */
+    .legacy-versions-container.expanded .view-all-button-overlay {
+        opacity: 0;
+        pointer-events: none;
     }
 
-    .copyright-text {
-        color: var(--color-text-alt);
-        font-size: 0.9rem;
-    }
-
-    /* All Mods Section (Overlay) */
     .mods-section {
-        position: fixed; /* Fixed to cover viewport */
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: var(--color-dark-alt); /* Dark background for the overlay */
-        z-index: 1000; /* Above main content */
-        overflow-y: auto; /* Enable scrolling within the overlay */
-        padding: 70px 0 6rem; /* Adjust padding for header */
-
-        /* Initial state: hidden off-screen and transparent */
+        background: rgba(26, 26, 26, 0.95);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 70px 0 6rem;
         transform: translateY(100%);
         opacity: 0;
-        visibility: hidden; /* Hide completely when not active */
-        transition: transform 0.5s ease-out, opacity 0.5s ease-out, visibility 0s linear 0.5s; /* Delay visibility change */
+        visibility: hidden;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out, visibility 0s linear 0.5s;
     }
 
     .mods-section.is-open {
-        transform: translateY(0); /* Slide in from bottom */
+        transform: translateY(0);
         opacity: 1;
         visibility: visible;
-        transition: transform 0.5s ease-out, opacity 0.5s ease-out; /* No delay on visibility when opening */
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
     }
 
-    .mods-header {
+    .overlay-header {
         text-align: center;
         margin-bottom: 3rem;
-        padding-top: 2rem; /* Give some space from the top */
+        padding-top: 2rem;
     }
 
-    .mods-header h1 {
+    .overlay-header h1 {
         font-size: 2.8rem;
         color: var(--color-primary);
         margin-bottom: 1rem;
         text-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
     }
 
-    .mods-header p {
+    .overlay-header p {
         color: var(--color-text-alt);
         font-size: 1.1rem;
     }
 
+    .close-mods-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: var(--color-text);
+        cursor: pointer;
+        transition: transform 0.3s ease, color 0.3s ease;
+        z-index: 1001;
+    }
+
+    .close-mods-btn:hover {
+        color: var(--color-primary);
+        transform: rotate(90deg);
+    }
+
+    body.no-scroll {
+        overflow: hidden;
+    }
+
     .filter-controls {
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
+        flex-wrap: wrap;
         gap: 1rem;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
     }
 
     .filter-button {
-        background: var(--color-dark);
+        background: var(--color-dark-alt);
         color: var(--color-text-alt);
         padding: 0.7rem 1.5rem;
-        border: 1px solid var(--color-primary);
-        border-radius: 25px;
+        border-radius: 8px;
+        border: 1px solid rgba(114, 137, 218, 0.2);
         cursor: pointer;
-        font-weight: 500;
-        transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
 
     .filter-button:hover, .filter-button.active {
         background: var(--color-primary);
         color: var(--color-text);
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(114, 137, 218, 0.3);
+        border-color: var(--color-primary);
     }
 
     .search-bar {
-        width: 100%;
-        max-width: 400px;
-        margin: 1.5rem auto 3rem;
         position: relative;
+        max-width: 500px;
+        margin: 0 auto 3rem;
     }
 
     .search-bar input {
         width: 100%;
-        padding: 0.8rem 1rem 0.8rem 2.8rem; /* Left padding for icon */
-        border: 2px solid var(--color-primary);
-        border-radius: 25px;
-        background: var(--color-dark);
+        padding: 0.8rem 1rem 0.8rem 3rem;
+        background: var(--color-dark-alt);
+        border: 1px solid rgba(114, 137, 218, 0.2);
+        border-radius: 8px;
         color: var(--color-text);
         font-size: 1rem;
         outline: none;
@@ -695,8 +625,8 @@
     }
 
     .search-bar input:focus {
-        border-color: var(--color-text);
-        box-shadow: 0 0 10px rgba(114, 137, 218, 0.5);
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px rgba(114, 137, 218, 0.3);
     }
 
     .search-bar i {
@@ -714,41 +644,38 @@
     }
 
     .mod-card {
-        background: var(--color-dark);
-        padding: 1.8rem;
-        border-radius: 16px;
-        border: 1px solid rgba(114, 137, 218, 0.2);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        background: var(--color-dark-alt);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid rgba(114, 137, 218, 0.1);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .mod-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 25px rgba(0,0,0,0.5);
-        border-color: var(--color-primary);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.3);
     }
 
     .mod-icon {
         width: 80px;
         height: 80px;
         margin-bottom: 1rem;
-        border-radius: 12px;
-        object-fit: contain;
-        filter: drop-shadow(0 0 8px rgba(114, 137, 218, 0.4));
+        border-radius: 8px;
+        object-fit: cover;
     }
 
     .mod-title {
-        font-size: 1.4rem;
-        color: var(--color-text);
+        font-size: 1.2rem;
+        color: var(--color-primary);
         margin-bottom: 0.5rem;
     }
 
     .mod-description {
+        font-size: 0.9rem;
         color: var(--color-text-alt);
-        font-size: 0.95rem;
         margin-bottom: 1rem;
-        min-height: 45px; /* Ensure consistent height for descriptions */
     }
 
     .mod-tags {
@@ -756,50 +683,104 @@
         flex-wrap: wrap;
         justify-content: center;
         gap: 0.5rem;
-        margin-top: 1rem;
     }
 
     .mod-tag {
         background: rgba(114, 137, 218, 0.2);
         color: var(--color-primary);
-        padding: 0.3rem 0.8rem;
-        border-radius: 15px;
-        font-size: 0.8rem;
-        font-weight: 600;
+        padding: 0.3rem 0.7rem;
+        border-radius: 5px;
+        font-size: 0.75rem;
+        font-weight: 500;
     }
 
-    .close-mods-btn {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: none;
-        border: none;
-        font-size: 2rem;
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .faq-card {
+        background: var(--color-dark-alt);
+        border-radius: 12px;
+        border: 1px solid rgba(114, 137, 218, 0.1);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .faq-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+
+    .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
         color: var(--color-text);
         cursor: pointer;
-        transition: transform 0.3s ease, color 0.3s ease;
-        z-index: 1001; /* Ensure it's above other elements in the overlay */
+        background: var(--color-dark);
+        transition: background 0.3s ease;
     }
 
-    .close-mods-btn:hover {
-        color: var(--color-primary);
-        transform: rotate(90deg);
+    .faq-question:hover {
+        background: #222;
     }
 
-    /* Body scroll lock when overlay is open */
-    body.no-scroll {
+    .faq-question i {
+        transition: transform 0.3s ease;
+    }
+
+    .faq-card[open] .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        padding: 0 1.5rem 1.5rem;
+        color: var(--color-text-alt);
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .faq-answer ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        height: 0;
         overflow: hidden;
+        margin-top: 1rem;
+        border-radius: 8px;
     }
 
-    /* New Discord Section Styling */
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
     .discord-section {
         padding: 6rem 0;
-        background: var(--color-dark-alt); /* Use dark-alt for section background */
+        background: var(--color-dark-alt);
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-direction: column; /* Default to column for mobile */
-        gap: 3rem; /* Space between widget and text */
+        flex-direction: column;
+        gap: 3rem;
         text-align: center;
     }
 
@@ -807,20 +788,20 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        flex-wrap: wrap;
         gap: 3rem;
-        max-width: 1000px; /* Limit content width */
+        max-width: 1000px;
         margin: 0 auto;
     }
 
     .discord-text {
-        flex: 1; /* Allow text to grow */
-        min-width: 300px; /* Minimum width for text block */
-        max-width: 500px; /* Max width for text block */
+        flex: 1;
+        min-width: 300px;
+        max-width: 500px;
         color: var(--color-text);
         font-size: 1.2rem;
         line-height: 1.8;
-        text-align: left; /* Align text to left */
+        text-align: left;
     }
 
     .discord-text h2 {
@@ -836,9 +817,9 @@
     }
 
     .discord-widget-wrapper {
-        flex-shrink: 0; /* Prevent widget from shrinking */
-        width: 350px; /* Fixed width for the iframe */
-        height: 500px; /* Fixed height for the iframe */
+        flex-shrink: 0;
+        width: 350px;
+        height: 500px;
         border-radius: 16px;
         overflow: hidden;
         box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -854,14 +835,51 @@
     .discord-widget-wrapper iframe {
         width: 100%;
         height: 100%;
-        display: block; /* Remove extra space below iframe */
+        display: block;
     }
 
+    .main-footer {
+        border-top: 2px solid var(--color-primary);
+        padding: 2.5rem 0;
+        margin-top: 5rem;
+        background: var(--color-dark);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
 
-    /* Responsive Design */
+    .footer-container {
+        text-align: center;
+        width: 100%;
+    }
+
+    .footer-social {
+        display: flex;
+        justify-content: center;
+        gap: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .social-link {
+        color: var(--color-text-alt);
+        font-size: 1.8rem;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .social-link:hover {
+        color: var(--color-primary);
+        transform: translateY(-3px) scale(1.1);
+    }
+
+    .copyright-text {
+        color: var(--color-text-alt);
+        font-size: 0.9rem;
+    }
+
     @media (max-width: 768px) {
         .header-container {
-            padding: 0 1rem; /* Adjust padding for smaller screens */
+            padding: 0 1rem;
         }
 
         .nav-menu {
@@ -871,9 +889,9 @@
             width: 280px;
             height: calc(100vh - 70px);
             background: rgba(45,45,45,0.98);
-            backdrop-filter: blur(15px); /* Stronger blur for mobile menu */
+            backdrop-filter: blur(15px);
             padding: 2rem;
-            transition: right 0.4s ease-in-out; /* Smoother transition */
+            transition: right 0.4s ease-in-out;
             box-shadow: -5px 0 20px rgba(0,0,0,0.5);
         }
 
@@ -884,11 +902,11 @@
         .nav-list {
             flex-direction: column;
             align-items: flex-start;
-            gap: 1.8rem; /* More gap */
+            gap: 1.8rem;
         }
 
         .nav-link {
-            font-size: 1.2rem; /* Larger links for touch */
+            font-size: 1.2rem;
         }
 
         .mobile-menu-toggle {
@@ -896,7 +914,7 @@
         }
 
         .mobile-menu-toggle.active .menu-bar:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px); /* Adjusted transform */
+            transform: rotate(45deg) translate(6px, 6px);
         }
 
         .mobile-menu-toggle.active .menu-bar:nth-child(2) {
@@ -904,22 +922,22 @@
         }
 
         .mobile-menu-toggle.active .menu-bar:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px); /* Adjusted transform */
+            transform: rotate(-45deg) translate(6px, -6px);
         }
 
         .home-container {
             grid-template-columns: 1fr;
             text-align: center;
-            padding-top: 2rem; /* Adjust padding for mobile */
+            padding-top: 2rem;
             padding-bottom: 2rem;
         }
 
         .home-content {
-            align-items: center; /* Center content on mobile */
+            align-items: center;
         }
 
         .home-title {
-            font-size: 2.5rem; /* Smaller title on mobile */
+            font-size: 2.5rem;
         }
 
         .home-subtext {
@@ -927,7 +945,7 @@
         }
 
         .home-buttons {
-            justify-content: center; /* Center buttons on mobile */
+            justify-content: center;
             width: 100%;
             max-width: 300px;
             margin: 0 auto;
@@ -947,23 +965,25 @@
             margin-bottom: 3rem;
         }
 
-        .features-grid, .version-grid, .extensions-grid {
+        .features-grid {
             grid-template-columns: 1fr;
+            gap: 1.5rem;
         }
-
-        .feature-card, .version-card, .extension-card, .faq-card {
+        .feature-card {
             padding: 1.5rem;
+            flex-direction: row;
+            text-align: left;
+            align-items: center;
+            gap: 1rem;
+        }
+        .feature-content {
+            align-items: flex-start;
         }
 
-        .download-options {
-            justify-content: center;
-        }
-
-        /* Mods page specific responsive adjustments */
-        .mods-header h1 {
+        .mods-header h1, .overlay-header h1 {
             font-size: 2.2rem;
         }
-        .mods-header p {
+        .mods-header p, .overlay-header p {
             font-size: 1rem;
         }
         .filter-controls {
@@ -985,14 +1005,13 @@
             padding-top: 90px;
         }
 
-        /* Discord Section Responsive */
         .discord-content {
-            flex-direction: column; /* Stack vertically on small screens */
+            flex-direction: column;
             gap: 2rem;
         }
 
         .discord-text {
-            text-align: center; /* Center text on mobile */
+            text-align: center;
             min-width: unset;
             max-width: 100%;
         }
@@ -1002,9 +1021,24 @@
         }
 
         .discord-widget-wrapper {
-            width: 100%; /* Make widget full width on mobile */
-            max-width: 350px; /* Keep max width for widget */
-            height: 400px; /* Adjust height for mobile */
+            width: 100%;
+            max-width: 350px;
+            height: 400px;
+        }
+
+        .version-list, .extensions-list {
+            max-width: 100%;
+            padding: 0 1rem;
+        }
+        .version-item, .extension-item {
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .download-options {
+            margin-top: 0.5rem;
+            justify-content: flex-start;
+            width: 100%;
         }
     }
 
@@ -1035,12 +1069,16 @@
             font-size: 0.9rem;
         }
 
-        .version-header h3 {
-            font-size: 1.3rem;
+        .version-item h4, .extension-item h4 {
+            font-size: 1rem;
+        }
+
+        .version-item p, .extension-item p {
+            font-size: 0.85rem;
         }
 
         .version-tag {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
 
         .download-btn {
@@ -1085,30 +1123,27 @@
   <meta property="og:title" content="Glacier Client | Minecraft BE" />
   <meta property="og:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, draggable GUI, and lightweight performance." />
   <meta property="og:image" content="assets/mod_menu.png" />
-  <meta property="og:url" content="https://glacierclient.xyz" /> <!-- Updated URL -->
+  <meta property="og:url" content="https://glacierclient.xyz" />
   <meta property="og:type" content="website" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@glacierclientbe" /> <!-- Replace with your Twitter handle -->
+  <meta name="twitter:site" content="@glacierclientbe" />
   <meta name="twitter:title" content="Glacier Client | Minecraft BE" />
   <meta name="twitter:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, draggable GUI, and lightweight performance." />
   <meta name="twitter:image" content="assets/mod_menu.png" />
   <header class="main-header">
     <div class="container header-container">
       <div class="brand">
-        <!-- Placeholder for Glacier Logo -->
         <img src="assets/logo.png" alt="Glacier Logo" class="brand-logo" loading="lazy" />
         <span class="brand-name">Glacier</span>
       </div>
       <nav class="nav-menu">
         <ul class="nav-list">
-          <!-- These links now use standard anchor scrolling -->
           <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="#discord" class="nav-link">Discord</a></li> <!-- New Discord Nav Link -->
+          <li class="nav-item"><a href="#discord" class="nav-link">Discord</a></li>
           <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
           <li class="nav-item"><a href="#downloads" class="nav-link">Downloads</a></li>
-          <li class="nav-item"><a href="#faq" class="nav-link">FAQ</a></li>
-          <!-- This link triggers the overlay -->
+          <li class="nav-item"><a href="#" class="nav-link" id="faqNavLink">FAQ</a></li>
           <li class="nav-item"><a href="#" class="nav-link" id="allModsNavLink">All Mods</a></li>
         </ul>
       </nav>
@@ -1130,20 +1165,17 @@
             <a href="#downloads" class="download-button animate-fade-in-up delay-2">
               <i class="fas fa-download"></i> Download Latest
             </a>
-            <!-- New button for Config Editor -->
             <a href="https://config.glacierclient.xyz" class="download-button animate-fade-in-up delay-3" style="background-color: #5C6BC0; box-shadow: 0 5px 15px rgba(92, 107, 192, 0.4);">
               <i class="fas fa-cog"></i> Config Editor
             </a>
           </div>
         </div>
         <div class="interface-preview">
-          <!-- Placeholder for Mod Interface Image -->
           <img src="assets/mod_menu.png" alt="Mod Interface" class="interface-image animate-float" loading="lazy" />
         </div>
       </div>
     </section>
 
-    <!-- New Discord Section -->
     <section id="discord" class="discord-section">
       <div class="container discord-content">
         <div class="discord-widget-wrapper animate-fade-in-up delay-1">
@@ -1171,22 +1203,25 @@
         <h2 class="section-title animate-fade-in-up">Core Features</h2>
         <div class="features-grid">
           <div class="feature-card animate-fade-in-up delay-1">
-            <!-- Updated Modules Icon -->
             <img src="assets/icons/modules.png" alt="Modules" class="feature-icon" loading="lazy" />
-            <h3 class="feature-title" id="modulesCount"></h3>
-            <p class="feature-desc">Extensive modules with real-time configuration</p>
+            <div class="feature-content">
+                <h3 class="feature-title" id="modulesCount"></h3>
+                <p class="feature-desc">Extensive modules with real-time configuration</p>
+            </div>
           </div>
           <div class="feature-card animate-fade-in-up delay-2">
-            <!-- Updated GUI Icon -->
             <img src="assets/icons/gui.png" alt="GUI" class="feature-icon" loading="lazy" />
-            <h3 class="feature-title">Draggable Mods</h3>
-            <p class="feature-desc">Modules are movable to change the place as your wish.</p>
+            <div class="feature-content">
+                <h3 class="feature-title">Draggable Mods</h3>
+                <p class="feature-desc">Modules are movable to change the place as your wish.</p>
+            </div>
           </div>
           <div class="feature-card animate-fade-in-up delay-3">
-            <!-- Updated Optimized Icon -->
             <img src="assets/icons/user.png" alt="Optimized" class="feature-icon" loading="lazy" />
-            <h3 class="feature-title">Lightweight</h3>
-            <p class="feature-desc">Only 2MB with zero performance impact</p>
+            <div class="feature-content">
+                <h3 class="feature-title">Lightweight</h3>
+                <p class="feature-desc">Only 2MB with zero performance impact</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1196,253 +1231,334 @@
       <div class="container">
         <h2 class="section-title animate-fade-in-up">Client Downloads</h2>
 
-        <div class="version-grid">
-          <!-- Version 5 -->
-          <div class="version-card animate-fade-in-up delay-1">
-            <div class="version-header">
-              <h3>Glacier v5</h3>
-              <span class="version-tag">Latest</span>
-            </div>
-            <div class="version-details">
-              <p><i class="fas fa-calendar"></i> Release: 2025-07-06</p>
-              <p><i class="fas fa-database"></i> Size: 2.77MB</p>
-              <div class="download-options">
-                <a href="https://link-center.net/499358/KEBMHbdFAIOT" class="download-btn" target="_blank">
-                  <i class="fas fa-download"></i> Linkvertise
-                </a>
-                <a href="https://lootdest.org/s?b6cpLNDy" class="download-btn" target="_blank">
-                  <i class="fas fa-download"></i> LootLabs
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Version 4 -->
-          <div class="version-card animate-fade-in-up delay-2">
-            <div class="version-header">
-              <h3>Glacier v4</h3>
-              <span class="version-tag legacy">Archived</span>
-            </div>
-            <div class="version-details">
-              <p><i class="fas fa-calendar"></i> Release: 2024-10-26</p>
-              <p><i class="fas fa-database"></i> Size: 1.75MB</p>
-              <div class="download-options">
-                <a href="https://link-center.net/499358/glacier-client-v4" class="download-btn" target="_blank">
-                  <i class="fas fa-download"></i> Download
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Version 3 -->
-          <div class="version-card animate-fade-in-up delay-3">
-            <div class="version-header">
-              <h3>Glacier v3</h3>
-              <span class="version-tag legacy">Archived</span>
-            </div>
-            <div class="version-details">
-              <p><i class="fas fa-calendar"></i> Release: 2022-10-01</p>
-              <p><i class="fas fa-database"></i> Size: 1.93MB</p>
-              <div class="download-options">
-                <a href="https://www.mediafire.com/file/3ij9ibl2x0jbpdk/GlacierClientV3.mcpack/file" class="download-btn" target="_blank">
-                  <i class="fas fa-download"></i> Download
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Version 2 -->
-          <div class="version-card animate-fade-in-up delay-4">
-            <div class="version-header">
-              <h3>Glacier v2</h3>
-              <span class="version-tag legacy">Archived</span>
-            </div>
-            <div class="version-details">
-              <p><i class="fas fa-calendar"></i> Release: 2022-09-15</p>
-              <p><i class="fas fa-database"></i> Size: 13.53MB</p>
-              <div class="download-options">
-                <a href="https://www.mediafire.com/file/j6u8vlf6o5q5j9g/GlacierClient.zip/file" class="download-btn" target="_blank">
-                  <i class="fas fa-download"></i> Download
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Version 1 -->
-          <div class="version-card animate-fade-in-up delay-5">
-            <div class="version-header">
-              <h3>Glacier v1</h3>
-              <span class="version-tag legacy">Archived</span>
-            </div>
-            <div class="version-details">
-              <p><i class="fas fa-calendar"></i> Release: 2022-08-20</p>
-              <p><i class="fas fa-database"></i> Size: 21.25MB</p>
-              <div class="download-options">
-                <a href="https://www.mediafire.com/file/s7xv3ejoqxg5ntn/GlacierClient.mcpack/file" class="download-btn" target="_blank">
-                  <i class="fas fa-download"></i> Download
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- v5 Extensions -->
-        <div class="extensions-section">
-          <h3 class="subsection-title animate-fade-in-up">Glacier v5 Official Extensions</h3>
-          <div class="extensions-grid">
-            <div class="extension-card animate-fade-in-up delay-1">
-              <h4>Cape Physics</h4>
-              <p>Adds dynamic physics to player capes for enhanced realism.</p>
-              <div class="download-options">
-                <a href="https://link-target.net/499358/WCp3rcHJiJ21" class="download-btn small" target="_blank">
-                  <i class="fas fa-download"></i> Linkvertise
-                </a>
-                <a href="https://lootdest.org/s?wulDc3e9" class="download-btn small" target="_blank">
-                  <i class="fas fa-download"></i> LootLabs
-                </a>
-              </div>
+        <div class="downloads-content">
+            <h3 class="subsection-title animate-fade-in-up">Latest Versions</h3>
+            <div class="version-list">
+                <div class="version-item animate-fade-in-up delay-1">
+                    <div class="version-item-content">
+                        <h4>Glacier v5 <span class="version-tag">Latest</span></h4>
+                        <p>Release: 2025-07-06 | Size: 2.77MB</p>
+                    </div>
+                    <div class="download-options">
+                        <a href="https://link-center.net/499358/KEBMHbdFAIOT" class="download-btn small" target="_blank">
+                            <i class="fas fa-download"></i> Linkvertise
+                        </a>
+                        <a href="https://lootdest.org/s?b6cpLNDy" class="download-btn small" target="_blank">
+                            <i class="fas fa-download"></i> LootLabs
+                        </a>
+                    </div>
+                </div>
+                <div class="version-item animate-fade-in-up delay-2">
+                    <div class="version-item-content">
+                        <h4>Glacier v4 <span class="version-tag legacy">Archived</span></h4>
+                        <p>Release: 2024-10-26 | Size: 1.75MB</p>
+                    </div>
+                    <div class="download-options">
+                        <a href="https://link-center.net/499358/glacier-client-v4" class="download-btn small" target="_blank">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <div class="extension-card animate-fade-in-up delay-2">
-              <h4>Hit Color</h4>
-              <p>Changes the color of the player when getting hit.</p>
-              <div class="download-options">
-                <a href="https://link-target.net/499358/O3EPrFMabbut" class="download-btn small" target="_blank">
-                  <i class="fas fa-download"></i> Linkvertise
-                </a>
-                <a href="https://lootdest.org/s?xt8Clcln" class="download-btn small" target="_blank">
-                  <i class="fas fa-download"></i> LootLabs
-                </a>
-              </div>
+            <div class="legacy-versions-container" id="legacyDownloadsContainer">
+                <h3 class="subsection-title animate-fade-in-up">Legacy Versions</h3>
+                <div class="version-list legacy-list" id="legacyVersionList">
+                    <div class="version-item animate-fade-in-up delay-3">
+                        <div class="version-item-content">
+                            <h4>Glacier v3 <span class="version-tag legacy">Archived</span></h4>
+                            <p>Release: 2022-10-01 | Size: 1.93MB</p>
+                        </div>
+                        <div class="download-options">
+                            <a href="https://www.mediafire.com/file/3ij9ibl2x0jbpdk/GlacierClientV3.mcpack/file" class="download-btn small" target="_blank">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                    <div class="version-item animate-fade-in-up delay-4 hidden-legacy">
+                        <div class="version-item-content">
+                            <h4>Glacier v2 <span class="version-tag legacy">Archived</span></h4>
+                            <p>Release: 2022-09-15 | Size: 13.53MB</p>
+                        </div>
+                        <div class="download-options">
+                            <a href="https://www.mediafire.com/file/j6u8vlf6o5q5j9g/GlacierClient.zip/file" class="download-btn small" target="_blank">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                    <div class="version-item animate-fade-in-up delay-5 hidden-legacy">
+                        <div class="version-item-content">
+                            <h4>Glacier v1 <span class="version-tag legacy">Archived</span></h4>
+                            <p>Release: 2022-08-20 | Size: 21.25MB</p>
+                        </div>
+                        <div class="download-options">
+                            <a href="https://www.mediafire.com/file/s7xv3ejoqxg5ntn/GlacierClient.mcpack/file" class="download-btn small" target="_blank">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <button id="viewAllDownloadsBtn" class="view-all-button-overlay">
+                    View All Downloads <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
-          </div>
-        </div>
-
-        <!-- v4 Extensions -->
-        <div class="extensions-section">
-          <h3 class="subsection-title animate-fade-in-up">Glacier v4 Official Extensions</h3>
-          <div class="extensions-grid">
-            <div class="extension-card animate-fade-in-up delay-1">
-              <h4>Chunk Border</h4>
-              <p>Displays the chunk when holding a nautilus shell in offhand while in 3rd person.</p>
-              <a href="https://link-hub.net/499358/glacier-v4-chunk-border" class="download-btn small" target="_blank">
-                <i class="fas fa-download"></i> Download
-              </a>
-            </div>
-
-            <div class="extension-card animate-fade-in-up delay-2">
-              <h4>Freelook</h4>
-              <p>Crouch in 3rd person mode to enable the freelook.</p>
-              <a href="https://direct-link.net/499358/glacier-v4-freelook" class="download-btn small" target="_blank">
-                <i class="fas fa-download"></i> Download
-              </a>
-            </div>
-
-            <div class="extension-card animate-fade-in-up delay-3">
-              <h4>Hitbox</h4>
-              <p>Displays a hitbox on the player.</p>
-              <a href="https://direct-link.net/499358/glacier-v4-hitbox" class="download-btn small" target="_blank">
-                <i class="fas fa-download"></i> Download
-              </a>
-            </div>
-
-            <div class="extension-card animate-fade-in-up delay-4">
-              <h4>Hit Color</h4>
-              <p>Changes the color of player when getting hit.</p>
-              <a href="https://link-center.net/499358/glacier-v4-hitcolor" class="download-btn small" target="_blank">
-                <i class="fas fa-download"></i> Download
-              </a>
-            </div>
-
-            <div class="extension-card animate-fade-in-up delay-5">
-              <h4>Waypoints+</h4>
-              <p>Allows the player to make Waypoints, Greenscreen or Deathpoints!</p>
-              <a href="https://link-target.net/499358/glacier-v4-waypoints" class="download-btn small" target="_blank">
-                <i class="fas fa-download"></i> Download
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
-    <section id="faq" class="faq-section">
-      <div class="container">
-        <h2 class="section-title animate-fade-in-up">Common Questions</h2>
-        <div class="faq-container">
-          <div class="faq-item animate-fade-in-up delay-1">
-            <details class="faq-card">
-              <summary class="faq-question">
-                <span>What devices are supported?</span>
-                <i class="fas fa-chevron-down"></i>
-              </summary>
-              <div class="faq-answer">
-                <p>All devices running Minecraft Bedrock Edition 1.21+</p>
-              </div>
-            </details>
-          </div>
+    <section id="extensions" class="downloads-section" style="background: var(--color-dark-alt);">
+        <div class="container">
+            <h2 class="section-title animate-fade-in-up">Glacier Official Extensions</h2>
+            <div class="downloads-content">
+                <h3 class="subsection-title animate-fade-in-up">Latest Extensions</h3>
+                <div class="extensions-list">
+                    <div class="extension-item animate-fade-in-up delay-1">
+                        <div class="extension-item-content">
+                            <h4>Cape Physics (v5)</h4>
+                            <p>Adds dynamic physics to player capes for enhanced realism.</p>
+                        </div>
+                        <div class="download-options">
+                            <a href="https://link-target.net/499358/WCp3rcHJiJ21" class="download-btn small" target="_blank">
+                                <i class="fas fa-download"></i> Linkvertise
+                            </a>
+                            <a href="https://lootdest.org/s?wulDc3e9" class="download-btn small" target="_blank">
+                                <i class="fas fa-download"></i> LootLabs
+                            </a>
+                        </div>
+                    </div>
+                    <div class="extension-item animate-fade-in-up delay-2">
+                        <div class="extension-item-content">
+                            <h4>Hit Color (v5)</h4>
+                            <p>Changes the color of the player when getting hit.</p>
+                        </div>
+                        <div class="download-options">
+                            <a href="https://link-target.net/499358/O3EPrFMabbut" class="download-btn small" target="_blank">
+                                <i class="fas fa-download"></i> Linkvertise
+                            </a>
+                            <a href="https://lootdest.org/s?xt8Clcln" class="download-btn small" target="_blank">
+                                <i class="fas fa-download"></i> LootLabs
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-          <div class="faq-item animate-fade-in-up delay-2">
-            <details class="faq-card">
-              <summary class="faq-question">
-                <span>Is it completely free?</span>
-                <i class="fas fa-chevron-down"></i>
-              </summary>
-              <div class="faq-answer">
-                <p>Yes! Glacier will always be 100% free to use.</p>
-              </div>
-            </details>
-          </div>
-
-          <div class="faq-item animate-fade-in-up delay-3">
-            <details class="faq-card">
-              <summary class="faq-question">
-                <span>Is Glacier Client a virus?</span>
-                <i class="fas fa-chevron-down"></i>
-              </summary>
-              <div class="faq-answer">
-                <p>No! Since it’s a texture pack client and not an executable or injector.</p>
-              </div>
-            </details>
-          </div>
-
-          <div class="faq-item animate-fade-in-up delay-4">
-            <details class="faq-card">
-              <summary class="faq-question">
-                <span>How to bypass the Linkvertise link?</span>
-                <i class="fas fa-chevron-down"></i>
-              </summary>
-              <div class="faq-answer">
-                <p>Here's a Tutorial: <a href="https://youtu.be/7Nnc5ff5840?si=dsc2jrEL3nhG2kfU" target="_blank">Watch Here</a></p>
-              </div>
-            </details>
-          </div>
-
-          <div class="faq-item animate-fade-in-up delay-5">
-            <details class="faq-card">
-              <summary class="faq-question">
-                <span>Why is Glacier Client not working?</span>
-                <i class="fas fa-chevron-down"></i>
-              </summary>
-              <div class="faq-answer">
-                <p>Issues that can't be fixed which may cause the Client to not work:</p>
-                <ul>
-                  <li>A pack or add-on which changes <code>player.entity.json</code> or <code>hud_screen.json</code>.<br>Example: Actions & Stuff</li>
-                  <li>A server not allowing packs overriding their UI.<br>Example: Minecraft Event servers</li>
-                </ul>
-              </div>
-            </details>
-          </div>
+                <div class="legacy-versions-container" id="legacyExtensionsContainer">
+                    <h3 class="subsection-title animate-fade-in-up">Legacy Extensions</h3>
+                    <div class="extensions-list legacy-list" id="legacyExtensionList">
+                        <div class="extension-item animate-fade-in-up delay-3">
+                            <div class="extension-item-content">
+                                <h4>Chunk Border (v4)</h4>
+                                <p>Displays the chunk when holding a nautilus shell in offhand while in 3rd person.</p>
+                            </div>
+                            <div class="download-options">
+                                <a href="https://link-hub.net/499358/glacier-v4-chunk-border" class="download-btn small" target="_blank">
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                        <div class="extension-item animate-fade-in-up delay-4 hidden-legacy-ext">
+                            <div class="extension-item-content">
+                                <h4>Freelook (v4)</h4>
+                                <p>Crouch in 3rd person mode to enable the freelook.</p>
+                            </div>
+                            <div class="download-options">
+                                <a href="https://direct-link.net/499358/glacier-v4-freelook" class="download-btn small" target="_blank">
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                        <div class="extension-item animate-fade-in-up delay-5 hidden-legacy-ext">
+                            <div class="extension-item-content">
+                                <h4>Hitbox (v4)</h4>
+                                <p>Displays a hitbox on the player.</p>
+                            </div>
+                            <div class="download-options">
+                                <a href="https://direct-link.net/499358/glacier-v4-hitbox" class="download-btn small" target="_blank">
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                        <div class="extension-item animate-fade-in-up delay-6 hidden-legacy-ext">
+                            <div class="extension-item-content">
+                                <h4>Hit Color (v4)</h4>
+                                <p>Changes the color of player when getting hit.</p>
+                            </div>
+                            <div class="download-options">
+                                <a href="https://link-center.net/499358/glacier-v4-hitcolor" class="download-btn small" target="_blank">
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                        <div class="extension-item animate-fade-in-up delay-7 hidden-legacy-ext">
+                            <div class="extension-item-content">
+                                <h4>Waypoints+ (v4)</h4>
+                                <p>Allows the player to make Waypoints, Greenscreen or Deathpoints!</p>
+                            </div>
+                            <div class="download-options">
+                                <a href="https://link-target.net/499358/glacier-v4-waypoints" class="download-btn small" target="_blank">
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="viewAllExtensionsBtn" class="view-all-button-overlay">
+                        View All Extensions <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
   </main>
 
-  <!-- All Mods Section (Overlay) -->
+  <section id="faq-overlay" class="mods-section">
+    <button class="close-mods-btn" id="closeFaqBtn"><i class="fas fa-times"></i></button>
+    <div class="container">
+      <div class="overlay-header animate-fade-in-up">
+        <h1>Frequently Asked Questions</h1>
+        <p>Comprehensive answers to common inquiries about Glacier Client.</p>
+      </div>
+      <div class="faq-container">
+        <div class="faq-item animate-fade-in-up delay-1">
+          <details class="faq-card">
+            <summary class="faq-question">
+              <span>Which devices are compatible with Glacier Client?</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Glacier Client supports all devices running Minecraft Bedrock Edition version 1.21 or newer.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item animate-fade-in-up delay-2">
+          <details class="faq-card">
+            <summary class="faq-question">
+              <span>Is there a cost associated with using Glacier Client?</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>No, Glacier Client is provided completely free of charge and will remain 100% free to use.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item animate-fade-in-up delay-3">
+          <details class="faq-card">
+            <summary class="faq-question">
+              <span>Is Glacier Client safe to install and use?</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Yes, Glacier Client is entirely safe. It functions as a texture pack client, not an executable or injector, minimizing security risks.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item animate-fade-in-up delay-4">
+          <details class="faq-card">
+            <summary class="faq-question">
+              <span>How can I bypass the Linkvertise download links?</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Please refer to the tutorial video below for a step-by-step guide on bypassing Linkvertise links:</p>
+              <div class="video-container">
+                <iframe
+                  src="https://www.youtube.com/embed/7Nnc5ff5840"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item animate-fade-in-up delay-5">
+          <details class="faq-card">
+            <summary class="faq-question">
+              <span>What are common reasons for Glacier Client not functioning correctly?</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Potential issues preventing the client from working as expected include:</p>
+              <ul>
+                <li>Conflicts with other resource packs or add-ons that modify <code>player.entity.json</code> or <code>hud_screen.json</code> (e.g., "Actions & Stuff" packs).</li>
+                <li>Server restrictions that disallow client-side UI overrides (e.g., certain Minecraft Event servers).</li>
+              </ul>
+              <p>Ensure no conflicting packs are active and that the server permits custom UI elements.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item animate-fade-in-up delay-6">
+          <details class="faq-card">
+            <summary class="faq-question">
+              <span>How do I install Glacier Client?</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Installation typically involves downloading the .mcpack file and opening it with Minecraft. Detailed instructions can be found on our Discord server or in our official documentation.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item animate-fade-in-up delay-7">
+          <details class="faq-card">
+            <summary class="faq-question">
+              <span>Can I use Glacier Client on realms or servers?</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Yes, Glacier Client is designed to be compatible with both realms and most multiplayer servers. However, some servers may have restrictions on custom UI or resource packs, which could affect certain features.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item animate-fade-in-up delay-8">
+          <details class="faq-card">
+            <summary class="faq-question">
+              <span>How often is Glacier Client updated?</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>We strive to release updates regularly to ensure compatibility with the latest Minecraft Bedrock Edition versions, introduce new features, and address any bugs. Please check our Discord server for the most current update information.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item animate-fade-in-up delay-9">
+          <details class="faq-card">
+            <summary class="faq-question">
+              <span>Where can I report bugs or suggest features?</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>We encourage users to report bugs and suggest new features on our official Discord server. Your feedback is invaluable in improving Glacier Client.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item animate-fade-in-up delay-10">
+          <details class="faq-card">
+            <summary class="faq-question">
+              <span>Does Glacier Client affect game performance?</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Glacier Client is designed to be lightweight and optimized for performance, with minimal to no impact on your game's frame rate or stability. It is only approximately 2MB in size.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="all-mods" class="mods-section">
     <button class="close-mods-btn" id="closeModsBtn"><i class="fas fa-times"></i></button>
     <div class="container">
-      <div class="mods-header animate-fade-in-up">
+      <div class="overlay-header animate-fade-in-up">
         <h1>Explore All Glacier Mods</h1>
         <p>Discover a wide range of modules to enhance your Minecraft Bedrock Edition experience.</p>
       </div>
@@ -1462,7 +1578,6 @@
       </div>
 
       <div class="mods-grid" id="modsGrid">
-        <!-- Mod cards will be dynamically loaded here by JavaScript -->
       </div>
     </div>
   </section>
@@ -1484,23 +1599,32 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Select DOM elements
         const menuToggle = document.querySelector('.mobile-menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
         const header = document.querySelector('.main-header');
         const currentYearSpan = document.getElementById('currentYear');
-        const faqItems = document.querySelectorAll('.faq-card');
         
         const allModsNavLink = document.getElementById('allModsNavLink');
         const modsSection = document.getElementById('all-mods');
         const closeModsBtn = document.getElementById('closeModsBtn');
 
-        const modulesCountElement = document.getElementById('modulesCount'); // Get the element to update
+        const faqNavLink = document.getElementById('faqNavLink');
+        const faqOverlay = document.getElementById('faq-overlay');
+        const closeFaqBtn = document.getElementById('closeFaqBtn');
+
+        const modulesCountElement = document.getElementById('modulesCount');
         const modsGrid = document.getElementById('modsGrid');
         const filterButtons = document.querySelectorAll('.filter-button');
         const modSearchInput = document.getElementById('modSearch');
 
-        // --- Intersection Observer Setup ---
+        const viewAllDownloadsBtn = document.getElementById('viewAllDownloadsBtn');
+        const legacyDownloadsContainer = document.getElementById('legacyDownloadsContainer');
+        const hiddenLegacyDownloadsItems = document.querySelectorAll('#legacyDownloadsContainer .hidden-legacy');
+
+        const viewAllExtensionsBtn = document.getElementById('viewAllExtensionsBtn');
+        const legacyExtensionsContainer = document.getElementById('legacyExtensionsContainer');
+        const hiddenLegacyExtensionsItems = document.querySelectorAll('#legacyExtensionsContainer .hidden-legacy-ext');
+
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -1511,18 +1635,18 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    obs.unobserve(entry.target);
+                    if (!entry.target.closest('.mods-section')) {
+                        obs.unobserve(entry.target);
+                    }
                 }
             });
         }, observerOptions);
 
-        // Elements to animate on scroll (for main page sections)
-        const mainPageAnimatedElements = document.querySelectorAll('section:not(#all-mods) .animate-fade-in-up'); 
+        const mainPageAnimatedElements = document.querySelectorAll('section:not(.mods-section) .animate-fade-in-up'); 
         mainPageAnimatedElements.forEach(element => {
             observer.observe(element);
         });
 
-        // Sample Mod Data (UPDATED WITH NEW MODS AND ORDERED)
         const allMods = [
             {
                 id: 'capephysics',
@@ -1540,7 +1664,6 @@
                 tags: ['HUD', 'Utility', 'PvP'],
                 categories: ['hud', 'utility', 'pvp']
             },
-            // Removed 'Better Animations'
             {
                 id: 'bowindicator',
                 icon: 'assets/mods/bowindicator.png',
@@ -1558,8 +1681,8 @@
                 categories: ['utility']
             },
             {
-                id: 'chunkborder', // New mod
-                icon: 'assets/mods/chunkborders.png', // Corrected icon path
+                id: 'chunkborder',
+                icon: 'assets/mods/chunkborders.png',
                 title: 'Chunk Border',
                 description: 'Displays the chunk when holding a nautilus shell in offhand while in 3rd person.',
                 tags: ['Visual', 'Utility'],
@@ -1622,7 +1745,7 @@
                 categories: ['utility']
             },
             {
-                id: 'hitbox', // New mod
+                id: 'hitbox',
                 icon: 'assets/mods/hitbox.png',
                 title: 'Hitbox',
                 description: 'Displays a hitbox on the player.',
@@ -1630,8 +1753,8 @@
                 categories: ['visual', 'pvp']
             },
             {
-                id: 'hitcolor', // New mod
-                icon: 'assets/mods/hitcolor.png', // Assuming a new icon for hitcolor
+                id: 'hitcolor',
+                icon: 'assets/mods/hitcolor.png',
                 title: 'Hit Color',
                 description: 'Changes the color of the player when getting hit.',
                 tags: ['Visual', 'PvP'],
@@ -1766,32 +1889,28 @@
                 categories: ['utility']
             },
             {
-                id: 'waypointsplus', // New mod
-                icon: 'assets/mods/waypointsplus.png', // Assuming a new icon for waypoints
+                id: 'waypointsplus',
+                icon: 'assets/mods/waypointsplus.png',
                 title: 'Waypoints+',
                 description: 'Waypoints, death points, green screen visual.',
                 tags: ['Utility', 'Visual'],
                 categories: ['utility', 'visual']
             },
-        ].sort((a, b) => a.title.localeCompare(b.title)); // Sort alphabetically by title
+        ].sort((a, b) => a.title.localeCompare(b.title));
 
-        // Update the modules count dynamically
         if (modulesCountElement) {
             modulesCountElement.textContent = `${allMods.length}+ Modules`;
         }
 
-        // --- Mobile Menu Toggle ---
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
 
-        // --- Update Current Year in Footer ---
         if (currentYearSpan) {
             currentYearSpan.textContent = new Date().getFullYear();
         }
 
-        // --- Close Mobile Menu on Outside Click ---
         document.addEventListener('click', (e) => {
             if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
                 menuToggle.classList.remove('active');
@@ -1799,7 +1918,7 @@
             }
         });
 
-        // --- FAQ Accordion Behavior ---
+        const faqItems = document.querySelectorAll('#faq-overlay .faq-card');
         faqItems.forEach(item => {
             item.addEventListener('toggle', () => {
                 if (item.open) {
@@ -1812,42 +1931,50 @@
             });
         });
 
-        // --- All Mods Overlay Logic ---
-        function toggleModsOverlay(show) {
+        function toggleOverlay(overlayElement, show) {
             if (show) {
-                modsSection.classList.add('is-open');
-                document.body.classList.add('no-scroll'); // Prevent main page scrolling
-                filterAndSearchMods(); // Call filterAndSearchMods to render based on current filters/search
-                // Observe elements within the mods section for animation
-                const modsPageAnimatedElements = modsSection.querySelectorAll('.animate-fade-in-up');
-                modsPageAnimatedElements.forEach(element => {
-                    element.classList.remove('is-visible'); // Reset animation state
-                    observer.unobserve(element); // Stop observing if already observed
-                    observer.observe(element); // Re-observe to trigger animation
+                if (overlayElement.id === 'all-mods' && faqOverlay.classList.contains('is-open')) {
+                    toggleOverlay(faqOverlay, false);
+                } else if (overlayElement.id === 'faq-overlay' && modsSection.classList.contains('is-open')) {
+                    toggleOverlay(modsSection, false);
+                }
+
+                overlayElement.classList.add('is-open');
+                document.body.classList.add('no-scroll');
+                const overlayAnimatedElements = overlayElement.querySelectorAll('.animate-fade-in-up');
+                overlayAnimatedElements.forEach(element => {
+                    element.classList.remove('is-visible');
+                    observer.unobserve(element);
+                    observer.observe(element);
                 });
             } else {
-                modsSection.classList.remove('is-open');
-                document.body.classList.remove('no-scroll'); // Re-enable main page scrolling
+                overlayElement.classList.remove('is-open');
+                document.body.classList.remove('no-scroll');
             }
-            // Close mobile menu if it's open
             if (navMenu.classList.contains('active')) {
                 menuToggle.classList.remove('active');
                 navMenu.classList.remove('active');
             }
         }
 
-        // Event listener for "All Mods" navigation link
         allModsNavLink.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent default anchor behavior
-            toggleModsOverlay(true);
+            e.preventDefault();
+            toggleOverlay(modsSection, true);
         });
 
-        // Event listener for the close button inside the "All Mods" overlay
         closeModsBtn.addEventListener('click', () => {
-            toggleModsOverlay(false);
+            toggleOverlay(modsSection, false);
         });
 
-        // --- Mods Page Content Rendering and Filtering ---
+        faqNavLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleOverlay(faqOverlay, true);
+        });
+
+        closeFaqBtn.addEventListener('click', () => {
+            toggleOverlay(faqOverlay, false);
+        });
+
         function renderMods(modsToDisplay) {
             modsGrid.innerHTML = '';
             if (modsToDisplay.length === 0) {
@@ -1870,7 +1997,6 @@
                 `;
                 modsGrid.appendChild(modCard);
 
-                // IMPORTANT: Observe the newly added mod card for animation
                 observer.observe(modCard);
             });
         }
@@ -1901,9 +2027,39 @@
 
         modSearchInput.addEventListener('input', filterAndSearchMods);
 
-        // Initial render of mods when the page loads (or overlay opens)
-        // This ensures the modules count is correct from the start.
-        filterAndSearchMods(); // Call this to ensure initial filtering is applied
+        filterAndSearchMods();
+
+        viewAllDownloadsBtn.addEventListener('click', () => {
+            legacyDownloadsContainer.classList.toggle('expanded');
+            if (legacyDownloadsContainer.classList.contains('expanded')) {
+                viewAllDownloadsBtn.innerHTML = 'Hide Legacy Downloads <i class="fas fa-arrow-up"></i>';
+                hiddenLegacyDownloadsItems.forEach(item => {
+                    observer.observe(item);
+                });
+            } else {
+                viewAllDownloadsBtn.innerHTML = 'View All Downloads <i class="fas fa-arrow-right"></i>';
+                hiddenLegacyDownloadsItems.forEach(item => {
+                    item.classList.remove('is-visible');
+                    observer.unobserve(item);
+                });
+            }
+        });
+
+        viewAllExtensionsBtn.addEventListener('click', () => {
+            legacyExtensionsContainer.classList.toggle('expanded');
+            if (legacyExtensionsContainer.classList.contains('expanded')) {
+                viewAllExtensionsBtn.innerHTML = 'Hide Legacy Extensions <i class="fas fa-arrow-up"></i>';
+                hiddenLegacyExtensionsItems.forEach(item => {
+                    observer.observe(item);
+                });
+            } else {
+                viewAllExtensionsBtn.innerHTML = 'View All Extensions <i class="fas fa-arrow-right"></i>';
+                hiddenLegacyExtensionsItems.forEach(item => {
+                    item.classList.remove('is-visible');
+                    observer.unobserve(item);
+                });
+            }
+        });
     });
   </script>
 </body>
