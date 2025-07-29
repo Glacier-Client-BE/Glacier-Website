@@ -572,6 +572,10 @@
         padding: 2.5rem 0; /* More padding */
         margin-top: 5rem; /* More margin */
         background: var(--color-dark);
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items horizontally */
+        gap: 2rem; /* Space between footer elements */
     }
 
     .footer-container {
@@ -787,6 +791,72 @@
         overflow: hidden;
     }
 
+    /* New Discord Section Styling */
+    .discord-section {
+        padding: 6rem 0;
+        background: var(--color-dark-alt); /* Use dark-alt for section background */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column; /* Default to column for mobile */
+        gap: 3rem; /* Space between widget and text */
+        text-align: center;
+    }
+
+    .discord-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        gap: 3rem;
+        max-width: 1000px; /* Limit content width */
+        margin: 0 auto;
+    }
+
+    .discord-text {
+        flex: 1; /* Allow text to grow */
+        min-width: 300px; /* Minimum width for text block */
+        max-width: 500px; /* Max width for text block */
+        color: var(--color-text);
+        font-size: 1.2rem;
+        line-height: 1.8;
+        text-align: left; /* Align text to left */
+    }
+
+    .discord-text h2 {
+        font-size: 2.5rem;
+        color: var(--color-primary);
+        margin-bottom: 1rem;
+        text-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
+    }
+
+    .discord-text p {
+        color: var(--color-text-alt);
+        margin-bottom: 1.5rem;
+    }
+
+    .discord-widget-wrapper {
+        flex-shrink: 0; /* Prevent widget from shrinking */
+        width: 350px; /* Fixed width for the iframe */
+        height: 500px; /* Fixed height for the iframe */
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        border: 2px solid var(--color-primary);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .discord-widget-wrapper:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+    }
+
+    .discord-widget-wrapper iframe {
+        width: 100%;
+        height: 100%;
+        display: block; /* Remove extra space below iframe */
+    }
+
 
     /* Responsive Design */
     @media (max-width: 768px) {
@@ -914,6 +984,28 @@
         .mods-section {
             padding-top: 90px;
         }
+
+        /* Discord Section Responsive */
+        .discord-content {
+            flex-direction: column; /* Stack vertically on small screens */
+            gap: 2rem;
+        }
+
+        .discord-text {
+            text-align: center; /* Center text on mobile */
+            min-width: unset;
+            max-width: 100%;
+        }
+
+        .discord-text h2 {
+            font-size: 2rem;
+        }
+
+        .discord-widget-wrapper {
+            width: 100%; /* Make widget full width on mobile */
+            max-width: 350px; /* Keep max width for widget */
+            height: 400px; /* Adjust height for mobile */
+        }
     }
 
     @media (max-width: 480px) {
@@ -983,6 +1075,9 @@
             top: 15px;
             right: 15px;
         }
+        .discord-text h2 {
+            font-size: 1.8rem;
+        }
     }
   </style>
 </head>
@@ -1009,6 +1104,7 @@
         <ul class="nav-list">
           <!-- These links now use standard anchor scrolling -->
           <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="#discord" class="nav-link">Discord</a></li> <!-- New Discord Nav Link -->
           <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
           <li class="nav-item"><a href="#downloads" class="nav-link">Downloads</a></li>
           <li class="nav-item"><a href="#faq" class="nav-link">FAQ</a></li>
@@ -1043,6 +1139,29 @@
         <div class="interface-preview">
           <!-- Placeholder for Mod Interface Image -->
           <img src="assets/mod_menu.png" alt="Mod Interface" class="interface-image animate-float" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- New Discord Section -->
+    <section id="discord" class="discord-section">
+      <div class="container discord-content">
+        <div class="discord-widget-wrapper animate-fade-in-up delay-1">
+          <iframe src="https://discord.com/widget?id=938248183878930514&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+        </div>
+        <div class="discord-text animate-fade-in-up delay-2">
+          <h2>Join Our Discord Community!</h2>
+          <p>Connect with other Glacier Client users, get support, share your creations, and stay up-to-date with the latest news and updates.</p>
+          <p>Our community is the best place to:</p>
+          <ul class="list-disc list-inside text-color-text-alt mb-4">
+            <li>Get help with installation and troubleshooting.</li>
+            <li>Suggest new features and modules.</li>
+            <li>Participate in events and giveaways.</li>
+            <li>Chat directly with the developers.</li>
+          </ul>
+          <a href="https://dsc.gg/glacierclientmcbe" class="download-button" style="background-color: #5865F2; box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);">
+            <i class="fab fa-discord"></i> Join Discord Now!
+          </a>
         </div>
       </div>
     </section>
@@ -1644,7 +1763,7 @@
                 title: 'Walk Distance',
                 description: 'Displays the total distance you have walked in the game.',
                 tags: ['HUD', 'Utility'],
-                categories: ['hud', 'utility']
+                categories: ['utility']
             },
             {
                 id: 'waypointsplus', // New mod
