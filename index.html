@@ -44,6 +44,7 @@
         width: 100%;
         background: rgba(26, 26, 26, 0.95);
         backdrop-filter: blur(10px); /* Glassmorphic effect */
+        -webkit-backdrop-filter: blur(10px); /* Safari support */
         border-bottom: 2px solid var(--color-primary);
         z-index: 1000;
         transition: background 0.3s ease;
@@ -148,6 +149,12 @@
         text-align: left;
     }
 
+    .home-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Align items to the start for text */
+    }
+
     .home-title {
         font-size: 3rem;
         margin-bottom: 1rem;
@@ -160,6 +167,12 @@
         color: var(--color-text-alt);
         margin-bottom: 2rem;
         font-size: 1.1rem;
+    }
+
+    .home-buttons {
+        display: flex;
+        gap: 1.5rem; /* Space between buttons */
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
     }
 
     .download-button {
@@ -831,6 +844,10 @@
             padding-bottom: 2rem;
         }
 
+        .home-content {
+            align-items: center; /* Center content on mobile */
+        }
+
         .home-title {
             font-size: 2.5rem; /* Smaller title on mobile */
         }
@@ -839,11 +856,16 @@
             font-size: 1rem;
         }
 
-        .download-button {
-            justify-content: center;
+        .home-buttons {
+            justify-content: center; /* Center buttons on mobile */
             width: 100%;
             max-width: 300px;
             margin: 0 auto;
+        }
+
+        .download-button {
+            width: 100%;
+            max-width: 300px;
         }
 
         .interface-preview {
@@ -1008,9 +1030,15 @@
         <div class="home-content">
           <h1 class="home-title animate-fade-in-up">Next Gen Minecraft Experience</h1>
           <p class="home-subtext animate-fade-in-up delay-1">Optimized Texture Pack Client for Bedrock Edition</p>
-          <a href="#downloads" class="download-button animate-fade-in-up delay-2">
-            <i class="fas fa-download"></i> Download Latest
-          </a>
+          <div class="home-buttons">
+            <a href="#downloads" class="download-button animate-fade-in-up delay-2">
+              <i class="fas fa-download"></i> Download Latest
+            </a>
+            <!-- New button for Config Editor -->
+            <a href="https://config.glacierclient.xyz" class="download-button animate-fade-in-up delay-3" style="background-color: #5C6BC0; box-shadow: 0 5px 15px rgba(92, 107, 192, 0.4);">
+              <i class="fas fa-cog"></i> Config Editor
+            </a>
+          </div>
         </div>
         <div class="interface-preview">
           <!-- Placeholder for Mod Interface Image -->
