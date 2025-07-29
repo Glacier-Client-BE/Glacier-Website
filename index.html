@@ -794,48 +794,71 @@
         margin: 0 auto;
     }
 
-    .discord-text {
-        flex: 1;
-        min-width: 300px;
-        max-width: 500px;
-        color: var(--color-text);
-        font-size: 1.2rem;
-        line-height: 1.8;
-        text-align: left;
+    .discord-widget-panel {
+        background: var(--color-dark-alt);
+        padding: 1.5rem; /* Reduced padding */
+        border-radius: 16px;
+        border: 1px solid rgba(114, 137, 218, 0.2);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 20px rgba(114, 137, 218, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        flex-shrink: 0;
+        width: 380px; /* Slightly increased width */
+        height: 530px; /* Slightly increased height */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
-    .discord-text h2 {
+    .discord-widget-panel:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 30px rgba(114, 137, 218, 0.6);
+    }
+
+    .discord-widget-panel iframe {
+        width: 100%;
+        height: 100%;
+        border-radius: 12px; /* Match panel border-radius */
+    }
+
+    .discord-text-panel {
+        background: var(--color-dark-alt);
+        padding: 2.5rem;
+        border-radius: 16px;
+        text-align: left;
+        max-width: 500px;
+        border: 1px solid rgba(114, 137, 218, 0.2);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 20px rgba(114, 137, 218, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Distribute content and push button down */
+    }
+
+    .discord-text-panel:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 30px rgba(114, 137, 218, 0.6);
+    }
+
+    .discord-text-panel h2 {
         font-size: 2.5rem;
         color: var(--color-primary);
         margin-bottom: 1rem;
         text-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
+        text-align: center; /* Center the title */
     }
 
-    .discord-text p {
+    .discord-text-panel p, .discord-text-panel ul {
         color: var(--color-text-alt);
+        font-size: 1.1rem;
+        line-height: 1.8;
         margin-bottom: 1.5rem;
     }
 
-    .discord-widget-wrapper {
-        flex-shrink: 0;
-        width: 350px;
-        height: 500px;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        border: 2px solid var(--color-primary);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .discord-widget-wrapper:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.7);
-    }
-
-    .discord-widget-wrapper iframe {
-        width: 100%;
-        height: 100%;
-        display: block;
+    .discord-text-panel ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin-top: 1rem;
     }
 
     .main-footer {
@@ -877,16 +900,16 @@
         font-size: 0.9rem;
     }
 
-    /* New panel styling */
+    /* General info panel styling */
     .info-panel {
         background: var(--color-dark-alt);
         padding: 2.5rem;
         border-radius: 16px;
         text-align: center;
-        margin: 2rem auto; /* Center the panel */
-        max-width: 800px; /* Limit width */
+        margin: 2rem auto;
+        max-width: 800px;
         border: 1px solid rgba(114, 137, 218, 0.2);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 20px rgba(114, 137, 218, 0.4); /* Accent glow */
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 20px rgba(114, 137, 218, 0.4);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -905,7 +928,7 @@
         list-style: disc;
         padding-left: 1.5rem;
         margin-top: 1rem;
-        text-align: left; /* Align list items left */
+        text-align: left;
         color: var(--color-text-alt);
     }
 
@@ -1042,20 +1065,24 @@
             gap: 2rem;
         }
 
-        .discord-text {
-            text-align: center;
-            min-width: unset;
-            max-width: 100%;
-        }
-
-        .discord-text h2 {
-            font-size: 2rem;
-        }
-
-        .discord-widget-wrapper {
+        .discord-widget-panel {
             width: 100%;
             max-width: 350px;
             height: 400px;
+            padding: 1rem;
+        }
+
+        .discord-text-panel {
+            width: 100%;
+            padding: 1.5rem;
+        }
+
+        .discord-text-panel h2 {
+            font-size: 2rem;
+        }
+
+        .discord-text-panel p, .discord-text-panel ul {
+            font-size: 1rem;
         }
 
         .version-list, .extensions-list {
@@ -1154,9 +1181,6 @@
             top: 15px;
             right: 15px;
         }
-        .discord-text h2 {
-            font-size: 1.8rem;
-        }
     }
   </style>
 </head>
@@ -1225,12 +1249,12 @@
 
     <section id="discord" class="discord-section">
       <div class="container discord-content">
-        <div class="discord-widget-wrapper animate-fade-in-up delay-1">
-          <iframe src="https://discord.com/widget?id=938248183878930514&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+        <div class="discord-widget-panel animate-fade-in-up delay-1">
+          <iframe src="https://discord.com/widget?id=938248183878930514&theme=dark" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
         </div>
-        <div class="discord-text animate-fade-in-up delay-2">
+        <div class="discord-text-panel animate-fade-in-up delay-2">
           <h2>Join Our Discord Community!</h2>
-          <div class="info-panel animate-fade-in-up delay-3">
+          <div>
             <p>Connect with other Glacier Client users, get support, share your creations, and stay up-to-date with the latest news and updates.</p>
             <p>Our community is the best place to:</p>
             <ul>
@@ -1240,7 +1264,7 @@
               <li>Chat directly with the developers.</li>
             </ul>
           </div>
-          <a href="https://dsc.gg/glacierclientmcbe" class="download-button" style="background-color: #5865F2; box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);">
+          <a href="https://dsc.gg/glacierclientmcbe" class="download-button" style="background-color: #5865F2; box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4); align-self: center;">
             <i class="fab fa-discord"></i> Join Discord Now!
           </a>
         </div>
@@ -1465,14 +1489,14 @@
                 <p class="text-lg text-color-text-alt mb-4">
                     Your support helps us continue developing and improving Glacier Client, bringing you the best Minecraft Bedrock Edition experience.
                 </p>
-            </div>
-            <div class="home-buttons justify-center mt-8 animate-fade-in-up delay-2">
-                <a href="https://paypal.me/PepeOnPayPal" class="download-button" target="_blank" style="background-color: #0070BA; color: #FFFFFF; box-shadow: 0 5px 15px rgba(0, 112, 186, 0.4);">
-                    <i class="fab fa-paypal"></i> Donate via PayPal
-                </a>
-                <a href="https://ko-fi.com/pepeonkofi" class="download-button" target="_blank" style="background-color: #FF5E5B; color: #FFFFFF; box-shadow: 0 5px 15px rgba(255, 94, 91, 0.4);">
-                    <i class="fas fa-mug-hot"></i> Donate via Ko-fi
-                </a>
+                <div class="home-buttons justify-center mt-8">
+                    <a href="https://paypal.me/PepeOnPayPal" class="download-button" target="_blank" style="background-color: #0070BA; color: #FFFFFF; box-shadow: 0 5px 15px rgba(0, 112, 186, 0.4);">
+                        <i class="fab fa-paypal"></i> Donate via PayPal
+                    </a>
+                    <a href="https://ko-fi.com/pepeonkofi" class="download-button" target="_blank" style="background-color: #FF5E5B; color: #FFFFFF; box-shadow: 0 5px 15px rgba(255, 94, 91, 0.4);">
+                        <i class="fas fa-mug-hot"></i> Donate via Ko-fi
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -1485,140 +1509,8 @@
         <h1>Frequently Asked Questions</h1>
         <p>Comprehensive answers to common inquiries about Glacier Client.</p>
       </div>
-      <div class="faq-container">
-        <div class="faq-item animate-fade-in-up delay-1">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>Which devices are compatible with Glacier Client?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>Glacier Client supports all devices running Minecraft Bedrock Edition version 1.21 or newer.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item animate-fade-in-up delay-2">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>Is there a cost associated with using Glacier Client?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>No, Glacier Client is provided completely free of charge and will remain 100% free to use.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item animate-fade-in-up delay-3">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>Is Glacier Client safe to install and use?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>Yes, Glacier Client is entirely safe. It functions as a texture pack client, not an executable or injector, minimizing security risks.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item animate-fade-in-up delay-4">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>How can I bypass the Linkvertise download links?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>Please refer to the tutorial video below for a step-by-step guide on bypassing Linkvertise links:</p>
-              <div class="video-container">
-                <iframe
-                  src="https://www.youtube.com/embed/7Nnc5ff5840"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                ></iframe>
-              </div>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item animate-fade-in-up delay-5">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>What are common reasons for Glacier Client not functioning correctly?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>Potential issues preventing the client from working as expected include:</p>
-              <ul>
-                <li>Conflicts with other resource packs or add-ons that modify <code>player.entity.json</code> or <code>hud_screen.json</code> (e.g., "Actions & Stuff" packs).</li>
-                <li>Server restrictions that disallow client-side UI overrides (e.g., certain Minecraft Event servers).</li>
-              </ul>
-              <p>Ensure no conflicting packs are active and that the server permits custom UI elements.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item animate-fade-in-up delay-6">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>How do I install Glacier Client?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>Installation typically involves downloading the .mcpack file and opening it with Minecraft. Detailed instructions can be found on our Discord server or in our official documentation.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item animate-fade-in-up delay-7">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>Can I use Glacier Client on realms or servers?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>Yes, Glacier Client is designed to be compatible with both realms and most multiplayer servers. However, some servers may have restrictions on custom UI or resource packs, which could affect certain features.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item animate-fade-in-up delay-8">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>How often is Glacier Client updated?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>We strive to release updates regularly to ensure compatibility with the latest Minecraft Bedrock Edition versions, introduce new features, and address any bugs. Please check our Discord server for the most current update information.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item animate-fade-in-up delay-9">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>Where can I report bugs or suggest features?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>We encourage users to report bugs and suggest new features on our official Discord server. Your feedback is invaluable in improving Glacier Client.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item animate-fade-in-up delay-10">
-          <details class="faq-card">
-            <summary class="faq-question">
-              <span>Does Glacier Client affect game performance?</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <p>Glacier Client is designed to be lightweight and optimized for performance, with minimal to no impact on your game's frame rate or stability. It is only approximately 2MB in size.</p>
-            </div>
-          </details>
-        </div>
+      <div class="faq-container" id="faqContainer">
+        <!-- FAQ items will be loaded here from faq.json -->
       </div>
     </div>
   </section>
@@ -1710,6 +1602,7 @@
 
   <script>
     let allMods = []; // Declare allMods globally
+    let allFaqs = []; // Declare allFaqs globally
 
     document.addEventListener('DOMContentLoaded', async () => {
         const menuToggle = document.querySelector('.mobile-menu-toggle');
@@ -1724,6 +1617,7 @@
         const faqNavLink = document.getElementById('faqNavLink');
         const faqOverlay = document.getElementById('faq-overlay');
         const closeFaqBtn = document.getElementById('closeFaqBtn');
+        const faqContainer = document.getElementById('faqContainer');
 
         const licenseNavLink = document.getElementById('licenseNavLink');
         const licenseOverlay = document.getElementById('license-overlay');
@@ -1752,7 +1646,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    if (!entry.target.closest('.mods-section')) {
+                    if (!entry.target.closest('.mods-section') && !entry.target.closest('#faq-overlay')) {
                         obs.unobserve(entry.target);
                     }
                 }
@@ -1784,6 +1678,19 @@
             modsGrid.innerHTML = '<p style="color: var(--color-text-alt); text-align: center; grid-column: 1 / -1;">Failed to load mods. Please try again later.</p>';
         }
 
+        // Fetch FAQs from JSON file
+        try {
+            const response = await fetch('faq.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            allFaqs = await response.json();
+            renderFaqs(allFaqs); // Render FAQs after fetching
+        } catch (error) {
+            console.error('Error fetching FAQs:', error);
+            faqContainer.innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load FAQs. Please try again later.</p>';
+        }
+
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
@@ -1800,39 +1707,75 @@
             }
         });
 
-        const faqItems = document.querySelectorAll('#faq-overlay .faq-card');
-        faqItems.forEach(item => {
-            item.addEventListener('toggle', () => {
-                if (item.open) {
-                    faqItems.forEach(otherItem => {
-                        if (otherItem !== item && otherItem.open) {
-                            otherItem.open = false;
-                        }
-                    });
+        function renderFaqs(faqsToDisplay) {
+            faqContainer.innerHTML = '';
+            faqsToDisplay.forEach((faq, index) => {
+                const faqItem = document.createElement('div');
+                faqItem.classList.add('faq-item', 'animate-fade-in-up');
+                faqItem.style.setProperty('--animation-delay', `${0.1 * index}s`);
+
+                let videoHtml = '';
+                if (faq.videoUrl) {
+                    videoHtml = `
+                        <div class="video-container">
+                            <iframe
+                                src="${faq.videoUrl}"
+                                title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen
+                            ></iframe>
+                        </div>
+                    `;
                 }
+
+                faqItem.innerHTML = `
+                    <details class="faq-card">
+                        <summary class="faq-question">
+                            <span>${faq.question}</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>${faq.answer}</p>
+                            ${videoHtml}
+                        </div>
+                    </details>
+                `;
+                faqContainer.appendChild(faqItem);
+                observer.observe(faqItem);
             });
-        });
+
+            // Re-attach toggle logic for new FAQ items
+            const newFaqItems = faqContainer.querySelectorAll('.faq-card');
+            newFaqItems.forEach(item => {
+                item.addEventListener('toggle', () => {
+                    if (item.open) {
+                        newFaqItems.forEach(otherItem => {
+                            if (otherItem !== item && otherItem.open) {
+                                otherItem.open = false;
+                            }
+                        });
+                    }
+                });
+            });
+        }
 
         function toggleOverlay(overlayElement, show) {
             if (show) {
-                if (overlayElement.id === 'all-mods' && faqOverlay.classList.contains('is-open')) {
-                    toggleOverlay(faqOverlay, false);
-                } else if (overlayElement.id === 'faq-overlay' && modsSection.classList.contains('is-open')) {
-                    toggleOverlay(modsSection, false);
-                } else if (overlayElement.id === 'license-overlay' && modsSection.classList.contains('is-open')) {
-                    toggleOverlay(modsSection, false);
-                } else if (overlayElement.id === 'license-overlay' && faqOverlay.classList.contains('is-open')) {
-                    toggleOverlay(faqOverlay, false);
-                }
-
+                // Close other overlays if open
+                [modsSection, faqOverlay, licenseOverlay].forEach(overlay => {
+                    if (overlay !== overlayElement && overlay.classList.contains('is-open')) {
+                        overlay.classList.remove('is-open');
+                    }
+                });
 
                 overlayElement.classList.add('is-open');
                 document.body.classList.add('no-scroll');
                 const overlayAnimatedElements = overlayElement.querySelectorAll('.animate-fade-in-up');
                 overlayAnimatedElements.forEach(element => {
                     element.classList.remove('is-visible');
-                    observer.unobserve(element);
-                    observer.observe(element);
+                    observer.unobserve(element); // Unobserve to reset animation
+                    observer.observe(element); // Re-observe to trigger animation
                 });
             } else {
                 overlayElement.classList.remove('is-open');
