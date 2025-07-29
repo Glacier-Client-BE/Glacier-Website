@@ -336,188 +336,6 @@
         font-size: 1rem;
     }
 
-    .downloads-section {
-        padding: 6rem 0;
-        background: var(--color-dark);
-    }
-
-    .downloads-content {
-        display: flex;
-        flex-direction: column;
-        gap: 3rem;
-    }
-
-    .subsection-title {
-        color: var(--color-primary);
-        margin-bottom: 2.5rem;
-        font-size: 2rem;
-        text-align: center;
-    }
-
-    .version-list, .extensions-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .version-item, .extension-item {
-        background: var(--color-dark-alt);
-        padding: 1.2rem 1.8rem;
-        border-radius: 12px;
-        border: 1px solid rgba(114, 137, 218, 0.1);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .version-item:hover, .extension-item:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-        background-color: var(--color-dark);
-    }
-
-    .version-item-content, .extension-item-content {
-        flex-grow: 1;
-    }
-
-    .version-item h4, .extension-item h4 {
-        font-size: 1.1rem;
-        color: var(--color-text);
-        margin-bottom: 0.3rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .version-item p, .extension-item p {
-        font-size: 0.9rem;
-        color: var(--color-text-alt);
-        margin-bottom: 0;
-    }
-
-    .version-tag {
-        background: var(--color-primary);
-        color: var(--color-text);
-        padding: 0.2rem 0.6rem;
-        border-radius: 15px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        flex-shrink: 0;
-    }
-
-    .version-tag.legacy {
-        background: #666;
-    }
-
-    .download-options {
-        display: flex;
-        gap: 0.8rem;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        flex-shrink: 0;
-    }
-
-    .download-btn {
-        background: var(--color-primary);
-        color: var(--color-text);
-        padding: 0.6rem 1.2rem;
-        border-radius: 8px;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-        font-weight: 600;
-        box-shadow: 0 3px 8px rgba(114, 137, 218, 0.3);
-    }
-
-    .download-btn:hover {
-        transform: translateY(-2px);
-        background: #5b6eae;
-        box-shadow: 0 5px 12px rgba(114, 137, 218, 0.5);
-    }
-
-    .download-btn.small {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.85rem;
-    }
-
-    .legacy-versions-container {
-        position: relative;
-        overflow: hidden;
-        max-height: 150px;
-        transition: max-height 0.7s ease-in-out;
-        padding-bottom: 20px;
-    }
-
-    .legacy-versions-container.expanded {
-        max-height: 1000px;
-    }
-
-    .legacy-versions-container::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 80px;
-        background: linear-gradient(to top, var(--color-dark) 0%, transparent 100%);
-        pointer-events: none;
-        transition: opacity 0.7s ease-in-out;
-        z-index: 1;
-    }
-
-    .legacy-versions-container.expanded::after {
-        opacity: 0;
-    }
-
-    .hidden-legacy, .hidden-legacy-ext {
-        opacity: 0;
-        height: 0;
-        overflow: hidden;
-        transition: opacity 0.3s ease, height 0.3s ease;
-    }
-
-    .legacy-versions-container.expanded .hidden-legacy,
-    .legacy-versions-container.expanded .hidden-legacy-ext {
-        opacity: 1;
-        height: auto;
-    }
-
-    .view-all-button-overlay {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 2;
-        background: var(--color-primary);
-        color: var(--color-text);
-        padding: 0.8rem 1.8rem;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-        box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4);
-    }
-
-    .view-all-button-overlay:hover {
-        transform: translateX(-50%) translateY(-3px);
-        box-shadow: 0 8px 20px rgba(114, 137, 218, 0.6);
-    }
-
-    .legacy-versions-container.expanded .view-all-button-overlay {
-        opacity: 0;
-        pointer-events: none;
-    }
-
     .mods-section {
         position: fixed;
         top: 0;
@@ -934,6 +752,149 @@
         color: var(--color-text-alt);
     }
 
+    /* Downloads Overlay Specific Styles */
+    .downloads-overlay-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+    }
+
+    .downloads-tabs {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid rgba(114, 137, 218, 0.2);
+    }
+
+    .tab-button {
+        background: none;
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--color-text-alt);
+        cursor: pointer;
+        transition: color 0.3s ease, border-bottom 0.3s ease;
+        border-bottom: 2px solid transparent;
+    }
+
+    .tab-button:hover {
+        color: var(--color-primary);
+    }
+
+    .tab-button.active {
+        color: var(--color-primary);
+        border-bottom: 2px solid var(--color-primary);
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .version-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .version-item, .extension-item {
+        background: var(--color-dark-alt);
+        padding: 1.2rem 1.8rem;
+        border-radius: 12px;
+        border: 1px solid rgba(114, 137, 218, 0.1);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .version-item:hover, .extension-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        background-color: var(--color-dark);
+    }
+
+    .version-item-content, .extension-item-content {
+        flex-grow: 1;
+    }
+
+    .version-item h4, .extension-item h4 {
+        font-size: 1.1rem;
+        color: var(--color-text);
+        margin-bottom: 0.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .version-item p, .extension-item p {
+        font-size: 0.9rem;
+        color: var(--color-text-alt);
+        margin-bottom: 0;
+    }
+
+    .version-tag {
+        background: var(--color-primary);
+        color: var(--color-text);
+        padding: 0.2rem 0.6rem;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        flex-shrink: 0;
+    }
+
+    .version-tag.legacy {
+        background: #666;
+    }
+
+    .download-options {
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        flex-shrink: 0;
+    }
+
+    .download-btn {
+        background: var(--color-primary);
+        color: var(--color-text);
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        font-weight: 600;
+        box-shadow: 0 3px 8px rgba(114, 137, 218, 0.3);
+    }
+
+    .download-btn:hover {
+        transform: translateY(-2px);
+        background: #5b6eae;
+        box-shadow: 0 5px 12px rgba(114, 137, 218, 0.5);
+    }
+
+    .download-btn.small {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    .separator {
+        border-top: 1px solid rgba(114, 137, 218, 0.3);
+        margin: 2rem auto;
+        width: 80%;
+        max-width: 600px;
+    }
+
     @media (max-width: 768px) {
         .header-container {
             padding: 0 1rem;
@@ -1086,7 +1047,7 @@
             font-size: 1rem;
         }
 
-        .version-list, .extensions-list {
+        .version-list, .extension-list {
             max-width: 100%;
             padding: 0 1rem;
         }
@@ -1107,6 +1068,17 @@
             max-width: 90%;
         }
         .info-panel p, .info-panel ul {
+            font-size: 1rem;
+        }
+
+        .downloads-tabs {
+            flex-direction: column;
+            align-items: center;
+        }
+        .tab-button {
+            width: 100%;
+            max-width: 250px;
+            padding: 0.8rem 1.5rem;
             font-size: 1rem;
         }
     }
@@ -1208,7 +1180,7 @@
           <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="#discord" class="nav-link">Discord</a></li>
           <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
-          <li class="nav-item"><a href="#downloads" class="nav-link">Downloads</a></li>
+          <li class="nav-item"><a href="#" class="nav-link" id="downloadsNavLink">Downloads</a></li>
           <li class="nav-item"><a href="#" class="nav-link" id="faqNavLink">FAQ</a></li>
           <li class="nav-item"><a href="#" class="nav-link" id="allModsNavLink">All Mods</a></li>
           <li class="nav-item"><a href="#" class="nav-link" id="licenseNavLink">License</a></li>
@@ -1234,7 +1206,7 @@
           <h1 class="home-title animate-fade-in-up">Next Gen Minecraft Experience</h1>
           <p class="home-subtext animate-fade-in-up delay-1">Optimized Texture Pack Client for Bedrock Edition</p>
           <div class="home-buttons">
-            <a href="#downloads" class="download-button animate-fade-in-up delay-2">
+            <a href="#" class="download-button animate-fade-in-up delay-2" id="homeDownloadButton">
               <i class="fas fa-download"></i> Download Latest
             </a>
             <a href="https://config.glacierclient.xyz" class="download-button animate-fade-in-up delay-3" style="background-color: #5C6BC0; box-shadow: 0 5px 15px rgba(92, 107, 192, 0.4);">
@@ -1299,188 +1271,30 @@
         </div>
       </div>
     </section>
-
-    <section id="downloads" class="downloads-section">
-      <div class="container">
-        <h2 class="section-title animate-fade-in-up">Client Downloads</h2>
-
-        <div class="downloads-content">
-            <h3 class="subsection-title animate-fade-in-up">Latest Versions</h3>
-            <div class="version-list">
-                <div class="version-item animate-fade-in-up delay-1">
-                    <div class="version-item-content">
-                        <h4>Glacier v5 <span class="version-tag">Latest</span></h4>
-                        <p>Release: 2025-07-06 | Size: 2.77MB</p>
-                    </div>
-                    <div class="download-options">
-                        <a href="https://link-center.net/499358/KEBMHbdFAIOT" class="download-btn small" target="_blank">
-                            <i class="fas fa-download"></i> Linkvertise
-                        </a>
-                        <a href="https://lootdest.org/s?b6cpLNDy" class="download-btn small" target="_blank">
-                            <i class="fas fa-download"></i> LootLabs
-                        </a>
-                    </div>
-                </div>
-                <div class="version-item animate-fade-in-up delay-2">
-                    <div class="version-item-content">
-                        <h4>Glacier v4 <span class="version-tag legacy">Archived</span></h4>
-                        <p>Release: 2024-10-26 | Size: 1.75MB</p>
-                    </div>
-                    <div class="download-options">
-                        <a href="https://link-center.net/499358/glacier-client-v4" class="download-btn small" target="_blank">
-                            <i class="fas fa-download"></i> Download
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="legacy-versions-container" id="legacyDownloadsContainer">
-                <h3 class="subsection-title animate-fade-in-up">Legacy Versions</h3>
-                <div class="version-list legacy-list" id="legacyVersionList">
-                    <div class="version-item animate-fade-in-up delay-3">
-                        <div class="version-item-content">
-                            <h4>Glacier v3 <span class="version-tag legacy">Archived</span></h4>
-                            <p>Release: 2022-10-01 | Size: 1.93MB</p>
-                        </div>
-                        <div class="download-options">
-                            <a href="https://www.mediafire.com/file/3ij9ibl2x0jbpdk/GlacierClientV3.mcpack/file" class="download-btn small" target="_blank">
-                                <i class="fas fa-download"></i> Download
-                            </a>
-                        </div>
-                    </div>
-                    <div class="version-item animate-fade-in-up delay-4 hidden-legacy">
-                        <div class="version-item-content">
-                            <h4>Glacier v2 <span class="version-tag legacy">Archived</span></h4>
-                            <p>Release: 2022-09-15 | Size: 13.53MB</p>
-                        </div>
-                        <div class="download-options">
-                            <a href="https://www.mediafire.com/file/j6u8vlf6o5q5j9g/GlacierClient.zip/file" class="download-btn small" target="_blank">
-                                <i class="fas fa-download"></i> Download
-                            </a>
-                        </div>
-                    </div>
-                    <div class="version-item animate-fade-in-up delay-5 hidden-legacy">
-                        <div class="version-item-content">
-                            <h4>Glacier v1 <span class="version-tag legacy">Archived</span></h4>
-                            <p>Release: 2022-08-20 | Size: 21.25MB</p>
-                        </div>
-                        <div class="download-options">
-                            <a href="https://www.mediafire.com/file/s7xv3ejoqxg5ntn/GlacierClient.mcpack/file" class="download-btn small" target="_blank">
-                                <i class="fas fa-download"></i> Download
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <button id="viewAllDownloadsBtn" class="view-all-button-overlay">
-                    View All Downloads <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <section id="extensions" class="downloads-section" style="background: var(--color-dark-alt);">
-        <div class="container">
-            <h2 class="section-title animate-fade-in-up">Glacier Official Extensions</h2>
-            <div class="downloads-content">
-                <h3 class="subsection-title animate-fade-in-up">Latest Extensions</h3>
-                <div class="extensions-list">
-                    <div class="extension-item animate-fade-in-up delay-1">
-                        <div class="extension-item-content">
-                            <h4>Cape Physics (v5)</h4>
-                            <p>Adds dynamic physics to player capes for enhanced realism.</p>
-                        </div>
-                        <div class="download-options">
-                            <a href="https://link-target.net/499358/WCp3rcHJiJ21" class="download-btn small" target="_blank">
-                                <i class="fas fa-download"></i> Linkvertise
-                            </a>
-                            <a href="https://lootdest.org/s?wulDc3e9" class="download-btn small" target="_blank">
-                                <i class="fas fa-download"></i> LootLabs
-                            </a>
-                        </div>
-                    </div>
-                    <div class="extension-item animate-fade-in-up delay-2">
-                        <div class="extension-item-content">
-                            <h4>Hit Color (v5)</h4>
-                            <p>Changes the color of the player when getting hit.</p>
-                        </div>
-                        <div class="download-options">
-                            <a href="https://link-target.net/499358/O3EPrFMabbut" class="download-btn small" target="_blank">
-                                <i class="fas fa-download"></i> Linkvertise
-                            </a>
-                            <a href="https://lootdest.org/s?xt8Clcln" class="download-btn small" target="_blank">
-                                <i class="fas fa-download"></i> LootLabs
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="legacy-versions-container" id="legacyExtensionsContainer">
-                    <h3 class="subsection-title animate-fade-in-up">Legacy Extensions</h3>
-                    <div class="extensions-list legacy-list" id="legacyExtensionList">
-                        <div class="extension-item animate-fade-in-up delay-3">
-                            <div class="extension-item-content">
-                                <h4>Chunk Border (v4)</h4>
-                                <p>Displays the chunk when holding a nautilus shell in offhand while in 3rd person.</p>
-                            </div>
-                            <div class="download-options">
-                                <a href="https://link-hub.net/499358/glacier-v4-chunk-border" class="download-btn small" target="_blank">
-                                    <i class="fas fa-download"></i> Download
-                                </a>
-                            </div>
-                        </div>
-                        <div class="extension-item animate-fade-in-up delay-4 hidden-legacy-ext">
-                            <div class="extension-item-content">
-                                <h4>Freelook (v4)</h4>
-                                <p>Crouch in 3rd person mode to enable the freelook.</p>
-                            </div>
-                            <div class="download-options">
-                                <a href="https://direct-link.net/499358/glacier-v4-freelook" class="download-btn small" target="_blank">
-                                    <i class="fas fa-download"></i> Download
-                                </a>
-                            </div>
-                        </div>
-                        <div class="extension-item animate-fade-in-up delay-5 hidden-legacy-ext">
-                            <div class="extension-item-content">
-                                <h4>Hitbox (v4)</h4>
-                                <p>Displays a hitbox on the player.</p>
-                            </div>
-                            <div class="download-options">
-                                <a href="https://direct-link.net/499358/glacier-v4-hitbox" class="download-btn small" target="_blank">
-                                    <i class="fas fa-download"></i> Download
-                                </a>
-                            </div>
-                        </div>
-                        <div class="extension-item animate-fade-in-up delay-6 hidden-legacy-ext">
-                            <div class="extension-item-content">
-                                <h4>Hit Color (v4)</h4>
-                                <p>Changes the color of player when getting hit.</p>
-                            </div>
-                            <div class="download-options">
-                                <a href="https://link-center.net/499358/glacier-v4-hitcolor" class="download-btn small" target="_blank">
-                                    <i class="fas fa-download"></i> Download
-                                </a>
-                            </div>
-                        </div>
-                        <div class="extension-item animate-fade-in-up delay-7 hidden-legacy-ext">
-                            <div class="extension-item-content">
-                                <h4>Waypoints+ (v4)</h4>
-                                <p>Allows the player to make Waypoints, Greenscreen or Deathpoints!</p>
-                            </div>
-                            <div class="download-options">
-                                <a href="https://link-target.net/499358/glacier-v4-waypoints" class="download-btn small" target="_blank">
-                                    <i class="fas fa-download"></i> Download
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <button id="viewAllExtensionsBtn" class="view-all-button-overlay">
-                        View All Extensions <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
   </main>
+
+  <section id="downloads-overlay" class="mods-section">
+    <button class="close-mods-btn" id="closeDownloadsBtn"><i class="fas fa-times"></i></button>
+    <div class="container downloads-overlay-content">
+      <div class="overlay-header animate-fade-in-up">
+        <h1>Glacier Client Downloads</h1>
+        <p>Download the latest client versions and official extensions.</p>
+      </div>
+
+      <div class="downloads-tabs animate-fade-in-up delay-1">
+        <button class="tab-button active" data-tab="clients">Client Downloads</button>
+        <button class="tab-button" data-tab="extensions">Client Extensions</button>
+      </div>
+
+      <div id="clients-tab-content" class="tab-content active animate-fade-in-up delay-2">
+        <!-- Client downloads will be rendered here -->
+      </div>
+
+      <div id="extensions-tab-content" class="tab-content animate-fade-in-up delay-2">
+        <!-- Extension downloads will be rendered here -->
+      </div>
+    </div>
+  </section>
 
   <section id="faq-overlay" class="mods-section">
     <button class="close-mods-btn" id="closeFaqBtn"><i class="fas fa-times"></i></button>
@@ -1606,6 +1420,7 @@
   <script>
     let allMods = []; // Declare allMods globally
     let allFaqs = []; // Declare allFaqs globally
+    let allDownloads = null; // To store fetched downloads data
 
     document.addEventListener('DOMContentLoaded', async () => {
         const menuToggle = document.querySelector('.mobile-menu-toggle');
@@ -1630,18 +1445,19 @@
         const donateOverlay = document.getElementById('donate-overlay');
         const closeDonateBtn = document.getElementById('closeDonateBtn');
 
+        // New Downloads Overlay elements
+        const downloadsNavLink = document.getElementById('downloadsNavLink');
+        const homeDownloadButton = document.getElementById('homeDownloadButton');
+        const downloadsOverlay = document.getElementById('downloads-overlay');
+        const closeDownloadsBtn = document.getElementById('closeDownloadsBtn');
+        const tabButtons = document.querySelectorAll('.downloads-tabs .tab-button');
+        const clientsTabContent = document.getElementById('clients-tab-content');
+        const extensionsTabContent = document.getElementById('extensions-tab-content');
+
         const modulesCountElement = document.getElementById('modulesCount');
         const modsGrid = document.getElementById('modsGrid');
         const filterButtons = document.querySelectorAll('.filter-button');
         const modSearchInput = document.getElementById('modSearch');
-
-        const viewAllDownloadsBtn = document.getElementById('viewAllDownloadsBtn');
-        const legacyDownloadsContainer = document.getElementById('legacyDownloadsContainer');
-        const hiddenLegacyDownloadsItems = document.querySelectorAll('#legacyDownloadsContainer .hidden-legacy');
-
-        const viewAllExtensionsBtn = document.getElementById('viewAllExtensionsBtn');
-        const legacyExtensionsContainer = document.getElementById('legacyExtensionsContainer');
-        const hiddenLegacyExtensionsItems = document.querySelectorAll('#legacyExtensionsContainer .hidden-legacy-ext');
 
         const observerOptions = {
             root: null,
@@ -1668,7 +1484,7 @@
 
         // Fetch mods from JSON file
         try {
-            const response = await fetch('mods.json');
+            const response = await fetch('assets/data/mods.json'); // Updated path
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -1688,7 +1504,7 @@
 
         // Fetch FAQs from JSON file
         try {
-            const response = await fetch('faq.json');
+            const response = await fetch('assets/data/faq.json'); // Updated path
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -1697,6 +1513,20 @@
         } catch (error) {
             console.error('Error fetching FAQs:', error);
             faqContainer.innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load FAQs. Please try again later.</p>';
+        }
+
+        // Fetch Downloads from JSON file
+        try {
+            const response = await fetch('assets/data/downloads.json'); // Updated path
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            allDownloads = await response.json();
+            renderDownloads('clients'); // Render clients tab by default
+        } catch (error) {
+            console.error('Error fetching downloads:', error);
+            clientsTabContent.innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load downloads. Please try again later.</p>';
+            extensionsTabContent.innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load extensions. Please try again later.</p>';
         }
 
         menuToggle.addEventListener('click', () => {
@@ -1768,10 +1598,129 @@
             });
         }
 
+        function renderDownloads(category) {
+            if (!allDownloads) return;
+
+            const targetElement = category === 'clients' ? clientsTabContent : extensionsTabContent;
+            targetElement.innerHTML = ''; // Clear previous content
+
+            const data = allDownloads[category];
+
+            // Render Working Versions
+            if (data.working && data.working.length > 0) {
+                const workingList = document.createElement('div');
+                workingList.classList.add('version-list');
+                const workingTitle = document.createElement('h3');
+                workingTitle.classList.add('subsection-title');
+                workingTitle.textContent = category === 'clients' ? 'Working Client Versions' : 'Working Extensions';
+                targetElement.appendChild(workingTitle);
+                targetElement.appendChild(workingList);
+
+                data.working.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('version-item', 'animate-fade-in-up');
+                    itemElement.style.setProperty('--animation-delay', `${0.1 * index}s`);
+
+                    const optionsHtml = item.options.map(option => `
+                        <a href="${option.url}" class="download-btn small" target="_blank">
+                            <i class="fas fa-download"></i> ${option.name}
+                        </a>
+                    `).join('');
+
+                    itemElement.innerHTML = `
+                        <div class="version-item-content">
+                            <h4>${item.version} <span class="version-tag">${item.tag || ''}</span></h4>
+                            <p>${item.release ? `Release: ${item.release} | ` : ''}Size: ${item.size || item.description}</p>
+                        </div>
+                        <div class="download-options">
+                            ${optionsHtml}
+                        </div>
+                    `;
+                    workingList.appendChild(itemElement);
+                    observer.observe(itemElement);
+                });
+            }
+
+            // Render Separator if both working and legacy exist
+            if (data.working && data.working.length > 0 && data.legacy && data.legacy.length > 0) {
+                const separator = document.createElement('div');
+                separator.classList.add('separator');
+                targetElement.appendChild(separator);
+            }
+
+            // Render Legacy Versions
+            if (data.legacy && data.legacy.length > 0) {
+                const legacyList = document.createElement('div');
+                legacyList.classList.add('version-list');
+                const legacyTitle = document.createElement('h3');
+                legacyTitle.classList.add('subsection-title');
+                legacyTitle.textContent = category === 'clients' ? 'Legacy Client Versions' : 'Legacy Extensions';
+                targetElement.appendChild(legacyTitle);
+                targetElement.appendChild(legacyList);
+
+                data.legacy.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('version-item', 'animate-fade-in-up');
+                    itemElement.style.setProperty('--animation-delay', `${0.1 * index}s`);
+
+                    const optionsHtml = item.options.map(option => `
+                        <a href="${option.url}" class="download-btn small" target="_blank">
+                            <i class="fas fa-download"></i> ${option.name}
+                        </a>
+                    `).join('');
+
+                    itemElement.innerHTML = `
+                        <div class="version-item-content">
+                            <h4>${item.version} <span class="version-tag legacy">${item.tag || 'Archived'}</span></h4>
+                            <p>${item.release ? `Release: ${item.release} | ` : ''}Size: ${item.size || item.description}</p>
+                        </div>
+                        <div class="download-options">
+                            ${optionsHtml}
+                        </div>
+                    `;
+                    legacyList.appendChild(itemElement);
+                    observer.observe(itemElement);
+                });
+            }
+        }
+
+        function switchDownloadsTab(selectedTab) {
+            tabButtons.forEach(button => {
+                if (button.dataset.tab === selectedTab) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('.tab-content').forEach(content => {
+                if (content.id === `${selectedTab}-tab-content`) {
+                    content.classList.add('active');
+                    // Re-observe elements for animation when tab becomes active
+                    const animatedElementsInTab = content.querySelectorAll('.animate-fade-in-up');
+                    animatedElementsInTab.forEach(element => {
+                        element.classList.remove('is-visible'); // Reset animation state
+                        observer.unobserve(element); // Unobserve to ensure re-trigger
+                        observer.observe(element); // Re-observe
+                    });
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+            renderDownloads(selectedTab); // Re-render content for the selected tab
+        }
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                switchDownloadsTab(button.dataset.tab);
+            });
+        });
+
+
         function toggleOverlay(overlayElement, show) {
             if (show) {
                 // Close other overlays if open
-                [modsSection, faqOverlay, licenseOverlay, donateOverlay].forEach(overlay => {
+                [modsSection, faqOverlay, licenseOverlay, donateOverlay, downloadsOverlay].forEach(overlay => {
                     if (overlay !== overlayElement && overlay.classList.contains('is-open')) {
                         overlay.classList.remove('is-open');
                     }
@@ -1795,13 +1744,10 @@
             }
         }
 
+        // Event listeners for opening overlays
         allModsNavLink.addEventListener('click', (e) => {
             e.preventDefault();
             toggleOverlay(modsSection, true);
-        });
-
-        closeModsBtn.addEventListener('click', () => {
-            toggleOverlay(modsSection, false);
         });
 
         faqNavLink.addEventListener('click', (e) => {
@@ -1809,17 +1755,9 @@
             toggleOverlay(faqOverlay, true);
         });
 
-        closeFaqBtn.addEventListener('click', () => {
-            toggleOverlay(faqOverlay, false);
-        });
-
         licenseNavLink.addEventListener('click', (e) => {
             e.preventDefault();
             toggleOverlay(licenseOverlay, true);
-        });
-
-        closeLicenseBtn.addEventListener('click', () => {
-            toggleOverlay(licenseOverlay, false);
         });
 
         donateNavLink.addEventListener('click', (e) => {
@@ -1827,8 +1765,37 @@
             toggleOverlay(donateOverlay, true);
         });
 
+        downloadsNavLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleOverlay(downloadsOverlay, true);
+            switchDownloadsTab('clients'); // Open to clients tab by default
+        });
+
+        homeDownloadButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleOverlay(downloadsOverlay, true);
+            switchDownloadsTab('clients'); // Open to clients tab by default
+        });
+
+        // Event listeners for closing overlays
+        closeModsBtn.addEventListener('click', () => {
+            toggleOverlay(modsSection, false);
+        });
+
+        closeFaqBtn.addEventListener('click', () => {
+            toggleOverlay(faqOverlay, false);
+        });
+
+        closeLicenseBtn.addEventListener('click', () => {
+            toggleOverlay(licenseOverlay, false);
+        });
+
         closeDonateBtn.addEventListener('click', () => {
             toggleOverlay(donateOverlay, false);
+        });
+
+        closeDownloadsBtn.addEventListener('click', () => {
+            toggleOverlay(downloadsOverlay, false);
         });
 
         function renderMods(modsToDisplay) {
@@ -1882,38 +1849,6 @@
         });
 
         modSearchInput.addEventListener('input', filterAndSearchMods);
-
-        viewAllDownloadsBtn.addEventListener('click', () => {
-            legacyDownloadsContainer.classList.toggle('expanded');
-            if (legacyDownloadsContainer.classList.contains('expanded')) {
-                viewAllDownloadsBtn.innerHTML = 'Hide Legacy Downloads <i class="fas fa-arrow-up"></i>';
-                hiddenLegacyDownloadsItems.forEach(item => {
-                    observer.observe(item);
-                });
-            } else {
-                viewAllDownloadsBtn.innerHTML = 'View All Downloads <i class="fas fa-arrow-right"></i>';
-                hiddenLegacyDownloadsItems.forEach(item => {
-                    item.classList.remove('is-visible');
-                    observer.unobserve(item);
-                });
-            }
-        });
-
-        viewAllExtensionsBtn.addEventListener('click', () => {
-            legacyExtensionsContainer.classList.toggle('expanded');
-            if (legacyExtensionsContainer.classList.contains('expanded')) {
-                viewAllExtensionsBtn.innerHTML = 'Hide Legacy Extensions <i class="fas fa-arrow-up"></i>';
-                hiddenLegacyExtensionsItems.forEach(item => {
-                    observer.observe(item);
-                });
-            } else {
-                viewAllExtensionsBtn.innerHTML = 'View All Extensions <i class="fas fa-arrow-right"></i>';
-                hiddenLegacyExtensionsItems.forEach(item => {
-                    item.classList.remove('is-visible');
-                    observer.unobserve(item);
-                });
-            }
-        });
     });
   </script>
 </body>
