@@ -903,7 +903,7 @@
     /* General info panel styling */
     .info-panel {
         background: var(--color-dark-alt);
-        padding: 2.5rem;
+        padding: 3rem; /* Increased padding */
         border-radius: 16px;
         text-align: center;
         margin: 2rem auto;
@@ -1212,7 +1212,7 @@
           <li class="nav-item"><a href="#" class="nav-link" id="allModsNavLink">All Mods</a></li>
           <li class="nav-item"><a href="#" class="nav-link" id="licenseNavLink">License</a></li>
           <li class="nav-item">
-            <a href="#donate" class="nav-link" style="color: #FFDD00;">
+            <a href="#" class="nav-link" id="donateNavLink" style="color: #FFDD00;">
               <i class="fas fa-hand-holding-usd"></i> Donate
             </a>
           </li>
@@ -1481,25 +1481,6 @@
             </div>
         </div>
     </section>
-
-    <section id="donate" class="downloads-section" style="background: var(--color-dark);">
-        <div class="container text-center">
-            <h2 class="section-title animate-fade-in-up">Support Glacier Client</h2>
-            <div class="info-panel animate-fade-in-up delay-1">
-                <p class="text-lg text-color-text-alt mb-4">
-                    Your support helps us continue developing and improving Glacier Client, bringing you the best Minecraft Bedrock Edition experience.
-                </p>
-                <div class="home-buttons justify-center mt-8">
-                    <a href="https://paypal.me/PepeOnPayPal" class="download-button" target="_blank" style="background-color: #0070BA; color: #FFFFFF; box-shadow: 0 5px 15px rgba(0, 112, 186, 0.4);">
-                        <i class="fab fa-paypal"></i> Donate via PayPal
-                    </a>
-                    <a href="https://ko-fi.com/pepeonkofi" class="download-button" target="_blank" style="background-color: #FF5E5B; color: #FFFFFF; box-shadow: 0 5px 15px rgba(255, 94, 91, 0.4);">
-                        <i class="fas fa-mug-hot"></i> Donate via Ko-fi
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
   </main>
 
   <section id="faq-overlay" class="mods-section">
@@ -1585,6 +1566,29 @@
     </div>
   </section>
 
+  <section id="donate-overlay" class="mods-section">
+    <button class="close-mods-btn" id="closeDonateBtn"><i class="fas fa-times"></i></button>
+    <div class="container">
+      <div class="overlay-header animate-fade-in-up">
+        <h1>Support Glacier Client</h1>
+        <p>Your support helps us continue developing and improving Glacier Client, bringing you the best Minecraft Bedrock Edition experience.</p>
+      </div>
+      <div class="info-panel animate-fade-in-up delay-1">
+          <p class="text-lg text-color-text-alt mb-8"> <!-- Adjusted margin-bottom to mb-8 -->
+              Every contribution, no matter how small, makes a significant difference in our ability to maintain and enhance Glacier Client. Thank you for being a part of our journey!
+          </p>
+          <div class="home-buttons justify-center mt-12"> <!-- Adjusted margin-top to mt-12 -->
+              <a href="https://paypal.me/PepeOnPayPal" class="download-button" target="_blank" style="background-color: #0070BA; color: #FFFFFF; box-shadow: 0 5px 15px rgba(0, 112, 186, 0.4);">
+                  <i class="fab fa-paypal"></i> Donate via PayPal
+              </a>
+              <a href="https://ko-fi.com/pepeonkofi" class="download-button" target="_blank" style="background-color: #FF5E5B; color: #FFFFFF; box-shadow: 0 5px 15px rgba(255, 94, 91, 0.4);">
+                  <i class="fas fa-mug-hot"></i> Donate via Ko-fi
+              </a>
+          </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="main-footer">
     <div class="container footer-container">
       <div class="footer-social">
@@ -1623,6 +1627,10 @@
         const licenseOverlay = document.getElementById('license-overlay');
         const closeLicenseBtn = document.getElementById('closeLicenseBtn');
 
+        const donateNavLink = document.getElementById('donateNavLink');
+        const donateOverlay = document.getElementById('donate-overlay');
+        const closeDonateBtn = document.getElementById('closeDonateBtn');
+
         const modulesCountElement = document.getElementById('modulesCount');
         const modsGrid = document.getElementById('modsGrid');
         const filterButtons = document.querySelectorAll('.filter-button');
@@ -1646,7 +1654,8 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    if (!entry.target.closest('.mods-section') && !entry.target.closest('#faq-overlay')) {
+                    // Only unobserve if it's not part of an overlay section
+                    if (!entry.target.closest('.mods-section')) {
                         obs.unobserve(entry.target);
                     }
                 }
@@ -1763,7 +1772,7 @@
         function toggleOverlay(overlayElement, show) {
             if (show) {
                 // Close other overlays if open
-                [modsSection, faqOverlay, licenseOverlay].forEach(overlay => {
+                [modsSection, faqOverlay, licenseOverlay, donateOverlay].forEach(overlay => {
                     if (overlay !== overlayElement && overlay.classList.contains('is-open')) {
                         overlay.classList.remove('is-open');
                     }
@@ -1814,6 +1823,15 @@
             toggleOverlay(licenseOverlay, false);
         });
 
+        donateNavLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleOverlay(donateOverlay, true);
+        });
+
+        closeDonateBtn.addEventListener('click', () => {
+            toggleOverlay(donateOverlay, false);
+        });
+
         function renderMods(modsToDisplay) {
             modsGrid.innerHTML = '';
             if (modsToDisplay.length === 0) {
@@ -1829,7 +1847,7 @@
                 const tagsHtml = mod.tags.map(tag => `<span class="mod-tag">${tag}</span>`).join('');
 
                 modCard.innerHTML = `
-                    <img src="${mod.icon}" alt="${mod.title} Icon" class="mod-icon" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/80x80/7289DA/FFFFFF?text=Mod';" />
+                    <img src="${mod.icon}" alt="${mod.title} Icon" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/80x80/7289DA/FFFFFF?text=Mod';" />
                     <h3 class="mod-title">${mod.title}</h3>
                     <p class="mod-description">${mod.description}</p>
                     <div class="mod-tags">${tagsHtml}</div>
