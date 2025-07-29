@@ -74,7 +74,7 @@
 
     .nav-list {
         display: flex;
-        gap: 2rem;
+        gap: 1.2rem; /* Adjusted gap for PC header to fit more items */
         list-style: none;
     }
 
@@ -877,6 +877,38 @@
         font-size: 0.9rem;
     }
 
+    /* New panel styling */
+    .info-panel {
+        background: var(--color-dark-alt);
+        padding: 2.5rem;
+        border-radius: 16px;
+        text-align: center;
+        margin: 2rem auto; /* Center the panel */
+        max-width: 800px; /* Limit width */
+        border: 1px solid rgba(114, 137, 218, 0.2);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 20px rgba(114, 137, 218, 0.4); /* Accent glow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .info-panel:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 30px rgba(114, 137, 218, 0.6);
+    }
+
+    .info-panel p {
+        font-size: 1.1rem;
+        color: var(--color-text-alt);
+        line-height: 1.8;
+    }
+
+    .info-panel ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin-top: 1rem;
+        text-align: left; /* Align list items left */
+        color: var(--color-text-alt);
+    }
+
     @media (max-width: 768px) {
         .header-container {
             padding: 0 1rem;
@@ -1040,6 +1072,15 @@
             justify-content: flex-start;
             width: 100%;
         }
+
+        .info-panel {
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 90%;
+        }
+        .info-panel p, .info-panel ul {
+            font-size: 1rem;
+        }
     }
 
     @media (max-width: 480px) {
@@ -1145,6 +1186,12 @@
           <li class="nav-item"><a href="#downloads" class="nav-link">Downloads</a></li>
           <li class="nav-item"><a href="#" class="nav-link" id="faqNavLink">FAQ</a></li>
           <li class="nav-item"><a href="#" class="nav-link" id="allModsNavLink">All Mods</a></li>
+          <li class="nav-item"><a href="#" class="nav-link" id="licenseNavLink">License</a></li>
+          <li class="nav-item">
+            <a href="#donate" class="nav-link" style="color: #FFDD00;">
+              <i class="fas fa-hand-holding-usd"></i> Donate
+            </a>
+          </li>
         </ul>
       </nav>
       <div class="mobile-menu-toggle">
@@ -1183,14 +1230,16 @@
         </div>
         <div class="discord-text animate-fade-in-up delay-2">
           <h2>Join Our Discord Community!</h2>
-          <p>Connect with other Glacier Client users, get support, share your creations, and stay up-to-date with the latest news and updates.</p>
-          <p>Our community is the best place to:</p>
-          <ul class="list-disc list-inside text-color-text-alt mb-4">
-            <li>Get help with installation and troubleshooting.</li>
-            <li>Suggest new features and modules.</li>
-            <li>Participate in events and giveaways.</li>
-            <li>Chat directly with the developers.</li>
-          </ul>
+          <div class="info-panel animate-fade-in-up delay-3">
+            <p>Connect with other Glacier Client users, get support, share your creations, and stay up-to-date with the latest news and updates.</p>
+            <p>Our community is the best place to:</p>
+            <ul>
+              <li>Get help with installation and troubleshooting.</li>
+              <li>Suggest new features and modules.</li>
+              <li>Participate in events and giveaways.</li>
+              <li>Chat directly with the developers.</li>
+            </ul>
+          </div>
           <a href="https://dsc.gg/glacierclientmcbe" class="download-button" style="background-color: #5865F2; box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);">
             <i class="fab fa-discord"></i> Join Discord Now!
           </a>
@@ -1408,6 +1457,25 @@
             </div>
         </div>
     </section>
+
+    <section id="donate" class="downloads-section" style="background: var(--color-dark);">
+        <div class="container text-center">
+            <h2 class="section-title animate-fade-in-up">Support Glacier Client</h2>
+            <div class="info-panel animate-fade-in-up delay-1">
+                <p class="text-lg text-color-text-alt mb-4">
+                    Your support helps us continue developing and improving Glacier Client, bringing you the best Minecraft Bedrock Edition experience.
+                </p>
+            </div>
+            <div class="home-buttons justify-center mt-8 animate-fade-in-up delay-2">
+                <a href="https://paypal.me/PepeOnPayPal" class="download-button" target="_blank" style="background-color: #0070BA; color: #FFFFFF; box-shadow: 0 5px 15px rgba(0, 112, 186, 0.4);">
+                    <i class="fab fa-paypal"></i> Donate via PayPal
+                </a>
+                <a href="https://ko-fi.com/pepeonkofi" class="download-button" target="_blank" style="background-color: #FF5E5B; color: #FFFFFF; box-shadow: 0 5px 15px rgba(255, 94, 91, 0.4);">
+                    <i class="fas fa-mug-hot"></i> Donate via Ko-fi
+                </a>
+            </div>
+        </div>
+    </section>
   </main>
 
   <section id="faq-overlay" class="mods-section">
@@ -1582,6 +1650,49 @@
     </div>
   </section>
 
+  <section id="license-overlay" class="mods-section">
+    <button class="close-mods-btn" id="closeLicenseBtn"><i class="fas fa-times"></i></button>
+    <div class="container">
+      <div class="overlay-header animate-fade-in-up">
+        <h1>Glacier Client License</h1>
+        <p>The following outlines what you are permitted and not permitted to do with Glacier Client.</p>
+      </div>
+      <div class="faq-container">
+        <div class="faq-item animate-fade-in-up delay-1">
+          <details class="faq-card" open>
+            <summary class="faq-question">
+              <span>What You Can Do</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <ul>
+                <li>Review the client, but please refrain from using Mediafire links; utilize our official Discord invite instead.</li>
+                <li>Utilize code or content from this project in your own private pack for non-public use.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item animate-fade-in-up delay-2">
+          <details class="faq-card" open>
+            <summary class="faq-question">
+              <span>What You Cannot Do</span>
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="faq-answer">
+              <ul>
+                <li>Defame Glacier Client by misusing the mod, spreading misinformation, or engaging in any defamatory activity.</li>
+                <li>Steal or use content from this resource pack for public distribution without explicit permission.</li>
+                <li>Use the draggable mods saving method without giving clear credit to Glacier Client (tag @everyone with our server link). Unauthorized use will result in legal action to remove your pack.</li>
+              </ul>
+              <p>Respecting this license is crucial to support the community and the ongoing efforts of our developers.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="main-footer">
     <div class="container footer-container">
       <div class="footer-social">
@@ -1598,7 +1709,9 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    let allMods = []; // Declare allMods globally
+
+    document.addEventListener('DOMContentLoaded', async () => {
         const menuToggle = document.querySelector('.mobile-menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
         const header = document.querySelector('.main-header');
@@ -1611,6 +1724,10 @@
         const faqNavLink = document.getElementById('faqNavLink');
         const faqOverlay = document.getElementById('faq-overlay');
         const closeFaqBtn = document.getElementById('closeFaqBtn');
+
+        const licenseNavLink = document.getElementById('licenseNavLink');
+        const licenseOverlay = document.getElementById('license-overlay');
+        const closeLicenseBtn = document.getElementById('closeLicenseBtn');
 
         const modulesCountElement = document.getElementById('modulesCount');
         const modsGrid = document.getElementById('modsGrid');
@@ -1647,259 +1764,24 @@
             observer.observe(element);
         });
 
-        const allMods = [
-            {
-                id: 'capephysics',
-                icon: 'assets/mods/capephysics.png',
-                title: 'Cape Physics',
-                description: 'Adds dynamic physics to player capes for enhanced realism.',
-                tags: ['Cosmetic', 'Visual'],
-                categories: ['cosmetic', 'visual']
-            },
-            {
-                id: 'armorhud',
-                icon: 'assets/mods/armorhud.png',
-                title: 'Armor HUD',
-                description: 'Displays your equipped armor on the HUD.',
-                tags: ['HUD', 'Utility', 'PvP'],
-                categories: ['hud', 'utility', 'pvp']
-            },
-            {
-                id: 'bowindicator',
-                icon: 'assets/mods/bowindicator.png',
-                title: 'Bow Indicator',
-                description: 'Shows the charge level of your bow for accurate shots.',
-                tags: ['HUD', 'PvP'],
-                categories: ['hud', 'pvp']
-            },
-            {
-                id: 'chat',
-                icon: 'assets/mods/chat.png',
-                title: 'Chat',
-                description: 'Enhances the in-game chat experience with various features.',
-                tags: ['Utility'],
-                categories: ['utility']
-            },
-            {
-                id: 'chunkborder',
-                icon: 'assets/mods/chunkborders.png',
-                title: 'Chunk Border',
-                description: 'Displays the chunk when holding a nautilus shell in offhand while in 3rd person.',
-                tags: ['Visual', 'Utility'],
-                categories: ['visual', 'utility']
-            },
-            {
-                id: 'coordinates',
-                icon: 'assets/mods/coordinates.png',
-                title: 'Coordinates',
-                description: 'Displays your current X, Y, Z coordinates on screen with other useful information.',
-                tags: ['HUD', 'Utility'],
-                categories: ['hud', 'utility']
-            },
-            {
-                id: 'crosshairchanger',
-                icon: 'assets/mods/crosshairs.png',
-                title: 'Crosshair Changer',
-                description: 'Allows you to customize the appearance of your crosshair.',
-                tags: ['Cosmetic', 'Visual', 'PvP'],
-                categories: ['cosmetic', 'visual', 'pvp']
-            },
-            {
-                id: 'dayevent',
-                icon: 'assets/mods/dayevent.png',
-                title: 'Day Event',
-                description: 'Displays in-game day events on the HUD.',
-                tags: ['Utility'],
-                categories: ['utility']
-            },
-            {
-                id: 'daycounter',
-                icon: 'assets/mods/daycounter.png',
-                title: 'Day Counter',
-                description: 'Keeps track of the number of days passed in your Minecraft world.',
-                tags: ['HUD', 'Utility'],
-                categories: ['hud', 'utility']
-            },
-            {
-                id: 'directionhud',
-                icon: 'assets/mods/directionhud.png',
-                title: 'Direction HUD',
-                description: 'Displays your current facing direction (North, South, East, West).',
-                tags: ['HUD', 'Utility'],
-                categories: ['hud', 'utility']
-            },
-            {
-                id: 'expcalculator',
-                icon: 'assets/mods/expcalculator.png',
-                title: 'Exp Calculator',
-                description: 'Calculates experience needed for the next level.',
-                tags: ['Utility'],
-                categories: ['utility']
-            },
-            {
-                id: 'forcecoords',
-                icon: 'assets/mods/forcecoords.png',
-                title: 'ForceCoords',
-                description: 'Forces coordinates display even when normally hidden.',
-                tags: ['Utility'],
-                categories: ['utility']
-            },
-            {
-                id: 'hitbox',
-                icon: 'assets/mods/hitbox.png',
-                title: 'Hitbox',
-                description: 'Displays a hitbox on the player.',
-                tags: ['Visual', 'PvP'],
-                categories: ['visual', 'pvp']
-            },
-            {
-                id: 'hitcolor',
-                icon: 'assets/mods/hitcolor.png',
-                title: 'Hit Color',
-                description: 'Changes the color of the player when getting hit.',
-                tags: ['Visual', 'PvP'],
-                categories: ['visual', 'pvp']
-            },
-            {
-                id: 'hotbar',
-                icon: 'assets/mods/hotbar.png',
-                title: 'Hotbar',
-                description: 'Customizable hotbar display with additional information.',
-                tags: ['HUD', 'Visual'],
-                categories: ['hud', 'visual']
-            },
-            {
-                id: 'hudpopup',
-                icon: 'assets/mods/hudpopup.png',
-                title: 'HUD Popup',
-                description: 'Displays bug report pop-up message on your HUD.',
-                tags: ['HUD', 'Utility'],
-                categories: ['hud', 'utility']
-            },
-            {
-                id: 'inventoryhud',
-                icon: 'assets/mods/inventoryhud.png',
-                title: 'InventoryHUD',
-                description: 'An enhanced inventory display directly on your screen.',
-                tags: ['HUD', 'Utility', 'PvP'],
-                categories: ['hud', 'utility', 'pvp']
-            },
-            {
-                id: 'itemcounter',
-                icon: 'assets/mods/itemcounter.png',
-                title: 'Item Counter',
-                description: 'Counts Arrows, Potions and Totems items in your inventory or hotbar.',
-                tags: ['HUD', 'Utility', 'PvP'],
-                categories: ['hud', 'utility', 'pvp']
-            },
-            {
-                id: 'lowdurability',
-                icon: 'assets/mods/lowdurability.png',
-                title: 'Low Durability',
-                description: 'Alerts you when your equipped items have low durability.',
-                tags: ['HUD', 'Utility', 'PvP'],
-                categories: ['hud', 'utility', 'pvp']
-            },
-            {
-                id: 'mainhandhud',
-                icon: 'assets/mods/mainhandhud.png',
-                title: 'Main Hand HUD',
-                description: 'Shows the item held in your main hand with it\'s durability.',
-                tags: ['HUD', 'Utility', 'PvP'],
-                categories: ['hud', 'utility', 'pvp']
-            },
-            {
-                id: 'offhandhud',
-                icon: 'assets/mods/offhandhud.png',
-                title: 'Offhand HUD',
-                description: 'Shows the item held in your offhand.',
-                tags: ['HUD', 'Utility', 'PvP'],
-                categories: ['hud', 'utility', 'pvp']
-            },
-            {
-                id: 'playerlist',
-                icon: 'assets/mods/playerlist.png',
-                title: 'Playerlist',
-                description: 'Displays a list of players currently in your world or server.',
-                tags: ['HUD', 'Utility'],
-                categories: ['hud', 'utility']
-            },
-            {
-                id: 'saturationdisplaychanger',
-                icon: 'assets/mods/display.png',
-                title: 'Saturation Display Changer',
-                description: 'Adds a saturated overlay on your screen.',
-                tags: ['HUD', 'Visual'],
-                categories: ['hud', 'visual']
-            },
-            {
-                id: 'serverdisplay',
-                icon: 'assets/mods/serverdisplay.png',
-                title: 'Server Display',
-                description: 'Shows information about the server you are currently on.',
-                tags: ['HUD', 'Utility'],
-                categories: ['hud', 'utility']
-            },
-            {
-                id: 'slotcounter',
-                icon: 'assets/mods/slotcounter.png',
-                title: 'Slot Counter',
-                description: 'Counts the number of occupied and empty slots in your inventory.',
-                tags: ['HUD', 'Utility'],
-                categories: ['hud', 'utility']
-            },
-            {
-                id: 'speedometer',
-                icon: 'assets/mods/speedometer.png',
-                title: 'Speedometer',
-                description: 'Displays your current movement speed in blocks per second.',
-                tags: ['HUD', 'Utility'],
-                categories: ['hud', 'utility']
-            },
-            {
-                id: 'statushud',
-                icon: 'assets/mods/statushud.png',
-                title: 'Status HUD',
-                description: 'Displays various player status.',
-                tags: ['HUD', 'Utility'],
-                categories: ['hud', 'utility']
-            },
-            {
-                id: 'targethud',
-                icon: 'assets/mods/targethud.png',
-                title: 'Target HUD',
-                description: 'Shows information about the player you are currently targeting.',
-                tags: ['HUD', 'PvP'],
-                categories: ['hud', 'pvp']
-            },
-            {
-                id: 'timerhud',
-                icon: 'assets/mods/timerhud.png',
-                title: 'Timer HUD',
-                description: 'A timer display to keep track of your session time.',
-                tags: ['HUD', 'Utility'],
-                categories: ['hud', 'utility']
-            },
-            {
-                id: 'walkdistance',
-                icon: 'assets/mods/walkdistance.png',
-                title: 'Walk Distance',
-                description: 'Displays the total distance you have walked in the game.',
-                tags: ['HUD', 'Utility'],
-                categories: ['utility']
-            },
-            {
-                id: 'waypointsplus',
-                icon: 'assets/mods/waypointsplus.png',
-                title: 'Waypoints+',
-                description: 'Waypoints, death points, green screen visual.',
-                tags: ['Utility', 'Visual'],
-                categories: ['utility', 'visual']
-            },
-        ].sort((a, b) => a.title.localeCompare(b.title));
-
-        if (modulesCountElement) {
-            modulesCountElement.textContent = `${allMods.length}+ Modules`;
+        // Fetch mods from JSON file
+        try {
+            const response = await fetch('mods.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            allMods = await response.json();
+            allMods.sort((a, b) => a.title.localeCompare(b.title)); // Sort alphabetically
+            if (modulesCountElement) {
+                modulesCountElement.textContent = `${allMods.length}+ Modules`;
+            }
+            filterAndSearchMods(); // Render mods after fetching
+        } catch (error) {
+            console.error('Error fetching mods:', error);
+            if (modulesCountElement) {
+                modulesCountElement.textContent = 'Error loading modules';
+            }
+            modsGrid.innerHTML = '<p style="color: var(--color-text-alt); text-align: center; grid-column: 1 / -1;">Failed to load mods. Please try again later.</p>';
         }
 
         menuToggle.addEventListener('click', () => {
@@ -1937,7 +1819,12 @@
                     toggleOverlay(faqOverlay, false);
                 } else if (overlayElement.id === 'faq-overlay' && modsSection.classList.contains('is-open')) {
                     toggleOverlay(modsSection, false);
+                } else if (overlayElement.id === 'license-overlay' && modsSection.classList.contains('is-open')) {
+                    toggleOverlay(modsSection, false);
+                } else if (overlayElement.id === 'license-overlay' && faqOverlay.classList.contains('is-open')) {
+                    toggleOverlay(faqOverlay, false);
                 }
+
 
                 overlayElement.classList.add('is-open');
                 document.body.classList.add('no-scroll');
@@ -1973,6 +1860,15 @@
 
         closeFaqBtn.addEventListener('click', () => {
             toggleOverlay(faqOverlay, false);
+        });
+
+        licenseNavLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleOverlay(licenseOverlay, true);
+        });
+
+        closeLicenseBtn.addEventListener('click', () => {
+            toggleOverlay(licenseOverlay, false);
         });
 
         function renderMods(modsToDisplay) {
@@ -2026,8 +1922,6 @@
         });
 
         modSearchInput.addEventListener('input', filterAndSearchMods);
-
-        filterAndSearchMods();
 
         viewAllDownloadsBtn.addEventListener('click', () => {
             legacyDownloadsContainer.classList.toggle('expanded');
