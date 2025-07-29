@@ -1,0 +1,43 @@
+[
+    {
+        "question": "Which devices are compatible with Glacier Client?",
+        "answer": "Glacier Client supports all devices running Minecraft Bedrock Edition version 1.21 or newer."
+    },
+    {
+        "question": "Is there a cost associated with using Glacier Client?",
+        "answer": "No, Glacier Client is provided completely free of charge and will remain 100% free to use."
+    },
+    {
+        "question": "Is Glacier Client safe to install and use?",
+        "answer": "Yes, Glacier Client is entirely safe. It functions as a texture pack client, not an executable or injector, minimizing security risks."
+    },
+    {
+        "question": "How can I bypass the Linkvertise download links?",
+        "answer": "Please refer to the tutorial video below for a step-by-step guide on bypassing Linkvertise links:",
+        "videoUrl": "https://www.youtube.com/embed/7Nnc5ff5840"
+    },
+    {
+        "question": "What are common reasons for Glacier Client not functioning correctly?",
+        "answer": "Potential issues preventing the client from working as expected include:<ul><li>Conflicts with other resource packs or add-ons that modify <code>player.entity.json</code> or <code>hud_screen.json</code> (e.g., \"Actions & Stuff\" packs).</li><li>Server restrictions that disallow client-side UI overrides (e.g., certain Minecraft Event servers).</li></ul><p>Ensure no conflicting packs are active and that the server permits custom UI elements.</p>"
+    },
+    {
+        "question": "How do I install Glacier Client?",
+        "answer": "Installation typically involves downloading the .mcpack file and opening it with Minecraft. Detailed instructions can be found on our Discord server or in our official documentation."
+    },
+    {
+        "question": "Can I use Glacier Client on realms or servers?",
+        "answer": "Yes, Glacier Client is designed to be compatible with both realms and most multiplayer servers. However, some servers may have restrictions on custom UI or resource packs, which could affect certain features."
+    },
+    {
+        "question": "How often is Glacier Client updated?",
+        "answer": "We strive to release updates regularly to ensure compatibility with the latest Minecraft Bedrock Edition versions, introduce new features, and address any bugs. Please check our Discord server for the most current update information."
+    },
+    {
+        "question": "Where can I report bugs or suggest features?",
+        "answer": "We encourage users to report bugs and suggest new features on our official Discord server. Your feedback is invaluable in improving Glacier Client."
+    },
+    {
+        "question": "Does Glacier Client affect game performance?",
+        "answer": "Glacier Client is designed to be lightweight and optimized for performance, with minimal to no impact on your game's frame rate or stability. It is only approximately 2MB in size."
+    }
+]
