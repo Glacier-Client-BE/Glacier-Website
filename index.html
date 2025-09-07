@@ -88,26 +88,16 @@
         padding: 0 1.5rem;
     }
 
-    .header-wrapper {
-        position: fixed;
-        top: 20px;
-        width: 100%;
-        z-index: 1000;
-        display: flex;
-        justify-content: center;
-        padding: 0 1.5rem;
-    }
-
     .main-header {
+        position: fixed;
+        top: 0;
         width: 100%;
-        max-width: 800px;
         background: rgba(26, 26, 26, 0.95);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border: 2px solid var(--color-primary);
-        border-radius: 50px;
-        transition: all 0.3s ease;
-        padding: 0 1.5rem;
+        border-bottom: 2px solid var(--color-primary);
+        z-index: 1000;
+        transition: background 0.3s ease;
     }
 
     .header-container {
@@ -147,7 +137,6 @@
         font-weight: 500;
         transition: color 0.3s ease, transform 0.2s ease;
         position: relative;
-        white-space: nowrap;
     }
 
     .nav-link:hover, .nav-link.active {
@@ -168,25 +157,6 @@
 
     .nav-link:hover::after, .nav-link.active::after {
         width: 100%;
-    }
-
-    .donate-button-pill {
-        background-color: #FFDD00;
-        color: #1A1A1A;
-        font-weight: 700;
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        text-decoration: none;
-    }
-
-    .donate-button-pill:hover {
-        background-color: #FFEA6B;
-        transform: translateY(-2px);
-    }
-    
-    .donate-button-pill::after {
-        display: none;
     }
 
     .mobile-menu-toggle {
@@ -976,17 +946,7 @@
     }
 
     @media (max-width: 768px) {
-        .header-wrapper {
-            top: 0;
-            padding: 0;
-        }
-
-        .main-header {
-            max-width: 100%;
-            border-radius: 0;
-            border-left: none;
-            border-right: none;
-            border-top: none;
+        .header-container {
             padding: 0 1rem;
         }
 
@@ -1248,37 +1208,35 @@
   </style>
 </head>
 <body>
-  <div class="header-wrapper">
-    <header class="main-header">
-      <div class="header-container">
-        <div class="brand">
-          <img src="assets/logo.png" alt="Glacier Client Logo" class="brand-logo" loading="lazy" />
-          <span class="brand-name">Glacier</span>
-        </div>
-        <nav class="nav-menu">
-          <ul class="nav-list">
-            <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="#discord" class="nav-link">Discord</a></li>
-            <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" id="downloadsNavLink">Downloads</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" id="faqNavLink">FAQ</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" id="allModsNavLink">All Mods</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" id="licenseNavLink">License</a></li>
-            <li class="nav-item">
-              <a href="#" class="nav-link donate-button-pill" id="donateNavLink">
-                <i class="fas fa-hand-holding-usd"></i> Donate
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <div class="mobile-menu-toggle">
-          <div class="menu-bar"></div>
-          <div class="menu-bar"></div>
-          <div class="menu-bar"></div>
-        </div>
+  <header class="main-header">
+    <div class="container header-container">
+      <div class="brand">
+        <img src="assets/logo.png" alt="Glacier Client Logo" class="brand-logo" loading="lazy" />
+        <span class="brand-name">Glacier</span>
       </div>
-    </header>
-  </div>
+      <nav class="nav-menu">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="#discord" class="nav-link">Discord</a></li>
+          <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
+          <li class="nav-item"><a href="#" class="nav-link" id="downloadsNavLink">Downloads</a></li>
+          <li class="nav-item"><a href="#" class="nav-link" id="faqNavLink">FAQ</a></li>
+          <li class="nav-item"><a href="#" class="nav-link" id="allModsNavLink">All Mods</a></li>
+          <li class="nav-item"><a href="#" class="nav-link" id="licenseNavLink">License</a></li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" id="donateNavLink" style="color: #FFDD00;">
+              <i class="fas fa-hand-holding-usd"></i> Donate
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="mobile-menu-toggle">
+        <div class="menu-bar"></div>
+        <div class="menu-bar"></div>
+        <div class="menu-bar"></div>
+      </div>
+    </div>
+  </header>
 
   <main id="main-content">
     <section id="home" class="home-section">
@@ -1917,3 +1875,4 @@
   </script>
 </body>
 </html>
+
