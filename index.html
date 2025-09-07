@@ -4,7 +4,59 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Glacier Client | Minecraft BE</title>
-  <link rel="icon" type="image/png" href="assets/logo.png"> <!-- Added favicon link -->
+  
+  <!-- SEO Enhancements -->
+  <meta name="description" content="Glacier Client is an optimized texture pack client for Minecraft Bedrock Edition, featuring an extensive library of mods, a draggable GUI, and lightweight performance. Download the next-gen Minecraft experience today!" />
+  <meta name="keywords" content="Minecraft, Bedrock, client, Glacier, Bedrock Edition, mods, texture pack, client, PvP, FPS, performance, client mod, bedrock client" />
+  <link rel="canonical" href="https://glacierclient.xyz" />
+  
+  <!-- Open Graph & Twitter Card for social media sharing -->
+  <meta property="og:title" content="Glacier Client | Minecraft BE" />
+  <meta property="og:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance. Download now!" />
+  <meta property="og:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
+  <meta property="og:url" content="https://glacierclient.xyz" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@glacierclientbe" />
+  <meta name="twitter:title" content="Glacier Client | Minecraft BE" />
+  <meta name="twitter:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance." />
+  <meta name="twitter:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
+
+  <!-- Schema.org JSON-LD for structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Glacier Client",
+    "url": "https://glacierclient.xyz",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://glacierclient.xyz/search?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Glacier Client",
+    "url": "https://glacierclient.xyz",
+    "logo": "https://glacierclient.xyz/assets/logo.png",
+    "sameAs": [
+      "https://dsc.gg/glacierclientmcbe",
+      "https://github.com/glacierclientmcbe",
+      "https://youtube.com/@glacierclient",
+      "https://x.com/glacierclientbe",
+      "https://www.instagram.com/glacierclientmcbe"
+    ]
+  }
+  </script>
+
+  <link rel="icon" type="image/png" href="assets/logo.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
@@ -75,7 +127,7 @@
 
     .nav-list {
         display: flex;
-        gap: 1.2rem; /* Adjusted gap for PC header to fit more items */
+        gap: 1.2rem;
         list-style: none;
     }
 
@@ -381,8 +433,8 @@
 
     .close-mods-btn {
         position: absolute;
-        top: 30px; /* Increased from 20px */
-        right: 30px; /* Increased from 20px */
+        top: 30px;
+        right: 30px;
         background: none;
         border: none;
         font-size: 2rem;
@@ -480,10 +532,10 @@
     .mod-icon {
         width: 80px;
         height: 80px;
-        display: block; /* Ensure it behaves as a block element */
-        margin: 0 auto 1rem; /* Center the block image horizontally and add bottom margin */
+        display: block;
+        margin: 0 auto 1rem;
         border-radius: 8px;
-        object-fit: cover; /* Fill the 80x80 area, cropping if necessary */
+        object-fit: cover;
     }
 
     .mod-title {
@@ -616,14 +668,14 @@
 
     .discord-widget-panel {
         background: var(--color-dark-alt);
-        padding: 1.5rem; /* Reduced padding */
+        padding: 1.5rem;
         border-radius: 16px;
         border: 1px solid rgba(114, 137, 218, 0.2);
         box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 20px rgba(114, 137, 218, 0.4);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         flex-shrink: 0;
-        width: 380px; /* Slightly increased width */
-        height: 530px; /* Slightly increased height */
+        width: 380px;
+        height: 530px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -638,7 +690,7 @@
     .discord-widget-panel iframe {
         width: 100%;
         height: 100%;
-        border-radius: 12px; /* Match panel border-radius */
+        border-radius: 12px;
     }
 
     .discord-text-panel {
@@ -652,7 +704,7 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* Distribute content and push button down */
+        justify-content: space-between;
     }
 
     .discord-text-panel:hover {
@@ -665,7 +717,7 @@
         color: var(--color-primary);
         margin-bottom: 1rem;
         text-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
-        text-align: center; /* Center the title */
+        text-align: center;
     }
 
     .discord-text-panel p, .discord-text-panel ul {
@@ -720,10 +772,9 @@
         font-size: 0.9rem;
     }
 
-    /* General info panel styling */
     .info-panel {
         background: var(--color-dark-alt);
-        padding: 3rem; /* Increased padding */
+        padding: 3rem;
         border-radius: 16px;
         text-align: center;
         margin: 2rem auto;
@@ -752,7 +803,6 @@
         color: var(--color-text-alt);
     }
 
-    /* Downloads Overlay Specific Styles */
     .downloads-overlay-content {
         max-width: 900px;
         margin: 0 auto;
@@ -1158,21 +1208,10 @@
   </style>
 </head>
 <body>
-  <meta property="og:title" content="Glacier Client | Minecraft BE" />
-  <meta property="og:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, draggable GUI, and lightweight performance." />
-  <meta property="og:image" content="assets/mod_menu.png" />
-  <meta property="og:url" content="https://glacierclient.xyz" />
-  <meta property="og:type" content="website" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@glacierclientbe" />
-  <meta name="twitter:title" content="Glacier Client | Minecraft BE" />
-  <meta name="twitter:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, draggable GUI, and lightweight performance." />
-  <meta name="twitter:image" content="assets/mod_menu.png" />
   <header class="main-header">
     <div class="container header-container">
       <div class="brand">
-        <img src="assets/logo.png" alt="Glacier Logo" class="brand-logo" loading="lazy" />
+        <img src="assets/logo.png" alt="Glacier Client Logo" class="brand-logo" loading="lazy" />
         <span class="brand-name">Glacier</span>
       </div>
       <nav class="nav-menu">
@@ -1215,7 +1254,7 @@
           </div>
         </div>
         <div class="interface-preview">
-          <img src="assets/mod_menu.png" alt="Mod Interface" class="interface-image animate-float" loading="lazy" />
+          <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu and Draggable HUD" class="interface-image animate-float" loading="lazy" />
         </div>
       </div>
     </section>
@@ -1248,21 +1287,21 @@
         <h2 class="section-title animate-fade-in-up">Core Features</h2>
         <div class="features-grid">
           <div class="feature-card animate-fade-in-up delay-1">
-            <img src="assets/icons/modules.png" alt="Modules" class="feature-icon" loading="lazy" />
+            <img src="assets/icons/modules.png" alt="Glacier Client extensive modules" class="feature-icon" loading="lazy" />
             <div class="feature-content">
                 <h3 class="feature-title" id="modulesCount"></h3>
                 <p class="feature-desc">Extensive modules with real-time configuration</p>
             </div>
           </div>
           <div class="feature-card animate-fade-in-up delay-2">
-            <img src="assets/icons/gui.png" alt="GUI" class="feature-icon" loading="lazy" />
+            <img src="assets/icons/gui.png" alt="Draggable GUI" class="feature-icon" loading="lazy" />
             <div class="feature-content">
                 <h3 class="feature-title">Draggable Mods</h3>
                 <p class="feature-desc">Modules are movable to change the place as your wish.</p>
             </div>
           </div>
           <div class="feature-card animate-fade-in-up delay-3">
-            <img src="assets/icons/user.png" alt="Optimized" class="feature-icon" loading="lazy" />
+            <img src="assets/icons/user.png" alt="Lightweight and optimized client" class="feature-icon" loading="lazy" />
             <div class="feature-content">
                 <h3 class="feature-title">Lightweight</h3>
                 <p class="feature-desc">Only 2MB with zero performance impact</p>
@@ -1287,11 +1326,9 @@
       </div>
 
       <div id="clients-tab-content" class="tab-content active animate-fade-in-up delay-2">
-        <!-- Client downloads will be rendered here -->
       </div>
 
       <div id="extensions-tab-content" class="tab-content animate-fade-in-up delay-2">
-        <!-- Extension downloads will be rendered here -->
       </div>
     </div>
   </section>
@@ -1304,7 +1341,6 @@
         <p>Comprehensive answers to common inquiries about Glacier Client.</p>
       </div>
       <div class="faq-container" id="faqContainer">
-        <!-- FAQ items will be loaded here from faq.json -->
       </div>
     </div>
   </section>
@@ -1387,10 +1423,10 @@
         <p>Your support helps us continue developing and improving Glacier Client, bringing you the best Minecraft Bedrock Edition experience.</p>
       </div>
       <div class="info-panel animate-fade-in-up delay-1">
-          <p class="text-lg text-color-text-alt mb-10"> <!-- Adjusted margin-bottom to mb-10 -->
+          <p class="text-lg text-color-text-alt mb-10">
               Every contribution, no matter how small, makes a significant difference in our ability to maintain and enhance Glacier Client. Thank you for being a part of our journey!
           </p>
-          <div class="home-buttons justify-center mt-12"> <!-- Adjusted margin-top to mt-12 -->
+          <div class="home-buttons justify-center mt-12">
               <a href="https://paypal.me/PepeOnPayPal" class="download-button" target="_blank" style="background-color: #0070BA; color: #FFFFFF; box-shadow: 0 5px 15px rgba(0, 112, 186, 0.4);">
                   <i class="fab fa-paypal"></i> Donate via PayPal
               </a>
@@ -1418,16 +1454,16 @@
   </footer>
 
   <script>
-    let allMods = []; // Declare allMods globally
-    let allFaqs = []; // Declare allFaqs globally
-    let allDownloads = null; // To store fetched downloads data
+    let allMods = [];
+    let allFaqs = [];
+    let allDownloads = null;
 
     document.addEventListener('DOMContentLoaded', async () => {
         const menuToggle = document.querySelector('.mobile-menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
         const header = document.querySelector('.main-header');
         const currentYearSpan = document.getElementById('currentYear');
-        
+
         const allModsNavLink = document.getElementById('allModsNavLink');
         const modsSection = document.getElementById('all-mods');
         const closeModsBtn = document.getElementById('closeModsBtn');
@@ -1445,7 +1481,6 @@
         const donateOverlay = document.getElementById('donate-overlay');
         const closeDonateBtn = document.getElementById('closeDonateBtn');
 
-        // New Downloads Overlay elements
         const downloadsNavLink = document.getElementById('downloadsNavLink');
         const homeDownloadButton = document.getElementById('homeDownloadButton');
         const downloadsOverlay = document.getElementById('downloads-overlay');
@@ -1469,7 +1504,6 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    // Only unobserve if it's not part of an overlay section
                     if (!entry.target.closest('.mods-section')) {
                         obs.unobserve(entry.target);
                     }
@@ -1482,18 +1516,17 @@
             observer.observe(element);
         });
 
-        // Fetch mods from JSON file
         try {
-            const response = await fetch('assets/data/mods.json'); // Updated path
+            const response = await fetch('assets/data/mods.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             allMods = await response.json();
-            allMods.sort((a, b) => a.title.localeCompare(b.title)); // Sort alphabetically
+            allMods.sort((a, b) => a.title.localeCompare(b.title));
             if (modulesCountElement) {
                 modulesCountElement.textContent = `${allMods.length}+ Modules`;
             }
-            filterAndSearchMods(); // Render mods after fetching
+            filterAndSearchMods();
         } catch (error) {
             console.error('Error fetching mods:', error);
             if (modulesCountElement) {
@@ -1502,27 +1535,25 @@
             modsGrid.innerHTML = '<p style="color: var(--color-text-alt); text-align: center; grid-column: 1 / -1;">Failed to load mods. Please try again later.</p>';
         }
 
-        // Fetch FAQs from JSON file
         try {
-            const response = await fetch('assets/data/faq.json'); // Updated path
+            const response = await fetch('assets/data/faq.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             allFaqs = await response.json();
-            renderFaqs(allFaqs); // Render FAQs after fetching
+            renderFaqs(allFaqs);
         } catch (error) {
             console.error('Error fetching FAQs:', error);
             faqContainer.innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load FAQs. Please try again later.</p>';
         }
 
-        // Fetch Downloads from JSON file
         try {
-            const response = await fetch('assets/data/downloads.json'); // Updated path
+            const response = await fetch('assets/data/downloads.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             allDownloads = await response.json();
-            renderDownloads('clients'); // Render clients tab by default
+            renderDownloads('clients');
         } catch (error) {
             console.error('Error fetching downloads:', error);
             clientsTabContent.innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load downloads. Please try again later.</p>';
@@ -1583,7 +1614,6 @@
                 observer.observe(faqItem);
             });
 
-            // Re-attach toggle logic for new FAQ items
             const newFaqItems = faqContainer.querySelectorAll('.faq-card');
             newFaqItems.forEach(item => {
                 item.addEventListener('toggle', () => {
@@ -1602,11 +1632,10 @@
             if (!allDownloads) return;
 
             const targetElement = category === 'clients' ? clientsTabContent : extensionsTabContent;
-            targetElement.innerHTML = ''; // Clear previous content
+            targetElement.innerHTML = '';
 
             const data = allDownloads[category];
 
-            // Render Working Versions
             if (data.working && data.working.length > 0) {
                 const workingList = document.createElement('div');
                 workingList.classList.add('version-list');
@@ -1641,14 +1670,12 @@
                 });
             }
 
-            // Render Separator if both working and legacy exist
             if (data.working && data.working.length > 0 && data.legacy && data.legacy.length > 0) {
                 const separator = document.createElement('div');
                 separator.classList.add('separator');
                 targetElement.appendChild(separator);
             }
 
-            // Render Legacy Versions
             if (data.legacy && data.legacy.length > 0) {
                 const legacyList = document.createElement('div');
                 legacyList.classList.add('version-list');
@@ -1696,18 +1723,17 @@
             document.querySelectorAll('.tab-content').forEach(content => {
                 if (content.id === `${selectedTab}-tab-content`) {
                     content.classList.add('active');
-                    // Re-observe elements for animation when tab becomes active
                     const animatedElementsInTab = content.querySelectorAll('.animate-fade-in-up');
                     animatedElementsInTab.forEach(element => {
-                        element.classList.remove('is-visible'); // Reset animation state
-                        observer.unobserve(element); // Unobserve to ensure re-trigger
-                        observer.observe(element); // Re-observe
+                        element.classList.remove('is-visible');
+                        observer.unobserve(element);
+                        observer.observe(element);
                     });
                 } else {
                     content.classList.remove('active');
                 }
             });
-            renderDownloads(selectedTab); // Re-render content for the selected tab
+            renderDownloads(selectedTab);
         }
 
         tabButtons.forEach(button => {
@@ -1716,10 +1742,8 @@
             });
         });
 
-
         function toggleOverlay(overlayElement, show) {
             if (show) {
-                // Close other overlays if open
                 [modsSection, faqOverlay, licenseOverlay, donateOverlay, downloadsOverlay].forEach(overlay => {
                     if (overlay !== overlayElement && overlay.classList.contains('is-open')) {
                         overlay.classList.remove('is-open');
@@ -1731,8 +1755,8 @@
                 const overlayAnimatedElements = overlayElement.querySelectorAll('.animate-fade-in-up');
                 overlayAnimatedElements.forEach(element => {
                     element.classList.remove('is-visible');
-                    observer.unobserve(element); // Unobserve to reset animation
-                    observer.observe(element); // Re-observe to trigger animation
+                    observer.unobserve(element);
+                    observer.observe(element);
                 });
             } else {
                 overlayElement.classList.remove('is-open');
@@ -1744,7 +1768,6 @@
             }
         }
 
-        // Event listeners for opening overlays
         allModsNavLink.addEventListener('click', (e) => {
             e.preventDefault();
             toggleOverlay(modsSection, true);
@@ -1768,16 +1791,15 @@
         downloadsNavLink.addEventListener('click', (e) => {
             e.preventDefault();
             toggleOverlay(downloadsOverlay, true);
-            switchDownloadsTab('clients'); // Open to clients tab by default
+            switchDownloadsTab('clients');
         });
 
         homeDownloadButton.addEventListener('click', (e) => {
             e.preventDefault();
             toggleOverlay(downloadsOverlay, true);
-            switchDownloadsTab('clients'); // Open to clients tab by default
+            switchDownloadsTab('clients');
         });
 
-        // Event listeners for closing overlays
         closeModsBtn.addEventListener('click', () => {
             toggleOverlay(modsSection, false);
         });
@@ -1853,3 +1875,4 @@
   </script>
 </body>
 </html>
+
