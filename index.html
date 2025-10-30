@@ -4,13 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Glacier Client | Next-Gen Minecraft Bedrock Experience</title>
-  
-  <!-- SEO Enhancements -->
   <meta name="description" content="Glacier Client is an optimized texture pack client for Minecraft Bedrock Edition, featuring an extensive library of mods, a draggable GUI, and lightweight performance. Download the next-gen Minecraft experience today!" />
   <meta name="keywords" content="Minecraft, Bedrock, client, Glacier, Bedrock Edition, mods, texture pack, client, PvP, FPS, performance, client mod, bedrock client" />
   <link rel="canonical" href="https://glacierclient.xyz" />
-  
-  <!-- Open Graph & Twitter Card for social media sharing -->
   <meta property="og:title" content="Glacier Client | Minecraft BE" />
   <meta property="og:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance. Download now!" />
   <meta property="og:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
@@ -21,8 +17,6 @@
   <meta name="twitter:title" content="Glacier Client | Minecraft BE" />
   <meta name="twitter:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance." />
   <meta name="twitter:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
-
-  <!-- Schema.org JSON-LD for structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -55,7 +49,6 @@
     ]
   }
   </script>
-
   <link rel="icon" type="image/png" href="assets/logo.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -105,7 +98,6 @@
         padding: 0 1.5rem;
     }
 
-    /* Unified Header - Same for all devices */
     .main-header {
         position: fixed;
         top: 1.5rem;
@@ -159,6 +151,10 @@
         background-clip: text;
     }
 
+    .nav-menu {
+        display: flex;
+    }
+
     .nav-list {
         display: flex;
         gap: 1.5rem;
@@ -207,12 +203,26 @@
         box-shadow: 0 4px 15px rgba(255, 221, 0, 0.3);
     }
 
+    .nav-donate::after {
+        display: none;
+    }
+
     .nav-donate:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(255, 221, 0, 0.4);
     }
 
-    /* Hero Section */
+    .hamburger-menu {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--color-text);
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        z-index: 1001;
+    }
+
     .hero-section {
         padding: 160px 0 100px;
         background: linear-gradient(135deg, rgba(15, 15, 19, 0.9) 0%, rgba(26, 26, 34, 0.9) 100%), url('assets/BG.png');
@@ -357,7 +367,6 @@
         box-shadow: var(--shadow-lg), var(--shadow-glow);
     }
 
-    /* Features Section */
     .features-section {
         padding: 6rem 0;
         background: var(--color-darker);
@@ -490,7 +499,6 @@
         line-height: 1.7;
     }
 
-    /* Gallery Section */
     .gallery-section {
         padding: 6rem 0;
         background: var(--color-dark);
@@ -556,7 +564,6 @@
         color: var(--color-text-alt);
     }
 
-    /* Community Section */
     .community-section {
         padding: 6rem 0;
         background: var(--color-darker);
@@ -643,7 +650,6 @@
         margin-bottom: 0.5rem;
     }
 
-    /* Footer */
     .main-footer {
         border-top: 1px solid rgba(114, 137, 218, 0.2);
         padding: 3rem 0 2rem;
@@ -682,22 +688,6 @@
         border-radius: 10px;
     }
 
-    .footer-nav {
-        display: flex;
-        gap: 2rem;
-        flex-wrap: wrap;
-    }
-
-    .footer-nav a {
-        color: var(--color-text-alt);
-        text-decoration: none;
-        transition: var(--transition);
-    }
-
-    .footer-nav a:hover {
-        color: var(--color-primary);
-    }
-
     .footer-social {
         display: flex;
         gap: 1.5rem;
@@ -714,6 +704,7 @@
         align-items: center;
         justify-content: center;
         background: rgba(255, 255, 255, 0.05);
+        text-decoration: none;
     }
 
     .social-link:hover {
@@ -730,7 +721,6 @@
         width: 100%;
     }
 
-    /* Animations */
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
@@ -767,7 +757,6 @@
         animation: float 6s ease-in-out infinite;
     }
 
-    /* Overlay Modals */
     .overlay {
         position: fixed;
         top: 0;
@@ -841,7 +830,6 @@
         overflow: hidden;
     }
 
-    /* All Mods Overlay */
     .mods-overlay {
         position: fixed;
         top: 0;
@@ -980,7 +968,6 @@
         font-weight: 500;
     }
 
-    /* Downloads Overlay */
     .downloads-overlay-content {
         max-width: 900px;
         margin: 0 auto;
@@ -1123,7 +1110,6 @@
         max-width: 600px;
     }
 
-    /* FAQ Overlay */
     .faq-container {
         max-width: 800px;
         margin: 0 auto;
@@ -1203,7 +1189,6 @@
         border: 0;
     }
 
-    /* License Overlay */
     .license-overlay {
         position: fixed;
         top: 0;
@@ -1229,16 +1214,15 @@
         transition: transform 0.5s ease-out, opacity 0.5s ease-out;
     }
 
-    /* Responsive Design */
     @media (max-width: 1024px) {
         .hero-container {
             gap: 3rem;
         }
-        
+
         .hero-title {
             font-size: 3rem;
         }
-        
+
         .community-content {
             gap: 3rem;
         }
@@ -1248,51 +1232,78 @@
         .main-header {
             width: 95%;
         }
-        
+
+        .nav-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(15, 15, 19, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .nav-menu.active {
+            display: flex;
+        }
+
         .nav-list {
-            gap: 1rem;
+            flex-direction: column;
+            gap: 2rem;
+            text-align: center;
         }
-        
+
         .nav-link {
-            font-size: 0.85rem;
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
         }
-        
+
+        .hamburger-menu {
+            display: block;
+        }
+
         .hero-section {
             padding: 140px 0 80px;
         }
-        
+
         .hero-container {
             grid-template-columns: 1fr;
             text-align: center;
             gap: 3rem;
         }
-        
+
         .hero-content {
             align-items: center;
         }
-        
+
         .hero-title {
             font-size: 2.5rem;
         }
-        
+
         .hero-subtext {
             font-size: 1.1rem;
             max-width: 100%;
         }
-        
+
         .hero-buttons {
             justify-content: center;
         }
-        
+
         .section-title {
             font-size: 2rem;
         }
-        
+
         .features-grid {
             grid-template-columns: 1fr;
             gap: 2rem;
         }
-        
+
         .feature-card {
             padding: 2rem;
             flex-direction: row;
@@ -1300,46 +1311,42 @@
             align-items: flex-start;
             gap: 1.5rem;
         }
-        
+
         .feature-content {
             align-items: flex-start;
         }
-        
+
         .feature-icon {
             width: 60px;
             height: 60px;
         }
-        
+
         .community-content {
             flex-direction: column;
         }
-        
+
         .community-widget, .community-text {
             width: 100%;
             max-width: 500px;
         }
-        
+
         .community-text {
             padding: 2rem;
         }
-        
+
         .community-text h2 {
             font-size: 2rem;
         }
-        
+
         .footer-content {
             flex-direction: column;
             text-align: center;
         }
-        
+
         .footer-brand {
             align-items: center;
         }
-        
-        .footer-nav {
-            justify-content: center;
-        }
-        
+
         .overlay-header h1 {
             font-size: 2.2rem;
         }
@@ -1390,64 +1397,43 @@
         .main-header {
             width: 95%;
         }
-        
+
         .header-container {
             padding: 0.75rem 1rem;
         }
-        
-        .nav-list {
-            gap: 0.75rem;
-        }
-        
-        .nav-link {
-            font-size: 0.8rem;
-            padding: 0.4rem 0.5rem;
-        }
-        
-        .nav-donate {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.8rem;
-        }
-    }
 
-    @media (max-width: 480px) {
         .hero-title {
             font-size: 2rem;
         }
-        
+
         .hero-buttons {
             flex-direction: column;
             width: 100%;
         }
-        
+
         .btn {
             width: 100%;
             justify-content: center;
         }
-        
+
         .section-title {
             font-size: 1.8rem;
         }
-        
+
         .feature-card {
             flex-direction: column;
             text-align: center;
             align-items: center;
         }
-        
+
         .feature-content {
             align-items: center;
         }
-        
+
         .community-text h2 {
             font-size: 1.8rem;
         }
-        
-        .footer-nav {
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
+
         .overlay-header h1 {
             font-size: 1.8rem;
         }
@@ -1488,14 +1474,16 @@
   </style>
 </head>
 <body>
-  <!-- Unified Header - Same for all devices -->
   <header class="main-header">
     <div class="container header-container">
       <div class="brand">
         <img src="assets/logo.png" alt="Glacier Client Logo" class="brand-logo" loading="lazy" />
         <span class="brand-name">Glacier</span>
       </div>
-      <nav class="nav-menu">
+      <button class="hamburger-menu" id="hamburgerMenu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="nav-menu" id="navMenu">
         <ul class="nav-list">
           <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
           <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
@@ -1512,7 +1500,6 @@
   </header>
 
   <main id="main-content">
-    <!-- Hero Section -->
     <section id="home" class="hero-section">
       <div class="container hero-container">
         <div class="hero-content">
@@ -1533,7 +1520,6 @@
       </div>
     </section>
 
-    <!-- Features Section -->
     <section id="features" class="features-section">
       <div class="container">
         <div class="section-header">
@@ -1566,7 +1552,6 @@
       </div>
     </section>
 
-    <!-- Gallery Section -->
     <section id="gallery" class="gallery-section">
       <div class="container">
         <div class="section-header">
@@ -1599,7 +1584,6 @@
       </div>
     </section>
 
-    <!-- Community Section -->
     <section id="community" class="community-section">
       <div class="container">
         <div class="section-header">
@@ -1630,7 +1614,6 @@
     </section>
   </main>
 
-  <!-- Downloads Overlay -->
   <section id="downloads-overlay" class="overlay">
     <button class="close-overlay-btn" id="closeDownloadsBtn"><i class="fas fa-times"></i></button>
     <div class="container downloads-overlay-content">
@@ -1652,7 +1635,6 @@
     </div>
   </section>
 
-  <!-- FAQ Overlay -->
   <section id="faq-overlay" class="overlay">
     <button class="close-overlay-btn" id="closeFaqBtn"><i class="fas fa-times"></i></button>
     <div class="container">
@@ -1665,7 +1647,6 @@
     </div>
   </section>
 
-  <!-- All Mods Overlay -->
   <section id="all-mods" class="mods-overlay">
     <button class="close-overlay-btn" id="closeModsBtn"><i class="fas fa-times"></i></button>
     <div class="container">
@@ -1693,7 +1674,6 @@
     </div>
   </section>
 
-  <!-- License Overlay -->
   <section id="license-overlay" class="license-overlay">
     <button class="close-overlay-btn" id="closeLicenseBtn"><i class="fas fa-times"></i></button>
     <div class="container">
@@ -1737,7 +1717,6 @@
     </div>
   </section>
 
-  <!-- Donate Overlay -->
   <section id="donate-overlay" class="overlay">
     <button class="close-overlay-btn" id="closeDonateBtn"><i class="fas fa-times"></i></button>
     <div class="container">
@@ -1787,17 +1766,6 @@
           <img src="assets/logo.png" alt="Glacier Client Logo" class="footer-logo" loading="lazy" />
           <span class="brand-name">Glacier Client</span>
         </div>
-        <div class="footer-nav">
-          <a href="#home">Home</a>
-          <a href="#features">Features</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#community">Community</a>
-          <a href="#" id="footerDownloadsLink">Downloads</a>
-          <a href="#" id="footerFaqLink">FAQ</a>
-          <a href="#" id="footerModsLink">All Mods</a>
-          <a href="#" id="footerLicenseLink">License</a>
-          <a href="#" id="footerDonateLink">Donate</a>
-        </div>
         <div class="footer-social">
           <a href="https://dsc.gg/glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-discord"></i></a>
           <a href="https://github.com/glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
@@ -1818,7 +1786,23 @@
     let allDownloads = null;
 
     document.addEventListener('DOMContentLoaded', async () => {
-        // Overlay functionality
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburgerMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburgerMenu.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburgerMenu.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
         const overlays = {
             downloads: document.getElementById('downloads-overlay'),
             faq: document.getElementById('faq-overlay'),
@@ -1826,31 +1810,26 @@
             license: document.getElementById('license-overlay'),
             donate: document.getElementById('donate-overlay')
         };
-        
+
         const openButtons = {
             downloads: [
                 document.getElementById('downloadsNavLink'),
-                document.getElementById('homeDownloadButton'),
-                document.getElementById('footerDownloadsLink')
+                document.getElementById('homeDownloadButton')
             ],
             faq: [
-                document.getElementById('faqNavLink'),
-                document.getElementById('footerFaqLink')
+                document.getElementById('faqNavLink')
             ],
             mods: [
-                document.getElementById('allModsNavLink'),
-                document.getElementById('footerModsLink')
+                document.getElementById('allModsNavLink')
             ],
             license: [
-                document.getElementById('licenseNavLink'),
-                document.getElementById('footerLicenseLink')
+                document.getElementById('licenseNavLink')
             ],
             donate: [
-                document.getElementById('donateNavLink'),
-                document.getElementById('footerDonateLink')
+                document.getElementById('donateNavLink')
             ]
         };
-        
+
         const closeButtons = {
             downloads: document.getElementById('closeDownloadsBtn'),
             faq: document.getElementById('closeFaqBtn'),
@@ -1858,47 +1837,41 @@
             license: document.getElementById('closeLicenseBtn'),
             donate: document.getElementById('closeDonateBtn')
         };
-        
-        // Function to open an overlay
+
         function openOverlay(overlayKey) {
-            // Close all overlays first
             Object.values(overlays).forEach(overlay => {
                 overlay.classList.remove('is-open');
             });
-            
-            // Open the requested overlay
+
             overlays[overlayKey].classList.add('is-open');
             document.body.classList.add('no-scroll');
-            
-            // Animate elements in the overlay
+
             const animatedElements = overlays[overlayKey].querySelectorAll('.animate-fade-in-up');
             animatedElements.forEach((element, index) => {
                 element.style.transitionDelay = `${0.1 * index}s`;
-                // Force reflow to restart animation
                 void element.offsetWidth;
                 element.classList.add('is-visible');
             });
         }
-        
-        // Function to close an overlay
+
         function closeOverlay(overlayKey) {
             overlays[overlayKey].classList.remove('is-open');
             document.body.classList.remove('no-scroll');
         }
-        
-        // Add event listeners to open buttons
+
         Object.keys(openButtons).forEach(key => {
             openButtons[key].forEach(button => {
                 if (button) {
                     button.addEventListener('click', (e) => {
                         e.preventDefault();
                         openOverlay(key);
+                        navMenu.classList.remove('active');
+                        hamburgerMenu.innerHTML = '<i class="fas fa-bars"></i>';
                     });
                 }
             });
         });
-        
-        // Add event listeners to close buttons
+
         Object.keys(closeButtons).forEach(key => {
             if (closeButtons[key]) {
                 closeButtons[key].addEventListener('click', () => {
@@ -1906,8 +1879,7 @@
                 });
             }
         });
-        
-        // Close overlay when clicking outside content
+
         Object.values(overlays).forEach(overlay => {
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) {
@@ -1916,11 +1888,9 @@
                 }
             });
         });
-        
-        // Set current year in footer
+
         document.getElementById('currentYear').textContent = new Date().getFullYear();
-        
-        // Intersection Observer for animations
+
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -1938,47 +1908,46 @@
             });
         }, observerOptions);
 
-        // Observe all animated elements on the main page
         const animatedElements = document.querySelectorAll('section:not(.overlay):not(.mods-overlay):not(.license-overlay) .animate-fade-in-up');
         animatedElements.forEach(element => {
             observer.observe(element);
         });
-        
-        // Smooth scrolling for anchor links
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
+
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 100,
                         behavior: 'smooth'
                     });
+                    navMenu.classList.remove('active');
+                    hamburgerMenu.innerHTML = '<i class="fas fa-bars"></i>';
                 }
             });
         });
-        
-        // Update active nav link on scroll
+
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
-        
+
         function updateActiveNavLink() {
             let current = '';
             const scrollPos = window.scrollY + 150;
-            
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
-                
+
                 if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
                     current = section.getAttribute('id');
                 }
             });
-            
+
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === `#${current}`) {
@@ -1986,13 +1955,11 @@
                 }
             });
         }
-        
+
         window.addEventListener('scroll', updateActiveNavLink);
-        
-        // Initialize modules count
+
         document.getElementById('modulesCount').textContent = '50+ Modules';
-        
-        // Load mods data and render
+
         try {
             const response = await fetch('assets/data/mods.json');
             if (!response.ok) {
@@ -2012,7 +1979,6 @@
             document.getElementById('modsGrid').innerHTML = '<p style="color: var(--color-text-alt); text-align: center; grid-column: 1 / -1;">Failed to load mods. Please try again later.</p>';
         }
 
-        // Load FAQ data and render
         try {
             const response = await fetch('assets/data/faq.json');
             if (!response.ok) {
@@ -2025,7 +1991,6 @@
             document.getElementById('faqContainer').innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load FAQs. Please try again later.</p>';
         }
 
-        // Load downloads data and render
         try {
             const response = await fetch('assets/data/downloads.json');
             if (!response.ok) {
@@ -2039,9 +2004,8 @@
             document.getElementById('extensions-tab-content').innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load extensions. Please try again later.</p>';
         }
 
-        // Downloads tab functionality
         const tabButtons = document.querySelectorAll('.downloads-tabs .tab-button');
-        
+
         function switchDownloadsTab(selectedTab) {
             tabButtons.forEach(button => {
                 if (button.dataset.tab === selectedTab) {
