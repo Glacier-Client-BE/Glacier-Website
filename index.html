@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glacier Client | Minecraft BE</title>
+  <title>Glacier Client | Next-Gen Minecraft Bedrock Experience</title>
   
   <!-- SEO Enhancements -->
   <meta name="description" content="Glacier Client is an optimized texture pack client for Minecraft Bedrock Edition, featuring an extensive library of mods, a draggable GUI, and lightweight performance. Download the next-gen Minecraft experience today!" />
@@ -57,15 +57,27 @@
   </script>
 
   <link rel="icon" type="image/png" href="assets/logo.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
         --color-primary: #7289DA;
-        --color-dark: #1A1A1A;
-        --color-dark-alt: #2D2D2D;
+        --color-primary-dark: #5b6eae;
+        --color-dark: #0F0F13;
+        --color-dark-alt: #1A1A22;
+        --color-darker: #0A0A0E;
         --color-text: #FFFFFF;
-        --color-text-alt: #D9D9D9;
+        --color-text-alt: #B0B0C0;
+        --color-text-muted: #8A8A9A;
+        --border-radius: 16px;
+        --border-radius-sm: 8px;
+        --border-radius-lg: 24px;
+        --border-radius-pill: 50px;
+        --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.3);
+        --shadow-glow: 0 0 20px rgba(114, 137, 218, 0.4);
+        --container-width: 1200px;
     }
 
     * {
@@ -75,73 +87,98 @@
         font-family: 'Inter', sans-serif;
     }
 
+    html {
+        scroll-behavior: smooth;
+    }
+
     body {
         background: var(--color-dark);
         color: var(--color-text);
         line-height: 1.6;
         overflow-x: hidden;
+        font-weight: 400;
     }
 
     .container {
-        max-width: 1200px;
+        max-width: var(--container-width);
         margin: 0 auto;
         padding: 0 1.5rem;
     }
 
+    /* Unified Header - Same for all devices */
     .main-header {
         position: fixed;
-        top: 0;
-        width: 100%;
-        background: rgba(26, 26, 26, 0.95);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-bottom: 2px solid var(--color-primary);
+        top: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 95%;
+        max-width: 1200px;
+        background: rgba(26, 26, 34, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(114, 137, 218, 0.2);
+        border-radius: var(--border-radius-pill);
         z-index: 1000;
-        transition: background 0.3s ease;
+        transition: var(--transition);
+        box-shadow: var(--shadow);
     }
 
     .header-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 70px;
+        padding: 0.75rem 1.5rem;
+        height: 60px;
     }
 
     .brand {
         display: flex;
         align-items: center;
         gap: 0.75rem;
+        z-index: 1001;
     }
 
     .brand-logo {
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        transition: var(--transition);
+    }
+
+    .brand:hover .brand-logo {
+        transform: rotate(5deg) scale(1.05);
     }
 
     .brand-name {
         font-weight: 700;
         font-size: 1.25rem;
         color: var(--color-text);
+        background: linear-gradient(90deg, var(--color-text), var(--color-primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
     .nav-list {
         display: flex;
-        gap: 1.2rem;
+        gap: 1.5rem;
         list-style: none;
+        align-items: center;
     }
 
     .nav-link {
         color: var(--color-text-alt);
         text-decoration: none;
         font-weight: 500;
-        transition: color 0.3s ease, transform 0.2s ease;
+        font-size: 0.95rem;
+        transition: var(--transition);
         position: relative;
+        padding: 0.5rem 0;
+        white-space: nowrap;
     }
 
     .nav-link:hover, .nav-link.active {
-        color: var(--color-primary);
-        transform: translateY(-2px);
+        color: var(--color-text);
     }
 
     .nav-link::after {
@@ -151,109 +188,549 @@
         height: 2px;
         background: var(--color-primary);
         left: 0;
-        bottom: -5px;
-        transition: width 0.3s ease;
+        bottom: 0;
+        transition: var(--transition);
+        border-radius: 2px;
     }
 
     .nav-link:hover::after, .nav-link.active::after {
         width: 100%;
     }
 
-    .mobile-menu-toggle {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        cursor: pointer;
-        z-index: 1001;
-        transition: transform 0.3s ease;
+    .nav-donate {
+        background: linear-gradient(90deg, #FFDD00, #FFAA00);
+        color: #000 !important;
+        padding: 0.5rem 1rem;
+        border-radius: var(--border-radius-pill);
+        font-weight: 600;
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(255, 221, 0, 0.3);
     }
 
-    .menu-bar {
-        width: 25px;
-        height: 3px;
-        background: var(--color-text);
-        border-radius: 2px;
-        transition: all 0.3s ease;
+    .nav-donate:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 221, 0, 0.4);
     }
 
-    .home-section {
-        padding: 120px 0;
-        margin-top: 70px;
-        background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('assets/BG.png');
+    /* Hero Section */
+    .hero-section {
+        padding: 160px 0 100px;
+        background: linear-gradient(135deg, rgba(15, 15, 19, 0.9) 0%, rgba(26, 26, 34, 0.9) 100%), url('assets/BG.png');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        min-height: 80vh;
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
+        position: relative;
     }
 
-    .home-container {
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 80%, rgba(114, 137, 218, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(114, 137, 218, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .hero-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 3rem;
+        gap: 4rem;
         align-items: center;
         text-align: left;
+        position: relative;
+        z-index: 1;
     }
 
-    .home-content {
+    .hero-content {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .home-title {
-        font-size: 3rem;
-        margin-bottom: 1rem;
+    .hero-title {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
         line-height: 1.1;
         color: var(--color-text);
-        text-shadow: 0 0 15px rgba(114, 137, 218, 0.5);
+        font-weight: 800;
+        background: linear-gradient(90deg, #FFFFFF, var(--color-primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
-    .home-subtext {
+    .hero-subtext {
         color: var(--color-text-alt);
-        margin-bottom: 2rem;
-        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+        font-size: 1.25rem;
+        line-height: 1.6;
+        max-width: 90%;
     }
 
-    .home-buttons {
+    .hero-buttons {
         display: flex;
         gap: 1.5rem;
         flex-wrap: wrap;
     }
 
-    .download-button {
-        background: var(--color-primary);
-        color: var(--color-text);
+    .btn {
         padding: 1rem 2rem;
         border: none;
-        border-radius: 8px;
+        border-radius: var(--border-radius-sm);
         font-size: 1rem;
         font-weight: 600;
         cursor: pointer;
         display: inline-flex;
         align-items: center;
         gap: 0.75rem;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4);
+        transition: var(--transition);
         text-decoration: none;
+        position: relative;
+        overflow: hidden;
     }
 
-    .download-button:hover {
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.7s ease;
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    .btn-primary {
+        background: var(--color-primary);
+        color: var(--color-text);
+        box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4);
+    }
+
+    .btn-primary:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(114, 137, 218, 0.6);
+        box-shadow: 0 10px 25px rgba(114, 137, 218, 0.6);
+        background: var(--color-primary-dark);
     }
 
-    .interface-image {
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--color-text);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-secondary:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-preview {
+        position: relative;
+    }
+
+    .hero-image {
         width: 100%;
         max-width: 600px;
-        border-radius: 16px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-        border: 2px solid rgba(114, 137, 218, 0.3);
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(114, 137, 218, 0.3);
+        transition: var(--transition);
+        position: relative;
+        z-index: 1;
     }
 
+    .hero-image:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+
+    /* Features Section */
+    .features-section {
+        padding: 6rem 0;
+        background: var(--color-darker);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .features-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 30% 70%, rgba(114, 137, 218, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 5rem;
+        position: relative;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        color: var(--color-text);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: var(--color-primary);
+        border-radius: 2px;
+    }
+
+    .section-subtitle {
+        color: var(--color-text-alt);
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .feature-card {
+        background: var(--color-dark-alt);
+        padding: 2.5rem;
+        border-radius: var(--border-radius);
+        text-align: center;
+        transition: var(--transition);
+        border: 1px solid rgba(114, 137, 218, 0.1);
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--color-primary), transparent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.5s ease;
+    }
+
+    .feature-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+        border-color: rgba(114, 137, 218, 0.3);
+    }
+
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 0;
+        transition: var(--transition);
+        filter: drop-shadow(0 0 10px rgba(114, 137, 218, 0.5));
+        flex-shrink: 0;
+    }
+
+    .feature-card:hover .feature-icon {
+        transform: scale(1.15);
+    }
+
+    .feature-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: center;
+    }
+
+    .feature-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--color-text);
+        font-weight: 600;
+    }
+
+    .feature-desc {
+        color: var(--color-text-alt);
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+        padding: 6rem 0;
+        background: var(--color-dark);
+        position: relative;
+    }
+
+    .gallery-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .gallery-item {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        position: relative;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        aspect-ratio: 16/9;
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.05);
+    }
+
+    .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(transparent, rgba(15, 15, 19, 0.9));
+        padding: 1.5rem;
+        transform: translateY(100%);
+        transition: var(--transition);
+    }
+
+    .gallery-item:hover .gallery-overlay {
+        transform: translateY(0);
+    }
+
+    .gallery-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--color-text);
+    }
+
+    .gallery-desc {
+        font-size: 0.9rem;
+        color: var(--color-text-alt);
+    }
+
+    /* Community Section */
+    .community-section {
+        padding: 6rem 0;
+        background: var(--color-darker);
+        position: relative;
+    }
+
+    .community-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 4rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .community-widget {
+        background: var(--color-dark-alt);
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(114, 137, 218, 0.2);
+        box-shadow: var(--shadow-lg);
+        transition: var(--transition);
+        flex-shrink: 0;
+        width: 380px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .community-widget:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+
+    .community-widget iframe {
+        width: 100%;
+        height: 100%;
+        border-radius: var(--border-radius-sm);
+    }
+
+    .community-text {
+        background: var(--color-dark-alt);
+        padding: 3rem;
+        border-radius: var(--border-radius);
+        text-align: left;
+        max-width: 500px;
+        border: 1px solid rgba(114, 137, 218, 0.2);
+        box-shadow: var(--shadow-lg);
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .community-text:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+
+    .community-text h2 {
+        font-size: 2.5rem;
+        color: var(--color-primary);
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+    }
+
+    .community-text p, .community-text ul {
+        color: var(--color-text-alt);
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+
+    .community-text ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .community-text li {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Footer */
+    .main-footer {
+        border-top: 1px solid rgba(114, 137, 218, 0.2);
+        padding: 3rem 0 2rem;
+        background: var(--color-darker);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        position: relative;
+    }
+
+    .footer-container {
+        text-align: center;
+        width: 100%;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .footer-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+    }
+
+    .footer-nav {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .footer-nav a {
+        color: var(--color-text-alt);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .footer-nav a:hover {
+        color: var(--color-primary);
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .social-link {
+        color: var(--color-text-alt);
+        font-size: 1.5rem;
+        transition: var(--transition);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .social-link:hover {
+        color: var(--color-primary);
+        transform: translateY(-3px);
+        background: rgba(114, 137, 218, 0.1);
+    }
+
+    .copyright-text {
+        color: var(--color-text-muted);
+        font-size: 0.9rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        width: 100%;
+    }
+
+    /* Animations */
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
@@ -285,128 +762,31 @@
     .delay-3 { transition-delay: 0.3s; }
     .delay-4 { transition-delay: 0.4s; }
     .delay-5 { transition-delay: 0.5s; }
-    .delay-6 { transition-delay: 0.6s; }
-    .delay-7 { transition-delay: 0.7s; }
-    .delay-8 { transition-delay: 0.8s; }
-    .delay-9 { transition-delay: 0.9s; }
-    .delay-10 { transition-delay: 1.0s; }
 
     .animate-float {
-        animation: float 3s ease-in-out infinite;
+        animation: float 6s ease-in-out infinite;
     }
 
-    .features-section {
-        padding: 6rem 0;
-        background: var(--color-dark-alt);
-    }
-
-    .section-title {
-        text-align: center;
-        margin-bottom: 4rem;
-        font-size: 2.5rem;
-        color: var(--color-primary);
-        text-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
-    }
-
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2.5rem;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .feature-card {
-        background: var(--color-dark);
-        padding: 2.5rem;
-        border-radius: 16px;
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-        border: 1px solid rgba(114, 137, 218, 0.2);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .feature-card::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle at center, rgba(114, 137, 218, 0.1) 0%, transparent 70%);
-        transform: rotate(45deg);
-        transition: transform 0.5s ease;
-        opacity: 0;
-        z-index: 0;
-    }
-
-    .feature-card:hover::before {
-        opacity: 1;
-        transform: rotate(0deg);
-    }
-
-    .feature-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 12px 25px rgba(0,0,0,0.5);
-        border-color: var(--color-primary);
-    }
-
-    .feature-icon {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 0;
-        transition: transform 0.3s ease;
-        filter: drop-shadow(0 0 10px rgba(114, 137, 218, 0.5));
-        flex-shrink: 0;
-    }
-
-    .feature-card:hover .feature-icon {
-        transform: scale(1.15) rotate(5deg);
-    }
-
-    .feature-content {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        align-items: center;
-    }
-
-    .feature-title {
-        font-size: 1.4rem;
-        margin-bottom: 0.8rem;
-        color: var(--color-text);
-    }
-
-    .feature-desc {
-        color: var(--color-text-alt);
-        font-size: 1rem;
-    }
-
-    .mods-section {
+    /* Overlay Modals */
+    .overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(26, 26, 26, 0.95);
+        background: rgba(15, 15, 19, 0.95);
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
-        z-index: 1000;
+        z-index: 2000;
         overflow-y: auto;
-        padding: 70px 0 6rem;
+        padding: 2rem 0;
         transform: translateY(100%);
         opacity: 0;
         visibility: hidden;
         transition: transform 0.5s ease-out, opacity 0.5s ease-out, visibility 0s linear 0.5s;
     }
 
-    .mods-section.is-open {
+    .overlay.is-open {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
@@ -416,41 +796,75 @@
     .overlay-header {
         text-align: center;
         margin-bottom: 3rem;
-        padding-top: 2rem;
+        padding-top: 1rem;
     }
 
     .overlay-header h1 {
         font-size: 2.8rem;
         color: var(--color-primary);
         margin-bottom: 1rem;
-        text-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
+        font-weight: 700;
     }
 
     .overlay-header p {
         color: var(--color-text-alt);
         font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
     }
 
-    .close-mods-btn {
+    .close-overlay-btn {
         position: absolute;
-        top: 30px;
-        right: 30px;
-        background: none;
+        top: 2rem;
+        right: 2rem;
+        background: rgba(255, 255, 255, 0.1);
         border: none;
-        font-size: 2rem;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.2rem;
         color: var(--color-text);
         cursor: pointer;
-        transition: transform 0.3s ease, color 0.3s ease;
-        z-index: 1001;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2001;
     }
 
-    .close-mods-btn:hover {
-        color: var(--color-primary);
+    .close-overlay-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
         transform: rotate(90deg);
     }
 
     body.no-scroll {
         overflow: hidden;
+    }
+
+    /* All Mods Overlay */
+    .mods-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 15, 19, 0.95);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        z-index: 2000;
+        overflow-y: auto;
+        padding: 2rem 0;
+        transform: translateY(100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out, visibility 0s linear 0.5s;
+    }
+
+    .mods-overlay.is-open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
     }
 
     .filter-controls {
@@ -566,243 +980,7 @@
         font-weight: 500;
     }
 
-    .faq-container {
-        max-width: 800px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .faq-card {
-        background: var(--color-dark-alt);
-        border-radius: 12px;
-        border: 1px solid rgba(114, 137, 218, 0.1);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        overflow: hidden;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .faq-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-    }
-
-    .faq-question {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.5rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: var(--color-text);
-        cursor: pointer;
-        background: var(--color-dark);
-        transition: background 0.3s ease;
-    }
-
-    .faq-question:hover {
-        background: #222;
-    }
-
-    .faq-question i {
-        transition: transform 0.3s ease;
-    }
-
-    .faq-card[open] .faq-question i {
-        transform: rotate(180deg);
-    }
-
-    .faq-answer {
-        padding: 0 1.5rem 1.5rem;
-        color: var(--color-text-alt);
-        font-size: 1rem;
-        line-height: 1.8;
-    }
-
-    .faq-answer ul {
-        list-style: disc;
-        padding-left: 1.5rem;
-        margin-top: 0.5rem;
-    }
-
-    .video-container {
-        position: relative;
-        width: 100%;
-        padding-bottom: 56.25%;
-        height: 0;
-        overflow: hidden;
-        margin-top: 1rem;
-        border-radius: 8px;
-    }
-
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
-    }
-
-    .discord-section {
-        padding: 6rem 0;
-        background: var(--color-dark-alt);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 3rem;
-        text-align: center;
-    }
-
-    .discord-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 3rem;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .discord-widget-panel {
-        background: var(--color-dark-alt);
-        padding: 1.5rem;
-        border-radius: 16px;
-        border: 1px solid rgba(114, 137, 218, 0.2);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 20px rgba(114, 137, 218, 0.4);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        flex-shrink: 0;
-        width: 380px;
-        height: 530px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .discord-widget-panel:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 30px rgba(114, 137, 218, 0.6);
-    }
-
-    .discord-widget-panel iframe {
-        width: 100%;
-        height: 100%;
-        border-radius: 12px;
-    }
-
-    .discord-text-panel {
-        background: var(--color-dark-alt);
-        padding: 2.5rem;
-        border-radius: 16px;
-        text-align: left;
-        max-width: 500px;
-        border: 1px solid rgba(114, 137, 218, 0.2);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 20px rgba(114, 137, 218, 0.4);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .discord-text-panel:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 30px rgba(114, 137, 218, 0.6);
-    }
-
-    .discord-text-panel h2 {
-        font-size: 2.5rem;
-        color: var(--color-primary);
-        margin-bottom: 1rem;
-        text-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
-        text-align: center;
-    }
-
-    .discord-text-panel p, .discord-text-panel ul {
-        color: var(--color-text-alt);
-        font-size: 1.1rem;
-        line-height: 1.8;
-        margin-bottom: 1.5rem;
-    }
-
-    .discord-text-panel ul {
-        list-style: disc;
-        padding-left: 1.5rem;
-        margin-top: 1rem;
-    }
-
-    .main-footer {
-        border-top: 2px solid var(--color-primary);
-        padding: 2.5rem 0;
-        margin-top: 5rem;
-        background: var(--color-dark);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-    }
-
-    .footer-container {
-        text-align: center;
-        width: 100%;
-    }
-
-    .footer-social {
-        display: flex;
-        justify-content: center;
-        gap: 1.8rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .social-link {
-        color: var(--color-text-alt);
-        font-size: 1.8rem;
-        transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    .social-link:hover {
-        color: var(--color-primary);
-        transform: translateY(-3px) scale(1.1);
-    }
-
-    .copyright-text {
-        color: var(--color-text-alt);
-        font-size: 0.9rem;
-    }
-
-    .info-panel {
-        background: var(--color-dark-alt);
-        padding: 3rem;
-        border-radius: 16px;
-        text-align: center;
-        margin: 2rem auto;
-        max-width: 800px;
-        border: 1px solid rgba(114, 137, 218, 0.2);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 20px rgba(114, 137, 218, 0.4);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .info-panel:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 30px rgba(114, 137, 218, 0.6);
-    }
-
-    .info-panel p {
-        font-size: 1.1rem;
-        color: var(--color-text-alt);
-        line-height: 1.8;
-    }
-
-    .info-panel ul {
-        list-style: disc;
-        padding-left: 1.5rem;
-        margin-top: 1rem;
-        text-align: left;
-        color: var(--color-text-alt);
-    }
-
+    /* Downloads Overlay */
     .downloads-overlay-content {
         max-width: 900px;
         margin: 0 auto;
@@ -945,155 +1123,235 @@
         max-width: 600px;
     }
 
+    /* FAQ Overlay */
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .faq-card {
+        background: var(--color-dark-alt);
+        border-radius: 12px;
+        border: 1px solid rgba(114, 137, 218, 0.1);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .faq-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+
+    .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--color-text);
+        cursor: pointer;
+        background: var(--color-dark);
+        transition: background 0.3s ease;
+    }
+
+    .faq-question:hover {
+        background: #222;
+    }
+
+    .faq-question i {
+        transition: transform 0.3s ease;
+    }
+
+    .faq-card[open] .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        padding: 0 1.5rem 1.5rem;
+        color: var(--color-text-alt);
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .faq-answer ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        margin-top: 1rem;
+        border-radius: 8px;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* License Overlay */
+    .license-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 15, 19, 0.95);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        z-index: 2000;
+        overflow-y: auto;
+        padding: 2rem 0;
+        transform: translateY(100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out, visibility 0s linear 0.5s;
+    }
+
+    .license-overlay.is-open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .hero-container {
+            gap: 3rem;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+        }
+        
+        .community-content {
+            gap: 3rem;
+        }
+    }
+
     @media (max-width: 768px) {
-        .header-container {
-            padding: 0 1rem;
+        .main-header {
+            width: 95%;
         }
-
-        .nav-menu {
-            position: fixed;
-            top: 70px;
-            right: -100%;
-            width: 280px;
-            height: calc(100vh - 70px);
-            background: rgba(45,45,45,0.98);
-            backdrop-filter: blur(15px);
-            padding: 2rem;
-            transition: right 0.4s ease-in-out;
-            box-shadow: -5px 0 20px rgba(0,0,0,0.5);
-        }
-
-        .nav-menu.active {
-            right: 0;
-        }
-
+        
         .nav-list {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1.8rem;
-        }
-
-        .nav-link {
-            font-size: 1.2rem;
-        }
-
-        .mobile-menu-toggle {
-            display: flex;
-        }
-
-        .mobile-menu-toggle.active .menu-bar:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-
-        .mobile-menu-toggle.active .menu-bar:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-menu-toggle.active .menu-bar:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-        }
-
-        .home-container {
-            grid-template-columns: 1fr;
-            text-align: center;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
-
-        .home-content {
-            align-items: center;
-        }
-
-        .home-title {
-            font-size: 2.5rem;
-        }
-
-        .home-subtext {
-            font-size: 1rem;
-        }
-
-        .home-buttons {
-            justify-content: center;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .download-button {
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .interface-preview {
-            margin-top: 3rem;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .features-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-        .feature-card {
-            padding: 1.5rem;
-            flex-direction: row;
-            text-align: left;
-            align-items: center;
             gap: 1rem;
         }
+        
+        .nav-link {
+            font-size: 0.85rem;
+        }
+        
+        .hero-section {
+            padding: 140px 0 80px;
+        }
+        
+        .hero-container {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 3rem;
+        }
+        
+        .hero-content {
+            align-items: center;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-subtext {
+            font-size: 1.1rem;
+            max-width: 100%;
+        }
+        
+        .hero-buttons {
+            justify-content: center;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .features-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            padding: 2rem;
+            flex-direction: row;
+            text-align: left;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+        
         .feature-content {
             align-items: flex-start;
         }
-
-        .mods-header h1, .overlay-header h1 {
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .community-content {
+            flex-direction: column;
+        }
+        
+        .community-widget, .community-text {
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .community-text {
+            padding: 2rem;
+        }
+        
+        .community-text h2 {
+            font-size: 2rem;
+        }
+        
+        .footer-content {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .footer-brand {
+            align-items: center;
+        }
+        
+        .footer-nav {
+            justify-content: center;
+        }
+        
+        .overlay-header h1 {
             font-size: 2.2rem;
         }
-        .mods-header p, .overlay-header p {
-            font-size: 1rem;
-        }
-        .filter-controls {
+
+        .downloads-tabs {
             flex-direction: column;
             align-items: center;
         }
-        .filter-button {
-            width: 80%;
+        .tab-button {
+            width: 100%;
             max-width: 250px;
-        }
-        .search-bar {
-            width: 90%;
-        }
-        .mods-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .mods-section {
-            padding-top: 90px;
-        }
-
-        .discord-content {
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .discord-widget-panel {
-            width: 100%;
-            max-width: 350px;
-            height: 400px;
-            padding: 1rem;
-        }
-
-        .discord-text-panel {
-            width: 100%;
-            padding: 1.5rem;
-        }
-
-        .discord-text-panel h2 {
-            font-size: 2rem;
-        }
-
-        .discord-text-panel p, .discord-text-panel ul {
+            padding: 0.8rem 1.5rem;
             font-size: 1rem;
         }
 
@@ -1112,52 +1370,86 @@
             width: 100%;
         }
 
-        .info-panel {
-            padding: 1.5rem;
-            margin: 1.5rem auto;
-            max-width: 90%;
-        }
-        .info-panel p, .info-panel ul {
-            font-size: 1rem;
-        }
-
-        .downloads-tabs {
+        .filter-controls {
             flex-direction: column;
             align-items: center;
         }
-        .tab-button {
-            width: 100%;
+        .filter-button {
+            width: 80%;
             max-width: 250px;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
+        }
+        .search-bar {
+            width: 90%;
+        }
+        .mods-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .main-header {
+            width: 95%;
+        }
+        
+        .header-container {
+            padding: 0.75rem 1rem;
+        }
+        
+        .nav-list {
+            gap: 0.75rem;
+        }
+        
+        .nav-link {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.5rem;
+        }
+        
+        .nav-donate {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
         }
     }
 
     @media (max-width: 480px) {
-        .home-title {
+        .hero-title {
             font-size: 2rem;
         }
-
-        .download-button {
-            padding: 0.8rem 1.5rem;
-            font-size: 0.9rem;
+        
+        .hero-buttons {
+            flex-direction: column;
+            width: 100%;
         }
-
+        
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+        
         .section-title {
             font-size: 1.8rem;
         }
-
-        .feature-icon {
-            width: 50px;
-            height: 50px;
+        
+        .feature-card {
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
         }
-
-        .feature-title {
-            font-size: 1.2rem;
+        
+        .feature-content {
+            align-items: center;
         }
-
-        .feature-desc {
-            font-size: 0.9rem;
+        
+        .community-text h2 {
+            font-size: 1.8rem;
+        }
+        
+        .footer-nav {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .overlay-header h1 {
+            font-size: 1.8rem;
         }
 
         .version-item h4, .extension-item h4 {
@@ -1187,19 +1479,7 @@
             padding: 0 1.2rem 1.2rem;
         }
 
-        .footer-social {
-            gap: 1rem;
-        }
-
-        .social-link {
-            font-size: 1.5rem;
-        }
-
-        .copyright-text {
-            font-size: 0.8rem;
-        }
-
-        .close-mods-btn {
+        .close-overlay-btn {
             font-size: 1.5rem;
             top: 15px;
             right: 15px;
@@ -1208,6 +1488,7 @@
   </style>
 </head>
 <body>
+  <!-- Unified Header - Same for all devices -->
   <header class="main-header">
     <div class="container header-container">
       <div class="brand">
@@ -1216,104 +1497,142 @@
       </div>
       <nav class="nav-menu">
         <ul class="nav-list">
-          <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="#discord" class="nav-link">Discord</a></li>
+          <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
           <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
+          <li class="nav-item"><a href="#gallery" class="nav-link">Gallery</a></li>
+          <li class="nav-item"><a href="#community" class="nav-link">Community</a></li>
           <li class="nav-item"><a href="#" class="nav-link" id="downloadsNavLink">Downloads</a></li>
           <li class="nav-item"><a href="#" class="nav-link" id="faqNavLink">FAQ</a></li>
           <li class="nav-item"><a href="#" class="nav-link" id="allModsNavLink">All Mods</a></li>
           <li class="nav-item"><a href="#" class="nav-link" id="licenseNavLink">License</a></li>
-          <li class="nav-item">
-            <a href="#" class="nav-link" id="donateNavLink" style="color: #FFDD00;">
-              <i class="fas fa-hand-holding-usd"></i> Donate
-            </a>
-          </li>
+          <li class="nav-item"><a href="#" class="nav-link nav-donate" id="donateNavLink"><i class="fas fa-hand-holding-usd"></i> Donate</a></li>
         </ul>
       </nav>
-      <div class="mobile-menu-toggle">
-        <div class="menu-bar"></div>
-        <div class="menu-bar"></div>
-        <div class="menu-bar"></div>
-      </div>
     </div>
   </header>
 
   <main id="main-content">
-    <section id="home" class="home-section">
-      <div class="container home-container">
-        <div class="home-content">
-          <h1 class="home-title animate-fade-in-up">Next Gen Minecraft Experience</h1>
-          <p class="home-subtext animate-fade-in-up delay-1">Optimized Texture Pack Client for Bedrock Edition</p>
-          <div class="home-buttons">
-            <a href="#" class="download-button animate-fade-in-up delay-2" id="homeDownloadButton">
-              <i class="fas fa-download"></i> Download Latest
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <h1 class="hero-title animate-fade-in-up">Next Generation Minecraft Experience</h1>
+          <p class="hero-subtext animate-fade-in-up delay-1">Optimized texture pack client for Minecraft Bedrock Edition with extensive modules, draggable GUI, and lightweight performance.</p>
+          <div class="hero-buttons">
+            <a href="#" class="btn btn-primary animate-fade-in-up delay-2" id="homeDownloadButton">
+              <i class="fas fa-download"></i> Download Now
             </a>
-            <a href="https://config.glacierclient.xyz" class="download-button animate-fade-in-up delay-3" style="background-color: #5C6BC0; box-shadow: 0 5px 15px rgba(92, 107, 192, 0.4);">
+            <a href="https://config.glacierclient.xyz" class="btn btn-secondary animate-fade-in-up delay-3">
               <i class="fas fa-cog"></i> Config Editor
             </a>
           </div>
         </div>
-        <div class="interface-preview">
-          <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu and Draggable HUD" class="interface-image animate-float" loading="lazy" />
+        <div class="hero-preview">
+          <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu and Draggable HUD" class="hero-image animate-float" loading="lazy" />
         </div>
       </div>
     </section>
 
-    <section id="discord" class="discord-section">
-      <div class="container discord-content">
-        <div class="discord-widget-panel animate-fade-in-up delay-1">
-          <iframe src="https://discord.com/widget?id=938248183878930514&theme=dark" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-        </div>
-        <div class="discord-text-panel animate-fade-in-up delay-2">
-          <h2>Join Our Discord Community!</h2>
-          <div>
-            <p>Connect with other Glacier Client users, get support, share your creations, and stay up-to-date with the latest news and updates.</p>
-            <ul>
-              <li>Get help with installation and troubleshooting.</li>
-              <li>Suggest new features and modules.</li>
-              <li>Participate in events and giveaways.</li>
-              <li>Chat directly with the developers.</li>
-            </ul>
-          </div>
-          <a href="https://dsc.gg/glacierclientmcbe" class="download-button" style="background-color: #5865F2; box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4); align-self: center;">
-            <i class="fab fa-discord"></i> Join Discord Now!
-          </a>
-        </div>
-      </div>
-    </section>
-
+    <!-- Features Section -->
     <section id="features" class="features-section">
       <div class="container">
-        <h2 class="section-title animate-fade-in-up">Core Features</h2>
+        <div class="section-header">
+          <h2 class="section-title animate-fade-in-up">Core Features</h2>
+          <p class="section-subtitle animate-fade-in-up delay-1">Experience the power of Glacier Client with these standout features</p>
+        </div>
         <div class="features-grid">
           <div class="feature-card animate-fade-in-up delay-1">
             <img src="assets/icons/modules.png" alt="Glacier Client extensive modules" class="feature-icon" loading="lazy" />
             <div class="feature-content">
-                <h3 class="feature-title" id="modulesCount"></h3>
-                <p class="feature-desc">Extensive modules with real-time configuration</p>
+                <h3 class="feature-title" id="modulesCount">50+ Modules</h3>
+                <p class="feature-desc">Extensive modules with real-time configuration and customization options for every playstyle.</p>
             </div>
           </div>
           <div class="feature-card animate-fade-in-up delay-2">
             <img src="assets/icons/gui.png" alt="Draggable GUI" class="feature-icon" loading="lazy" />
             <div class="feature-content">
                 <h3 class="feature-title">Draggable Mods</h3>
-                <p class="feature-desc">Modules are movable to change the place as your wish.</p>
+                <p class="feature-desc">Modules are fully movable to customize your HUD exactly how you want it.</p>
             </div>
           </div>
           <div class="feature-card animate-fade-in-up delay-3">
             <img src="assets/icons/user.png" alt="Lightweight and optimized client" class="feature-icon" loading="lazy" />
             <div class="feature-content">
                 <h3 class="feature-title">Lightweight</h3>
-                <p class="feature-desc">Only 2MB with zero performance impact</p>
+                <p class="feature-desc">Only 2MB with zero performance impact, ensuring smooth gameplay even on lower-end devices.</p>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title animate-fade-in-up">Screenshots</h2>
+          <p class="section-subtitle animate-fade-in-up delay-1">See Glacier Client in action with these screenshots</p>
+        </div>
+        <div class="gallery-container">
+          <div class="gallery-item animate-fade-in-up delay-1">
+            <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu" loading="lazy" />
+            <div class="gallery-overlay">
+              <h3 class="gallery-title">Mod Menu</h3>
+              <p class="gallery-desc">Easy-to-use interface for managing all your mods</p>
+            </div>
+          </div>
+          <div class="gallery-item animate-fade-in-up delay-2">
+            <img src="assets/BG.png" alt="Glacier Client in Game" loading="lazy" />
+            <div class="gallery-overlay">
+              <h3 class="gallery-title">In-Game HUD</h3>
+              <p class="gallery-desc">Customizable HUD elements during gameplay</p>
+            </div>
+          </div>
+          <div class="gallery-item animate-fade-in-up delay-3">
+            <img src="https://placehold.co/600x400/1A1A22/7289DA?text=Settings+Menu" alt="Glacier Client Settings" loading="lazy" />
+            <div class="gallery-overlay">
+              <h3 class="gallery-title">Settings Panel</h3>
+              <p class="gallery-desc">Comprehensive settings for fine-tuning your experience</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title animate-fade-in-up">Join Our Community</h2>
+          <p class="section-subtitle animate-fade-in-up delay-1">Connect with other Glacier Client users and get support</p>
+        </div>
+        <div class="community-content">
+          <div class="community-widget animate-fade-in-up delay-1">
+            <iframe src="https://discord.com/widget?id=938248183878930514&theme=dark" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+          </div>
+          <div class="community-text animate-fade-in-up delay-2">
+            <div>
+              <h2>Join Our Discord!</h2>
+              <p>Connect with other Glacier Client users, get support, share your creations, and stay up-to-date with the latest news and updates.</p>
+              <ul>
+                <li>Get help with installation and troubleshooting</li>
+                <li>Suggest new features and modules</li>
+                <li>Participate in events and giveaways</li>
+                <li>Chat directly with the developers</li>
+              </ul>
+            </div>
+            <a href="https://dsc.gg/glacierclientmcbe" class="btn btn-primary" style="background-color: #5865F2; align-self: flex-start;">
+              <i class="fab fa-discord"></i> Join Discord
+            </a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <section id="downloads-overlay" class="mods-section">
-    <button class="close-mods-btn" id="closeDownloadsBtn"><i class="fas fa-times"></i></button>
+  <!-- Downloads Overlay -->
+  <section id="downloads-overlay" class="overlay">
+    <button class="close-overlay-btn" id="closeDownloadsBtn"><i class="fas fa-times"></i></button>
     <div class="container downloads-overlay-content">
       <div class="overlay-header animate-fade-in-up">
         <h1>Glacier Client Downloads</h1>
@@ -1333,8 +1652,9 @@
     </div>
   </section>
 
-  <section id="faq-overlay" class="mods-section">
-    <button class="close-mods-btn" id="closeFaqBtn"><i class="fas fa-times"></i></button>
+  <!-- FAQ Overlay -->
+  <section id="faq-overlay" class="overlay">
+    <button class="close-overlay-btn" id="closeFaqBtn"><i class="fas fa-times"></i></button>
     <div class="container">
       <div class="overlay-header animate-fade-in-up">
         <h1>Frequently Asked Questions</h1>
@@ -1345,8 +1665,9 @@
     </div>
   </section>
 
-  <section id="all-mods" class="mods-section">
-    <button class="close-mods-btn" id="closeModsBtn"><i class="fas fa-times"></i></button>
+  <!-- All Mods Overlay -->
+  <section id="all-mods" class="mods-overlay">
+    <button class="close-overlay-btn" id="closeModsBtn"><i class="fas fa-times"></i></button>
     <div class="container">
       <div class="overlay-header animate-fade-in-up">
         <h1>Explore All Glacier Mods</h1>
@@ -1372,8 +1693,9 @@
     </div>
   </section>
 
-  <section id="license-overlay" class="mods-section">
-    <button class="close-mods-btn" id="closeLicenseBtn"><i class="fas fa-times"></i></button>
+  <!-- License Overlay -->
+  <section id="license-overlay" class="license-overlay">
+    <button class="close-overlay-btn" id="closeLicenseBtn"><i class="fas fa-times"></i></button>
     <div class="container">
       <div class="overlay-header animate-fade-in-up">
         <h1>Glacier Client License</h1>
@@ -1415,37 +1737,74 @@
     </div>
   </section>
 
-  <section id="donate-overlay" class="mods-section">
-    <button class="close-mods-btn" id="closeDonateBtn"><i class="fas fa-times"></i></button>
+  <!-- Donate Overlay -->
+  <section id="donate-overlay" class="overlay">
+    <button class="close-overlay-btn" id="closeDonateBtn"><i class="fas fa-times"></i></button>
     <div class="container">
       <div class="overlay-header animate-fade-in-up">
         <h1>Support Glacier Client</h1>
         <p>Your support helps us continue developing and improving Glacier Client, bringing you the best Minecraft Bedrock Edition experience.</p>
       </div>
-      <div class="info-panel animate-fade-in-up delay-1">
-          <p class="text-lg text-color-text-alt mb-10">
-              Every contribution, no matter how small, makes a significant difference in our ability to maintain and enhance Glacier Client. Thank you for being a part of our journey!
-          </p>
-          <div class="home-buttons justify-center mt-12">
-              <a href="https://paypal.me/PepeOnPayPal" class="download-button" target="_blank" style="background-color: #0070BA; color: #FFFFFF; box-shadow: 0 5px 15px rgba(0, 112, 186, 0.4);">
-                  <i class="fab fa-paypal"></i> Donate via PayPal
-              </a>
-              <a href="https://ko-fi.com/pepeonkofi" class="download-button" target="_blank" style="background-color: #FF5E5B; color: #FFFFFF; box-shadow: 0 5px 15px rgba(255, 94, 91, 0.4);">
-                  <i class="fas fa-mug-hot"></i> Donate via Ko-fi
+      <div class="features-grid">
+        <div class="feature-card animate-fade-in-up delay-1">
+          <img src="assets/icons/paypal.png" alt="PayPal" class="feature-icon" loading="lazy" />
+          <div class="feature-content">
+              <h3 class="feature-title">PayPal</h3>
+              <p class="feature-desc">Support us directly through PayPal with a one-time or recurring donation.</p>
+              <a href="https://paypal.me/PepeOnPayPal" class="btn btn-primary" style="margin-top: 1rem;" target="_blank">
+                <i class="fab fa-paypal"></i> Donate via PayPal
               </a>
           </div>
+        </div>
+        <div class="feature-card animate-fade-in-up delay-2">
+          <img src="assets/icons/kofi.png" alt="Ko-fi" class="feature-icon" loading="lazy" />
+          <div class="feature-content">
+              <h3 class="feature-title">Ko-fi</h3>
+              <p class="feature-desc">Buy us a coffee to show your appreciation and support our work.</p>
+              <a href="https://ko-fi.com/pepeonkofi" class="btn btn-primary" style="background-color: #FF5E5B; margin-top: 1rem;" target="_blank">
+                <i class="fas fa-mug-hot"></i> Donate via Ko-fi
+              </a>
+          </div>
+        </div>
+        <div class="feature-card animate-fade-in-up delay-3">
+          <img src="assets/icons/community.png" alt="Community Support" class="feature-icon" loading="lazy" />
+          <div class="feature-content">
+              <h3 class="feature-title">Community Support</h3>
+              <p class="feature-desc">Join our Discord, share your experience, and help other users. Community support is invaluable!</p>
+              <a href="https://dsc.gg/glacierclientmcbe" class="btn btn-secondary" style="margin-top: 1rem;">
+                <i class="fab fa-discord"></i> Join Our Discord
+              </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <footer class="main-footer">
     <div class="container footer-container">
-      <div class="footer-social">
-        <a href="https://dsc.gg/glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-discord"></i></a>
-        <a href="https://github.com/glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://youtube.com/@glacierclient" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="https://x.com/glacierclientbe" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.instagram.com/glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="Glacier Client Logo" class="footer-logo" loading="lazy" />
+          <span class="brand-name">Glacier Client</span>
+        </div>
+        <div class="footer-nav">
+          <a href="#home">Home</a>
+          <a href="#features">Features</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#community">Community</a>
+          <a href="#" id="footerDownloadsLink">Downloads</a>
+          <a href="#" id="footerFaqLink">FAQ</a>
+          <a href="#" id="footerModsLink">All Mods</a>
+          <a href="#" id="footerLicenseLink">License</a>
+          <a href="#" id="footerDonateLink">Donate</a>
+        </div>
+        <div class="footer-social">
+          <a href="https://dsc.gg/glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-discord"></i></a>
+          <a href="https://github.com/glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://youtube.com/@glacierclient" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="https://x.com/glacierclientbe" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
       </div>
       <p class="copyright-text">
         © <span id="currentYear"></span> Glacier Client. Not affiliated with Mojang/Microsoft
@@ -1459,41 +1818,109 @@
     let allDownloads = null;
 
     document.addEventListener('DOMContentLoaded', async () => {
-        const menuToggle = document.querySelector('.mobile-menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        const header = document.querySelector('.main-header');
-        const currentYearSpan = document.getElementById('currentYear');
-
-        const allModsNavLink = document.getElementById('allModsNavLink');
-        const modsSection = document.getElementById('all-mods');
-        const closeModsBtn = document.getElementById('closeModsBtn');
-
-        const faqNavLink = document.getElementById('faqNavLink');
-        const faqOverlay = document.getElementById('faq-overlay');
-        const closeFaqBtn = document.getElementById('closeFaqBtn');
-        const faqContainer = document.getElementById('faqContainer');
-
-        const licenseNavLink = document.getElementById('licenseNavLink');
-        const licenseOverlay = document.getElementById('license-overlay');
-        const closeLicenseBtn = document.getElementById('closeLicenseBtn');
-
-        const donateNavLink = document.getElementById('donateNavLink');
-        const donateOverlay = document.getElementById('donate-overlay');
-        const closeDonateBtn = document.getElementById('closeDonateBtn');
-
-        const downloadsNavLink = document.getElementById('downloadsNavLink');
-        const homeDownloadButton = document.getElementById('homeDownloadButton');
-        const downloadsOverlay = document.getElementById('downloads-overlay');
-        const closeDownloadsBtn = document.getElementById('closeDownloadsBtn');
-        const tabButtons = document.querySelectorAll('.downloads-tabs .tab-button');
-        const clientsTabContent = document.getElementById('clients-tab-content');
-        const extensionsTabContent = document.getElementById('extensions-tab-content');
-
-        const modulesCountElement = document.getElementById('modulesCount');
-        const modsGrid = document.getElementById('modsGrid');
-        const filterButtons = document.querySelectorAll('.filter-button');
-        const modSearchInput = document.getElementById('modSearch');
-
+        // Overlay functionality
+        const overlays = {
+            downloads: document.getElementById('downloads-overlay'),
+            faq: document.getElementById('faq-overlay'),
+            mods: document.getElementById('all-mods'),
+            license: document.getElementById('license-overlay'),
+            donate: document.getElementById('donate-overlay')
+        };
+        
+        const openButtons = {
+            downloads: [
+                document.getElementById('downloadsNavLink'),
+                document.getElementById('homeDownloadButton'),
+                document.getElementById('footerDownloadsLink')
+            ],
+            faq: [
+                document.getElementById('faqNavLink'),
+                document.getElementById('footerFaqLink')
+            ],
+            mods: [
+                document.getElementById('allModsNavLink'),
+                document.getElementById('footerModsLink')
+            ],
+            license: [
+                document.getElementById('licenseNavLink'),
+                document.getElementById('footerLicenseLink')
+            ],
+            donate: [
+                document.getElementById('donateNavLink'),
+                document.getElementById('footerDonateLink')
+            ]
+        };
+        
+        const closeButtons = {
+            downloads: document.getElementById('closeDownloadsBtn'),
+            faq: document.getElementById('closeFaqBtn'),
+            mods: document.getElementById('closeModsBtn'),
+            license: document.getElementById('closeLicenseBtn'),
+            donate: document.getElementById('closeDonateBtn')
+        };
+        
+        // Function to open an overlay
+        function openOverlay(overlayKey) {
+            // Close all overlays first
+            Object.values(overlays).forEach(overlay => {
+                overlay.classList.remove('is-open');
+            });
+            
+            // Open the requested overlay
+            overlays[overlayKey].classList.add('is-open');
+            document.body.classList.add('no-scroll');
+            
+            // Animate elements in the overlay
+            const animatedElements = overlays[overlayKey].querySelectorAll('.animate-fade-in-up');
+            animatedElements.forEach((element, index) => {
+                element.style.transitionDelay = `${0.1 * index}s`;
+                // Force reflow to restart animation
+                void element.offsetWidth;
+                element.classList.add('is-visible');
+            });
+        }
+        
+        // Function to close an overlay
+        function closeOverlay(overlayKey) {
+            overlays[overlayKey].classList.remove('is-open');
+            document.body.classList.remove('no-scroll');
+        }
+        
+        // Add event listeners to open buttons
+        Object.keys(openButtons).forEach(key => {
+            openButtons[key].forEach(button => {
+                if (button) {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        openOverlay(key);
+                    });
+                }
+            });
+        });
+        
+        // Add event listeners to close buttons
+        Object.keys(closeButtons).forEach(key => {
+            if (closeButtons[key]) {
+                closeButtons[key].addEventListener('click', () => {
+                    closeOverlay(key);
+                });
+            }
+        });
+        
+        // Close overlay when clicking outside content
+        Object.values(overlays).forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('is-open');
+                    document.body.classList.remove('no-scroll');
+                }
+            });
+        });
+        
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Intersection Observer for animations
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -1504,18 +1931,68 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    if (!entry.target.closest('.mods-section')) {
+                    if (!entry.target.closest('.overlay') && !entry.target.closest('.mods-overlay') && !entry.target.closest('.license-overlay')) {
                         obs.unobserve(entry.target);
                     }
                 }
             });
         }, observerOptions);
 
-        const mainPageAnimatedElements = document.querySelectorAll('section:not(.mods-section) .animate-fade-in-up'); 
-        mainPageAnimatedElements.forEach(element => {
+        // Observe all animated elements on the main page
+        const animatedElements = document.querySelectorAll('section:not(.overlay):not(.mods-overlay):not(.license-overlay) .animate-fade-in-up');
+        animatedElements.forEach(element => {
             observer.observe(element);
         });
-
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Update active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        function updateActiveNavLink() {
+            let current = '';
+            const scrollPos = window.scrollY + 150;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveNavLink);
+        
+        // Initialize modules count
+        document.getElementById('modulesCount').textContent = '50+ Modules';
+        
+        // Load mods data and render
         try {
             const response = await fetch('assets/data/mods.json');
             if (!response.ok) {
@@ -1523,18 +2000,19 @@
             }
             allMods = await response.json();
             allMods.sort((a, b) => a.title.localeCompare(b.title));
-            if (modulesCountElement) {
-                modulesCountElement.textContent = `${allMods.length}+ Modules`;
+            if (document.getElementById('modulesCount')) {
+                document.getElementById('modulesCount').textContent = `${allMods.length}+ Modules`;
             }
             filterAndSearchMods();
         } catch (error) {
             console.error('Error fetching mods:', error);
-            if (modulesCountElement) {
-                modulesCountElement.textContent = 'Error loading modules';
+            if (document.getElementById('modulesCount')) {
+                document.getElementById('modulesCount').textContent = 'Error loading modules';
             }
-            modsGrid.innerHTML = '<p style="color: var(--color-text-alt); text-align: center; grid-column: 1 / -1;">Failed to load mods. Please try again later.</p>';
+            document.getElementById('modsGrid').innerHTML = '<p style="color: var(--color-text-alt); text-align: center; grid-column: 1 / -1;">Failed to load mods. Please try again later.</p>';
         }
 
+        // Load FAQ data and render
         try {
             const response = await fetch('assets/data/faq.json');
             if (!response.ok) {
@@ -1544,9 +2022,10 @@
             renderFaqs(allFaqs);
         } catch (error) {
             console.error('Error fetching FAQs:', error);
-            faqContainer.innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load FAQs. Please try again later.</p>';
+            document.getElementById('faqContainer').innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load FAQs. Please try again later.</p>';
         }
 
+        // Load downloads data and render
         try {
             const response = await fetch('assets/data/downloads.json');
             if (!response.ok) {
@@ -1556,27 +2035,135 @@
             renderDownloads('clients');
         } catch (error) {
             console.error('Error fetching downloads:', error);
-            clientsTabContent.innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load downloads. Please try again later.</p>';
-            extensionsTabContent.innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load extensions. Please try again later.</p>';
+            document.getElementById('clients-tab-content').innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load downloads. Please try again later.</p>';
+            document.getElementById('extensions-tab-content').innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load extensions. Please try again later.</p>';
         }
 
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
+        // Downloads tab functionality
+        const tabButtons = document.querySelectorAll('.downloads-tabs .tab-button');
+        
+        function switchDownloadsTab(selectedTab) {
+            tabButtons.forEach(button => {
+                if (button.dataset.tab === selectedTab) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('.tab-content').forEach(content => {
+                if (content.id === `${selectedTab}-tab-content`) {
+                    content.classList.add('active');
+                    const animatedElementsInTab = content.querySelectorAll('.animate-fade-in-up');
+                    animatedElementsInTab.forEach(element => {
+                        element.classList.remove('is-visible');
+                        observer.unobserve(element);
+                        observer.observe(element);
+                    });
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+            renderDownloads(selectedTab);
+        }
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                switchDownloadsTab(button.dataset.tab);
+            });
         });
 
-        if (currentYearSpan) {
-            currentYearSpan.textContent = new Date().getFullYear();
-        }
+        function renderDownloads(category) {
+            if (!allDownloads) return;
 
-        document.addEventListener('click', (e) => {
-            if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
+            const targetElement = category === 'clients' ? document.getElementById('clients-tab-content') : document.getElementById('extensions-tab-content');
+            targetElement.innerHTML = '';
+
+            const data = allDownloads[category];
+
+            if (data.working && data.working.length > 0) {
+                const workingList = document.createElement('div');
+                workingList.classList.add('version-list');
+                const workingTitle = document.createElement('h3');
+                workingTitle.classList.add('subsection-title');
+                workingTitle.textContent = category === 'clients' ? 'Working Client Versions' : 'Working Extensions';
+                workingTitle.style.color = 'var(--color-text)';
+                workingTitle.style.marginBottom = '1.5rem';
+                workingTitle.style.textAlign = 'center';
+                targetElement.appendChild(workingTitle);
+                targetElement.appendChild(workingList);
+
+                data.working.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add(category === 'clients' ? 'version-item' : 'extension-item', 'animate-fade-in-up');
+                    itemElement.style.setProperty('--animation-delay', `${0.1 * index}s`);
+
+                    const optionsHtml = item.options.map(option => `
+                        <a href="${option.url}" class="download-btn small" target="_blank">
+                            <i class="fas fa-download"></i> ${option.name}
+                        </a>
+                    `).join('');
+
+                    itemElement.innerHTML = `
+                        <div class="${category === 'clients' ? 'version-item-content' : 'extension-item-content'}">
+                            <h4>${item.version} <span class="version-tag">${item.tag || ''}</span></h4>
+                            <p>${item.release ? `Release: ${item.release} | ` : ''}${item.size ? `Size: ${item.size}` : item.description}</p>
+                        </div>
+                        <div class="download-options">
+                            ${optionsHtml}
+                        </div>
+                    `;
+                    workingList.appendChild(itemElement);
+                    observer.observe(itemElement);
+                });
             }
-        });
+
+            if (data.working && data.working.length > 0 && data.legacy && data.legacy.length > 0) {
+                const separator = document.createElement('div');
+                separator.classList.add('separator');
+                targetElement.appendChild(separator);
+            }
+
+            if (data.legacy && data.legacy.length > 0) {
+                const legacyList = document.createElement('div');
+                legacyList.classList.add('version-list');
+                const legacyTitle = document.createElement('h3');
+                legacyTitle.classList.add('subsection-title');
+                legacyTitle.textContent = category === 'clients' ? 'Legacy Client Versions' : 'Legacy Extensions';
+                legacyTitle.style.color = 'var(--color-text)';
+                legacyTitle.style.marginBottom = '1.5rem';
+                legacyTitle.style.textAlign = 'center';
+                targetElement.appendChild(legacyTitle);
+                targetElement.appendChild(legacyList);
+
+                data.legacy.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add(category === 'clients' ? 'version-item' : 'extension-item', 'animate-fade-in-up');
+                    itemElement.style.setProperty('--animation-delay', `${0.1 * index}s`);
+
+                    const optionsHtml = item.options.map(option => `
+                        <a href="${option.url}" class="download-btn small" target="_blank">
+                            <i class="fas fa-download"></i> ${option.name}
+                        </a>
+                    `).join('');
+
+                    itemElement.innerHTML = `
+                        <div class="${category === 'clients' ? 'version-item-content' : 'extension-item-content'}">
+                            <h4>${item.version} <span class="version-tag legacy">${item.tag || 'Archived'}</span></h4>
+                            <p>${item.release ? `Release: ${item.release} | ` : ''}${item.size ? `Size: ${item.size}` : item.description}</p>
+                        </div>
+                        <div class="download-options">
+                            ${optionsHtml}
+                        </div>
+                    `;
+                    legacyList.appendChild(itemElement);
+                    observer.observe(itemElement);
+                });
+            }
+        }
 
         function renderFaqs(faqsToDisplay) {
+            const faqContainer = document.getElementById('faqContainer');
             faqContainer.innerHTML = '';
             faqsToDisplay.forEach((faq, index) => {
                 const faqItem = document.createElement('div');
@@ -1628,199 +2215,8 @@
             });
         }
 
-        function renderDownloads(category) {
-            if (!allDownloads) return;
-
-            const targetElement = category === 'clients' ? clientsTabContent : extensionsTabContent;
-            targetElement.innerHTML = '';
-
-            const data = allDownloads[category];
-
-            if (data.working && data.working.length > 0) {
-                const workingList = document.createElement('div');
-                workingList.classList.add('version-list');
-                const workingTitle = document.createElement('h3');
-                workingTitle.classList.add('subsection-title');
-                workingTitle.textContent = category === 'clients' ? 'Working Client Versions' : 'Working Extensions';
-                targetElement.appendChild(workingTitle);
-                targetElement.appendChild(workingList);
-
-                data.working.forEach((item, index) => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('version-item', 'animate-fade-in-up');
-                    itemElement.style.setProperty('--animation-delay', `${0.1 * index}s`);
-
-                    const optionsHtml = item.options.map(option => `
-                        <a href="${option.url}" class="download-btn small" target="_blank">
-                            <i class="fas fa-download"></i> ${option.name}
-                        </a>
-                    `).join('');
-
-                    itemElement.innerHTML = `
-                        <div class="version-item-content">
-                            <h4>${item.version} <span class="version-tag">${item.tag || ''}</span></h4>
-                            <p>${item.release ? `Release: ${item.release} | ` : ''}Size: ${item.size || item.description}</p>
-                        </div>
-                        <div class="download-options">
-                            ${optionsHtml}
-                        </div>
-                    `;
-                    workingList.appendChild(itemElement);
-                    observer.observe(itemElement);
-                });
-            }
-
-            if (data.working && data.working.length > 0 && data.legacy && data.legacy.length > 0) {
-                const separator = document.createElement('div');
-                separator.classList.add('separator');
-                targetElement.appendChild(separator);
-            }
-
-            if (data.legacy && data.legacy.length > 0) {
-                const legacyList = document.createElement('div');
-                legacyList.classList.add('version-list');
-                const legacyTitle = document.createElement('h3');
-                legacyTitle.classList.add('subsection-title');
-                legacyTitle.textContent = category === 'clients' ? 'Legacy Client Versions' : 'Legacy Extensions';
-                targetElement.appendChild(legacyTitle);
-                targetElement.appendChild(legacyList);
-
-                data.legacy.forEach((item, index) => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('version-item', 'animate-fade-in-up');
-                    itemElement.style.setProperty('--animation-delay', `${0.1 * index}s`);
-
-                    const optionsHtml = item.options.map(option => `
-                        <a href="${option.url}" class="download-btn small" target="_blank">
-                            <i class="fas fa-download"></i> ${option.name}
-                        </a>
-                    `).join('');
-
-                    itemElement.innerHTML = `
-                        <div class="version-item-content">
-                            <h4>${item.version} <span class="version-tag legacy">${item.tag || 'Archived'}</span></h4>
-                            <p>${item.release ? `Release: ${item.release} | ` : ''}Size: ${item.size || item.description}</p>
-                        </div>
-                        <div class="download-options">
-                            ${optionsHtml}
-                        </div>
-                    `;
-                    legacyList.appendChild(itemElement);
-                    observer.observe(itemElement);
-                });
-            }
-        }
-
-        function switchDownloadsTab(selectedTab) {
-            tabButtons.forEach(button => {
-                if (button.dataset.tab === selectedTab) {
-                    button.classList.add('active');
-                } else {
-                    button.classList.remove('active');
-                }
-            });
-
-            document.querySelectorAll('.tab-content').forEach(content => {
-                if (content.id === `${selectedTab}-tab-content`) {
-                    content.classList.add('active');
-                    const animatedElementsInTab = content.querySelectorAll('.animate-fade-in-up');
-                    animatedElementsInTab.forEach(element => {
-                        element.classList.remove('is-visible');
-                        observer.unobserve(element);
-                        observer.observe(element);
-                    });
-                } else {
-                    content.classList.remove('active');
-                }
-            });
-            renderDownloads(selectedTab);
-        }
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                switchDownloadsTab(button.dataset.tab);
-            });
-        });
-
-        function toggleOverlay(overlayElement, show) {
-            if (show) {
-                [modsSection, faqOverlay, licenseOverlay, donateOverlay, downloadsOverlay].forEach(overlay => {
-                    if (overlay !== overlayElement && overlay.classList.contains('is-open')) {
-                        overlay.classList.remove('is-open');
-                    }
-                });
-
-                overlayElement.classList.add('is-open');
-                document.body.classList.add('no-scroll');
-                const overlayAnimatedElements = overlayElement.querySelectorAll('.animate-fade-in-up');
-                overlayAnimatedElements.forEach(element => {
-                    element.classList.remove('is-visible');
-                    observer.unobserve(element);
-                    observer.observe(element);
-                });
-            } else {
-                overlayElement.classList.remove('is-open');
-                document.body.classList.remove('no-scroll');
-            }
-            if (navMenu.classList.contains('active')) {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-            }
-        }
-
-        allModsNavLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleOverlay(modsSection, true);
-        });
-
-        faqNavLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleOverlay(faqOverlay, true);
-        });
-
-        licenseNavLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleOverlay(licenseOverlay, true);
-        });
-
-        donateNavLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleOverlay(donateOverlay, true);
-        });
-
-        downloadsNavLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleOverlay(downloadsOverlay, true);
-            switchDownloadsTab('clients');
-        });
-
-        homeDownloadButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleOverlay(downloadsOverlay, true);
-            switchDownloadsTab('clients');
-        });
-
-        closeModsBtn.addEventListener('click', () => {
-            toggleOverlay(modsSection, false);
-        });
-
-        closeFaqBtn.addEventListener('click', () => {
-            toggleOverlay(faqOverlay, false);
-        });
-
-        closeLicenseBtn.addEventListener('click', () => {
-            toggleOverlay(licenseOverlay, false);
-        });
-
-        closeDonateBtn.addEventListener('click', () => {
-            toggleOverlay(donateOverlay, false);
-        });
-
-        closeDownloadsBtn.addEventListener('click', () => {
-            toggleOverlay(downloadsOverlay, false);
-        });
-
         function renderMods(modsToDisplay) {
+            const modsGrid = document.getElementById('modsGrid');
             modsGrid.innerHTML = '';
             if (modsToDisplay.length === 0) {
                 modsGrid.innerHTML = '<p style="color: var(--color-text-alt); text-align: center; grid-column: 1 / -1;">No mods found matching your criteria.</p>';
@@ -1847,7 +2243,7 @@
         }
 
         function filterAndSearchMods() {
-            const searchQuery = modSearchInput.value.toLowerCase();
+            const searchQuery = document.getElementById('modSearch').value.toLowerCase();
             const activeCategoryButton = document.querySelector('.filter-button.active');
             const selectedCategory = activeCategoryButton ? activeCategoryButton.dataset.category : 'all';
 
@@ -1862,6 +2258,9 @@
             renderMods(filteredMods);
         }
 
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const modSearchInput = document.getElementById('modSearch');
+
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -1875,4 +2274,3 @@
   </script>
 </body>
 </html>
-
