@@ -33,11 +33,19 @@
     },
     {
         "id": "chunkborder",
-        "icon": "assets/mods/chunkborders.png",
+        "icon": "assets/mods/chunkmap.png",
         "title": "Chunk Border",
         "description": "Displays the chunk when holding a nautilus shell in offhand while in 3rd person.",
         "tags": ["Visual", "Utility"],
         "categories": ["visual", "utility"]
+    },
+    {
+        "id": "clockcompass",
+        "icon": "assets/mods/clockcompass.png",
+        "title": "Clock Compass",
+        "description": "Displays a clock and compass on your HUD for easier navigation.",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
     },
     {
         "id": "coordinates",
@@ -72,6 +80,14 @@
         "categories": ["hud", "utility"]
     },
     {
+        "id": "debughud",
+        "icon": "assets/mods/debughud.png",
+        "title": "Debug HUD",
+        "description": "Displays detailed technical information about the game state.",
+        "tags": ["Utility"],
+        "categories": ["utility"]
+    },
+    {
         "id": "directionhud",
         "icon": "assets/mods/directionhud.png",
         "title": "Direction HUD",
@@ -94,6 +110,14 @@
         "description": "Forces coordinates display even when normally hidden.",
         "tags": ["Utility"],
         "categories": ["utility"]
+    },
+    {
+        "id": "fpscounter",
+        "icon": "assets/mods/fpscounter.png",
+        "title": "FPS Counter",
+        "description": "Displays your current frames per second.",
+        "tags": ["HUD", "Utility"],
+        "categories": ["hud", "utility"]
     },
     {
         "id": "hitbox",
@@ -137,7 +161,7 @@
     },
     {
         "id": "itemcounter",
-        "icon": "assets/mods/itemcounter.png",
+        "icon": "assets/mods/itemcounters.png",
         "title": "Item Counter",
         "description": "Counts Arrows, Potions and Totems items in your inventory or hotbar.",
         "tags": ["HUD", "Utility", "PvP"],
@@ -160,6 +184,14 @@
         "categories": ["hud", "utility", "pvp"]
     },
     {
+        "id": "mobileshortcuts",
+        "icon": "assets/mods/mobileshortcuts.png",
+        "title": "Mobile Shortcuts",
+        "description": "Provides quick-access shortcuts optimized for mobile gameplay.",
+        "tags": ["Utility", "Mobile"],
+        "categories": ["utility", "mobile"]
+    },
+    {
         "id": "offhandhud",
         "icon": "assets/mods/offhandhud.png",
         "title": "Offhand HUD",
@@ -176,6 +208,14 @@
         "categories": ["hud", "utility"]
     },
     {
+        "id": "safezoneviewer",
+        "icon": "assets/mods/safezoneviewer.png",
+        "title": "Safe Zone Viewer",
+        "description": "Visualizes safe areas or boundaries within the game world.",
+        "tags": ["Visual", "Utility"],
+        "categories": ["visual", "utility"]
+    },
+    {
         "id": "saturationdisplaychanger",
         "icon": "assets/mods/display.png",
         "title": "Saturation Display Changer",
@@ -190,6 +230,14 @@
         "description": "Shows information about the server you are currently on.",
         "tags": ["HUD", "Utility"],
         "categories": ["hud", "utility"]
+    },
+    {
+        "id": "shinypotions",
+        "icon": "assets/mods/shinypotions.png",
+        "title": "Shiny Potions",
+        "description": "Adds a visual glint or enhanced effect to potion items.",
+        "tags": ["Visual", "Cosmetic"],
+        "categories": ["visual", "cosmetic"]
     },
     {
         "id": "slotcounter",
