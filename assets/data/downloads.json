@@ -2,8 +2,19 @@
   "clients": {
     "working": [
       {
-        "version": "Glacier v5.1",
+        "version": "Glacier v6",
         "tag": "Latest",
+        "release": "2025-12-25",
+        "size": "3.33MB",
+        "options": [
+          {"name": "Download", "url": "https://link-target.net/499358/jW4OJcixGfH9"}
+        ]
+      }
+    ],
+    "legacy": [
+      {
+        "version": "Glacier v5.1",
+        "tag": "Archived",
         "release": "2025-07-06",
         "size": "2.77MB",
         "options": [
@@ -13,15 +24,13 @@
       },
       {
         "version": "Glacier v4",
-        "tag": "Working",
+        "tag": "Archived",
         "release": "2024-10-26",
         "size": "1.75MB",
         "options": [
           {"name": "Download", "url": "https://link-center.net/499358/glacier-client-v4"}
         ]
-      }
-    ],
-    "legacy": [
+      },
       {
         "version": "Glacier v3",
         "tag": "Archived",
@@ -54,6 +63,36 @@
   "extensions": {
     "working": [
       {
+        "version": "Cape Physics (v6)",
+        "description": "Adds dynamic physics to player capes for enhanced realism.",
+        "options": [
+          {"name": "Download", "url": "https://link-target.net/499358/V8eStnWz4hev"}
+        ]
+      },
+      {
+        "version": "Hit Color (v6)",
+        "description": "Changes the color of the player when getting hit.",
+        "options": [
+          {"name": "Download", "url": "https://direct-link.net/499358/1LrouT93xNmw"}
+        ]
+      },
+      {
+        "version": "Hitbox (v6)",
+        "description": "Displays a hitbox on the player.",
+        "options": [
+          {"name": "Download", "url": "https://direct-link.net/499358/0fxDWbScpOtL"}
+        ]
+      },
+      {
+        "version": "Projectile Particles (v6)",
+        "description": "Adds particle effects to projectiles.",
+        "options": [
+          {"name": "Download", "url": "https://link-center.net/499358/yz74hNrl2jep"}
+        ]
+      }
+    ],
+    "legacy": [
+      {
         "version": "Cape Physics (v5)",
         "description": "Adds dynamic physics to player capes for enhanced realism.",
         "options": [
@@ -68,9 +107,7 @@
           {"name": "Linkvertise", "url": "https://link-target.net/499358/O3EPrFMabbut"},
           {"name": "LootLabs", "url": "https://lootdest.org/s?xt8Clcln"}
         ]
-      }
-    ],
-    "legacy": [
+      },
       {
         "version": "Chunk Border (v4)",
         "description": "Displays the chunk when holding a nautilus shell in offhand while in 3rd person.",
