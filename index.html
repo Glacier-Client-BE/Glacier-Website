@@ -2072,7 +2072,7 @@
 
                     itemElement.innerHTML = `
                         <div class="${category === 'clients' ? 'version-item-content' : 'extension-item-content'}">
-                            <h4>${item.version} <span class="version-tag">${item.tag || ''}</span></h4>
+                            <h4>${item.version} <span class="version-tag">${item.tag || 'Working'}</span></h4>
                             <p>${item.release ? `Release: ${item.release} | ` : ''}${item.size ? `Size: ${item.size}` : item.description}</p>
                         </div>
                         <div class="download-options">
