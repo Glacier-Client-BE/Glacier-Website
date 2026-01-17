@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glacier Client | Next-Gen Minecraft Bedrock Experience</title>
-  <meta name="description" content="Glacier Client is an optimized texture pack client for Minecraft Bedrock Edition, featuring an extensive library of mods, a draggable GUI, and lightweight performance. Download the next-gen Minecraft experience today!" />
-  <meta name="keywords" content="Minecraft, Bedrock, client, Glacier, Bedrock Edition, mods, texture pack, client, PvP, FPS, performance, client mod, bedrock client" />
-  <link rel="canonical" href="https://glacierclient.xyz" />
-  <meta property="og:title" content="Glacier Client | Minecraft BE" />
-  <meta property="og:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance. Download now!" />
-  <meta property="og:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
-  <meta property="og:url" content="https://glacierclient.xyz" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@glacierclientbe" />
-  <meta name="twitter:title" content="Glacier Client | Minecraft BE" />
-  <meta name="twitter:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance." />
-  <meta name="twitter:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3797529826447427"
-     crossorigin="anonymous"></script>
-  <script type="application/ld+json">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glacier Client | Next-Gen Minecraft Bedrock Experience</title>
+    <meta name="description"
+        content="Glacier Client is an optimized texture pack client for Minecraft Bedrock Edition, featuring an extensive library of mods, a draggable GUI, and lightweight performance. Download the next-gen Minecraft experience today!" />
+    <meta name="keywords"
+        content="Minecraft, Bedrock, client, Glacier, Bedrock Edition, mods, texture pack, client, PvP, FPS, performance, client mod, bedrock client" />
+    <link rel="canonical" href="https://glacierclient.xyz" />
+    <meta property="og:title" content="Glacier Client | Minecraft BE" />
+    <meta property="og:description"
+        content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance. Download now!" />
+    <meta property="og:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
+    <meta property="og:url" content="https://glacierclient.xyz" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@glacierclientbe" />
+    <meta name="twitter:title" content="Glacier Client | Minecraft BE" />
+    <meta name="twitter:description"
+        content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance." />
+    <meta name="twitter:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3797529826447427"
+        crossorigin="anonymous"></script>
+    <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -35,7 +40,7 @@
     }
   }
   </script>
-  <script type="application/ld+json">
+    <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -51,2194 +56,2249 @@
     ]
   }
   </script>
-  <link rel="icon" type="image/png" href="assets/logo.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    :root {
-        --color-primary: #7289DA;
-        --color-primary-dark: #5b6eae;
-        --color-dark: #0F0F13;
-        --color-dark-alt: #1A1A22;
-        --color-darker: #0A0A0E;
-        --color-text: #FFFFFF;
-        --color-text-alt: #B0B0C0;
-        --color-text-muted: #8A8A9A;
-        --border-radius: 16px;
-        --border-radius-sm: 8px;
-        --border-radius-lg: 24px;
-        --border-radius-pill: 50px;
-        --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        --shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-        --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.3);
-        --shadow-glow: 0 0 20px rgba(114, 137, 218, 0.4);
-        --container-width: 1200px;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        background: var(--color-dark);
-        color: var(--color-text);
-        line-height: 1.6;
-        overflow-x: hidden;
-        font-weight: 400;
-    }
-
-    .container {
-        max-width: var(--container-width);
-        margin: 0 auto;
-        padding: 0 1.5rem;
-    }
-
-    .main-header {
-        position: fixed;
-        top: 1.5rem;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 95%;
-        max-width: 1200px;
-        background: rgba(26, 26, 34, 0.95);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(114, 137, 218, 0.2);
-        border-radius: var(--border-radius-pill);
-        z-index: 1000;
-        transition: var(--transition);
-        box-shadow: var(--shadow);
-    }
-
-    .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.75rem 1.5rem;
-        height: 60px;
-    }
-
-    .brand {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        z-index: 1001;
-    }
-
-    .brand-logo {
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
-        transition: var(--transition);
-    }
-
-    .brand:hover .brand-logo {
-        transform: rotate(5deg) scale(1.05);
-    }
-
-    .brand-name {
-        font-weight: 700;
-        font-size: 1.25rem;
-        color: var(--color-text);
-        background: linear-gradient(90deg, var(--color-text), var(--color-primary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .nav-menu {
-        display: flex;
-    }
-
-    .nav-list {
-        display: flex;
-        gap: 1.5rem;
-        list-style: none;
-        align-items: center;
-    }
-
-    .nav-link {
-        color: var(--color-text-alt);
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: var(--transition);
-        position: relative;
-        padding: 0.5rem 0;
-        white-space: nowrap;
-    }
-
-    .nav-link:hover, .nav-link.active {
-        color: var(--color-text);
-    }
-
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 2px;
-        background: var(--color-primary);
-        left: 0;
-        bottom: 0;
-        transition: var(--transition);
-        border-radius: 2px;
-    }
-
-    .nav-link:hover::after, .nav-link.active::after {
-        width: 100%;
-    }
-
-    .nav-donate {
-        background: linear-gradient(90deg, #FFDD00, #FFAA00);
-        color: #000 !important;
-        padding: 0.5rem 1rem;
-        border-radius: var(--border-radius-pill);
-        font-weight: 600;
-        transition: var(--transition);
-        box-shadow: 0 4px 15px rgba(255, 221, 0, 0.3);
-    }
-
-    .nav-donate::after {
-        display: none;
-    }
-
-    .nav-donate:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(255, 221, 0, 0.4);
-    }
-
-    .hamburger-menu {
-        display: none;
-        background: none;
-        border: none;
-        color: var(--color-text);
-        font-size: 1.5rem;
-        cursor: pointer;
-        padding: 0.5rem;
-        z-index: 1001;
-    }
-
-    .hero-section {
-        padding: 160px 0 100px;
-        background: linear-gradient(135deg, rgba(15, 15, 19, 0.9) 0%, rgba(26, 26, 34, 0.9) 100%), url('assets/BG.png');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .hero-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 20% 80%, rgba(114, 137, 218, 0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 20%, rgba(114, 137, 218, 0.05) 0%, transparent 50%);
-        pointer-events: none;
-    }
-
-    .hero-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-        text-align: left;
-        position: relative;
-        z-index: 1;
-    }
-
-    .hero-content {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .hero-title {
-        font-size: 3.5rem;
-        margin-bottom: 1.5rem;
-        line-height: 1.1;
-        color: var(--color-text);
-        font-weight: 800;
-        background: linear-gradient(90deg, #FFFFFF, var(--color-primary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .hero-subtext {
-        color: var(--color-text-alt);
-        margin-bottom: 2.5rem;
-        font-size: 1.25rem;
-        line-height: 1.6;
-        max-width: 90%;
-    }
-
-    .hero-buttons {
-        display: flex;
-        gap: 1.5rem;
-        flex-wrap: wrap;
-    }
-
-    .btn {
-        padding: 1rem 2rem;
-        border: none;
-        border-radius: var(--border-radius-sm);
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        transition: var(--transition);
-        text-decoration: none;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.7s ease;
-    }
-
-    .btn:hover::before {
-        left: 100%;
-    }
-
-    .btn-primary {
-        background: var(--color-primary);
-        color: var(--color-text);
-        box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4);
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(114, 137, 218, 0.6);
-        background: var(--color-primary-dark);
-    }
-
-    .btn-secondary {
-        background: rgba(255, 255, 255, 0.1);
-        color: var(--color-text);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-secondary:hover {
-        transform: translateY(-5px);
-        background: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .hero-preview {
-        position: relative;
-    }
-
-    .hero-image {
-        width: 100%;
-        max-width: 600px;
-        border-radius: var(--border-radius-lg);
-        box-shadow: var(--shadow-lg);
-        border: 1px solid rgba(114, 137, 218, 0.3);
-        transition: var(--transition);
-        position: relative;
-        z-index: 1;
-    }
-
-    .hero-image:hover {
-        transform: translateY(-10px) scale(1.02);
-        box-shadow: var(--shadow-lg), var(--shadow-glow);
-    }
-
-    .features-section {
-        padding: 6rem 0;
-        background: var(--color-darker);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .features-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 30% 70%, rgba(114, 137, 218, 0.05) 0%, transparent 50%);
-        pointer-events: none;
-    }
-
-    .section-header {
-        text-align: center;
-        margin-bottom: 5rem;
-        position: relative;
-    }
-
-    .section-title {
-        font-size: 2.5rem;
-        color: var(--color-text);
-        font-weight: 700;
-        margin-bottom: 1rem;
-        position: relative;
-        display: inline-block;
-    }
-
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 3px;
-        background: var(--color-primary);
-        border-radius: 2px;
-    }
-
-    .section-subtitle {
-        color: var(--color-text-alt);
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2.5rem;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .feature-card {
-        background: var(--color-dark-alt);
-        padding: 2.5rem;
-        border-radius: var(--border-radius);
-        text-align: center;
-        transition: var(--transition);
-        border: 1px solid rgba(114, 137, 218, 0.1);
-        box-shadow: var(--shadow);
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-    }
-
-    .feature-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background: linear-gradient(90deg, var(--color-primary), transparent);
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.5s ease;
-    }
-
-    .feature-card:hover::before {
-        transform: scaleX(1);
-    }
-
-    .feature-card:hover {
-        transform: translateY(-10px);
-        box-shadow: var(--shadow-lg);
-        border-color: rgba(114, 137, 218, 0.3);
-    }
-
-    .feature-icon {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 0;
-        transition: var(--transition);
-        filter: drop-shadow(0 0 10px rgba(114, 137, 218, 0.5));
-        flex-shrink: 0;
-    }
-
-    .feature-card:hover .feature-icon {
-        transform: scale(1.15);
-    }
-
-    .feature-content {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        align-items: center;
-    }
-
-    .feature-title {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        color: var(--color-text);
-        font-weight: 600;
-    }
-
-    .feature-desc {
-        color: var(--color-text-alt);
-        font-size: 1rem;
-        line-height: 1.7;
-    }
-
-    .gallery-section {
-        padding: 6rem 0;
-        background: var(--color-dark);
-        position: relative;
-    }
-
-    .gallery-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-top: 3rem;
-    }
-
-    .gallery-item {
-        border-radius: var(--border-radius);
-        overflow: hidden;
-        position: relative;
-        box-shadow: var(--shadow);
-        transition: var(--transition);
-        aspect-ratio: 16/9;
-    }
-
-    .gallery-item:hover {
-        transform: translateY(-10px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: var(--transition);
-    }
-
-    .gallery-item:hover img {
-        transform: scale(1.05);
-    }
-
-    .gallery-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: linear-gradient(transparent, rgba(15, 15, 19, 0.9));
-        padding: 1.5rem;
-        transform: translateY(100%);
-        transition: var(--transition);
-    }
-
-    .gallery-item:hover .gallery-overlay {
-        transform: translateY(0);
-    }
-
-    .gallery-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: var(--color-text);
-    }
-
-    .gallery-desc {
-        font-size: 0.9rem;
-        color: var(--color-text-alt);
-    }
-
-    .community-section {
-        padding: 6rem 0;
-        background: var(--color-darker);
-        position: relative;
-    }
-
-    .community-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 4rem;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .community-widget {
-        background: var(--color-dark-alt);
-        padding: 1.5rem;
-        border-radius: var(--border-radius);
-        border: 1px solid rgba(114, 137, 218, 0.2);
-        box-shadow: var(--shadow-lg);
-        transition: var(--transition);
-        flex-shrink: 0;
-        width: 380px;
-        height: 500px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .community-widget:hover {
-        transform: translateY(-10px);
-        box-shadow: var(--shadow-lg), var(--shadow-glow);
-    }
-
-    .community-widget iframe {
-        width: 100%;
-        height: 100%;
-        border-radius: var(--border-radius-sm);
-    }
-
-    .community-text {
-        background: var(--color-dark-alt);
-        padding: 3rem;
-        border-radius: var(--border-radius);
-        text-align: left;
-        max-width: 500px;
-        border: 1px solid rgba(114, 137, 218, 0.2);
-        box-shadow: var(--shadow-lg);
-        transition: var(--transition);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .community-text:hover {
-        transform: translateY(-10px);
-        box-shadow: var(--shadow-lg), var(--shadow-glow);
-    }
-
-    .community-text h2 {
-        font-size: 2.5rem;
-        color: var(--color-primary);
-        margin-bottom: 1.5rem;
-        font-weight: 700;
-    }
-
-    .community-text p, .community-text ul {
-        color: var(--color-text-alt);
-        font-size: 1.1rem;
-        line-height: 1.8;
-        margin-bottom: 1.5rem;
-    }
-
-    .community-text ul {
-        list-style: disc;
-        padding-left: 1.5rem;
-        margin-top: 1rem;
-    }
-
-    .community-text li {
-        margin-bottom: 0.5rem;
-    }
-
-    .main-footer {
-        border-top: 1px solid rgba(114, 137, 218, 0.2);
-        padding: 3rem 0 2rem;
-        background: var(--color-darker);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-        position: relative;
-    }
-
-    .footer-container {
-        text-align: center;
-        width: 100%;
-    }
-
-    .footer-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .footer-brand {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    .footer-logo {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-    }
-
-    .footer-social {
-        display: flex;
-        gap: 1.5rem;
-    }
-
-    .social-link {
-        color: var(--color-text-alt);
-        font-size: 1.5rem;
-        transition: var(--transition);
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.05);
-        text-decoration: none;
-    }
-
-    .social-link:hover {
-        color: var(--color-primary);
-        transform: translateY(-3px);
-        background: rgba(114, 137, 218, 0.1);
-    }
-
-    .copyright-text {
-        color: var(--color-text-muted);
-        font-size: 0.9rem;
-        padding-top: 2rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        width: 100%;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-        from { transform: translateY(30px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-20px); }
-    }
-
-    .animate-fade-in-up {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .animate-fade-in-up.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .delay-1 { transition-delay: 0.1s; }
-    .delay-2 { transition-delay: 0.2s; }
-    .delay-3 { transition-delay: 0.3s; }
-    .delay-4 { transition-delay: 0.4s; }
-    .delay-5 { transition-delay: 0.5s; }
-
-    .animate-float {
-        animation: float 6s ease-in-out infinite;
-    }
-
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(15, 15, 19, 0.95);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        z-index: 2000;
-        overflow-y: auto;
-        padding: 2rem 0;
-        transform: translateY(100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: transform 0.5s ease-out, opacity 0.5s ease-out, visibility 0s linear 0.5s;
-    }
-
-    .overlay.is-open {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-    }
-
-    .overlay-header {
-        text-align: center;
-        margin-bottom: 3rem;
-        padding-top: 1rem;
-    }
-
-    .overlay-header h1 {
-        font-size: 2.8rem;
-        color: var(--color-primary);
-        margin-bottom: 1rem;
-        font-weight: 700;
-    }
-
-    .overlay-header p {
-        color: var(--color-text-alt);
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .close-overlay-btn {
-        position: absolute;
-        top: 2rem;
-        right: 2rem;
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        font-size: 1.2rem;
-        color: var(--color-text);
-        cursor: pointer;
-        transition: var(--transition);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2001;
-    }
-
-    .close-overlay-btn:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: rotate(90deg);
-    }
-
-    body.no-scroll {
-        overflow: hidden;
-    }
-
-    .mods-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(15, 15, 19, 0.95);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        z-index: 2000;
-        overflow-y: auto;
-        padding: 2rem 0;
-        transform: translateY(100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: transform 0.5s ease-out, opacity 0.5s ease-out, visibility 0s linear 0.5s;
-    }
-
-    .mods-overlay.is-open {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-    }
-
-    .filter-controls {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin-bottom: 2rem;
-    }
-
-    .filter-button {
-        background: var(--color-dark-alt);
-        color: var(--color-text-alt);
-        padding: 0.7rem 1.5rem;
-        border-radius: 8px;
-        border: 1px solid rgba(114, 137, 218, 0.2);
-        cursor: pointer;
-        transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .filter-button:hover, .filter-button.active {
-        background: var(--color-primary);
-        color: var(--color-text);
-        border-color: var(--color-primary);
-    }
-
-    .search-bar {
-        position: relative;
-        max-width: 500px;
-        margin: 0 auto 3rem;
-    }
-
-    .search-bar input {
-        width: 100%;
-        padding: 0.8rem 1rem 0.8rem 3rem;
-        background: var(--color-dark-alt);
-        border: 1px solid rgba(114, 137, 218, 0.2);
-        border-radius: 8px;
-        color: var(--color-text);
-        font-size: 1rem;
-        outline: none;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .search-bar input:focus {
-        border-color: var(--color-primary);
-        box-shadow: 0 0 0 3px rgba(114, 137, 218, 0.3);
-    }
-
-    .search-bar i {
-        position: absolute;
-        left: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--color-text-alt);
-    }
-
-    .mods-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-    }
-
-    .mod-card {
-        background: var(--color-dark-alt);
-        padding: 1.5rem;
-        border-radius: 12px;
-        border: 1px solid rgba(114, 137, 218, 0.1);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        text-align: center;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .mod-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-    }
-
-    .mod-icon {
-        width: 80px;
-        height: 80px;
-        display: block;
-        margin: 0 auto 1rem;
-        border-radius: 8px;
-        object-fit: cover;
-    }
-
-    .mod-title {
-        font-size: 1.2rem;
-        color: var(--color-primary);
-        margin-bottom: 0.5rem;
-    }
-
-    .mod-description {
-        font-size: 0.9rem;
-        color: var(--color-text-alt);
-        margin-bottom: 1rem;
-    }
-
-    .mod-tags {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.5rem;
-    }
-
-    .mod-tag {
-        background: rgba(114, 137, 218, 0.2);
-        color: var(--color-primary);
-        padding: 0.3rem 0.7rem;
-        border-radius: 5px;
-        font-size: 0.75rem;
-        font-weight: 500;
-    }
-
-    .downloads-overlay-content {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 2rem 1.5rem;
-    }
-
-    .downloads-tabs {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 2rem;
-        border-bottom: 2px solid rgba(114, 137, 218, 0.2);
-    }
-
-    .tab-button {
-        background: none;
-        border: none;
-        padding: 1rem 2rem;
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: var(--color-text-alt);
-        cursor: pointer;
-        transition: color 0.3s ease, border-bottom 0.3s ease;
-        border-bottom: 2px solid transparent;
-    }
-
-    .tab-button:hover {
-        color: var(--color-primary);
-    }
-
-    .tab-button.active {
-        color: var(--color-primary);
-        border-bottom: 2px solid var(--color-primary);
-    }
-
-    .tab-content {
-        display: none;
-    }
-
-    .tab-content.active {
-        display: block;
-    }
-
-    .version-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .version-item, .extension-item {
-        background: var(--color-dark-alt);
-        padding: 1.2rem 1.8rem;
-        border-radius: 12px;
-        border: 1px solid rgba(114, 137, 218, 0.1);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .version-item:hover, .extension-item:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-        background-color: var(--color-dark);
-    }
-
-    .version-item-content, .extension-item-content {
-        flex-grow: 1;
-    }
-
-    .version-item h4, .extension-item h4 {
-        font-size: 1.1rem;
-        color: var(--color-text);
-        margin-bottom: 0.3rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .version-item p, .extension-item p {
-        font-size: 0.9rem;
-        color: var(--color-text-alt);
-        margin-bottom: 0;
-    }
-
-    .version-tag {
-        background: var(--color-primary);
-        color: var(--color-text);
-        padding: 0.2rem 0.6rem;
-        border-radius: 15px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        flex-shrink: 0;
-    }
-
-    .version-tag.legacy {
-        background: #666;
-    }
-
-    .download-options {
-        display: flex;
-        gap: 0.8rem;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        flex-shrink: 0;
-    }
-
-    .download-btn {
-        background: var(--color-primary);
-        color: var(--color-text);
-        padding: 0.6rem 1.2rem;
-        border-radius: 8px;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-        font-weight: 600;
-        box-shadow: 0 3px 8px rgba(114, 137, 218, 0.3);
-    }
-
-    .download-btn:hover {
-        transform: translateY(-2px);
-        background: #5b6eae;
-        box-shadow: 0 5px 12px rgba(114, 137, 218, 0.5);
-    }
-
-    .download-btn.small {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.85rem;
-    }
-
-    .separator {
-        border-top: 1px solid rgba(114, 137, 218, 0.3);
-        margin: 2rem auto;
-        width: 80%;
-        max-width: 600px;
-    }
-
-    .faq-container {
-        max-width: 800px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .faq-card {
-        background: var(--color-dark-alt);
-        border-radius: 12px;
-        border: 1px solid rgba(114, 137, 218, 0.1);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        overflow: hidden;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .faq-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-    }
-
-    .faq-question {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.5rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: var(--color-text);
-        cursor: pointer;
-        background: var(--color-dark);
-        transition: background 0.3s ease;
-    }
-
-    .faq-question:hover {
-        background: #222;
-    }
-
-    .faq-question i {
-        transition: transform 0.3s ease;
-    }
-
-    .faq-card[open] .faq-question i {
-        transform: rotate(180deg);
-    }
-
-    .faq-answer {
-        padding: 0 1.5rem 1.5rem;
-        color: var(--color-text-alt);
-        font-size: 1rem;
-        line-height: 1.8;
-    }
-
-    .faq-answer ul {
-        list-style: disc;
-        padding-left: 1.5rem;
-        margin-top: 0.5rem;
-    }
-
-    .video-container {
-        position: relative;
-        width: 100%;
-        padding-bottom: 56.25%;
-        height: 0;
-        overflow: hidden;
-        margin-top: 1rem;
-        border-radius: 8px;
-    }
-
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
-    }
-
-    .license-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(15, 15, 19, 0.95);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        z-index: 2000;
-        overflow-y: auto;
-        padding: 2rem 0;
-        transform: translateY(100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: transform 0.5s ease-out, opacity 0.5s ease-out, visibility 0s linear 0.5s;
-    }
-
-    .license-overlay.is-open {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-    }
-
-    @media (max-width: 1024px) {
-        .hero-container {
-            gap: 3rem;
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --discord-blurple: #7289da;
+            --discord-dark: #424549;
+            --discord-darker: #36393e;
+            --discord-darkest: #282b30;
+            --discord-black: #1e2124;
+            --discord-green: #57f287;
+            --discord-yellow: #fee75c;
+            --discord-red: #ed4245;
+            --discord-pink: #eb459e;
+            --discord-blue-glow: rgba(114, 137, 218, 0.6);
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 12px;
+            --border-radius-pill: 9999px;
+            --shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.4);
         }
 
-        .hero-title {
-            font-size: 3rem;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .community-content {
-            gap: 3rem;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .main-header {
-            width: 95%;
+        html {
+            scroll-behavior: smooth;
         }
 
-        .nav-menu {
-            display: none;
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--discord-darkest);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--discord-darkest) 0%, var(--discord-black) 100%);
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            background: rgba(15, 15, 19, 0.98);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(114, 137, 218, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(87, 242, 135, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(235, 69, 158, 0.02) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundPulse 20s ease-in-out infinite alternate;
         }
 
-        .nav-menu.active {
+        @keyframes backgroundPulse {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .side-nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
-        }
-
-        .nav-list {
             flex-direction: column;
-            gap: 2rem;
-            text-align: center;
+            gap: 15px;
+            z-index: 999;
+            background: rgba(30, 33, 36, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .nav-link {
-            font-size: 1.2rem;
-            padding: 1rem 2rem;
+        .side-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            position: relative;
         }
 
-        .hamburger-menu {
-            display: block;
+        .side-dot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: transparent;
+            transition: all var(--transition-normal);
         }
 
-        .hero-section {
-            padding: 140px 0 80px;
+        .side-dot:hover {
+            background-color: var(--discord-blurple);
+            transform: scale(1.3);
         }
 
-        .hero-container {
-            grid-template-columns: 1fr;
-            text-align: center;
-            gap: 3rem;
+        .side-dot:hover::before {
+            background: rgba(114, 137, 218, 0.1);
         }
 
-        .hero-content {
-            align-items: center;
+        .side-dot.active {
+            background-color: var(--discord-blurple);
+            transform: scale(1.4);
+            box-shadow: 0 0 10px rgba(114, 137, 218, 0.5);
         }
 
-        .hero-title {
-            font-size: 2.5rem;
+        .side-dot.active::before {
+            background: rgba(114, 137, 218, 0.2);
         }
 
-        .hero-subtext {
-            font-size: 1.1rem;
-            max-width: 100%;
+        .side-dot::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(30, 33, 36, 0.9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-normal);
+            pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        .hero-buttons {
-            justify-content: center;
+        .side-dot:hover::after {
+            opacity: 1;
+            visibility: visible;
+            right: 30px;
         }
 
-        .section-title {
-            font-size: 2rem;
+        header {
+            background-color: rgba(54, 57, 62, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: all var(--transition-normal);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .features-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .feature-card {
-            padding: 2rem;
-            flex-direction: row;
-            text-align: left;
-            align-items: flex-start;
-            gap: 1.5rem;
-        }
-
-        .feature-content {
-            align-items: flex-start;
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-        }
-
-        .community-content {
-            flex-direction: column;
-        }
-
-        .community-widget, .community-text {
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .community-text {
-            padding: 2rem;
-        }
-
-        .community-text h2 {
-            font-size: 2rem;
-        }
-
-        .footer-content {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .footer-brand {
-            align-items: center;
-        }
-
-        .overlay-header h1 {
-            font-size: 2.2rem;
-        }
-
-        .downloads-tabs {
-            flex-direction: column;
-            align-items: center;
-        }
-        .tab-button {
-            width: 100%;
-            max-width: 250px;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-        }
-
-        .version-list, .extension-list {
-            max-width: 100%;
-            padding: 0 1rem;
-        }
-        .version-item, .extension-item {
-            flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-        }
-        .download-options {
-            margin-top: 0.5rem;
-            justify-content: flex-start;
-            width: 100%;
-        }
-
-        .filter-controls {
-            flex-direction: column;
-            align-items: center;
-        }
-        .filter-button {
-            width: 80%;
-            max-width: 250px;
-        }
-        .search-bar {
-            width: 90%;
-        }
-        .mods-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    @media (max-width: 640px) {
-        .main-header {
-            width: 95%;
+        header.scrolled {
+            background-color: rgba(30, 33, 36, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            padding: 5px 0;
         }
 
         .header-container {
-            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            transition: padding var(--transition-normal);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+            transition: all var(--transition-normal);
+            position: relative;
+        }
+
+        .logo:hover { transform: translateY(-2px); }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: all var(--transition-normal);
+            border: 2px solid transparent;
+            box-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
+        }
+
+        .logo:hover .logo-img {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(114, 137, 218, 0.6);
+            border-color: var(--discord-blurple);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--discord-blurple), #9ba9ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--discord-blurple), #9ba9ff);
+            transition: width var(--transition-normal);
+        }
+
+        .logo:hover .logo-text::after { width: 100%; }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            background-color: rgba(66, 69, 73, 0.7);
+            padding: 10px;
+            border-radius: var(--border-radius-pill);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-item { position: relative; }
+
+        .nav-link {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: #b9bbbe;
+            font-weight: 500;
+            border-radius: var(--border-radius-pill);
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--discord-blurple), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: -1;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--discord-blurple), #9ba9ff);
+            border-radius: 3px;
+            transition: width var(--transition-normal);
+        }
+
+        .nav-link:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(114, 137, 218, 0.2);
+        }
+
+        .nav-link:hover::before { opacity: 0.2; }
+        .nav-link:hover::after { width: 70%; }
+
+        .nav-link.active {
+            background-color: var(--discord-blurple);
+            color: white;
+            box-shadow: 0 4px 20px rgba(114, 137, 218, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(114, 137, 218, 0.5);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: var(--border-radius);
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-menu-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--discord-blurple);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: -1;
+        }
+
+        .mobile-menu-btn:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .mobile-menu-btn:hover::before { opacity: 0.2; }
+
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 200px);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--discord-darkest), var(--discord-darker));
+            border-radius: var(--border-radius);
+            padding: 60px 40px;
+            margin: 0 20px 60px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            min-height: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: heroEntrance 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes heroEntrance {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(114, 137, 218, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(87, 242, 135, 0.1) 0%, transparent 50%);
+            animation: heroGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .hero-title {
-            font-size: 2rem;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0;
+            background: linear-gradient(90deg, #fff, var(--discord-blurple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: left;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #b9bbbe;
+            max-width: 100%;
+            margin: 0;
+            text-align: left;
+            line-height: 1.6;
         }
 
         .hero-buttons {
-            flex-direction: column;
-            width: 100%;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            margin-top: 10px;
         }
 
-        .btn {
-            width: 100%;
+        .hero-image {
+            display: flex;
+            align-items: center;
             justify-content: center;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            max-width: 100%;
+            height: auto;
+            position: relative;
+            transition: all var(--transition-normal);
+            border: 2px solid transparent;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--discord-blurple);
+            border-radius: var(--border-radius);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .hero-image:hover::before { opacity: 0.3; }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            object-fit: cover;
+            transition: transform var(--transition-normal);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-image:hover img { transform: scale(1.05); }
+
+        .content-container {
+            padding: 40px 0;
+            min-height: 400px;
+        }
+
+        .content-section {
+            display: none;
+            animation: sectionFadeIn var(--transition-slow) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes sectionFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section.active { display: block; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
         }
 
         .section-title {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: white;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--discord-blurple), var(--discord-green));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: #b9bbbe;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 20px auto 0;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: var(--border-radius-pill);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+            z-index: -1;
+        }
+
+        .btn:hover::before { transform: translateX(100%); }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--discord-blurple), #5b6eae);
+            color: white;
+            box-shadow: 0 4px 15px rgba(114, 137, 218, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #5b6eae, var(--discord-blurple));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(114, 137, 218, 0.6);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid var(--discord-blurple);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--discord-blurple);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: -1;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--discord-blurple);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(114, 137, 218, 0.4);
+        }
+
+        .btn-secondary:hover::before { opacity: 1; }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
 
         .feature-card {
-            flex-direction: column;
-            text-align: center;
+            background-color: rgba(66, 69, 73, 0.7);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(114, 137, 218, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+            z-index: -1;
+        }
+
+        .feature-card:hover::before { transform: translateX(100%); }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--discord-blurple);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--discord-blurple);
+            margin-bottom: 20px;
+            transition: all var(--transition-normal);
+            display: inline-block;
+        }
+
+        .feature-card:hover .feature-icon { transform: scale(1.2) rotate(5deg); }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: white;
+            transition: color var(--transition-normal);
+        }
+
+        .feature-card:hover .feature-title { color: var(--discord-blurple); }
+
+        .feature-desc { color: #b9bbbe; line-height: 1.6; }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 250px;
+            box-shadow: var(--shadow);
+            transition: all var(--transition-normal);
+            border: 2px solid transparent;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border-color: var(--discord-blurple);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-normal);
+            position: relative;
+            z-index: 0;
+        }
+
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 20px;
+            color: white;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: all var(--transition-normal);
+            z-index: 2;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .community-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
             align-items: center;
         }
 
-        .feature-content {
-            align-items: center;
+        .community-widget iframe {
+            width: 100%;
+            height: 400px;
+            border-radius: var(--border-radius);
+            border: none;
+            box-shadow: var(--shadow);
+            transition: all var(--transition-normal);
+        }
+
+        .community-widget iframe:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
         }
 
         .community-text h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: white;
         }
 
-        .overlay-header h1 {
-            font-size: 1.8rem;
+        .community-text p {
+            margin-bottom: 20px;
+            color: #b9bbbe;
+            line-height: 1.6;
         }
 
-        .version-item h4, .extension-item h4 {
-            font-size: 1rem;
+        .community-text ul {
+            list-style: none;
+            margin-bottom: 30px;
         }
 
-        .version-item p, .extension-item p {
-            font-size: 0.85rem;
+        .community-text li {
+            padding: 8px 0;
+            color: #b9bbbe;
+            position: relative;
+            padding-left: 25px;
+            transition: all var(--transition-fast);
         }
 
-        .version-tag {
-            font-size: 0.7rem;
+        .community-text li:hover {
+            color: white;
+            transform: translateX(5px);
         }
 
-        .download-btn {
-            padding: 0.7rem 1.2rem;
-            font-size: 0.85rem;
+        .community-text li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--discord-green);
+            font-weight: bold;
+            transition: all var(--transition-normal);
+        }
+
+        .community-text li:hover:before { transform: scale(1.3); }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .social-card {
+            background-color: rgba(66, 69, 73, 0.7);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            color: white;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .social-card:hover::before { transform: translateX(100%); }
+
+        .social-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--discord-blurple);
+        }
+
+        .social-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+            transition: all var(--transition-normal);
+        }
+
+        .social-card:hover .social-icon { transform: scale(1.2) rotate(5deg); }
+
+        .social-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color var(--transition-normal);
+        }
+
+        .social-card:hover .social-name { color: var(--discord-blurple); }
+
+        .downloads-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            background-color: rgba(66, 69, 73, 0.7);
+            border: none;
+            border-radius: var(--border-radius-pill);
+            color: #b9bbbe;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--discord-blurple);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: -1;
+        }
+
+        .tab-button:hover {
+            background-color: rgba(114, 137, 218, 0.2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background-color: var(--discord-blurple);
+            color: white;
+            box-shadow: 0 4px 15px rgba(114, 137, 218, 0.4);
+        }
+
+        .tab-button.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(114, 137, 218, 0.6);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .tab-content.active { display: block; }
+
+        .downloads-grid { display: grid; gap: 20px; }
+
+        .download-card {
+            background-color: rgba(66, 69, 73, 0.7);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: all var(--transition-normal);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--discord-blurple);
+            transition: height var(--transition-normal);
+        }
+
+        .download-card:hover::before { height: 100%; }
+
+        .download-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-left-color: var(--discord-blurple);
+        }
+
+        .download-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .download-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            transition: color var(--transition-normal);
+        }
+
+        .download-card:hover .download-title { color: var(--discord-blurple); }
+
+        .download-tag {
+            padding: 5px 12px;
+            border-radius: var(--border-radius-pill);
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all var(--transition-normal);
+        }
+
+        .tag-latest {
+            background-color: var(--discord-green);
+            color: var(--discord-black);
+        }
+
+        .tag-archived {
+            background-color: var(--discord-darkest);
+            color: #b9bbbe;
+        }
+
+        .download-card:hover .tag-latest { transform: scale(1.05); }
+
+        .download-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            color: #b9bbbe;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item { margin-bottom: 15px; }
+
+        .faq-card {
+            background-color: rgba(66, 69, 73, 0.7);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all var(--transition-normal);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-card:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px);
+            border-color: rgba(114, 137, 218, 0.3);
         }
 
         .faq-question {
-            font-size: 1rem;
-            padding: 1.2rem;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            transition: all var(--transition-normal);
+            background: rgba(0, 0, 0, 0.1);
         }
+
+        .faq-question:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding-left: 30px;
+        }
+
+        .faq-question i {
+            transition: transform var(--transition-normal);
+            color: var(--discord-blurple);
+        }
+
+        .faq-card[open] .faq-question i { transform: rotate(180deg); }
 
         .faq-answer {
-            font-size: 0.85rem;
-            padding: 0 1.2rem 1.2rem;
+            padding: 0 25px 25px;
+            color: #b9bbbe;
+            line-height: 1.6;
+            animation: fadeIn 0.3s ease-out;
         }
 
-        .close-overlay-btn {
+        .faq-answer ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+
+        .faq-answer li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .faq-answer li::before {
+            content: '•';
+            color: var(--discord-blurple);
+            position: absolute;
+            left: -10px;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 10px 20px;
+            background-color: rgba(66, 69, 73, 0.7);
+            border: none;
+            border-radius: var(--border-radius-pill);
+            color: #b9bbbe;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--discord-blurple);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: -1;
+        }
+
+        .filter-button:hover {
+            background-color: rgba(114, 137, 218, 0.2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .filter-button.active {
+            background-color: var(--discord-blurple);
+            color: white;
+            box-shadow: 0 4px 15px rgba(114, 137, 218, 0.4);
+        }
+
+        .filter-button.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(114, 137, 218, 0.6);
+        }
+
+        .search-bar {
+            position: relative;
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #b9bbbe;
+            transition: color var(--transition-normal);
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            background-color: rgba(66, 69, 73, 0.7);
+            border: 2px solid rgba(54, 57, 62, 0.5);
+            border-radius: var(--border-radius-pill);
+            color: white;
+            font-size: 1rem;
+            transition: all var(--transition-normal);
+            backdrop-filter: blur(10px);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--discord-blurple);
+            box-shadow: 0 0 0 3px rgba(114, 137, 218, 0.2);
+        }
+
+        .search-bar input:focus+i { color: var(--discord-blurple); }
+
+        .mods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .mod-card {
+            background-color: rgba(66, 69, 73, 0.7);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all var(--transition-normal);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .mod-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(114, 137, 218, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+            z-index: 0;
+        }
+
+        .mod-card:hover::before { transform: translateX(100%); }
+
+        .mod-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--discord-blurple);
+        }
+
+        .mod-image {
+            height: 80px;
+            width: 80px;
+            object-fit: contain;
+            background: none;
+            margin: 20px auto;
+            display: block;
+            border-radius: 8px;
+            transition: all var(--transition-normal);
+            position: relative;
+            z-index: 1;
+        }
+
+        .mod-card:hover .mod-image { transform: scale(1.1) rotate(5deg); }
+
+        .mod-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mod-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: white;
+            transition: color var(--transition-normal);
+        }
+
+        .mod-card:hover .mod-title { color: var(--discord-blurple); }
+
+        .mod-description {
+            color: #b9bbbe;
+            margin-bottom: 15px;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+
+        .mod-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .mod-tag {
+            padding: 5px 10px;
+            background-color: rgba(54, 57, 62, 0.7);
+            border-radius: var(--border-radius-pill);
+            font-size: 0.8rem;
+            color: #b9bbbe;
+            transition: all var(--transition-normal);
+        }
+
+        .mod-card:hover .mod-tag {
+            background-color: rgba(114, 137, 218, 0.2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .license-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .license-card {
+            background-color: rgba(66, 69, 73, 0.7);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all var(--transition-normal);
+        }
+
+        .license-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(114, 137, 218, 0.3);
+        }
+
+        .license-card h3 {
+            color: white;
+            margin-bottom: 20px;
             font-size: 1.5rem;
-            top: 15px;
-            right: 15px;
-        }
-    }
-  </style>
-</head>
-<body>
-  <header class="main-header">
-    <div class="container header-container">
-      <div class="brand">
-        <img src="assets/logo.png" alt="Glacier Client Logo" class="brand-logo" loading="lazy" />
-        <span class="brand-name">Glacier</span>
-      </div>
-      <button class="hamburger-menu" id="hamburgerMenu">
-        <i class="fas fa-bars"></i>
-      </button>
-      <nav class="nav-menu" id="navMenu">
-        <ul class="nav-list">
-          <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
-          <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
-          <li class="nav-item"><a href="#gallery" class="nav-link">Gallery</a></li>
-          <li class="nav-item"><a href="#community" class="nav-link">Community</a></li>
-          <li class="nav-item"><a href="#" class="nav-link" id="downloadsNavLink">Downloads</a></li>
-          <li class="nav-item"><a href="#" class="nav-link" id="faqNavLink">FAQ</a></li>
-          <li class="nav-item"><a href="#" class="nav-link" id="allModsNavLink">All Mods</a></li>
-          <li class="nav-item"><a href="#" class="nav-link" id="licenseNavLink">License</a></li>
-          <li class="nav-item"><a href="#" class="nav-link nav-donate" id="donateNavLink"><i class="fas fa-hand-holding-usd"></i> Donate</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main id="main-content">
-    <section id="home" class="hero-section">
-      <div class="container hero-container">
-        <div class="hero-content">
-          <h1 class="hero-title animate-fade-in-up">Next Generation Minecraft Experience</h1>
-          <p class="hero-subtext animate-fade-in-up delay-1">Optimized texture pack client for Minecraft Bedrock Edition with extensive modules, draggable GUI, and lightweight performance.</p>
-          <div class="hero-buttons">
-            <a href="#" class="btn btn-primary animate-fade-in-up delay-2" id="homeDownloadButton">
-              <i class="fas fa-download"></i> Download Now
-            </a>
-            <a href="https://config.glacierclient.xyz" class="btn btn-secondary animate-fade-in-up delay-3">
-              <i class="fas fa-cog"></i> Config Editor
-            </a>
-          </div>
-        </div>
-        <div class="hero-preview">
-          <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu and Draggable HUD" class="hero-image animate-float" loading="lazy" />
-        </div>
-      </div>
-    </section>
-
-    <section id="features" class="features-section">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title animate-fade-in-up">Core Features</h2>
-          <p class="section-subtitle animate-fade-in-up delay-1">Experience the power of Glacier Client with these standout features</p>
-        </div>
-        <div class="features-grid">
-          <div class="feature-card animate-fade-in-up delay-1">
-            <img src="assets/icons/modules.png" alt="Glacier Client extensive modules" class="feature-icon" loading="lazy" />
-            <div class="feature-content">
-                <h3 class="feature-title" id="modulesCount">50+ Modules</h3>
-                <p class="feature-desc">Extensive modules with real-time configuration and customization options for every playstyle.</p>
-            </div>
-          </div>
-          <div class="feature-card animate-fade-in-up delay-2">
-            <img src="assets/icons/gui.png" alt="Draggable GUI" class="feature-icon" loading="lazy" />
-            <div class="feature-content">
-                <h3 class="feature-title">Draggable Mods</h3>
-                <p class="feature-desc">Modules are fully movable to customize your HUD exactly how you want it.</p>
-            </div>
-          </div>
-          <div class="feature-card animate-fade-in-up delay-3">
-            <img src="assets/icons/user.png" alt="Lightweight and optimized client" class="feature-icon" loading="lazy" />
-            <div class="feature-content">
-                <h3 class="feature-title">Lightweight</h3>
-                <p class="feature-desc">Only 2MB with zero performance impact, ensuring smooth gameplay even on lower-end devices.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="gallery" class="gallery-section">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title animate-fade-in-up">Screenshots</h2>
-          <p class="section-subtitle animate-fade-in-up delay-1">See Glacier Client in action with these screenshots</p>
-        </div>
-        <div class="gallery-container">
-          <div class="gallery-item animate-fade-in-up delay-1">
-            <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu" loading="lazy" />
-            <div class="gallery-overlay">
-              <h3 class="gallery-title">Mod Menu</h3>
-              <p class="gallery-desc">Easy-to-use interface for managing all your mods</p>
-            </div>
-          </div>
-          <div class="gallery-item animate-fade-in-up delay-2">
-            <img src="assets/start_screen.png" alt="Glacier Client in Game" loading="lazy" />
-            <div class="gallery-overlay">
-              <h3 class="gallery-title">Start Screen</h3>
-              <p class="gallery-desc">Custom Main menu with a unique design.</p>
-            </div>
-          </div>
-          <div class="gallery-item animate-fade-in-up delay-3">
-            <img src="assets/pause_screen.png" alt="Glacier Client Settings" loading="lazy" />
-            <div class="gallery-overlay">
-              <h3 class="gallery-title">Pause Screen</h3>
-              <p class="gallery-desc">Custom Pause Menu with a unique design and QOL-Features.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="community" class="community-section">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title animate-fade-in-up">Join Our Community</h2>
-          <p class="section-subtitle animate-fade-in-up delay-1">Connect with other Glacier Client users and get support</p>
-        </div>
-        <div class="community-content">
-          <div class="community-widget animate-fade-in-up delay-1">
-            <iframe src="https://discord.com/widget?id=938248183878930514&theme=dark" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-          </div>
-          <div class="community-text animate-fade-in-up delay-2">
-            <div>
-              <h2>Join Our Discord!</h2>
-              <p>Connect with other Glacier Client users, get support, share your creations, and stay up-to-date with the latest news and updates.</p>
-              <ul>
-                <li>Get help with installation and troubleshooting</li>
-                <li>Suggest new features and modules</li>
-                <li>Participate in events and giveaways</li>
-                <li>Chat directly with the developers</li>
-              </ul>
-            </div>
-            <a href="https://dsc.gg/glacierclientmcbe" class="btn btn-primary" style="background-color: #5865F2; align-self: flex-start;">
-              <i class="fab fa-discord"></i> Join Discord
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <section id="downloads-overlay" class="overlay">
-    <button class="close-overlay-btn" id="closeDownloadsBtn"><i class="fas fa-times"></i></button>
-    <div class="container downloads-overlay-content">
-      <div class="overlay-header animate-fade-in-up">
-        <h1>Glacier Client Downloads</h1>
-        <p>Download the latest client versions and official extensions.</p>
-      </div>
-
-      <div class="downloads-tabs animate-fade-in-up delay-1">
-        <button class="tab-button active" data-tab="clients">Client Downloads</button>
-        <button class="tab-button" data-tab="extensions">Client Extensions</button>
-      </div>
-
-      <div id="clients-tab-content" class="tab-content active animate-fade-in-up delay-2">
-      </div>
-
-      <div id="extensions-tab-content" class="tab-content animate-fade-in-up delay-2">
-      </div>
-    </div>
-  </section>
-
-  <section id="faq-overlay" class="overlay">
-    <button class="close-overlay-btn" id="closeFaqBtn"><i class="fas fa-times"></i></button>
-    <div class="container">
-      <div class="overlay-header animate-fade-in-up">
-        <h1>Frequently Asked Questions</h1>
-        <p>Comprehensive answers to common inquiries about Glacier Client.</p>
-      </div>
-      <div class="faq-container" id="faqContainer">
-      </div>
-    </div>
-  </section>
-
-  <section id="all-mods" class="mods-overlay">
-    <button class="close-overlay-btn" id="closeModsBtn"><i class="fas fa-times"></i></button>
-    <div class="container">
-      <div class="overlay-header animate-fade-in-up">
-        <h1>Explore All Glacier Mods</h1>
-        <p>Discover a wide range of modules to enhance your Minecraft Bedrock Edition experience.</p>
-      </div>
-
-      <div class="filter-controls animate-fade-in-up delay-1">
-        <button class="filter-button active" data-category="all">All Mods</button>
-        <button class="filter-button" data-category="hud">HUD</button>
-        <button class="filter-button" data-category="cosmetic">Cosmetic</button>
-        <button class="filter-button" data-category="pvp">PvP</button>
-        <button class="filter-button" data-category="utility">Utility</button>
-        <button class="filter-button" data-category="visual">Visual</button>
-      </div>
-
-      <div class="search-bar animate-fade-in-up delay-2">
-        <i class="fas fa-search"></i>
-        <input type="text" id="modSearch" placeholder="Search for a mod..." />
-      </div>
-
-      <div class="mods-grid" id="modsGrid">
-      </div>
-    </div>
-  </section>
-
-  <section id="license-overlay" class="license-overlay">
-    <button class="close-overlay-btn" id="closeLicenseBtn"><i class="fas fa-times"></i></button>
-    <div class="container">
-      <div class="overlay-header animate-fade-in-up">
-        <h1>Glacier Client License</h1>
-        <p>The following outlines what you are permitted and not permitted to do with Glacier Client.</p>
-      </div>
-      <div class="faq-container">
-        <div class="faq-item animate-fade-in-up delay-1">
-          <details class="faq-card" open>
-            <summary class="faq-question">
-              <span>What You Can Do</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <ul>
-                <li>Review the client, but please refrain from using Mediafire links; utilize our official Discord invite instead.</li>
-                <li>Utilize code or content from this project in your own private pack for non-public use.</li>
-              </ul>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item animate-fade-in-up delay-2">
-          <details class="faq-card" open>
-            <summary class="faq-question">
-              <span>What You Cannot Do</span>
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="faq-answer">
-              <ul>
-                <li>Defame Glacier Client by misusing the mod, spreading misinformation, or engaging in any defamatory activity.</li>
-                <li>Steal or use content from this resource pack for public distribution without explicit permission.</li>
-                <li>Use the draggable mods saving method without giving clear credit to Glacier Client (tag @everyone with our server link). Unauthorized use will result in legal action to remove your pack.</li>
-              </ul>
-              <p>Respecting this license is crucial to support the community and the ongoing efforts of our developers.</p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="donate-overlay" class="overlay">
-    <button class="close-overlay-btn" id="closeDonateBtn"><i class="fas fa-times"></i></button>
-    <div class="container">
-      <div class="overlay-header animate-fade-in-up">
-        <h1>Support Glacier Client</h1>
-        <p>Your support helps us continue developing and improving Glacier Client, bringing you the best Minecraft Bedrock Edition experience.</p>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card animate-fade-in-up delay-1">
-          <img src="assets/icons/paypal.png" alt="PayPal" class="feature-icon" loading="lazy" />
-          <div class="feature-content">
-              <h3 class="feature-title">PayPal</h3>
-              <p class="feature-desc">Support us directly through PayPal with a one-time or recurring donation.</p>
-              <a href="https://paypal.me/PepeOnPayPal" class="btn btn-primary" style="margin-top: 1rem;" target="_blank">
-                <i class="fab fa-paypal"></i> Donate via PayPal
-              </a>
-          </div>
-        </div>
-        <div class="feature-card animate-fade-in-up delay-2">
-          <img src="assets/icons/kofi.png" alt="Ko-fi" class="feature-icon" loading="lazy" />
-          <div class="feature-content">
-              <h3 class="feature-title">Ko-fi</h3>
-              <p class="feature-desc">Buy us a coffee to show your appreciation and support our work.</p>
-              <a href="https://ko-fi.com/pepeonkofi" class="btn btn-primary" style="background-color: #FF5E5B; margin-top: 1rem;" target="_blank">
-                <i class="fas fa-mug-hot"></i> Donate via Ko-fi
-              </a>
-          </div>
-        </div>
-        <div class="feature-card animate-fade-in-up delay-3">
-          <img src="assets/icons/community.png" alt="Community Support" class="feature-icon" loading="lazy" />
-          <div class="feature-content">
-              <h3 class="feature-title">Community Support</h3>
-              <p class="feature-desc">Join our Discord, share your experience, and help other users. Community support is invaluable!</p>
-              <a href="https://dsc.gg/glacierclientmcbe" class="btn btn-secondary" style="margin-top: 1rem;">
-                <i class="fab fa-discord"></i> Join Our Discord
-              </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-<footer class="main-footer">
-  <div class="container footer-container">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <img src="assets/logo.png" alt="Glacier Client Logo" class="footer-logo" loading="lazy" />
-        <span class="brand-name">Glacier Client</span>
-      </div>
-      <div class="footer-social">
-        <a href="https://dsc.gg/glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-discord"></i></a>
-        <a href="https://github.com/glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://youtube.com/@glacierclient" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="https://x.com/glacierclientbe" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.instagram.com/glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@glacierclientmcbe" class="social-link" target="_blank"><i class="fab fa-tiktok"></i></a>
-      </div>
-    </div>
-    <p class="copyright-text">
-      © <span id="currentYear"></span> Glacier Client. Not affiliated with Mojang/Microsoft
-    </p>
-  </div>
-</footer>
-
-
-  <script>
-    let allMods = [];
-    let allFaqs = [];
-    let allDownloads = null;
-
-    document.addEventListener('DOMContentLoaded', async () => {
-        const hamburgerMenu = document.getElementById('hamburgerMenu');
-        const navMenu = document.getElementById('navMenu');
-
-        hamburgerMenu.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            hamburgerMenu.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        });
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                hamburgerMenu.innerHTML = '<i class="fas fa-bars"></i>';
-            });
-        });
-
-        const overlays = {
-            downloads: document.getElementById('downloads-overlay'),
-            faq: document.getElementById('faq-overlay'),
-            mods: document.getElementById('all-mods'),
-            license: document.getElementById('license-overlay'),
-            donate: document.getElementById('donate-overlay')
-        };
-
-        const openButtons = {
-            downloads: [
-                document.getElementById('downloadsNavLink'),
-                document.getElementById('homeDownloadButton')
-            ],
-            faq: [
-                document.getElementById('faqNavLink')
-            ],
-            mods: [
-                document.getElementById('allModsNavLink')
-            ],
-            license: [
-                document.getElementById('licenseNavLink')
-            ],
-            donate: [
-                document.getElementById('donateNavLink')
-            ]
-        };
-
-        const closeButtons = {
-            downloads: document.getElementById('closeDownloadsBtn'),
-            faq: document.getElementById('closeFaqBtn'),
-            mods: document.getElementById('closeModsBtn'),
-            license: document.getElementById('closeLicenseBtn'),
-            donate: document.getElementById('closeDonateBtn')
-        };
-
-        function openOverlay(overlayKey) {
-            Object.values(overlays).forEach(overlay => {
-                overlay.classList.remove('is-open');
-            });
-
-            overlays[overlayKey].classList.add('is-open');
-            document.body.classList.add('no-scroll');
-
-            const animatedElements = overlays[overlayKey].querySelectorAll('.animate-fade-in-up');
-            animatedElements.forEach((element, index) => {
-                element.style.transitionDelay = `${0.1 * index}s`;
-                void element.offsetWidth;
-                element.classList.add('is-visible');
-            });
+            position: relative;
+            display: inline-block;
         }
 
-        function closeOverlay(overlayKey) {
-            overlays[overlayKey].classList.remove('is-open');
-            document.body.classList.remove('no-scroll');
+        .license-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--discord-blurple);
+            border-radius: 2px;
         }
 
-        Object.keys(openButtons).forEach(key => {
-            openButtons[key].forEach(button => {
-                if (button) {
-                    button.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        openOverlay(key);
-                        navMenu.classList.remove('active');
-                        hamburgerMenu.innerHTML = '<i class="fas fa-bars"></i>';
-                    });
-                }
-            });
-        });
+        .license-card ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
 
-        Object.keys(closeButtons).forEach(key => {
-            if (closeButtons[key]) {
-                closeButtons[key].addEventListener('click', () => {
-                    closeOverlay(key);
-                });
+        .license-card li {
+            margin-bottom: 10px;
+            color: #b9bbbe;
+            position: relative;
+            padding-left: 10px;
+            line-height: 1.6;
+        }
+
+        .license-card li::before {
+            content: '•';
+            color: var(--discord-blurple);
+            position: absolute;
+            left: -10px;
+        }
+
+        .donate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .donate-card {
+            background-color: rgba(66, 69, 73, 0.7);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all var(--transition-normal);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .donate-card:hover::before { transform: translateX(100%); }
+
+        .donate-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--discord-blurple);
+        }
+
+        .donate-icon {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            transition: all var(--transition-normal);
+        }
+
+        .donate-card:hover .donate-icon { transform: scale(1.1) rotate(5deg); }
+
+        footer {
+            background-color: rgba(30, 33, 36, 0.95);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all var(--transition-normal);
+        }
+
+        .footer-brand:hover { transform: translateY(-3px); }
+
+        .footer-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: all var(--transition-normal);
+            border: 2px solid transparent;
+            box-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
+        }
+
+        .footer-brand:hover .footer-logo {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(114, 137, 218, 0.6);
+            border-color: var(--discord-blurple);
+        }
+
+        .brand-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(90deg, var(--discord-blurple), #9ba9ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(54, 57, 62, 0.7);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: currentColor;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: -1;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-link:hover::before { opacity: 0.2; }
+
+        .copyright-text {
+            color: #b9bbbe;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 2.8rem; }
+            .hero-container { gap: 40px; }
+            .community-content { grid-template-columns: 1fr; }
+            .side-nav {
+                right: 10px;
+                padding: 12px 6px;
+                gap: 12px;
             }
-        });
+            .side-dot { width: 8px; height: 8px; }
+            .side-dot::before { width: 18px; height: 18px; }
+        }
 
-        Object.values(overlays).forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    overlay.classList.remove('is-open');
-                    document.body.classList.remove('no-scroll');
-                }
-            });
-        });
+        @media (max-width: 768px) {
+            .header-container { flex-wrap: wrap; }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background-color: rgba(54, 57, 62, 0.95);
+                padding: 15px;
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+                z-index: 999;
+                backdrop-filter: blur(10px);
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                animation: slideDown 0.3s ease-out;
+            }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .nav-menu.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .side-nav { display: none; }
+            .hero {
+                padding: 40px 20px;
+                margin: 0 10px 40px;
+            }
+            .hero-title { font-size: 2.2rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 300px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; text-align: center; }
+        }
 
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        @media (max-width: 480px) {
+            .hero-title { font-size: 1.8rem; }
+            .section-title { font-size: 2rem; }
+            .download-header { flex-direction: column; align-items: flex-start; }
+            .download-buttons { width: 100%; }
+            .download-buttons .btn { flex-grow: 1; text-align: center; }
+        }
+    </style>
+</head>
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
+<body>
+    <div class="side-nav" id="sideNav">
+    </div>
+
+    <header id="mainHeader">
+        <div class="header-container container">
+            <a href="#" class="logo" data-section="home">
+                <img src="assets/logo.png" alt="Glacier Client Logo" class="logo-img" />
+                <span class="logo-text">Glacier Client</span>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#" class="nav-link active" data-section="home">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="features">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="gallery">Gallery</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="community">Community</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="downloads">Downloads</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="faq">FAQ</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="mods">All Mods</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="license">License</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="donate">Donate</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="hero-section">
+            <div class="hero-container container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Next Generation Minecraft Experience</h1>
+                    <p class="hero-subtitle">Optimized texture pack client for Minecraft Bedrock Edition with extensive
+                        modules, draggable GUI, and lightweight performance. Experience the future of Minecraft with
+                        smooth animations and clean interface.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary" data-section="downloads">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                        <a href="https://config.glacierclient.xyz/" class="btn btn-secondary" target="_blank">
+                            <i class="fas fa-sliders-h"></i> Config Editor
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <img src="assets/mod_menu.png" alt="Glacier Client Interface" loading="eager" />
+                </div>
+            </div>
+        </section>
+
+        <div class="content-container">
+            <section id="home-section" class="content-section active">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Core Features</h2>
+                        <p class="section-subtitle">Experience the power of Glacier Client with these standout features
+                        </p>
+                    </div>
+
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <h3 class="feature-title">37+ Modules</h3>
+                            <p class="feature-desc">Extensive modules with real-time configuration and customization
+                                options for every playstyle.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-arrows-alt"></i>
+                            </div>
+                            <h3 class="feature-title">Draggable Mods</h3>
+                            <p class="feature-desc">Modules are fully movable to customize your HUD exactly how you want
+                                it.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h3 class="feature-title">Lightweight</h3>
+                            <p class="feature-desc">Only 2MB with zero performance impact, ensuring smooth gameplay even
+                                on lower-end devices.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features-section" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Advanced Features</h2>
+                        <p class="section-subtitle">Discover the powerful capabilities of Glacier Client</p>
+                    </div>
+
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-sliders-h"></i>
+                            </div>
+                            <h3 class="feature-title">Config Editor</h3>
+                            <p class="feature-desc">Built-in configuration editor that allows you to customize every
+                                aspect of your client experience.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3 class="feature-title">Custom Themes</h3>
+                            <p class="feature-desc">Multiple theme options to personalize the look and feel of your
+                                client interface.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h3 class="feature-title">Auto-Updates</h3>
+                            <p class="feature-desc">Automatic update system that ensures you always have the latest
+                                features and bug fixes.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="gallery-section" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Screenshots</h2>
+                        <p class="section-subtitle">See Glacier Client in action with these screenshots</p>
+                    </div>
+                    <div class="gallery-container">
+                        <div class="gallery-item">
+                            <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu" loading="lazy" />
+                            <div class="gallery-overlay">
+                                <h3 class="gallery-title">Mod Menu</h3>
+                                <p class="gallery-desc">Easy-to-use interface for managing all your mods</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/start_screen.png" alt="Glacier Client in Game" loading="lazy" />
+                            <div class="gallery-overlay">
+                                <h3 class="gallery-title">Start Screen</h3>
+                                <p class="gallery-desc">Custom Main menu with a unique design.</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/pause_screen.png" alt="Glacier Client Settings" loading="lazy" />
+                            <div class="gallery-overlay">
+                                <h3 class="gallery-title">Pause Screen</h3>
+                                <p class="gallery-desc">Custom Pause Menu with a unique design and QOL-Features.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="community-section" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Join Our Community</h2>
+                        <p class="section-subtitle">Connect with other Glacier Client users and get support</p>
+                    </div>
+                    <div class="community-content">
+                        <div class="community-widget">
+                            <iframe src="https://discord.com/widget?id=938248183878930514&theme=dark"
+                                allowtransparency="true" frameborder="0"
+                                sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                        </div>
+                        <div class="community-text">
+                            <div>
+                                <h2>Join Our Discord!</h2>
+                                <p>Connect with other Glacier Client users, get support, share your creations, and stay
+                                    up-to-date with the latest news and updates.</p>
+                                <ul>
+                                    <li>Get help with installation and troubleshooting</li>
+                                    <li>Suggest new features and modules</li>
+                                    <li>Participate in events and giveaways</li>
+                                    <li>Chat directly with the developers</li>
+                                </ul>
+                            </div>
+                            <a href="https://dsc.gg/glacierclientmcbe" class="btn btn-primary"
+                                style="background-color: #5865F2; align-self: flex-start;">
+                                <i class="fab fa-discord"></i> Join Discord
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="section-header" style="margin-top: 80px;">
+                        <h2 class="section-title">Follow Us</h2>
+                        <p class="section-subtitle">Stay connected with Glacier Client across all platforms</p>
+                    </div>
+
+                    <div class="social-grid">
+                        <a href="https://dsc.gg/glacierclientmcbe" class="social-card" target="_blank">
+                            <i class="fab fa-discord social-icon"></i>
+                            <span class="social-name">Discord</span>
+                        </a>
+                        <a href="https://github.com/glacierclientmcbe" class="social-card" target="_blank">
+                            <i class="fab fa-github social-icon"></i>
+                            <span class="social-name">GitHub</span>
+                        </a>
+                        <a href="https://youtube.com/@glacierclient" class="social-card" target="_blank">
+                            <i class="fab fa-youtube social-icon"></i>
+                            <span class="social-name">YouTube</span>
+                        </a>
+                        <a href="https://x.com/glacierclientbe" class="social-card" target="_blank">
+                            <i class="fab fa-twitter social-icon"></i>
+                            <span class="social-name">Twitter</span>
+                        </a>
+                        <a href="https://www.instagram.com/glacierclientmcbe" class="social-card" target="_blank">
+                            <i class="fab fa-instagram social-icon"></i>
+                            <span class="social-name">Instagram</span>
+                        </a>
+                        <a href="https://www.tiktok.com/@glacierclientmcbe" class="social-card" target="_blank">
+                            <i class="fab fa-tiktok social-icon"></i>
+                            <span class="social-name">TikTok</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="downloads-section" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Glacier Client Downloads</h2>
+                        <p class="section-subtitle">Download the latest client versions and official extensions</p>
+                    </div>
+
+                    <div class="downloads-tabs">
+                        <button class="tab-button active" data-tab="clients">Client Downloads</button>
+                        <button class="tab-button" data-tab="extensions">Client Extensions</button>
+                    </div>
+
+                    <div id="clients-tab-content" class="tab-content active">
+                        <h3 style="margin-bottom: 20px; color: white;">Working Versions</h3>
+                        <div class="downloads-grid" id="working-clients">
+                        </div>
+
+                        <h3 style="margin: 40px 0 20px; color: white;">Legacy Versions</h3>
+                        <div class="downloads-grid" id="legacy-clients">
+                        </div>
+                    </div>
+
+                    <div id="extensions-tab-content" class="tab-content">
+                        <h3 style="margin-bottom: 20px; color: white;">Working Extensions</h3>
+                        <div class="downloads-grid" id="working-extensions">
+                        </div>
+
+                        <h3 style="margin: 40px 0 20px; color: white;">Legacy Extensions</h3>
+                        <div class="downloads-grid" id="legacy-extensions">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq-section" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Frequently Asked Questions</h2>
+                        <p class="section-subtitle">Comprehensive answers to common inquiries about Glacier Client</p>
+                    </div>
+                    <div class="faq-container" id="faqContainer">
+                    </div>
+                </div>
+            </section>
+
+            <section id="mods-section" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Explore All Glacier Mods</h2>
+                        <p class="section-subtitle">Discover a wide range of modules to enhance your Minecraft Bedrock
+                            Edition experience</p>
+                    </div>
+
+                    <div class="filter-controls">
+                        <button class="filter-button active" data-category="all">All Mods</button>
+                        <button class="filter-button" data-category="hud">HUD</button>
+                        <button class="filter-button" data-category="cosmetic">Cosmetic</button>
+                        <button class="filter-button" data-category="pvp">PvP</button>
+                        <button class="filter-button" data-category="utility">Utility</button>
+                        <button class="filter-button" data-category="visual">Visual</button>
+                    </div>
+
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="modSearch" placeholder="Search for a mod..." />
+                    </div>
+
+                    <div class="mods-grid" id="modsGrid">
+                    </div>
+                </div>
+            </section>
+
+            <section id="license-section" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Glacier Client License</h2>
+                        <p class="section-subtitle">The following outlines what you are permitted and not permitted to
+                            do with Glacier Client</p>
+                    </div>
+                    <div class="license-content">
+                        <div class="license-card">
+                            <h3>What You Can Do</h3>
+                            <ul>
+                                <li>Review the client, but please refrain from using Mediafire links; utilize our
+                                    official Discord invite instead.</li>
+                                <li>Utilize code or content from this project in your own private pack for non-public
+                                    use.</li>
+                            </ul>
+                        </div>
+
+                        <div class="license-card">
+                            <h3>What You Cannot Do</h3>
+                            <ul>
+                                <li>Defame Glacier Client by misusing the mod, spreading misinformation, or engaging in
+                                    any defamatory activity.</li>
+                                <li>Steal or use content from this resource pack for public distribution without
+                                    explicit permission.</li>
+                                <li>Use the draggable mods saving method without giving clear credit to Glacier Client
+                                    (tag @everyone with our server link). Unauthorized use will result in legal action
+                                    to remove your pack.</li>
+                            </ul>
+                            <p style="color: #b9bbbe; margin-top: 15px;">Respecting this license is crucial to support
+                                the community and the ongoing efforts of our developers.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="donate-section" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Support Glacier Client</h2>
+                        <p class="section-subtitle">Your support helps us continue developing and improving Glacier
+                            Client, bringing you the best Minecraft Bedrock Edition experience</p>
+                    </div>
+                    <div class="donate-grid">
+                        <div class="donate-card">
+                            <img src="assets/icons/paypal.png" alt="PayPal" class="donate-icon" loading="lazy" />
+                            <h3 style="color: white; margin-bottom: 15px;">PayPal</h3>
+                            <p style="color: #b9bbbe; margin-bottom: 20px;">Support us directly through PayPal with a
+                                one-time or recurring donation.</p>
+                            <a href="https://paypal.me/PepeOnPayPal" class="btn btn-primary" target="_blank">
+                                <i class="fab fa-paypal"></i> Donate via PayPal
+                            </a>
+                        </div>
+                        <div class="donate-card">
+                            <img src="assets/icons/kofi.png" alt="Ko-fi" class="donate-icon" loading="lazy" />
+                            <h3 style="color: white; margin-bottom: 15px;">Ko-fi</h3>
+                            <p style="color: #b9bbbe; margin-bottom: 20px;">Buy us a coffee to show your appreciation
+                                and support our work.</p>
+                            <a href="https://ko-fi.com/pepeonkofi" class="btn btn-primary"
+                                style="background-color: #FF5E5B;" target="_blank">
+                                <i class="fas fa-mug-hot"></i> Donate via Ko-fi
+                            </a>
+                        </div>
+                        <div class="donate-card">
+                            <img src="assets/icons/community.png" alt="Community Support" class="donate-icon"
+                                loading="lazy" />
+                            <h3 style="color: white; margin-bottom: 15px;">Community Support</h3>
+                            <p style="color: #b9bbbe; margin-bottom: 20px;">Join our Discord, share your experience, and
+                                help other users. Community support is invaluable!</p>
+                            <a href="https://dsc.gg/glacierclientmcbe" class="btn btn-secondary">
+                                <i class="fab fa-discord"></i> Join Our Discord
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/logo.png" alt="Glacier Client Logo" class="footer-logo" />
+                    <span class="brand-name">Glacier Client</span>
+                </div>
+
+                <div class="footer-social">
+                    <a href="https://dsc.gg/glacierclientmcbe" class="social-link" target="_blank"><i
+                            class="fab fa-discord"></i></a>
+                    <a href="https://github.com/glacierclientmcbe" class="social-link" target="_blank"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://youtube.com/@glacierclient" class="social-link" target="_blank"><i
+                            class="fab fa-youtube"></i></a>
+                    <a href="https://x.com/glacierclientbe" class="social-link" target="_blank"><i
+                            class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/glacierclientmcbe" class="social-link" target="_blank"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@glacierclientmcbe" class="social-link" target="_blank"><i
+                            class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <p class="copyright-text">
+                © <span id="currentYear"></span> Glacier Client. Not affiliated with Mojang/Microsoft
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const modsData = [
+            {"id":"capephysics","icon":"assets/mods/capephysics.png","title":"Cape Physics","description":"Adds dynamic physics to player capes for enhanced realism.","tags":["Cosmetic","Visual"],"categories":["cosmetic","visual"]},
+            {"id":"armorhud","icon":"assets/mods/armorhud.png","title":"Armor HUD","description":"Displays your equipped armor on the HUD.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+            {"id":"bowindicator","icon":"assets/mods/bowindicator.png","title":"Bow Indicator","description":"Shows the charge level of your bow for accurate shots.","tags":["HUD","PvP"],"categories":["hud","pvp"]},
+            {"id":"chat","icon":"assets/mods/chat.png","title":"Chat","description":"Enhances the in-game chat experience with various features.","tags":["Utility"],"categories":["utility"]},
+            {"id":"chunkborder","icon":"assets/mods/chunkmap.png","title":"Chunk Border","description":"Displays the chunk when holding a nautilus shell in offhand while in 3rd person.","tags":["Visual","Utility"],"categories":["visual","utility"]},
+            {"id":"clockcompass","icon":"assets/mods/clockcompass.png","title":"Clock Compass","description":"Displays a clock and compass on your HUD for easier navigation.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"coordinates","icon":"assets/mods/coordinates.png","title":"Coordinates","description":"Displays your current X, Y, Z coordinates on screen with other useful information.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"crosshairchanger","icon":"assets/mods/crosshairs.png","title":"Crosshair Changer","description":"Allows you to customize the appearance of your crosshair.","tags":["Cosmetic","Visual","PvP"],"categories":["cosmetic","visual","pvp"]},
+            {"id":"dayevent","icon":"assets/mods/dayevent.png","title":"Day Event","description":"Displays in-game day events on the HUD.","tags":["Utility"],"categories":["utility"]},
+            {"id":"daycounter","icon":"assets/mods/daycounter.png","title":"Day Counter","description":"Keeps track of the number of days passed in your Minecraft world.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"debughud","icon":"assets/mods/debughud.png","title":"Debug HUD","description":"Displays detailed technical information about the game state.","tags":["Utility"],"categories":["utility"]},
+            {"id":"directionhud","icon":"assets/mods/directionhud.png","title":"Direction HUD","description":"Displays your current facing direction (North, South, East, West).","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"expcalculator","icon":"assets/mods/expcalculator.png","title":"Exp Calculator","description":"Calculates experience needed for the next level.","tags":["Utility"],"categories":["utility"]},
+            {"id":"forcecoords","icon":"assets/mods/forcecoords.png","title":"ForceCoords","description":"Forces coordinates display even when normally hidden.","tags":["Utility"],"categories":["utility"]},
+            {"id":"fpscounter","icon":"assets/mods/fpscounter.png","title":"FPS Counter","description":"Displays your current frames per second.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"hitbox","icon":"assets/mods/hitbox.png","title":"Hitbox","description":"Displays a hitbox on the player.","tags":["Visual","PvP"],"categories":["visual","pvp"]},
+            {"id":"hitcolor","icon":"assets/mods/hitcolor.png","title":"Hit Color","description":"Changes the color of the player when getting hit.","tags":["Visual","PvP"],"categories":["visual","pvp"]},
+            {"id":"hotbar","icon":"assets/mods/hotbar.png","title":"Hotbar","description":"Customizable hotbar display with additional information.","tags":["HUD","Visual"],"categories":["hud","visual"]},
+            {"id":"hudpopup","icon":"assets/mods/hudpopup.png","title":"HUD Popup","description":"Displays bug report pop-up message on your HUD.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"inventoryhud","icon":"assets/mods/inventoryhud.png","title":"InventoryHUD","description":"An enhanced inventory display directly on your screen.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+            {"id":"itemcounter","icon":"assets/mods/itemcounters.png","title":"Item Counter","description":"Counts Arrows, Potions and Totems items in your inventory or hotbar.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+            {"id":"lowdurability","icon":"assets/mods/lowdurability.png","title":"Low Durability","description":"Alerts you when your equipped items have low durability.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+            {"id":"mainhandhud","icon":"assets/mods/mainhandhud.png","title":"Main Hand HUD","description":"Shows the item held in your main hand with it's durability.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+            {"id":"mobileshortcuts","icon":"assets/mods/mobileshortcuts.png","title":"Mobile Shortcuts","description":"Provides quick-access shortcuts optimized for mobile gameplay.","tags":["Utility","Mobile"],"categories":["utility","mobile"]},
+            {"id":"offhandhud","icon":"assets/mods/offhandhud.png","title":"Offhand HUD","description":"Shows the item held in your offhand.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+            {"id":"playerlist","icon":"assets/mods/playerlist.png","title":"Playerlist","description":"Displays a list of players currently in your world or server.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"safezoneviewer","icon":"assets/mods/safezoneviewer.png","title":"Safe Zone Viewer","description":"Visualizes safe areas or boundaries within the game world.","tags":["Visual","Utility"],"categories":["visual","utility"]},
+            {"id":"saturationdisplaychanger","icon":"assets/mods/display.png","title":"Saturation Display Changer","description":"Adds a saturated overlay on your screen.","tags":["HUD","Visual"],"categories":["hud","visual"]},
+            {"id":"serverdisplay","icon":"assets/mods/serverdisplay.png","title":"Server Display","description":"Shows information about the server you are currently on.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"shinypotions","icon":"assets/mods/shinypotions.png","title":"Shiny Potions","description":"Adds a visual glint or enhanced effect to potion items.","tags":["Visual","Cosmetic"],"categories":["visual","cosmetic"]},
+            {"id":"slotcounter","icon":"assets/mods/slotcounter.png","title":"Slot Counter","description":"Counts the number of occupied and empty slots in your inventory.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"speedometer","icon":"assets/mods/speedometer.png","title":"Speedometer","description":"Displays your current movement speed in blocks per second.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"statushud","icon":"assets/mods/statushud.png","title":"Status HUD","description":"Displays various player status.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"targethud","icon":"assets/mods/targethud.png","title":"Target HUD","description":"Shows information about the player you are currently targeting.","tags":["HUD","PvP"],"categories":["hud","pvp"]},
+            {"id":"timerhud","icon":"assets/mods/timerhud.png","title":"Timer HUD","description":"A timer display to keep track of your session time.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+            {"id":"walkdistance","icon":"assets/mods/walkdistance.png","title":"Walk Distance","description":"Displays the total distance you have walked in the game.","tags":["Utility"],"categories":["utility"]},
+            {"id":"waypointsplus","icon":"assets/mods/waypointsplus.png","title":"Waypoints+","description":"Waypoints, death points, green screen visual.","tags":["Utility","Visual"],"categories":["utility","visual"]}
+        ];
+
+        const faqData = [
+            {"question":"Which devices are compatible with Glacier Client?","answer":"Glacier Client supports all devices running Minecraft Bedrock Edition version 1.21 or newer."},
+            {"question":"Is there a cost associated with using Glacier Client?","answer":"No, Glacier Client is provided completely free of charge and will remain 100% free to use."},
+            {"question":"Is Glacier Client safe to install and use?","answer":"Yes, Glacier Client is entirely safe. It functions as a texture pack client, not an executable or injector, minimizing security risks."},
+            {"question":"How can I bypass the Linkvertise download links?","answer":"Please refer to the tutorial video below for a step-by-step guide on bypassing Linkvertise links:","videoUrl":"https://www.youtube.com/embed/7Nnc5ff5840"},
+            {"question":"What are common reasons for Glacier Client not functioning correctly?","answer":"Potential issues preventing the client from working as expected include:<ul><li>Conflicts with other resource packs or add-ons that modify <code>player.entity.json</code> or <code>hud_screen.json</code> (e.g., \"Actions & Stuff\" packs).</li><li>Server restrictions that disallow client-side UI overrides (e.g., certain Minecraft Event servers).</li></ul><p>Ensure no conflicting packs are active and that the server permits custom UI elements.</p>"},
+            {"question":"How do I install Glacier Client?","answer":"Installation typically involves downloading the .mcpack file and opening it with Minecraft. Detailed instructions can be found on our Discord server or in our official documentation."},
+            {"question":"Can I use Glacier Client on realms or servers?","answer":"Yes, Glacier Client is designed to be compatible with both realms and most multiplayer servers. However, some servers may have restrictions on custom UI or resource packs, which could affect certain features."},
+            {"question":"How often is Glacier Client updated?","answer":"We strive to release updates regularly to ensure compatibility with the latest Minecraft Bedrock Edition versions, introduce new features, and address any bugs. Please check our Discord server for the most current update information."},
+            {"question":"Where can I report bugs or suggest features?","answer":"We encourage users to report bugs and suggest new features on our official Discord server. Your feedback is invaluable in improving Glacier Client."},
+            {"question":"Does Glacier Client affect game performance?","answer":"Glacier Client is designed to be lightweight and optimized for performance, with minimal to no impact on your game's frame rate or stability. It is only approximately 2MB in size."}
+        ];
+
+        const downloadsData = {
+            "clients": {
+                "working": [{"version":"Glacier v6","tag":"Latest","release":"2025-12-25","size":"3.33MB","options":[{"name":"Download","url":"https://link-target.net/499358/jW4OJcixGfH9"}]}],
+                "legacy": [
+                    {"version":"Glacier v5.1","tag":"Archived","release":"2025-07-06","size":"2.77MB","options":[{"name":"Linkvertise","url":"https://link-center.net/499358/KEBMHbdFAIOT"},{"name":"LootLabs","url":"https://lootdest.org/s?b6cpLNDy"}]},
+                    {"version":"Glacier v4","tag":"Archived","release":"2024-10-26","size":"1.75MB","options":[{"name":"Download","url":"https://link-center.net/499358/glacier-client-v4"}]},
+                    {"version":"Glacier v3","tag":"Archived","release":"2022-10-01","size":"1.93MB","options":[{"name":"Download","url":"https://www.mediafire.com/file/3ij9ibl2x0jbpdk/GlacierClientV3.mcpack/file"}]},
+                    {"version":"Glacier v2","tag":"Archived","release":"2022-09-15","size":"13.53MB","options":[{"name":"Download","url":"https://www.mediafire.com/file/j6u8vlf6o5q5j9g/GlacierClient.zip/file"}]},
+                    {"version":"Glacier v1","tag":"Archived","release":"2022-08-20","size":"21.25MB","options":[{"name":"Download","url":"https://www.mediafire.com/file/s7xv3ejoqxg5ntn/GlacierClient.mcpack/file"}]}
+                ]
+            },
+            "extensions": {
+                "working": [
+                    {"version":"Cape Physics (v6)","description":"Adds dynamic physics to player capes for enhanced realism.","options":[{"name":"Download","url":"https://link-target.net/499358/V8eStnWz4hev"}]},
+                    {"version":"Hit Color (v6)","description":"Changes the color of the player when getting hit.","options":[{"name":"Download","url":"https://direct-link.net/499358/1LrouT93xNmw"}]},
+                    {"version":"Hitbox (v6)","description":"Displays a hitbox on the player.","options":[{"name":"Download","url":"https://direct-link.net/499358/0fxDWbScpOtL"}]},
+                    {"version":"Projectile Particles (v6)","description":"Adds particle effects to projectiles.","options":[{"name":"Download","url":"https://link-center.net/499358/yz74hNrl2jep"}]}
+                ],
+                "legacy": [
+                    {"version":"Cape Physics (v5)","description":"Adds dynamic physics to player capes for enhanced realism.","options":[{"name":"Linkvertise","url":"https://link-target.net/499358/WCp3rcHJiJ21"},{"name":"LootLabs","url":"https://lootdest.org/s?wulDc3e9"}]},
+                    {"version":"Hit Color (v5)","description":"Changes the color of the player when getting hit.","options":[{"name":"Linkvertise","url":"https://link-target.net/499358/O3EPrFMabbut"},{"name":"LootLabs","url":"https://lootdest.org/s?xt8Clcln"}]},
+                    {"version":"Chunk Border (v4)","description":"Displays the chunk when holding a nautilus shell in offhand while in 3rd person.","options":[{"name":"Download","url":"https://link-hub.net/499358/glacier-v4-chunk-border"}]},
+                    {"version":"Freelook (v4)","description":"Crouch in 3rd person mode to enable the freelook.","options":[{"name":"Download","url":"https://direct-link.net/499358/glacier-v4-freelook"}]},
+                    {"version":"Hitbox (v4)","description":"Displays a hitbox on the player.","options":[{"name":"Download","url":"https://direct-link.net/499358/glacier-v4-hitbox"}]},
+                    {"version":"Hit Color (v4)","description":"Changes the color of player when getting hit.","options":[{"name":"Download","url":"https://link-center.net/499358/glacier-v4-hitcolor"}]},
+                    {"version":"Waypoints+ (v4)","description":"Allows the player to make Waypoints, Greenscreen or Deathpoints!","options":[{"name":"Download","url":"https://link-target.net/499358/glacier-v4-waypoints"}]}
+                ]
+            }
         };
 
-        const observer = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    if (!entry.target.closest('.overlay') && !entry.target.closest('.mods-overlay') && !entry.target.closest('.license-overlay')) {
-                        obs.unobserve(entry.target);
+        let currentSection = 'home';
+        const mainSections = ['home', 'features', 'gallery'];
+        const allSections = ['home', 'features', 'gallery', 'community', 'downloads', 'faq', 'mods', 'license', 'donate'];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            initializeMods();
+            initializeFAQ();
+            initializeDownloads();
+            setupConditionalRendering();
+            setupMobileMenu();
+            setupTabs();
+            setupModFilters();
+            setupHeaderScroll();
+            updateSideNav('home');
+            window.scrollTo(0, 0);
+        });
+
+        function setupHeaderScroll() {
+            const header = document.getElementById('mainHeader');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+        }
+
+        function updateSideNav(sectionId) {
+            const sideNav = document.getElementById('sideNav');
+            sideNav.innerHTML = '';
+            
+            let dotsConfig;
+            if (mainSections.includes(sectionId)) {
+                dotsConfig = [
+                    {id: 'home', tooltip: 'Home'},
+                    {id: 'features', tooltip: 'Features'},
+                    {id: 'gallery', tooltip: 'Gallery'},
+                    {id: 'footer', tooltip: 'Footer'}
+                ];
+            } else {
+                dotsConfig = [
+                    {id: 'home', tooltip: 'Home'},
+                    {id: sectionId, tooltip: sectionId.charAt(0).toUpperCase() + sectionId.slice(1)},
+                    {id: 'footer', tooltip: 'Footer'}
+                ];
+            }
+
+            dotsConfig.forEach(dot => {
+                const dotEl = document.createElement('div');
+                dotEl.className = 'side-dot';
+                dotEl.setAttribute('data-section', dot.id);
+                dotEl.setAttribute('data-tooltip', dot.tooltip);
+                if (dot.id === sectionId) dotEl.classList.add('active');
+                sideNav.appendChild(dotEl);
+            });
+
+            const sideDots = sideNav.querySelectorAll('.side-dot');
+            sideDots.forEach(dot => {
+                dot.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetSection = this.getAttribute('data-section');
+                    if (targetSection === 'footer') {
+                        document.querySelector('footer').scrollIntoView({ behavior: 'smooth' });
+                        sideDots.forEach(d => d.classList.remove('active'));
+                        this.classList.add('active');
+                    } else {
+                        showSection(targetSection);
+                    }
+                });
+            });
+        }
+
+        function setupConditionalRendering() {
+            const navLinks = document.querySelectorAll('.nav-link, .hero-buttons a');
+            const contentSections = document.querySelectorAll('.content-section');
+            const logo = document.querySelector('.logo');
+
+            function showSection(sectionId) {
+                currentSection = sectionId;
+                contentSections.forEach(section => section.classList.remove('active'));
+                const targetSection = document.getElementById(`${sectionId}-section`);
+                if (targetSection) targetSection.classList.add('active');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === sectionId) link.classList.add('active');
+                });
+                updateSideNav(sectionId);
+                if (sectionId === 'home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    const contentContainer = document.querySelector('.content-container');
+                    if (contentContainer) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const contentTop = contentContainer.offsetTop - headerHeight - 20;
+                        window.scrollTo({ top: contentTop, behavior: 'smooth' });
                     }
                 }
-            });
-        }, observerOptions);
-
-        const animatedElements = document.querySelectorAll('section:not(.overlay):not(.mods-overlay):not(.license-overlay) .animate-fade-in-up');
-        animatedElements.forEach(element => {
-            observer.observe(element);
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                    navMenu.classList.remove('active');
-                    hamburgerMenu.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            });
-        });
-
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        function updateActiveNavLink() {
-            let current = '';
-            const scrollPos = window.scrollY + 150;
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-
-                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
-                }
-            });
+                history.pushState(null, null, `#${sectionId}`);
+            }
 
             navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', updateActiveNavLink);
-
-        document.getElementById('modulesCount').textContent = '50+ Modules';
-
-        try {
-            const response = await fetch('assets/data/mods.json');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            allMods = await response.json();
-            allMods.sort((a, b) => a.title.localeCompare(b.title));
-            if (document.getElementById('modulesCount')) {
-                document.getElementById('modulesCount').textContent = `${allMods.length}+ Modules`;
-            }
-            filterAndSearchMods();
-        } catch (error) {
-            console.error('Error fetching mods:', error);
-            if (document.getElementById('modulesCount')) {
-                document.getElementById('modulesCount').textContent = 'Error loading modules';
-            }
-            document.getElementById('modsGrid').innerHTML = '<p style="color: var(--color-text-alt); text-align: center; grid-column: 1 / -1;">Failed to load mods. Please try again later.</p>';
-        }
-
-        try {
-            const response = await fetch('assets/data/faq.json');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            allFaqs = await response.json();
-            renderFaqs(allFaqs);
-        } catch (error) {
-            console.error('Error fetching FAQs:', error);
-            document.getElementById('faqContainer').innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load FAQs. Please try again later.</p>';
-        }
-
-        try {
-            const response = await fetch('assets/data/downloads.json');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            allDownloads = await response.json();
-            renderDownloads('clients');
-        } catch (error) {
-            console.error('Error fetching downloads:', error);
-            document.getElementById('clients-tab-content').innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load downloads. Please try again later.</p>';
-            document.getElementById('extensions-tab-content').innerHTML = '<p style="color: var(--color-text-alt); text-align: center;">Failed to load extensions. Please try again later.</p>';
-        }
-
-        const tabButtons = document.querySelectorAll('.downloads-tabs .tab-button');
-
-        function switchDownloadsTab(selectedTab) {
-            tabButtons.forEach(button => {
-                if (button.dataset.tab === selectedTab) {
-                    button.classList.add('active');
-                } else {
-                    button.classList.remove('active');
-                }
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('data-section');
+                    if (sectionId) showSection(sectionId);
+                });
             });
 
-            document.querySelectorAll('.tab-content').forEach(content => {
-                if (content.id === `${selectedTab}-tab-content`) {
-                    content.classList.add('active');
-                    const animatedElementsInTab = content.querySelectorAll('.animate-fade-in-up');
-                    animatedElementsInTab.forEach(element => {
-                        element.classList.remove('is-visible');
-                        observer.unobserve(element);
-                        observer.observe(element);
-                    });
-                } else {
-                    content.classList.remove('active');
-                }
-            });
-            renderDownloads(selectedTab);
-        }
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                switchDownloadsTab(button.dataset.tab);
-            });
-        });
-
-        function renderDownloads(category) {
-            if (!allDownloads) return;
-
-            const targetElement = category === 'clients' ? document.getElementById('clients-tab-content') : document.getElementById('extensions-tab-content');
-            targetElement.innerHTML = '';
-
-            const data = allDownloads[category];
-
-            if (data.working && data.working.length > 0) {
-                const workingList = document.createElement('div');
-                workingList.classList.add('version-list');
-                const workingTitle = document.createElement('h3');
-                workingTitle.classList.add('subsection-title');
-                workingTitle.textContent = category === 'clients' ? 'Working Client Versions' : 'Working Extensions';
-                workingTitle.style.color = 'var(--color-text)';
-                workingTitle.style.marginBottom = '1.5rem';
-                workingTitle.style.textAlign = 'center';
-                targetElement.appendChild(workingTitle);
-                targetElement.appendChild(workingList);
-
-                data.working.forEach((item, index) => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add(category === 'clients' ? 'version-item' : 'extension-item', 'animate-fade-in-up');
-                    itemElement.style.setProperty('--animation-delay', `${0.1 * index}s`);
-
-                    const optionsHtml = item.options.map(option => `
-                        <a href="${option.url}" class="download-btn small" target="_blank">
-                            <i class="fas fa-download"></i> ${option.name}
-                        </a>
-                    `).join('');
-
-                    itemElement.innerHTML = `
-                        <div class="${category === 'clients' ? 'version-item-content' : 'extension-item-content'}">
-                            <h4>${item.version} <span class="version-tag">${item.tag || 'Working'}</span></h4>
-                            <p>${item.release ? `Release: ${item.release} | ` : ''}${item.size ? `Size: ${item.size}` : item.description}</p>
-                        </div>
-                        <div class="download-options">
-                            ${optionsHtml}
-                        </div>
-                    `;
-                    workingList.appendChild(itemElement);
-                    observer.observe(itemElement);
+            if (logo) {
+                logo.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    showSection('home');
                 });
             }
 
-            if (data.working && data.working.length > 0 && data.legacy && data.legacy.length > 0) {
-                const separator = document.createElement('div');
-                separator.classList.add('separator');
-                targetElement.appendChild(separator);
-            }
+            window.addEventListener('popstate', function () {
+                const hash = window.location.hash.substring(1);
+                if (hash && allSections.includes(hash)) showSection(hash);
+                else showSection('home');
+            });
 
-            if (data.legacy && data.legacy.length > 0) {
-                const legacyList = document.createElement('div');
-                legacyList.classList.add('version-list');
-                const legacyTitle = document.createElement('h3');
-                legacyTitle.classList.add('subsection-title');
-                legacyTitle.textContent = category === 'clients' ? 'Legacy Client Versions' : 'Legacy Extensions';
-                legacyTitle.style.color = 'var(--color-text)';
-                legacyTitle.style.marginBottom = '1.5rem';
-                legacyTitle.style.textAlign = 'center';
-                targetElement.appendChild(legacyTitle);
-                targetElement.appendChild(legacyList);
-
-                data.legacy.forEach((item, index) => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add(category === 'clients' ? 'version-item' : 'extension-item', 'animate-fade-in-up');
-                    itemElement.style.setProperty('--animation-delay', `${0.1 * index}s`);
-
-                    const optionsHtml = item.options.map(option => `
-                        <a href="${option.url}" class="download-btn small" target="_blank">
-                            <i class="fas fa-download"></i> ${option.name}
-                        </a>
-                    `).join('');
-
-                    itemElement.innerHTML = `
-                        <div class="${category === 'clients' ? 'version-item-content' : 'extension-item-content'}">
-                            <h4>${item.version} <span class="version-tag legacy">${item.tag || 'Archived'}</span></h4>
-                            <p>${item.release ? `Release: ${item.release} | ` : ''}${item.size ? `Size: ${item.size}` : item.description}</p>
-                        </div>
-                        <div class="download-options">
-                            ${optionsHtml}
-                        </div>
-                    `;
-                    legacyList.appendChild(itemElement);
-                    observer.observe(itemElement);
-                });
-            }
+            const hash = window.location.hash.substring(1);
+            if (hash && allSections.includes(hash)) showSection(hash);
+            else showSection('home');
+            window.showSection = showSection;
         }
 
-        function renderFaqs(faqsToDisplay) {
+        function initializeMods() {
+            const modsGrid = document.getElementById('modsGrid');
+            if (!modsGrid) return;
+            modsGrid.innerHTML = modsData.map(mod => `<div class="mod-card" data-categories="${mod.categories.join(',')}"><img src="${mod.icon}" alt="${mod.title}" class="mod-image" loading="lazy" /><div class="mod-content"><h3 class="mod-title">${mod.title}</h3><p class="mod-description">${mod.description}</p><div class="mod-tags">${mod.tags.map(tag => `<span class="mod-tag">${tag}</span>`).join('')}</div></div></div>`).join('');
+        }
+
+        function initializeFAQ() {
             const faqContainer = document.getElementById('faqContainer');
-            faqContainer.innerHTML = '';
-            faqsToDisplay.forEach((faq, index) => {
-                const faqItem = document.createElement('div');
-                faqItem.classList.add('faq-item', 'animate-fade-in-up');
-                faqItem.style.setProperty('--animation-delay', `${0.1 * index}s`);
+            if (!faqContainer) return;
+            faqContainer.innerHTML = faqData.map((faq, index) => `<div class="faq-item"><details class="faq-card" ${index === 0 ? 'open' : ''}><summary class="faq-question"><span>${faq.question}</span><i class="fas fa-chevron-down"></i></summary><div class="faq-answer">${faq.answer}${faq.videoUrl ? `<div style="margin-top: 20px;"><iframe width="100%" height="315" src="${faq.videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>` : ''}</div></details></div>`).join('');
+        }
 
-                let videoHtml = '';
-                if (faq.videoUrl) {
-                    videoHtml = `
-                        <div class="video-container">
-                            <iframe
-                                src="${faq.videoUrl}"
-                                title="YouTube video player"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen
-                            ></iframe>
-                        </div>
-                    `;
+        function initializeDownloads() {
+            const containers = {
+                'working-clients': downloadsData.clients.working,
+                'legacy-clients': downloadsData.clients.legacy,
+                'working-extensions': downloadsData.extensions.working,
+                'legacy-extensions': downloadsData.extensions.legacy
+            };
+            for (const [id, data] of Object.entries(containers)) {
+                const container = document.getElementById(id);
+                if (container) {
+                    container.innerHTML = data.map(item => id.includes('extensions') ? createExtensionCard(item) : createDownloadCard(item)).join('');
                 }
+            }
+        }
 
-                faqItem.innerHTML = `
-                    <details class="faq-card">
-                        <summary class="faq-question">
-                            <span>${faq.question}</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </summary>
-                        <div class="faq-answer">
-                            <p>${faq.answer}</p>
-                            ${videoHtml}
-                        </div>
-                    </details>
-                `;
-                faqContainer.appendChild(faqItem);
-                observer.observe(faqItem);
+        function createDownloadCard(item) {
+            return `<div class="download-card"><div class="download-header"><h3 class="download-title">${item.version}</h3><span class="download-tag ${item.tag === 'Latest' ? 'tag-latest' : 'tag-archived'}">${item.tag}</span></div><div class="download-meta"><span>Released: ${item.release}</span><span>Size: ${item.size}</span></div><div class="download-buttons">${item.options.map(option => `<a href="${option.url}" class="btn ${option.name === 'Download' ? 'btn-primary' : 'btn-secondary'}" target="_blank">${option.name}</a>`).join('')}</div></div>`;
+        }
+
+        function createExtensionCard(item) {
+            return `<div class="download-card"><div class="download-header"><h3 class="download-title">${item.version}</h3></div><p style="color: #b9bbbe; margin-bottom: 20px;">${item.description}</p><div class="download-buttons">${item.options.map(option => `<a href="${option.url}" class="btn ${option.name === 'Download' ? 'btn-primary' : 'btn-secondary'}" target="_blank">${option.name}</a>`).join('')}</div></div>`;
+        }
+
+        function setupTabs() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${tabId}-tab-content`) content.classList.add('active');
+                    });
+                });
             });
+        }
 
-            const newFaqItems = faqContainer.querySelectorAll('.faq-card');
-            newFaqItems.forEach(item => {
-                item.addEventListener('toggle', () => {
-                    if (item.open) {
-                        newFaqItems.forEach(otherItem => {
-                            if (otherItem !== item && otherItem.open) {
-                                otherItem.open = false;
-                            }
-                        });
+        function setupModFilters() {
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const modCards = document.querySelectorAll('.mod-card');
+            const searchInput = document.getElementById('modSearch');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const category = button.getAttribute('data-category');
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    modCards.forEach(card => {
+                        const categories = card.getAttribute('data-categories').split(',');
+                        card.style.display = (category === 'all' || categories.includes(category)) ? 'flex' : 'none';
+                    });
+                });
+            });
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    const searchTerm = searchInput.value.toLowerCase();
+                    modCards.forEach(card => {
+                        const title = card.querySelector('.mod-title').textContent.toLowerCase();
+                        const description = card.querySelector('.mod-description').textContent.toLowerCase();
+                        card.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? 'flex' : 'none';
+                    });
+                });
+            }
+        }
+
+        function setupMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            if (mobileMenuBtn && navMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                });
+                document.addEventListener('click', (e) => {
+                    if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
                     }
                 });
-            });
-        }
-
-        function renderMods(modsToDisplay) {
-            const modsGrid = document.getElementById('modsGrid');
-            modsGrid.innerHTML = '';
-            if (modsToDisplay.length === 0) {
-                modsGrid.innerHTML = '<p style="color: var(--color-text-alt); text-align: center; grid-column: 1 / -1;">No mods found matching your criteria.</p>';
-                return;
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                });
             }
-
-            modsToDisplay.forEach((mod, index) => {
-                const modCard = document.createElement('div');
-                modCard.classList.add('mod-card', 'animate-fade-in-up');
-                modCard.style.setProperty('--animation-delay', `${0.1 * index}s`);
-
-                const tagsHtml = mod.tags.map(tag => `<span class="mod-tag">${tag}</span>`).join('');
-
-                modCard.innerHTML = `
-                    <img src="${mod.icon}" alt="${mod.title} Icon" class="mod-icon" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/80x80/7289DA/FFFFFF?text=Mod';" />
-                    <h3 class="mod-title">${mod.title}</h3>
-                    <p class="mod-description">${mod.description}</p>
-                    <div class="mod-tags">${tagsHtml}</div>
-                `;
-                modsGrid.appendChild(modCard);
-
-                observer.observe(modCard);
-            });
         }
-
-        function filterAndSearchMods() {
-            const searchQuery = document.getElementById('modSearch').value.toLowerCase();
-            const activeCategoryButton = document.querySelector('.filter-button.active');
-            const selectedCategory = activeCategoryButton ? activeCategoryButton.dataset.category : 'all';
-
-            const filteredMods = allMods.filter(mod => {
-                const matchesCategory = selectedCategory === 'all' || mod.categories.includes(selectedCategory);
-                const matchesSearch = mod.title.toLowerCase().includes(searchQuery) ||
-                                      mod.description.toLowerCase().includes(searchQuery) ||
-                                      mod.tags.some(tag => tag.toLowerCase().includes(searchQuery));
-                return matchesCategory && matchesSearch;
-            });
-
-            renderMods(filteredMods);
-        }
-
-        const filterButtons = document.querySelectorAll('.filter-button');
-        const modSearchInput = document.getElementById('modSearch');
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                filterAndSearchMods();
-            });
-        });
-
-        modSearchInput.addEventListener('input', filterAndSearchMods);
-    });
-  </script>
+    </script>
 </body>
 </html>
