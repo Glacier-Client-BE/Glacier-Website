@@ -1990,315 +1990,320 @@
     </footer>
 
     <script>
-        const modsData = [
-            {"id":"capephysics","icon":"assets/mods/capephysics.png","title":"Cape Physics","description":"Adds dynamic physics to player capes for enhanced realism.","tags":["Cosmetic","Visual"],"categories":["cosmetic","visual"]},
-            {"id":"armorhud","icon":"assets/mods/armorhud.png","title":"Armor HUD","description":"Displays your equipped armor on the HUD.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
-            {"id":"bowindicator","icon":"assets/mods/bowindicator.png","title":"Bow Indicator","description":"Shows the charge level of your bow for accurate shots.","tags":["HUD","PvP"],"categories":["hud","pvp"]},
-            {"id":"chat","icon":"assets/mods/chat.png","title":"Chat","description":"Enhances the in-game chat experience with various features.","tags":["Utility"],"categories":["utility"]},
-            {"id":"chunkborder","icon":"assets/mods/chunkmap.png","title":"Chunk Border","description":"Displays the chunk when holding a nautilus shell in offhand while in 3rd person.","tags":["Visual","Utility"],"categories":["visual","utility"]},
-            {"id":"clockcompass","icon":"assets/mods/clockcompass.png","title":"Clock Compass","description":"Displays a clock and compass on your HUD for easier navigation.","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"coordinates","icon":"assets/mods/coordinates.png","title":"Coordinates","description":"Displays your current X, Y, Z coordinates on screen with other useful information.","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"crosshairchanger","icon":"assets/mods/crosshairs.png","title":"Crosshair Changer","description":"Allows you to customize the appearance of your crosshair.","tags":["Cosmetic","Visual","PvP"],"categories":["cosmetic","visual","pvp"]},
-            {"id":"dayevent","icon":"assets/mods/dayevent.png","title":"Day Event","description":"Displays in-game day events on the HUD.","tags":["Utility"],"categories":["utility"]},
-            {"id":"daycounter","icon":"assets/mods/daycounter.png","title":"Day Counter","description":"Keeps track of the number of days passed in your Minecraft world.","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"debughud","icon":"assets/mods/debughud.png","title":"Debug HUD","description":"Displays detailed technical information about the game state.","tags":["Utility"],"categories":["utility"]},
-            {"id":"directionhud","icon":"assets/mods/directionhud.png","title":"Direction HUD","description":"Displays your current facing direction (North, South, East, West).","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"expcalculator","icon":"assets/mods/expcalculator.png","title":"Exp Calculator","description":"Calculates experience needed for the next level.","tags":["Utility"],"categories":["utility"]},
-            {"id":"forcecoords","icon":"assets/mods/forcecoords.png","title":"ForceCoords","description":"Forces coordinates display even when normally hidden.","tags":["Utility"],"categories":["utility"]},
-            {"id":"fpscounter","icon":"assets/mods/fpscounter.png","title":"FPS Counter","description":"Displays your current frames per second.","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"hitbox","icon":"assets/mods/hitbox.png","title":"Hitbox","description":"Displays a hitbox on the player.","tags":["Visual","PvP"],"categories":["visual","pvp"]},
-            {"id":"hitcolor","icon":"assets/mods/hitcolor.png","title":"Hit Color","description":"Changes the color of the player when getting hit.","tags":["Visual","PvP"],"categories":["visual","pvp"]},
-            {"id":"hotbar","icon":"assets/mods/hotbar.png","title":"Hotbar","description":"Customizable hotbar display with additional information.","tags":["HUD","Visual"],"categories":["hud","visual"]},
-            {"id":"hudpopup","icon":"assets/mods/hudpopup.png","title":"HUD Popup","description":"Displays bug report pop-up message on your HUD.","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"inventoryhud","icon":"assets/mods/inventoryhud.png","title":"InventoryHUD","description":"An enhanced inventory display directly on your screen.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
-            {"id":"itemcounter","icon":"assets/mods/itemcounters.png","title":"Item Counter","description":"Counts Arrows, Potions and Totems items in your inventory or hotbar.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
-            {"id":"lowdurability","icon":"assets/mods/lowdurability.png","title":"Low Durability","description":"Alerts you when your equipped items have low durability.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
-            {"id":"mainhandhud","icon":"assets/mods/mainhandhud.png","title":"Main Hand HUD","description":"Shows the item held in your main hand with it's durability.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
-            {"id":"mobileshortcuts","icon":"assets/mods/mobileshortcuts.png","title":"Mobile Shortcuts","description":"Provides quick-access shortcuts optimized for mobile gameplay.","tags":["Utility","Mobile"],"categories":["utility","mobile"]},
-            {"id":"offhandhud","icon":"assets/mods/offhandhud.png","title":"Offhand HUD","description":"Shows the item held in your offhand.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
-            {"id":"playerlist","icon":"assets/mods/playerlist.png","title":"Playerlist","description":"Displays a list of players currently in your world or server.","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"safezoneviewer","icon":"assets/mods/safezoneviewer.png","title":"Safe Zone Viewer","description":"Visualizes safe areas or boundaries within the game world.","tags":["Visual","Utility"],"categories":["visual","utility"]},
-            {"id":"saturationdisplaychanger","icon":"assets/mods/display.png","title":"Saturation Display Changer","description":"Adds a saturated overlay on your screen.","tags":["HUD","Visual"],"categories":["hud","visual"]},
-            {"id":"serverdisplay","icon":"assets/mods/serverdisplay.png","title":"Server Display","description":"Shows information about the server you are currently on.","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"shinypotions","icon":"assets/mods/shinypotions.png","title":"Shiny Potions","description":"Adds a visual glint or enhanced effect to potion items.","tags":["Visual","Cosmetic"],"categories":["visual","cosmetic"]},
-            {"id":"slotcounter","icon":"assets/mods/slotcounter.png","title":"Slot Counter","description":"Counts the number of occupied and empty slots in your inventory.","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"speedometer","icon":"assets/mods/speedometer.png","title":"Speedometer","description":"Displays your current movement speed in blocks per second.","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"statushud","icon":"assets/mods/statushud.png","title":"Status HUD","description":"Displays various player status.","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"targethud","icon":"assets/mods/targethud.png","title":"Target HUD","description":"Shows information about the player you are currently targeting.","tags":["HUD","PvP"],"categories":["hud","pvp"]},
-            {"id":"timerhud","icon":"assets/mods/timerhud.png","title":"Timer HUD","description":"A timer display to keep track of your session time.","tags":["HUD","Utility"],"categories":["hud","utility"]},
-            {"id":"walkdistance","icon":"assets/mods/walkdistance.png","title":"Walk Distance","description":"Displays the total distance you have walked in the game.","tags":["Utility"],"categories":["utility"]},
-            {"id":"waypointsplus","icon":"assets/mods/waypointsplus.png","title":"Waypoints+","description":"Waypoints, death points, green screen visual.","tags":["Utility","Visual"],"categories":["utility","visual"]}
+         
+const modsData = [
+    {"id":"capephysics","icon":"assets/mods/capephysics.png","title":"Cape Physics","description":"Adds dynamic physics to player capes for enhanced realism.","tags":["Cosmetic","Visual"],"categories":["cosmetic","visual"]},
+    {"id":"armorhud","icon":"assets/mods/armorhud.png","title":"Armor HUD","description":"Displays your equipped armor on the HUD.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+    {"id":"bowindicator","icon":"assets/mods/bowindicator.png","title":"Bow Indicator","description":"Shows the charge level of your bow for accurate shots.","tags":["HUD","PvP"],"categories":["hud","pvp"]},
+    {"id":"chat","icon":"assets/mods/chat.png","title":"Chat","description":"Enhances the in-game chat experience with various features.","tags":["Utility"],"categories":["utility"]},
+    {"id":"chunkborder","icon":"assets/mods/chunkmap.png","title":"Chunk Border","description":"Displays the chunk when holding a nautilus shell in offhand while in 3rd person.","tags":["Visual","Utility"],"categories":["visual","utility"]},
+    {"id":"clockcompass","icon":"assets/mods/clockcompass.png","title":"Clock Compass","description":"Displays a clock and compass on your HUD for easier navigation.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"coordinates","icon":"assets/mods/coordinates.png","title":"Coordinates","description":"Displays your current X, Y, Z coordinates on screen with other useful information.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"crosshairchanger","icon":"assets/mods/crosshairs.png","title":"Crosshair Changer","description":"Allows you to customize the appearance of your crosshair.","tags":["Cosmetic","Visual","PvP"],"categories":["cosmetic","visual","pvp"]},
+    {"id":"dayevent","icon":"assets/mods/dayevent.png","title":"Day Event","description":"Displays in-game day events on the HUD.","tags":["Utility"],"categories":["utility"]},
+    {"id":"daycounter","icon":"assets/mods/daycounter.png","title":"Day Counter","description":"Keeps track of the number of days passed in your Minecraft world.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"debughud","icon":"assets/mods/debughud.png","title":"Debug HUD","description":"Displays detailed technical information about the game state.","tags":["Utility"],"categories":["utility"]},
+    {"id":"directionhud","icon":"assets/mods/directionhud.png","title":"Direction HUD","description":"Displays your current facing direction (North, South, East, West).","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"expcalculator","icon":"assets/mods/expcalculator.png","title":"Exp Calculator","description":"Calculates experience needed for the next level.","tags":["Utility"],"categories":["utility"]},
+    {"id":"forcecoords","icon":"assets/mods/forcecoords.png","title":"ForceCoords","description":"Forces coordinates display even when normally hidden.","tags":["Utility"],"categories":["utility"]},
+    {"id":"fpscounter","icon":"assets/mods/fpscounter.png","title":"FPS Counter","description":"Displays your current frames per second.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"hitbox","icon":"assets/mods/hitbox.png","title":"Hitbox","description":"Displays a hitbox on the player.","tags":["Visual","PvP"],"categories":["visual","pvp"]},
+    {"id":"hitcolor","icon":"assets/mods/hitcolor.png","title":"Hit Color","description":"Changes the color of the player when getting hit.","tags":["Visual","PvP"],"categories":["visual","pvp"]},
+    {"id":"hotbar","icon":"assets/mods/hotbar.png","title":"Hotbar","description":"Customizable hotbar display with additional information.","tags":["HUD","Visual"],"categories":["hud","visual"]},
+    {"id":"hudpopup","icon":"assets/mods/hudpopup.png","title":"HUD Popup","description":"Displays bug report pop-up message on your HUD.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"inventoryhud","icon":"assets/mods/inventoryhud.png","title":"InventoryHUD","description":"An enhanced inventory display directly on your screen.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+    {"id":"itemcounter","icon":"assets/mods/itemcounters.png","title":"Item Counter","description":"Counts Arrows, Potions and Totems items in your inventory or hotbar.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+    {"id":"lowdurability","icon":"assets/mods/lowdurability.png","title":"Low Durability","description":"Alerts you when your equipped items have low durability.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+    {"id":"mainhandhud","icon":"assets/mods/mainhandhud.png","title":"Main Hand HUD","description":"Shows the item held in your main hand with it's durability.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+    {"id":"mobileshortcuts","icon":"assets/mods/mobileshortcuts.png","title":"Mobile Shortcuts","description":"Provides quick-access shortcuts optimized for mobile gameplay.","tags":["Utility","Mobile"],"categories":["utility","mobile"]},
+    {"id":"offhandhud","icon":"assets/mods/offhandhud.png","title":"Offhand HUD","description":"Shows the item held in your offhand.","tags":["HUD","Utility","PvP"],"categories":["hud","utility","pvp"]},
+    {"id":"playerlist","icon":"assets/mods/playerlist.png","title":"Playerlist","description":"Displays a list of players currently in your world or server.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"safezoneviewer","icon":"assets/mods/safezoneviewer.png","title":"Safe Zone Viewer","description":"Visualizes safe areas or boundaries within the game world.","tags":["Visual","Utility"],"categories":["visual","utility"]},
+    {"id":"saturationdisplaychanger","icon":"assets/mods/display.png","title":"Saturation Display Changer","description":"Adds a saturated overlay on your screen.","tags":["HUD","Visual"],"categories":["hud","visual"]},
+    {"id":"serverdisplay","icon":"assets/mods/serverdisplay.png","title":"Server Display","description":"Shows information about the server you are currently on.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"shinypotions","icon":"assets/mods/shinypotions.png","title":"Shiny Potions","description":"Adds a visual glint or enhanced effect to potion items.","tags":["Visual","Cosmetic"],"categories":["visual","cosmetic"]},
+    {"id":"slotcounter","icon":"assets/mods/slotcounter.png","title":"Slot Counter","description":"Counts the number of occupied and empty slots in your inventory.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"speedometer","icon":"assets/mods/speedometer.png","title":"Speedometer","description":"Displays your current movement speed in blocks per second.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"statushud","icon":"assets/mods/statushud.png","title":"Status HUD","description":"Displays various player status.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"targethud","icon":"assets/mods/targethud.png","title":"Target HUD","description":"Shows information about the player you are currently targeting.","tags":["HUD","PvP"],"categories":["hud","pvp"]},
+    {"id":"timerhud","icon":"assets/mods/timerhud.png","title":"Timer HUD","description":"A timer display to keep track of your session time.","tags":["HUD","Utility"],"categories":["hud","utility"]},
+    {"id":"walkdistance","icon":"assets/mods/walkdistance.png","title":"Walk Distance","description":"Displays the total distance you have walked in the game.","tags":["Utility"],"categories":["utility"]},
+    {"id":"waypointsplus","icon":"assets/mods/waypointsplus.png","title":"Waypoints+","description":"Waypoints, death points, green screen visual.","tags":["Utility","Visual"],"categories":["utility","visual"]}
+];
+
+const faqData = [
+    {"question":"Which devices are compatible with Glacier Client?","answer":"Glacier Client supports all devices running Minecraft Bedrock Edition version 1.21 or newer."},
+    {"question":"Is there a cost associated with using Glacier Client?","answer":"No, Glacier Client is provided completely free of charge and will remain 100% free to use."},
+    {"question":"Is Glacier Client safe to install and use?","answer":"Yes, Glacier Client is entirely safe. It functions as a texture pack client, not an executable or injector, minimizing security risks."},
+    {"question":"How can I bypass the Linkvertise download links?","answer":"Please refer to the tutorial video below for a step-by-step guide on bypassing Linkvertise links:","videoUrl":"https://www.youtube.com/embed/7Nnc5ff5840"},
+    {"question":"What are common reasons for Glacier Client not functioning correctly?","answer":"Potential issues preventing the client from working as expected include:<ul><li>Conflicts with other resource packs or add-ons that modify <code>player.entity.json</code> or <code>hud_screen.json</code> (e.g., \"Actions & Stuff\" packs).</li><li>Server restrictions that disallow client-side UI overrides (e.g., certain Minecraft Event servers).</li></ul><p>Ensure no conflicting packs are active and that the server permits custom UI elements.</p>"},
+    {"question":"How do I install Glacier Client?","answer":"Installation typically involves downloading the .mcpack file and opening it with Minecraft. Detailed instructions can be found on our Discord server or in our official documentation."},
+    {"question":"Can I use Glacier Client on realms or servers?","answer":"Yes, Glacier Client is designed to be compatible with both realms and most multiplayer servers. However, some servers may have restrictions on custom UI or resource packs, which could affect certain features."},
+    {"question":"How often is Glacier Client updated?","answer":"We strive to release updates regularly to ensure compatibility with the latest Minecraft Bedrock Edition versions, introduce new features, and address any bugs. Please check our Discord server for the most current update information."},
+    {"question":"Where can I report bugs or suggest features?","answer":"We encourage users to report bugs and suggest new features on our official Discord server. Your feedback is invaluable in improving Glacier Client."},
+    {"question":"Does Glacier Client affect game performance?","answer":"Glacier Client is designed to be lightweight and optimized for performance, with minimal to no impact on your game's frame rate or stability. It is only approximately 2MB in size."}
+];
+
+const downloadsData = {
+    "clients": {
+        "working": [{"version":"Glacier v6","tag":"Latest","release":"2025-12-25","size":"3.33MB","options":[{"name":"Download","url":"https://link-target.net/499358/jW4OJcixGfH9"}]}],
+        "legacy": [
+            {"version":"Glacier v5.1","tag":"Archived","release":"2025-07-06","size":"2.77MB","options":[{"name":"Linkvertise","url":"https://link-center.net/499358/KEBMHbdFAIOT"},{"name":"LootLabs","url":"https://lootdest.org/s?b6cpLNDy"}]},
+            {"version":"Glacier v4","tag":"Archived","release":"2024-10-26","size":"1.75MB","options":[{"name":"Download","url":"https://link-center.net/499358/glacier-client-v4"}]},
+            {"version":"Glacier v3","tag":"Archived","release":"2022-10-01","size":"1.93MB","options":[{"name":"Download","url":"https://www.mediafire.com/file/3ij9ibl2x0jbpdk/GlacierClientV3.mcpack/file"}]},
+            {"version":"Glacier v2","tag":"Archived","release":"2022-09-15","size":"13.53MB","options":[{"name":"Download","url":"https://www.mediafire.com/file/j6u8vlf6o5q5j9g/GlacierClient.zip/file"}]},
+            {"version":"Glacier v1","tag":"Archived","release":"2022-08-20","size":"21.25MB","options":[{"name":"Download","url":"https://www.mediafire.com/file/s7xv3ejoqxg5ntn/GlacierClient.mcpack/file"}]}
+        ]
+    },
+    "extensions": {
+        "working": [
+            {"version":"Cape Physics (v6)","description":"Adds dynamic physics to player capes for enhanced realism.","options":[{"name":"Download","url":"https://link-target.net/499358/V8eStnWz4hev"}]},
+            {"version":"Hit Color (v6)","description":"Changes the color of the player when getting hit.","options":[{"name":"Download","url":"https://direct-link.net/499358/1LrouT93xNmw"}]},
+            {"version":"Hitbox (v6)","description":"Displays a hitbox on the player.","options":[{"name":"Download","url":"https://direct-link.net/499358/0fxDWbScpOtL"}]},
+            {"version":"Projectile Particles (v6)","description":"Adds particle effects to projectiles.","options":[{"name":"Download","url":"https://link-center.net/499358/yz74hNrl2jep"}]}
+        ],
+        "legacy": [
+            {"version":"Cape Physics (v5)","description":"Adds dynamic physics to player capes for enhanced realism.","options":[{"name":"Linkvertise","url":"https://link-target.net/499358/WCp3rcHJiJ21"},{"name":"LootLabs","url":"https://lootdest.org/s?wulDc3e9"}]},
+            {"version":"Hit Color (v5)","description":"Changes the color of the player when getting hit.","options":[{"name":"Linkvertise","url":"https://link-target.net/499358/O3EPrFMabbut"},{"name":"LootLabs","url":"https://lootdest.org/s?xt8Clcln"}]},
+            {"version":"Chunk Border (v4)","description":"Displays the chunk when holding a nautilus shell in offhand while in 3rd person.","options":[{"name":"Download","url":"https://link-hub.net/499358/glacier-v4-chunk-border"}]},
+            {"version":"Freelook (v4)","description":"Crouch in 3rd person mode to enable the freelook.","options":[{"name":"Download","url":"https://direct-link.net/499358/glacier-v4-freelook"}]},
+            {"version":"Hitbox (v4)","description":"Displays a hitbox on the player.","options":[{"name":"Download","url":"https://direct-link.net/499358/glacier-v4-hitbox"}]},
+            {"version":"Hit Color (v4)","description":"Changes the color of player when getting hit.","options":[{"name":"Download","url":"https://link-center.net/499358/glacier-v4-hitcolor"}]},
+            {"version":"Waypoints+ (v4)","description":"Allows the player to make Waypoints, Greenscreen or Deathpoints!","options":[{"name":"Download","url":"https://link-target.net/499358/glacier-v4-waypoints"}]}
+        ]
+    }
+};
+
+let currentSection = 'home';
+const mainSections = ['home', 'features', 'gallery'];
+const allSections = ['home', 'features', 'gallery', 'community', 'downloads', 'faq', 'mods', 'license', 'donate'];
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    initializeMods();
+    initializeFAQ();
+    initializeDownloads();
+    setupConditionalRendering();
+    setupMobileMenu();
+    setupTabs();
+    setupModFilters();
+    setupHeaderScroll();
+    updateSideNav('home');
+    window.scrollTo(0, 0);
+});
+
+function setupHeaderScroll() {
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+}
+
+function updateSideNav(sectionId) {
+    const sideNav = document.getElementById('sideNav');
+    sideNav.innerHTML = '';
+    
+    let dotsConfig;
+    if (mainSections.includes(sectionId)) {
+        dotsConfig = [
+            {id: 'home', tooltip: 'Home'},
+            {id: 'features', tooltip: 'Features'},
+            {id: 'gallery', tooltip: 'Gallery'},
+            {id: 'footer', tooltip: 'Footer'}
         ];
-
-        const faqData = [
-            {"question":"Which devices are compatible with Glacier Client?","answer":"Glacier Client supports all devices running Minecraft Bedrock Edition version 1.21 or newer."},
-            {"question":"Is there a cost associated with using Glacier Client?","answer":"No, Glacier Client is provided completely free of charge and will remain 100% free to use."},
-            {"question":"Is Glacier Client safe to install and use?","answer":"Yes, Glacier Client is entirely safe. It functions as a texture pack client, not an executable or injector, minimizing security risks."},
-            {"question":"How can I bypass the Linkvertise download links?","answer":"Please refer to the tutorial video below for a step-by-step guide on bypassing Linkvertise links:","videoUrl":"https://www.youtube.com/embed/7Nnc5ff5840"},
-            {"question":"What are common reasons for Glacier Client not functioning correctly?","answer":"Potential issues preventing the client from working as expected include:<ul><li>Conflicts with other resource packs or add-ons that modify <code>player.entity.json</code> or <code>hud_screen.json</code> (e.g., \"Actions & Stuff\" packs).</li><li>Server restrictions that disallow client-side UI overrides (e.g., certain Minecraft Event servers).</li></ul><p>Ensure no conflicting packs are active and that the server permits custom UI elements.</p>"},
-            {"question":"How do I install Glacier Client?","answer":"Installation typically involves downloading the .mcpack file and opening it with Minecraft. Detailed instructions can be found on our Discord server or in our official documentation."},
-            {"question":"Can I use Glacier Client on realms or servers?","answer":"Yes, Glacier Client is designed to be compatible with both realms and most multiplayer servers. However, some servers may have restrictions on custom UI or resource packs, which could affect certain features."},
-            {"question":"How often is Glacier Client updated?","answer":"We strive to release updates regularly to ensure compatibility with the latest Minecraft Bedrock Edition versions, introduce new features, and address any bugs. Please check our Discord server for the most current update information."},
-            {"question":"Where can I report bugs or suggest features?","answer":"We encourage users to report bugs and suggest new features on our official Discord server. Your feedback is invaluable in improving Glacier Client."},
-            {"question":"Does Glacier Client affect game performance?","answer":"Glacier Client is designed to be lightweight and optimized for performance, with minimal to no impact on your game's frame rate or stability. It is only approximately 2MB in size."}
+    } else {
+        dotsConfig = [
+            {id: 'home', tooltip: 'Home'},
+            {id: sectionId, tooltip: sectionId.charAt(0).toUpperCase() + sectionId.slice(1)},
+            {id: 'footer', tooltip: 'Footer'}
         ];
+    }
 
-        const downloadsData = {
-            "clients": {
-                "working": [{"version":"Glacier v6","tag":"Latest","release":"2025-12-25","size":"3.33MB","options":[{"name":"Download","url":"https://link-target.net/499358/jW4OJcixGfH9"}]}],
-                "legacy": [
-                    {"version":"Glacier v5.1","tag":"Archived","release":"2025-07-06","size":"2.77MB","options":[{"name":"Linkvertise","url":"https://link-center.net/499358/KEBMHbdFAIOT"},{"name":"LootLabs","url":"https://lootdest.org/s?b6cpLNDy"}]},
-                    {"version":"Glacier v4","tag":"Archived","release":"2024-10-26","size":"1.75MB","options":[{"name":"Download","url":"https://link-center.net/499358/glacier-client-v4"}]},
-                    {"version":"Glacier v3","tag":"Archived","release":"2022-10-01","size":"1.93MB","options":[{"name":"Download","url":"https://www.mediafire.com/file/3ij9ibl2x0jbpdk/GlacierClientV3.mcpack/file"}]},
-                    {"version":"Glacier v2","tag":"Archived","release":"2022-09-15","size":"13.53MB","options":[{"name":"Download","url":"https://www.mediafire.com/file/j6u8vlf6o5q5j9g/GlacierClient.zip/file"}]},
-                    {"version":"Glacier v1","tag":"Archived","release":"2022-08-20","size":"21.25MB","options":[{"name":"Download","url":"https://www.mediafire.com/file/s7xv3ejoqxg5ntn/GlacierClient.mcpack/file"}]}
-                ]
-            },
-            "extensions": {
-                "working": [
-                    {"version":"Cape Physics (v6)","description":"Adds dynamic physics to player capes for enhanced realism.","options":[{"name":"Download","url":"https://link-target.net/499358/V8eStnWz4hev"}]},
-                    {"version":"Hit Color (v6)","description":"Changes the color of the player when getting hit.","options":[{"name":"Download","url":"https://direct-link.net/499358/1LrouT93xNmw"}]},
-                    {"version":"Hitbox (v6)","description":"Displays a hitbox on the player.","options":[{"name":"Download","url":"https://direct-link.net/499358/0fxDWbScpOtL"}]},
-                    {"version":"Projectile Particles (v6)","description":"Adds particle effects to projectiles.","options":[{"name":"Download","url":"https://link-center.net/499358/yz74hNrl2jep"}]}
-                ],
-                "legacy": [
-                    {"version":"Cape Physics (v5)","description":"Adds dynamic physics to player capes for enhanced realism.","options":[{"name":"Linkvertise","url":"https://link-target.net/499358/WCp3rcHJiJ21"},{"name":"LootLabs","url":"https://lootdest.org/s?wulDc3e9"}]},
-                    {"version":"Hit Color (v5)","description":"Changes the color of the player when getting hit.","options":[{"name":"Linkvertise","url":"https://link-target.net/499358/O3EPrFMabbut"},{"name":"LootLabs","url":"https://lootdest.org/s?xt8Clcln"}]},
-                    {"version":"Chunk Border (v4)","description":"Displays the chunk when holding a nautilus shell in offhand while in 3rd person.","options":[{"name":"Download","url":"https://link-hub.net/499358/glacier-v4-chunk-border"}]},
-                    {"version":"Freelook (v4)","description":"Crouch in 3rd person mode to enable the freelook.","options":[{"name":"Download","url":"https://direct-link.net/499358/glacier-v4-freelook"}]},
-                    {"version":"Hitbox (v4)","description":"Displays a hitbox on the player.","options":[{"name":"Download","url":"https://direct-link.net/499358/glacier-v4-hitbox"}]},
-                    {"version":"Hit Color (v4)","description":"Changes the color of player when getting hit.","options":[{"name":"Download","url":"https://link-center.net/499358/glacier-v4-hitcolor"}]},
-                    {"version":"Waypoints+ (v4)","description":"Allows the player to make Waypoints, Greenscreen or Deathpoints!","options":[{"name":"Download","url":"https://link-target.net/499358/glacier-v4-waypoints"}]}
-                ]
-            }
-        };
+    dotsConfig.forEach(dot => {
+        const dotEl = document.createElement('div');
+        dotEl.className = 'side-dot';
+        dotEl.setAttribute('data-section', dot.id);
+        dotEl.setAttribute('data-tooltip', dot.tooltip);
+        if (dot.id === sectionId) dotEl.classList.add('active');
+        sideNav.appendChild(dotEl);
+    });
 
-        let currentSection = 'home';
-        const mainSections = ['home', 'features', 'gallery'];
-        const allSections = ['home', 'features', 'gallery', 'community', 'downloads', 'faq', 'mods', 'license', 'donate'];
-
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-            initializeMods();
-            initializeFAQ();
-            initializeDownloads();
-            setupConditionalRendering();
-            setupMobileMenu();
-            setupTabs();
-            setupModFilters();
-            setupHeaderScroll();
-            updateSideNav('home');
-            window.scrollTo(0, 0);
-        });
-
-        function setupHeaderScroll() {
-            const header = document.getElementById('mainHeader');
-            window.addEventListener('scroll', () => {
-                header.classList.toggle('scrolled', window.scrollY > 50);
-            });
-        }
-
-        function updateSideNav(sectionId) {
-            const sideNav = document.getElementById('sideNav');
-            sideNav.innerHTML = '';
-            
-            let dotsConfig;
-            if (mainSections.includes(sectionId)) {
-                dotsConfig = [
-                    {id: 'home', tooltip: 'Home'},
-                    {id: 'features', tooltip: 'Features'},
-                    {id: 'gallery', tooltip: 'Gallery'},
-                    {id: 'footer', tooltip: 'Footer'}
-                ];
+    const sideDots = sideNav.querySelectorAll('.side-dot');
+    sideDots.forEach(dot => {
+        dot.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetSection = this.getAttribute('data-section');
+            if (targetSection === 'footer') {
+                document.querySelector('footer').scrollIntoView({ behavior: 'smooth' });
+                sideDots.forEach(d => d.classList.remove('active'));
+                this.classList.add('active');
             } else {
-                dotsConfig = [
-                    {id: 'home', tooltip: 'Home'},
-                    {id: sectionId, tooltip: sectionId.charAt(0).toUpperCase() + sectionId.slice(1)},
-                    {id: 'footer', tooltip: 'Footer'}
-                ];
+                showSection(targetSection);
             }
+        });
+    });
+}
 
-            dotsConfig.forEach(dot => {
-                const dotEl = document.createElement('div');
-                dotEl.className = 'side-dot';
-                dotEl.setAttribute('data-section', dot.id);
-                dotEl.setAttribute('data-tooltip', dot.tooltip);
-                if (dot.id === sectionId) dotEl.classList.add('active');
-                sideNav.appendChild(dotEl);
-            });
+function setupConditionalRendering() {
+    const navLinks = document.querySelectorAll('.nav-link, .hero-buttons a');
+    const contentSections = document.querySelectorAll('.content-section');
+    const logo = document.querySelector('.logo');
 
-            const sideDots = sideNav.querySelectorAll('.side-dot');
-            sideDots.forEach(dot => {
-                dot.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetSection = this.getAttribute('data-section');
-                    if (targetSection === 'footer') {
-                        document.querySelector('footer').scrollIntoView({ behavior: 'smooth' });
-                        sideDots.forEach(d => d.classList.remove('active'));
-                        this.classList.add('active');
-                    } else {
-                        showSection(targetSection);
-                    }
-                });
-            });
-        }
-
-        function setupConditionalRendering() {
-            const navLinks = document.querySelectorAll('.nav-link, .hero-buttons a');
-            const contentSections = document.querySelectorAll('.content-section');
-            const logo = document.querySelector('.logo');
-
-            function showSection(sectionId) {
-                currentSection = sectionId;
-                contentSections.forEach(section => section.classList.remove('active'));
-                const targetSection = document.getElementById(`${sectionId}-section`);
-                if (targetSection) targetSection.classList.add('active');
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('data-section') === sectionId) link.classList.add('active');
-                });
-                updateSideNav(sectionId);
-                if (sectionId === 'home') {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    const contentContainer = document.querySelector('.content-container');
-                    if (contentContainer) {
-                        const headerHeight = document.querySelector('header').offsetHeight;
-                        const contentTop = contentContainer.offsetTop - headerHeight - 20;
-                        window.scrollTo({ top: contentTop, behavior: 'smooth' });
-                    }
-                }
-                history.pushState(null, null, `#${sectionId}`);
-            }
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const sectionId = this.getAttribute('data-section');
-                    if (sectionId) showSection(sectionId);
-                });
-            });
-
-            if (logo) {
-                logo.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    showSection('home');
-                });
-            }
-
-            window.addEventListener('popstate', function () {
-                const hash = window.location.hash.substring(1);
-                if (hash && allSections.includes(hash)) showSection(hash);
-                else showSection('home');
-            });
-
-            const hash = window.location.hash.substring(1);
-            if (hash && allSections.includes(hash)) showSection(hash);
-            else showSection('home');
-            window.showSection = showSection;
-        }
-
-        function initializeMods() {
-            const modsGrid = document.getElementById('modsGrid');
-            if (!modsGrid) return;
-            modsGrid.innerHTML = modsData.map(mod => `<div class="mod-card" data-categories="${mod.categories.join(',')}"><img src="${mod.icon}" alt="${mod.title}" class="mod-image" loading="lazy" /><div class="mod-content"><h3 class="mod-title">${mod.title}</h3><p class="mod-description">${mod.description}</p><div class="mod-tags">${mod.tags.map(tag => `<span class="mod-tag">${tag}</span>`).join('')}</div></div></div>`).join('');
-        }
-
-        function initializeFAQ() {
-            const faqContainer = document.getElementById('faqContainer');
-            if (!faqContainer) return;
-            faqContainer.innerHTML = faqData.map((faq, index) => `<div class="faq-item"><details class="faq-card" ${index === 0 ? 'open' : ''}><summary class="faq-question"><span>${faq.question}</span><i class="fas fa-chevron-down"></i></summary><div class="faq-answer">${faq.answer}${faq.videoUrl ? `<div style="margin-top: 20px;"><iframe width="100%" height="315" src="${faq.videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>` : ''}</div></details></div>`).join('');
-        }
-
-        function initializeDownloads() {
-            const containers = {
-                'working-clients': downloadsData.clients.working,
-                'legacy-clients': downloadsData.clients.legacy,
-                'working-extensions': downloadsData.extensions.working,
-                'legacy-extensions': downloadsData.extensions.legacy
-            };
-            for (const [id, data] of Object.entries(containers)) {
-                const container = document.getElementById(id);
-                if (container) {
-                    container.innerHTML = data.map(item => id.includes('extensions') ? createExtensionCard(item) : createDownloadCard(item)).join('');
-                }
+    function showSection(sectionId) {
+        currentSection = sectionId;
+        contentSections.forEach(section => section.classList.remove('active'));
+        const targetSection = document.getElementById(`${sectionId}-section`);
+        if (targetSection) targetSection.classList.add('active');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-section') === sectionId) link.classList.add('active');
+        });
+        updateSideNav(sectionId);
+        if (sectionId === 'home') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            const contentContainer = document.querySelector('.content-container');
+            if (contentContainer) {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const contentTop = contentContainer.offsetTop - headerHeight - 20;
+                window.scrollTo({ top: contentTop, behavior: 'smooth' });
             }
         }
+        history.pushState(null, null, `#${sectionId}`);
+    }
 
-        function createDownloadCard(item) {
-            return `<div class="download-card"><div class="download-header"><h3 class="download-title">${item.version}</h3><span class="download-tag ${item.tag === 'Latest' ? 'tag-latest' : 'tag-archived'}">${item.tag}</span></div><div class="download-meta"><span>Released: ${item.release}</span><span>Size: ${item.size}</span></div><div class="download-buttons">${item.options.map(option => `<a href="${option.url}" class="btn ${option.name === 'Download' ? 'btn-primary' : 'btn-secondary'}" target="_blank">${option.name}</a>`).join('')}</div></div>`;
-        }
-
-        function createExtensionCard(item) {
-            return `<div class="download-card"><div class="download-header"><h3 class="download-title">${item.version}</h3></div><p style="color: #b9bbbe; margin-bottom: 20px;">${item.description}</p><div class="download-buttons">${item.options.map(option => `<a href="${option.url}" class="btn ${option.name === 'Download' ? 'btn-primary' : 'btn-secondary'}" target="_blank">${option.name}</a>`).join('')}</div></div>`;
-        }
-
-        function setupTabs() {
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const tabId = button.getAttribute('data-tab');
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    tabContents.forEach(content => {
-                        content.classList.remove('active');
-                        if (content.id === `${tabId}-tab-content`) content.classList.add('active');
-                    });
-                });
-            });
-        }
-
-        function setupModFilters() {
-            const filterButtons = document.querySelectorAll('.filter-button');
-            const modCards = document.querySelectorAll('.mod-card');
-            const searchInput = document.getElementById('modSearch');
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const category = button.getAttribute('data-category');
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    modCards.forEach(card => {
-                        const categories = card.getAttribute('data-categories').split(',');
-                        card.style.display = (category === 'all' || categories.includes(category)) ? 'flex' : 'none';
-                    });
-                });
-            });
-            if (searchInput) {
-                searchInput.addEventListener('input', () => {
-                    const searchTerm = searchInput.value.toLowerCase();
-                    modCards.forEach(card => {
-                        const title = card.querySelector('.mod-title').textContent.toLowerCase();
-                        const description = card.querySelector('.mod-description').textContent.toLowerCase();
-                        card.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? 'flex' : 'none';
-                    });
-                });
+    navLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            const sectionId = this.getAttribute('data-section');
+            
+            if (sectionId && !this.hasAttribute('target')) {
+                e.preventDefault();
+                showSection(sectionId);
             }
-        }
+        });
+    });
 
-        function setupMobileMenu() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navMenu = document.getElementById('navMenu');
-            if (mobileMenuBtn && navMenu) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    navMenu.classList.toggle('active');
-                    mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-                });
-                document.addEventListener('click', (e) => {
-                    if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
-                });
-                const navLinks = document.querySelectorAll('.nav-link');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        navMenu.classList.remove('active');
-                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    });
-                });
-            }
+    if (logo) {
+        logo.addEventListener('click', function (e) {
+            e.preventDefault();
+            showSection('home');
+        });
+    }
+
+    window.addEventListener('popstate', function () {
+        const hash = window.location.hash.substring(1);
+        if (hash && allSections.includes(hash)) showSection(hash);
+        else showSection('home');
+    });
+
+    const hash = window.location.hash.substring(1);
+    if (hash && allSections.includes(hash)) showSection(hash);
+    else showSection('home');
+    window.showSection = showSection;
+}
+
+function initializeMods() {
+    const modsGrid = document.getElementById('modsGrid');
+    if (!modsGrid) return;
+    modsGrid.innerHTML = modsData.map(mod => `<div class="mod-card" data-categories="${mod.categories.join(',')}"><img src="${mod.icon}" alt="${mod.title}" class="mod-image" loading="lazy" /><div class="mod-content"><h3 class="mod-title">${mod.title}</h3><p class="mod-description">${mod.description}</p><div class="mod-tags">${mod.tags.map(tag => `<span class="mod-tag">${tag}</span>`).join('')}</div></div></div>`).join('');
+}
+
+function initializeFAQ() {
+    const faqContainer = document.getElementById('faqContainer');
+    if (!faqContainer) return;
+    faqContainer.innerHTML = faqData.map((faq, index) => `<div class="faq-item"><details class="faq-card" ${index === 0 ? 'open' : ''}><summary class="faq-question"><span>${faq.question}</span><i class="fas fa-chevron-down"></i></summary><div class="faq-answer">${faq.answer}${faq.videoUrl ? `<div style="margin-top: 20px;"><iframe width="100%" height="315" src="${faq.videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>` : ''}</div></details></div>`).join('');
+}
+
+function initializeDownloads() {
+    const containers = {
+        'working-clients': downloadsData.clients.working,
+        'legacy-clients': downloadsData.clients.legacy,
+        'working-extensions': downloadsData.extensions.working,
+        'legacy-extensions': downloadsData.extensions.legacy
+    };
+    for (const [id, data] of Object.entries(containers)) {
+        const container = document.getElementById(id);
+        if (container) {
+            container.innerHTML = data.map(item => id.includes('extensions') ? createExtensionCard(item) : createDownloadCard(item)).join('');
         }
+    }
+}
+
+function createDownloadCard(item) {
+    return `<div class="download-card"><div class="download-header"><h3 class="download-title">${item.version}</h3><span class="download-tag ${item.tag === 'Latest' ? 'tag-latest' : 'tag-archived'}">${item.tag}</span></div><div class="download-meta"><span>Released: ${item.release}</span><span>Size: ${item.size}</span></div><div class="download-buttons">${item.options.map(option => `<a href="${option.url}" class="btn ${option.name === 'Download' ? 'btn-primary' : 'btn-secondary'}" target="_blank">${option.name}</a>`).join('')}</div></div>`;
+}
+
+function createExtensionCard(item) {
+    return `<div class="download-card"><div class="download-header"><h3 class="download-title">${item.version}</h3></div><p style="color: #b9bbbe; margin-bottom: 20px;">${item.description}</p><div class="download-buttons">${item.options.map(option => `<a href="${option.url}" class="btn ${option.name === 'Download' ? 'btn-primary' : 'btn-secondary'}" target="_blank">${option.name}</a>`).join('')}</div></div>`;
+}
+
+function setupTabs() {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const tabId = button.getAttribute('data-tab');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === `${tabId}-tab-content`) content.classList.add('active');
+            });
+        });
+    });
+}
+
+function setupModFilters() {
+    const filterButtons = document.querySelectorAll('.filter-button');
+    const modCards = document.querySelectorAll('.mod-card');
+    const searchInput = document.getElementById('modSearch');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.getAttribute('data-category');
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            modCards.forEach(card => {
+                const categories = card.getAttribute('data-categories').split(',');
+                card.style.display = (category === 'all' || categories.includes(category)) ? 'flex' : 'none';
+            });
+        });
+    });
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            modCards.forEach(card => {
+                const title = card.querySelector('.mod-title').textContent.toLowerCase();
+                const description = card.querySelector('.mod-description').textContent.toLowerCase();
+                card.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? 'flex' : 'none';
+            });
+        });
+    }
+}
+
+function setupMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+    }
+}
+   
     </script>
 </body>
 </html>
