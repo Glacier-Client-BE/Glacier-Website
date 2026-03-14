@@ -1,41 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Glacier Client | Next-Gen Minecraft Bedrock Experience</title>
-    <meta name="description"
-        content="Glacier Client is an optimized texture pack client for Minecraft Bedrock Edition, featuring an extensive library of mods, a draggable GUI, and lightweight performance. Download the next-gen Minecraft experience today!" />
-    <meta name="keywords"
-        content="Minecraft, Bedrock, client, Glacier, Bedrock Edition, mods, texture pack, client, PvP, FPS, performance, client mod, bedrock client" />
+    <meta name="description" content="Glacier Client is an optimized texture pack client for Minecraft Bedrock Edition, featuring an extensive library of mods, a draggable GUI, and lightweight performance. Download the next-gen Minecraft experience today!" />
+    <meta name="keywords" content="Minecraft, Bedrock, client, Glacier, Bedrock Edition, mods, texture pack, client, PvP, FPS, performance, client mod, bedrock client" />
     <link rel="canonical" href="https://glacierclient.xyz" />
     <meta property="og:title" content="Glacier Client | Minecraft BE" />
-    <meta property="og:description"
-        content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance. Download now!" />
+    <meta property="og:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance. Download now!" />
     <meta property="og:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
     <meta property="og:url" content="https://glacierclient.xyz" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@glacierclientbe" />
     <meta name="twitter:title" content="Glacier Client | Minecraft BE" />
-    <meta name="twitter:description"
-        content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance." />
+    <meta name="twitter:description" content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance." />
     <meta name="twitter:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3797529826447427"
-        crossorigin="anonymous"></script>
-    <script
-        type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Glacier Client","url":"https://glacierclient.xyz","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://glacierclient.xyz/search?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
-    <script
-        type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Glacier Client","url":"https://glacierclient.xyz","logo":"https://glacierclient.xyz/assets/logo.png","sameAs":["https://dsc.gg/glacierclientmcbe","https://github.com/glacierclientmcbe","https://youtube.com/@glacierclient","https://x.com/glacierclientbe","https://www.instagram.com/glacierclientmcbe"]}</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3797529826447427" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Glacier Client","url":"https://glacierclient.xyz","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://glacierclient.xyz/search?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Glacier Client","url":"https://glacierclient.xyz","logo":"https://glacierclient.xyz/assets/logo.png","sameAs":["https://dsc.gg/glacierclientmcbe","https://github.com/glacierclientmcbe","https://youtube.com/@glacierclient","https://x.com/glacierclientbe","https://www.instagram.com/glacierclientmcbe"]}</script>
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-        /* ─── Variables ─────────────────────────────────────────── */
         :root {
             --blurple: #7289da;
             --blurple-dark: #5b6eae;
@@ -60,7 +51,158 @@
             --shadow-lg: 0 20px 40px rgba(0, 0, 0, .45);
         }
 
-        /* ─── Reset & Base ──────────────────────────────────────── */
+        [data-theme="light"] {
+            --text-muted: #6b7280;
+            --darker: #e4e6ea;
+            --darkest: #eef0f3;
+        }
+
+        [data-theme="light"] body {
+            background: linear-gradient(135deg, #eef0f3 0%, #f5f6f8 100%);
+            color: #1a1d20;
+        }
+
+        [data-theme="light"] body::before {
+            background: radial-gradient(circle at 20% 80%, rgba(114, 137, 218, .08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(87, 242, 135, .05) 0%, transparent 50%);
+        }
+
+        [data-theme="light"] header {
+            background: rgba(240, 242, 246, .96);
+            border-bottom-color: rgba(0, 0, 0, .08);
+        }
+
+        [data-theme="light"] header.scrolled {
+            background: rgba(228, 230, 236, .97);
+        }
+
+        [data-theme="light"] .nav-menu {
+            background: rgba(210, 213, 220, .8);
+            border-color: rgba(0, 0, 0, .06);
+        }
+
+        [data-theme="light"] .nav-link {
+            color: #555;
+        }
+
+        [data-theme="light"] .nav-link.active {
+            color: #fff;
+        }
+
+        [data-theme="light"] .card-base {
+            background: rgba(255, 255, 255, .85);
+            border-color: rgba(0, 0, 0, .07);
+        }
+
+        [data-theme="light"] .hero {
+            background: linear-gradient(135deg, #e4e6ec, #eef0f4);
+            border-color: rgba(0, 0, 0, .06);
+        }
+
+        [data-theme="light"] .side-nav {
+            background: rgba(228, 230, 236, .92);
+            border-color: rgba(0, 0, 0, .08);
+        }
+
+        [data-theme="light"] .side-dot {
+            background: rgba(0, 0, 0, .2);
+        }
+
+        [data-theme="light"] footer {
+            background: rgba(218, 220, 226, .97);
+            border-top-color: rgba(0, 0, 0, .07);
+        }
+
+        [data-theme="light"] .hero-title {
+            background: linear-gradient(90deg, #1a1d20, var(--blurple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        [data-theme="light"] .section-title,
+        [data-theme="light"] .feature-title,
+        [data-theme="light"] .mod-title,
+        [data-theme="light"] .download-title,
+        [data-theme="light"] .faq-question,
+        [data-theme="light"] .community-text h2,
+        [data-theme="light"] .license-card h3,
+        [data-theme="light"] .donate-card h3 {
+            color: #1a1d20 !important;
+        }
+
+        [data-theme="light"] .hero-subtitle,
+        [data-theme="light"] .section-subtitle,
+        [data-theme="light"] .feature-desc,
+        [data-theme="light"] .mod-description,
+        [data-theme="light"] .faq-answer,
+        [data-theme="light"] .community-text p,
+        [data-theme="light"] .community-text li,
+        [data-theme="light"] .license-card li,
+        [data-theme="light"] .donate-card p {
+            color: #555 !important;
+        }
+
+        [data-theme="light"] .search-bar input,
+        [data-theme="light"] .filter-button,
+        [data-theme="light"] .tab-button {
+            background: rgba(210, 213, 220, .7);
+            border-color: rgba(0, 0, 0, .08);
+            color: #1a1d20;
+        }
+
+        [data-theme="light"] .mod-tag {
+            background: rgba(190, 193, 200, .7);
+            color: #555;
+        }
+
+        [data-theme="light"] .faq-question {
+            background: rgba(0, 0, 0, .04);
+        }
+
+        [data-theme="light"] .header-icon-btn {
+            background: rgba(200, 203, 210, .7);
+            border-color: rgba(0, 0, 0, .06);
+            color: #555;
+        }
+
+        [data-theme="light"] .header-icon-btn:hover {
+            background: rgba(114, 137, 218, .2);
+            color: #1a1d20;
+        }
+
+        [data-theme="light"] .search-modal-box {
+            background: #f0f2f6;
+            border-color: rgba(0, 0, 0, .1);
+        }
+
+        [data-theme="light"] .search-modal-top {
+            border-bottom-color: rgba(0, 0, 0, .08);
+        }
+
+        [data-theme="light"] #globalSearchInput {
+            color: #1a1d20;
+        }
+
+        [data-theme="light"] .search-result-item:hover {
+            background: rgba(114, 137, 218, .1);
+        }
+
+        [data-theme="light"] .search-result-title {
+            color: #1a1d20;
+        }
+
+        [data-theme="light"] .skeleton {
+            background: rgba(0, 0, 0, .06);
+        }
+
+        [data-theme="light"] .skeleton::after {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .6), transparent);
+        }
+
+        [data-theme="light"] .copyright-text {
+            color: #6b7280;
+        }
+
         *,
         *::before,
         *::after {
@@ -87,37 +229,20 @@
             content: '';
             position: fixed;
             inset: 0;
-            background:
-                radial-gradient(circle at 20% 80%, rgba(114, 137, 218, .05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(87, 242, 135, .03) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(235, 69, 158, .02) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 80%, rgba(114, 137, 218, .05) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(87, 242, 135, .03) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(235, 69, 158, .02) 0%, transparent 50%);
             z-index: -1;
             will-change: opacity, transform;
             animation: bgPulse 20s ease-in-out infinite alternate;
         }
 
         @keyframes bgPulse {
-            from {
-                opacity: .5;
-                transform: scale(1);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1.05);
-            }
+            from { opacity: .5; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.05); }
         }
 
-        img {
-            display: block;
-            max-width: 100%;
-        }
+        img { display: block; max-width: 100%; }
+        a { color: inherit; }
 
-        a {
-            color: inherit;
-        }
-
-        /* ─── Layout ────────────────────────────────────────────── */
         .container {
             width: 100%;
             max-width: 1200px;
@@ -125,7 +250,288 @@
             padding: 0 20px;
         }
 
-        /* ─── Side Nav ──────────────────────────────────────────── */
+        #toastBanner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            background: linear-gradient(90deg, var(--blurple-dark), var(--blurple));
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 20px;
+            font-size: .88rem;
+            font-weight: 500;
+            transform: translateY(-100%);
+            transition: transform var(--normal) var(--ease);
+            flex-wrap: wrap;
+        }
+
+        #toastBanner.visible {
+            transform: translateY(0);
+        }
+
+        body.has-toast header {
+            top: 40px;
+            transition: top var(--normal) var(--ease);
+        }
+
+        header {
+            transition: background var(--normal) var(--ease), box-shadow var(--normal) var(--ease), top var(--normal) var(--ease);
+        }
+
+        body.has-toast main {
+            margin-top: 108px;
+        }
+
+        .toast-cta {
+            background: rgba(255, 255, 255, .22);
+            color: #fff;
+            text-decoration: none;
+            padding: 3px 12px;
+            border-radius: var(--pill);
+            font-size: .8rem;
+            font-weight: 700;
+            transition: background var(--fast) var(--ease);
+            white-space: nowrap;
+        }
+
+        .toast-cta:hover {
+            background: rgba(255, 255, 255, .35);
+        }
+
+        #toastClose {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, .75);
+            cursor: pointer;
+            padding: 2px 6px;
+            margin-left: 4px;
+            font-size: .95rem;
+            transition: color var(--fast) var(--ease);
+            line-height: 1;
+        }
+
+        #toastClose:hover {
+            color: #fff;
+        }
+
+        #searchModal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, .72);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 100px;
+            padding-left: 20px;
+            padding-right: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--normal) var(--ease), visibility var(--normal) var(--ease);
+        }
+
+        #searchModal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .search-modal-box {
+            width: 100%;
+            max-width: 640px;
+            background: var(--darker);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, .08);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transform: translateY(-12px);
+            transition: transform var(--normal) var(--ease);
+        }
+
+        #searchModal.open .search-modal-box {
+            transform: translateY(0);
+        }
+
+        .search-modal-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .search-modal-top > i {
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        #globalSearchInput {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        #globalSearchInput::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-modal-hint {
+            font-size: .75rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, .06);
+            padding: 2px 7px;
+            border-radius: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        #searchClose {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 4px 6px;
+            transition: color var(--fast) var(--ease);
+            flex-shrink: 0;
+        }
+
+        #searchClose:hover {
+            color: #fff;
+        }
+
+        .search-results {
+            max-height: 420px;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .search-result-group {
+            margin-bottom: 6px;
+        }
+
+        .search-result-label {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .9px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 8px 12px 4px;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 9px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background var(--fast) var(--ease);
+        }
+
+        .search-result-item:hover {
+            background: rgba(114, 137, 218, .15);
+        }
+
+        .search-result-icon-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            object-fit: contain;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, .05);
+        }
+
+        .search-result-icon-box {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: .8rem;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            font-size: .88rem;
+            color: #fff;
+        }
+
+        .search-result-desc {
+            font-size: .78rem;
+            color: var(--text-muted);
+        }
+
+        .search-no-results {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px 20px;
+            font-size: .95rem;
+        }
+
+        .search-empty-hint {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 24px 20px;
+            font-size: .85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .search-empty-hint i {
+            font-size: 1.6rem;
+            color: rgba(114, 137, 218, .4);
+            margin-bottom: 6px;
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 28px;
+            right: 20px;
+            z-index: 800;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--blurple);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(114, 137, 218, .4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .95rem;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity var(--normal) var(--ease), transform var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
+            pointer-events: none;
+        }
+
+        #backToTop.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        #backToTop:hover {
+            box-shadow: 0 8px 24px rgba(114, 137, 218, .6);
+            transform: translateY(-3px);
+        }
+
         .side-nav {
             position: fixed;
             right: 20px;
@@ -191,7 +597,6 @@
             box-shadow: 0 0 10px rgba(114, 137, 218, .5);
         }
 
-        /* ─── Header ────────────────────────────────────────────── */
         header {
             position: fixed;
             inset: 0 0 auto 0;
@@ -201,7 +606,6 @@
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, .05);
             box-shadow: 0 4px 30px rgba(0, 0, 0, .3);
-            transition: background var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
             will-change: background, box-shadow;
         }
 
@@ -218,7 +622,6 @@
             gap: 12px;
         }
 
-        /* Logo */
         .logo {
             display: flex;
             align-items: center;
@@ -258,7 +661,6 @@
             color: transparent;
         }
 
-        /* Nav */
         .nav-menu {
             display: flex;
             list-style: none;
@@ -293,7 +695,35 @@
             box-shadow: 0 4px 20px rgba(114, 137, 218, .4);
         }
 
-        /* Mobile toggle */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .header-icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(66, 69, 73, .7);
+            border: 1px solid rgba(255, 255, 255, .05);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: .92rem;
+            transition: color var(--fast) var(--ease), background var(--fast) var(--ease), transform var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
+        }
+
+        .header-icon-btn:hover {
+            color: #fff;
+            background: rgba(114, 137, 218, .25);
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(114, 137, 218, .2);
+        }
+
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -314,10 +744,10 @@
             background: rgba(114, 137, 218, .15);
         }
 
-        /* ─── Main / Hero ───────────────────────────────────────── */
         main {
             margin-top: 68px;
             min-height: calc(100vh - 220px);
+            transition: margin-top var(--normal) var(--ease);
         }
 
         .hero {
@@ -335,19 +765,14 @@
         }
 
         @keyframes heroIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background:
-                radial-gradient(circle at 20% 50%, rgba(114, 137, 218, .15) 0%, transparent 55%),
-                radial-gradient(circle at 80% 80%, rgba(87, 242, 135, .1) 0%, transparent 55%);
+            background: radial-gradient(circle at 20% 50%, rgba(114, 137, 218, .15) 0%, transparent 55%), radial-gradient(circle at 80% 80%, rgba(87, 242, 135, .1) 0%, transparent 55%);
             pointer-events: none;
         }
 
@@ -389,6 +814,36 @@
             margin-top: 6px;
         }
 
+        .hero-stats {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, .07);
+        }
+
+        [data-theme="light"] .hero-stats {
+            border-top-color: rgba(0, 0, 0, .07);
+        }
+
+        .hero-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .hero-stat-num {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--blurple);
+        }
+
+        .hero-stat-label {
+            font-size: .73rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
         .hero-image {
             border-radius: var(--radius);
             overflow: hidden;
@@ -414,7 +869,6 @@
             transform: scale(1.04);
         }
 
-        /* ─── Content Sections ──────────────────────────────────── */
         .content-container {
             padding: 40px 0;
             min-height: 400px;
@@ -432,10 +886,7 @@
         }
 
         @keyframes secIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .section-header {
@@ -471,7 +922,6 @@
             line-height: 1.65;
         }
 
-        /* ─── Buttons ───────────────────────────────────────────── */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -528,7 +978,14 @@
             box-shadow: 0 8px 20px rgba(114, 137, 218, .4);
         }
 
-        /* ─── Cards (shared base) ───────────────────────────────── */
+        [data-theme="light"] .btn-secondary {
+            color: var(--blurple);
+        }
+
+        [data-theme="light"] .btn-secondary:hover {
+            color: #fff;
+        }
+
         .card-base {
             background: rgba(66, 69, 73, .7);
             border-radius: var(--radius);
@@ -544,7 +1001,35 @@
             border-color: rgba(114, 137, 218, .35);
         }
 
-        /* ─── Features ──────────────────────────────────────────── */
+        .skeleton {
+            background: rgba(255, 255, 255, .06);
+            border-radius: var(--radius);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .04);
+        }
+
+        .skeleton::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .04), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+        .skeleton-mod {
+            height: 220px;
+        }
+
+        .skeleton-download {
+            height: 110px;
+        }
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
@@ -590,7 +1075,6 @@
             line-height: 1.6;
         }
 
-        /* ─── Gallery ───────────────────────────────────────────── */
         .gallery-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
@@ -642,7 +1126,6 @@
             transform: translateY(0);
         }
 
-        /* ─── Community ─────────────────────────────────────────── */
         .community-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -700,7 +1183,10 @@
             transform: translateX(4px);
         }
 
-        /* ─── Social ────────────────────────────────────────────── */
+        [data-theme="light"] .community-text li:hover {
+            color: #1a1d20;
+        }
+
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(min(100%, 110px), 1fr));
@@ -713,6 +1199,10 @@
             text-decoration: none;
             color: #fff;
             border-radius: var(--radius);
+        }
+
+        [data-theme="light"] .social-card {
+            color: #1a1d20;
         }
 
         .social-card:hover {
@@ -740,7 +1230,6 @@
             color: var(--blurple);
         }
 
-        /* ─── Downloads ─────────────────────────────────────────── */
         .downloads-tabs {
             display: flex;
             gap: 10px;
@@ -767,11 +1256,19 @@
             transform: translateY(-2px);
         }
 
+        [data-theme="light"] .tab-button:hover {
+            color: #1a1d20;
+        }
+
         .tab-button.active {
             background: var(--blurple);
             color: #fff;
             box-shadow: 0 4px 15px rgba(114, 137, 218, .4);
             border-color: transparent;
+        }
+
+        [data-theme="light"] .tab-button.active {
+            color: #fff;
         }
 
         .tab-content {
@@ -784,13 +1281,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .downloads-grid {
@@ -877,7 +1369,6 @@
             gap: 10px;
         }
 
-        /* ─── FAQ ───────────────────────────────────────────────── */
         .faq-container {
             max-width: 880px;
             margin: 0 auto;
@@ -920,6 +1411,10 @@
             padding-left: 28px;
         }
 
+        [data-theme="light"] .faq-question:hover {
+            background: rgba(0, 0, 0, .05);
+        }
+
         .faq-question i {
             color: var(--blurple);
             flex-shrink: 0;
@@ -945,7 +1440,6 @@
             margin-bottom: 7px;
         }
 
-        /* ─── Mods ──────────────────────────────────────────────── */
         .filter-controls {
             display: flex;
             gap: 10px;
@@ -972,11 +1466,19 @@
             transform: translateY(-2px);
         }
 
+        [data-theme="light"] .filter-button:hover {
+            color: #1a1d20;
+        }
+
         .filter-button.active {
             background: var(--blurple);
             color: #fff;
             box-shadow: 0 4px 15px rgba(114, 137, 218, .4);
             border-color: transparent;
+        }
+
+        [data-theme="light"] .filter-button.active {
+            color: #fff;
         }
 
         .search-bar {
@@ -1006,13 +1508,17 @@
             transition: border-color var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
         }
 
+        [data-theme="light"] .search-bar input {
+            color: #1a1d20;
+        }
+
         .search-bar input:focus {
             outline: none;
             border-color: var(--blurple);
             box-shadow: 0 0 0 3px rgba(114, 137, 218, .18);
         }
 
-        .search-bar input:focus+i {
+        .search-bar input:focus ~ i {
             color: var(--blurple);
         }
 
@@ -1100,7 +1606,10 @@
             color: #fff;
         }
 
-        /* ─── License ───────────────────────────────────────────── */
+        [data-theme="light"] .mod-card:hover .mod-tag {
+            color: var(--blurple);
+        }
+
         .license-content {
             max-width: 860px;
             margin: 0 auto;
@@ -1145,7 +1654,6 @@
             line-height: 1.65;
         }
 
-        /* ─── Donate ────────────────────────────────────────────── */
         .donate-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
@@ -1177,7 +1685,6 @@
             transform: scale(1.1) rotate(5deg);
         }
 
-        /* ─── Footer ────────────────────────────────────────────── */
         footer {
             background: rgba(30, 33, 36, .97);
             padding: 36px 0 20px;
@@ -1272,7 +1779,10 @@
             width: 100%;
         }
 
-        /* ─── Shared shimmer/hover effect ───────────────────────── */
+        [data-theme="light"] .copyright-text {
+            border-top-color: rgba(0, 0, 0, .07);
+        }
+
         .card-shine {
             position: relative;
             overflow: hidden;
@@ -1292,56 +1802,25 @@
             transform: translateX(100%);
         }
 
-        /* ─── Reduced Motion ─────────────────────────────────────── */
         @media (prefers-reduced-motion: reduce) {
-
-            *,
-            *::before,
-            *::after {
+            *, *::before, *::after {
                 animation-duration: .01ms !important;
                 transition-duration: .01ms !important;
             }
-
-            body::before {
-                animation: none;
-            }
+            body::before { animation: none; }
         }
 
-        /* ─── Responsive: 1024px ────────────────────────────────── */
         @media (max-width: 1024px) {
-            .hero {
-                padding: 52px 36px;
-            }
-
-            .hero-container {
-                gap: 36px;
-            }
-
-            .community-content {
-                grid-template-columns: 1fr;
-            }
-
-            .community-widget iframe {
-                max-height: 340px;
-            }
-
-            .side-nav {
-                right: 10px;
-                padding: 11px 6px;
-                gap: 11px;
-            }
-
-            .side-dot {
-                width: 8px;
-                height: 8px;
-            }
+            .hero { padding: 52px 36px; }
+            .hero-container { gap: 36px; }
+            .community-content { grid-template-columns: 1fr; }
+            .community-widget iframe { max-height: 340px; }
+            .side-nav { right: 10px; padding: 11px 6px; gap: 11px; }
+            .side-dot { width: 8px; height: 8px; }
         }
 
-        /* ─── Responsive: 768px ─────────────────────────────────── */
         @media (max-width: 768px) {
-            header .header-container {
-                padding: 12px 16px;
-            }
+            header .header-container { padding: 12px 16px; }
 
             .nav-menu {
                 display: none;
@@ -1361,45 +1840,18 @@
                 animation: slideDown .25s var(--ease);
             }
 
-            .nav-menu.active {
-                display: flex;
-            }
+            .nav-menu.active { display: flex; }
 
             @keyframes slideDown {
-                from {
-                    opacity: 0;
-                    transform: translateY(-8px);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+                from { opacity: 0; transform: translateY(-8px); }
+                to { opacity: 1; transform: translateY(0); }
             }
 
-            .nav-link {
-                padding: 12px 16px;
-                font-size: .95rem;
-                border-radius: var(--radius);
-            }
-
-            .mobile-menu-btn {
-                display: inline-flex;
-            }
-
-            .side-nav {
-                display: none;
-            }
-
-            .hero {
-                padding: 40px 24px;
-                margin: 0 12px 40px;
-            }
-
-            .hero-container {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
+            .nav-link { padding: 12px 16px; font-size: .95rem; border-radius: var(--radius); }
+            .mobile-menu-btn { display: inline-flex; }
+            .side-nav { display: none; }
+            .hero { padding: 40px 24px; margin: 0 12px 40px; }
+            .hero-container { grid-template-columns: 1fr; gap: 32px; }
 
             .hero-image {
                 order: -1;
@@ -1407,106 +1859,73 @@
                 overflow: hidden;
             }
 
-            .hero-image img {
-                max-height: 240px;
-                object-fit: cover;
-                width: 100%;
-            }
+            .hero-image img { max-height: 240px; object-fit: cover; width: 100%; }
 
-            .hero-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
+            .hero-buttons { flex-direction: column; align-items: stretch; }
+            .hero-buttons .btn { width: 100%; text-align: center; justify-content: center; }
+            .features-grid { grid-template-columns: 1fr; }
+            .gallery-container { grid-template-columns: 1fr; }
 
-            .hero-buttons .btn {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-            }
+            .footer-content { flex-direction: column; align-items: center; text-align: center; }
+            .footer-social { justify-content: center; }
+            .filter-controls { gap: 8px; }
+            .filter-button { font-size: .82rem; padding: 8px 14px; }
+            .search-bar { max-width: 100%; }
+            .download-header { flex-direction: column; align-items: flex-start; }
+            .download-buttons { width: 100%; }
+            .download-buttons .btn { flex: 1; min-width: 120px; }
 
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
+            #searchModal { padding-top: 80px; }
+            .search-modal-hint { display: none; }
 
-            .gallery-container {
-                grid-template-columns: 1fr;
-            }
+            #backToTop { bottom: 18px; right: 14px; }
 
-            .footer-content {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .footer-social {
-                justify-content: center;
-            }
-
-            .filter-controls {
-                gap: 8px;
-            }
-
-            .filter-button {
-                font-size: .82rem;
-                padding: 8px 14px;
-            }
-
-            .search-bar {
-                max-width: 100%;
-            }
-
-            .download-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .download-buttons {
-                width: 100%;
-            }
-
-            .download-buttons .btn {
-                flex: 1;
-                min-width: 120px;
-            }
+            .hero-stats { gap: 16px; }
         }
 
-        /* ─── Responsive: 480px ─────────────────────────────────── */
         @media (max-width: 480px) {
-            .hero {
-                padding: 30px 18px;
-                margin: 0 8px 32px;
-            }
-
-            .hero-image {
-                display: none;
-            }
-
-            .section-title {
-                font-size: 1.6rem;
-            }
-
-            .social-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .tab-button {
-                padding: 10px 16px;
-                font-size: .85rem;
-            }
-
-            .donate-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .download-meta {
-                flex-direction: column;
-                gap: 4px;
-            }
+            .hero { padding: 30px 18px; margin: 0 8px 32px; }
+            .hero-image { display: none; }
+            .section-title { font-size: 1.6rem; }
+            .social-grid { grid-template-columns: repeat(3, 1fr); }
+            .tab-button { padding: 10px 16px; font-size: .85rem; }
+            .donate-grid { grid-template-columns: 1fr; }
+            .download-meta { flex-direction: column; gap: 4px; }
+            .header-icon-btn { width: 34px; height: 34px; font-size: .82rem; }
         }
     </style>
 </head>
 
 <body>
+
+    <div id="toastBanner">
+        <i class="fas fa-star" aria-hidden="true"></i>
+        <span id="toastMsg"></span>
+        <a id="toastCta" href="#" class="toast-cta"></a>
+        <button id="toastClose" aria-label="Dismiss announcement"><i class="fas fa-times" aria-hidden="true"></i></button>
+    </div>
+
+    <div id="searchModal" role="dialog" aria-modal="true" aria-label="Site search">
+        <div class="search-modal-box">
+            <div class="search-modal-top">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input id="globalSearchInput" type="text" placeholder="Search mods, FAQ, downloads, news…" autocomplete="off" spellcheck="false" />
+                <span class="search-modal-hint">Esc to close</span>
+                <button id="searchClose" aria-label="Close search"><i class="fas fa-times" aria-hidden="true"></i></button>
+            </div>
+            <div id="searchResults" class="search-results">
+                <div class="search-empty-hint">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <span>Search across mods, FAQ, downloads and news</span>
+                    <span style="font-size:.78rem;opacity:.6;">Try "FPS", "install", or "v6.1"</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="backToTop" aria-label="Back to top">
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </button>
 
     <div class="side-nav" id="sideNav"></div>
 
@@ -1516,10 +1935,6 @@
                 <img src="assets/logo.png" alt="Glacier Client Logo" class="logo-img" width="38" height="38" />
                 <span class="logo-text">Glacier Client</span>
             </a>
-
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
-                <i class="fas fa-bars" aria-hidden="true"></i>
-            </button>
 
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#" class="nav-link active" data-section="home">Home</a></li>
@@ -1532,6 +1947,18 @@
                 <li><a href="#" class="nav-link" data-section="license">License</a></li>
                 <li><a href="#" class="nav-link" data-section="donate">Donate</a></li>
             </ul>
+
+            <div class="header-actions">
+                <button id="searchTrigger" class="header-icon-btn" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                </button>
+                <button id="themeToggle" class="header-icon-btn" aria-label="Toggle theme">
+                    <i class="fas fa-sun" aria-hidden="true"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -1540,60 +1967,68 @@
             <div class="hero-container container">
                 <div class="hero-content">
                     <h1 class="hero-title">Next Generation Minecraft Experience</h1>
-                    <p class="hero-subtitle">Optimized texture pack client for Minecraft Bedrock Edition with extensive
-                        modules, draggable GUI, and lightweight performance. Experience the future of Minecraft with
-                        smooth animations and a clean interface.</p>
+                    <p class="hero-subtitle">Optimized texture pack client for Minecraft Bedrock Edition with extensive modules, draggable GUI, and lightweight performance. Experience the future of Minecraft with smooth animations and a clean interface.</p>
                     <div class="hero-buttons">
                         <a href="#" class="btn btn-primary" data-section="downloads">
                             <i class="fas fa-download" aria-hidden="true"></i> Download Now
                         </a>
-                        <a href="https://config.glacierclient.xyz/" class="btn btn-secondary" target="_blank"
-                            rel="noopener">
+                        <a href="https://config.glacierclient.xyz/" class="btn btn-secondary" target="_blank" rel="noopener">
                             <i class="fas fa-sliders-h" aria-hidden="true"></i> Config Editor
                         </a>
                     </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span class="hero-stat-num" id="discordOnline">—</span>
+                            <span class="hero-stat-label">Online on Discord</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-num">37+</span>
+                            <span class="hero-stat-label">Modules</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-num">2 MB</span>
+                            <span class="hero-stat-label">Pack Size</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-num">Free</span>
+                            <span class="hero-stat-label">Forever</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="hero-image">
-                    <img src="assets/mod_menu.png" alt="Glacier Client Interface" loading="eager" width="600"
-                        height="400" />
+                    <img src="assets/mod_menu.png" alt="Glacier Client Interface" loading="eager" width="600" height="400" />
                 </div>
             </div>
         </section>
 
         <div class="content-container">
 
-            <!-- Home -->
             <section id="home-section" class="content-section active">
                 <div class="container">
                     <div class="section-header">
                         <h2 class="section-title">Core Features</h2>
-                        <p class="section-subtitle">Experience the power of Glacier Client with these standout features
-                        </p>
+                        <p class="section-subtitle">Experience the power of Glacier Client with these standout features</p>
                     </div>
                     <div class="features-grid">
                         <div class="feature-card card-base card-shine">
                             <div class="feature-icon"><i class="fas fa-cubes" aria-hidden="true"></i></div>
                             <h3 class="feature-title">37+ Modules</h3>
-                            <p class="feature-desc">Extensive modules with real-time configuration and customization
-                                options for every playstyle.</p>
+                            <p class="feature-desc">Extensive modules with real-time configuration and customization options for every playstyle.</p>
                         </div>
                         <div class="feature-card card-base card-shine">
                             <div class="feature-icon"><i class="fas fa-arrows-alt" aria-hidden="true"></i></div>
                             <h3 class="feature-title">Draggable Mods</h3>
-                            <p class="feature-desc">Modules are fully movable to customize your HUD exactly how you want
-                                it.</p>
+                            <p class="feature-desc">Modules are fully movable to customize your HUD exactly how you want it.</p>
                         </div>
                         <div class="feature-card card-base card-shine">
                             <div class="feature-icon"><i class="fas fa-bolt" aria-hidden="true"></i></div>
                             <h3 class="feature-title">Lightweight</h3>
-                            <p class="feature-desc">Only 2MB with zero performance impact, ensuring smooth gameplay even
-                                on lower-end devices.</p>
+                            <p class="feature-desc">Only 2MB with zero performance impact, ensuring smooth gameplay even on lower-end devices.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Features -->
             <section id="features-section" class="content-section">
                 <div class="container">
                     <div class="section-header">
@@ -1604,26 +2039,22 @@
                         <div class="feature-card card-base card-shine">
                             <div class="feature-icon"><i class="fas fa-sliders-h" aria-hidden="true"></i></div>
                             <h3 class="feature-title">Config Editor</h3>
-                            <p class="feature-desc">Built-in configuration editor that allows you to customize every
-                                aspect of your client experience.</p>
+                            <p class="feature-desc">Built-in configuration editor that allows you to customize every aspect of your client experience.</p>
                         </div>
                         <div class="feature-card card-base card-shine">
                             <div class="feature-icon"><i class="fas fa-palette" aria-hidden="true"></i></div>
                             <h3 class="feature-title">Custom Themes</h3>
-                            <p class="feature-desc">Multiple theme options to personalize the look and feel of your
-                                client interface.</p>
+                            <p class="feature-desc">Multiple theme options to personalize the look and feel of your client interface.</p>
                         </div>
                         <div class="feature-card card-base card-shine">
                             <div class="feature-icon"><i class="fas fa-sync-alt" aria-hidden="true"></i></div>
                             <h3 class="feature-title">Auto-Updates</h3>
-                            <p class="feature-desc">Automatic update system that ensures you always have the latest
-                                features and bug fixes.</p>
+                            <p class="feature-desc">Automatic update system that ensures you always have the latest features and bug fixes.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Gallery -->
             <section id="gallery-section" class="content-section">
                 <div class="container">
                     <div class="section-header">
@@ -1633,30 +2064,20 @@
                     <div class="gallery-container">
                         <div class="gallery-item">
                             <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu" loading="lazy" />
-                            <div class="gallery-overlay">
-                                <h3>Mod Menu</h3>
-                                <p>Easy-to-use interface for managing all your mods</p>
-                            </div>
+                            <div class="gallery-overlay"><h3>Mod Menu</h3><p>Easy-to-use interface for managing all your mods</p></div>
                         </div>
                         <div class="gallery-item">
                             <img src="assets/start_screen.png" alt="Glacier Client Start Screen" loading="lazy" />
-                            <div class="gallery-overlay">
-                                <h3>Start Screen</h3>
-                                <p>Custom main menu with a unique design</p>
-                            </div>
+                            <div class="gallery-overlay"><h3>Start Screen</h3><p>Custom main menu with a unique design</p></div>
                         </div>
                         <div class="gallery-item">
                             <img src="assets/pause_screen.png" alt="Glacier Client Pause Screen" loading="lazy" />
-                            <div class="gallery-overlay">
-                                <h3>Pause Screen</h3>
-                                <p>Custom pause menu with QOL features</p>
-                            </div>
+                            <div class="gallery-overlay"><h3>Pause Screen</h3><p>Custom pause menu with QOL features</p></div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Community -->
             <section id="community-section" class="content-section">
                 <div class="container">
                     <div class="section-header">
@@ -1665,23 +2086,18 @@
                     </div>
                     <div class="community-content">
                         <div class="community-widget">
-                            <iframe src="https://discord.com/widget?id=938248183878930514&theme=dark"
-                                allowtransparency="true" frameborder="0" loading="lazy"
-                                sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-                                title="Discord widget"></iframe>
+                            <iframe src="https://discord.com/widget?id=938248183878930514&theme=dark" allowtransparency="true" frameborder="0" loading="lazy" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" title="Discord widget"></iframe>
                         </div>
                         <div class="community-text">
                             <h2>Join Our Discord!</h2>
-                            <p>Connect with other Glacier Client users, get support, share your creations, and stay
-                                up-to-date with the latest news and updates.</p>
+                            <p>Connect with other Glacier Client users, get support, share your creations, and stay up-to-date with the latest news and updates.</p>
                             <ul>
                                 <li>Get help with installation and troubleshooting</li>
                                 <li>Suggest new features and modules</li>
                                 <li>Participate in events and giveaways</li>
                                 <li>Chat directly with the developers</li>
                             </ul>
-                            <a href="https://dsc.gg/glacierclientmcbe" class="btn btn-primary"
-                                style="background:#5865F2;" target="_blank" rel="noopener">
+                            <a href="https://dsc.gg/glacierclientmcbe" class="btn btn-primary" style="background:#5865F2;" target="_blank" rel="noopener">
                                 <i class="fab fa-discord" aria-hidden="true"></i> Join Discord
                             </a>
                         </div>
@@ -1692,29 +2108,16 @@
                         <p class="section-subtitle">Stay connected with Glacier Client across all platforms</p>
                     </div>
                     <div class="social-grid">
-                        <a href="https://dsc.gg/glacierclientmcbe" class="social-card card-base card-shine"
-                            target="_blank" rel="noopener"><i class="fab fa-discord  social-icon"
-                                aria-hidden="true"></i><span class="social-name">Discord</span></a>
-                        <a href="https://github.com/glacierclientmcbe" class="social-card card-base card-shine"
-                            target="_blank" rel="noopener"><i class="fab fa-github   social-icon"
-                                aria-hidden="true"></i><span class="social-name">GitHub</span></a>
-                        <a href="https://youtube.com/@glacierclient" class="social-card card-base card-shine"
-                            target="_blank" rel="noopener"><i class="fab fa-youtube  social-icon"
-                                aria-hidden="true"></i><span class="social-name">YouTube</span></a>
-                        <a href="https://x.com/glacierclientbe" class="social-card card-base card-shine" target="_blank"
-                            rel="noopener"><i class="fab fa-twitter  social-icon" aria-hidden="true"></i><span
-                                class="social-name">Twitter</span></a>
-                        <a href="https://www.instagram.com/glacierclientmcbe" class="social-card card-base card-shine"
-                            target="_blank" rel="noopener"><i class="fab fa-instagram social-icon"
-                                aria-hidden="true"></i><span class="social-name">Instagram</span></a>
-                        <a href="https://www.tiktok.com/@glacierclientmcbe" class="social-card card-base card-shine"
-                            target="_blank" rel="noopener"><i class="fab fa-tiktok   social-icon"
-                                aria-hidden="true"></i><span class="social-name">TikTok</span></a>
+                        <a href="https://dsc.gg/glacierclientmcbe" class="social-card card-base card-shine" target="_blank" rel="noopener"><i class="fab fa-discord social-icon" aria-hidden="true"></i><span class="social-name">Discord</span></a>
+                        <a href="https://github.com/glacierclientmcbe" class="social-card card-base card-shine" target="_blank" rel="noopener"><i class="fab fa-github social-icon" aria-hidden="true"></i><span class="social-name">GitHub</span></a>
+                        <a href="https://youtube.com/@glacierclient" class="social-card card-base card-shine" target="_blank" rel="noopener"><i class="fab fa-youtube social-icon" aria-hidden="true"></i><span class="social-name">YouTube</span></a>
+                        <a href="https://x.com/glacierclientbe" class="social-card card-base card-shine" target="_blank" rel="noopener"><i class="fab fa-twitter social-icon" aria-hidden="true"></i><span class="social-name">Twitter</span></a>
+                        <a href="https://www.instagram.com/glacierclientmcbe" class="social-card card-base card-shine" target="_blank" rel="noopener"><i class="fab fa-instagram social-icon" aria-hidden="true"></i><span class="social-name">Instagram</span></a>
+                        <a href="https://www.tiktok.com/@glacierclientmcbe" class="social-card card-base card-shine" target="_blank" rel="noopener"><i class="fab fa-tiktok social-icon" aria-hidden="true"></i><span class="social-name">TikTok</span></a>
                     </div>
                 </div>
             </section>
 
-            <!-- Downloads -->
             <section id="downloads-section" class="content-section">
                 <div class="container">
                     <div class="section-header">
@@ -1740,7 +2143,6 @@
                 </div>
             </section>
 
-            <!-- FAQ -->
             <section id="faq-section" class="content-section">
                 <div class="container">
                     <div class="section-header">
@@ -1751,13 +2153,11 @@
                 </div>
             </section>
 
-            <!-- Mods -->
             <section id="mods-section" class="content-section">
                 <div class="container">
                     <div class="section-header">
                         <h2 class="section-title">Explore All Glacier Mods</h2>
-                        <p class="section-subtitle">Discover a wide range of modules to enhance your Minecraft Bedrock
-                            Edition experience</p>
+                        <p class="section-subtitle">Discover a wide range of modules to enhance your Minecraft Bedrock Edition experience</p>
                     </div>
                     <div class="filter-controls">
                         <button class="filter-button active" data-category="all">All Mods</button>
@@ -1775,78 +2175,64 @@
                 </div>
             </section>
 
-            <!-- License -->
             <section id="license-section" class="content-section">
                 <div class="container">
                     <div class="section-header">
                         <h2 class="section-title">Glacier Client License</h2>
-                        <p class="section-subtitle">The following outlines what you are permitted and not permitted to
-                            do with Glacier Client</p>
+                        <p class="section-subtitle">The following outlines the permitted and prohibited use of Glacier Client assets and code. Please respect these terms to support the developers.</p>
                     </div>
                     <div class="license-content">
                         <div class="license-card card-base">
-                            <h3>What You Can Do</h3>
+                            <h3>Permitted Use</h3>
                             <ul>
-                                <li>Review the client, but please refrain from using Mediafire links; utilize our
-                                    official Discord invite instead.</li>
-                                <li>Utilize code or content from this project in your own private pack for non-public
-                                    use.</li>
+                                <li><strong>Reviews:</strong> You may review the client, but you must link to our official Discord invite — do not use Mediafire or third-party links.</li>
+                                <li><strong>Private Use:</strong> You may use code or content for your own private, non-public packs.</li>
                             </ul>
                         </div>
                         <div class="license-card card-base">
-                            <h3>What You Cannot Do</h3>
+                            <h3>Prohibited Use</h3>
                             <ul>
-                                <li>Defame Glacier Client by misusing the mod, spreading misinformation, or engaging in
-                                    any defamatory activity.</li>
-                                <li>Steal or use content from this resource pack for public distribution without
-                                    explicit permission.</li>
-                                <li>Use the draggable mods saving method without giving clear credit to Glacier Client
-                                    (tag @everyone with our server link). Unauthorized use will result in legal action
-                                    to remove your pack.</li>
+                                <li><strong>Defamation:</strong> Do not misuse the mod to spread misinformation or engage in defamatory activities against Glacier Client.</li>
+                                <li><strong>Theft:</strong> Stealing or using content for public distribution without explicit permission is strictly forbidden.</li>
+                                <li><strong>Code Credits:</strong> Using the draggable mods saving method without clear credit to Glacier Client is prohibited.</li>
                             </ul>
-                            <p style="color:var(--text-muted);margin-top:14px;">Respecting this license is crucial to
-                                support the community and the ongoing efforts of our developers.</p>
+                        </div>
+                        <div class="license-card card-base">
+                            <h3>Mandatory Attribution</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;">If using specific logic like the draggable mods system, you must provide clear credit including our server link. Unauthorized use will result in <strong style="color:var(--red);">legal action</strong> and DMCA requests to remove your project.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Donate -->
             <section id="donate-section" class="content-section">
                 <div class="container">
                     <div class="section-header">
                         <h2 class="section-title">Support Glacier Client</h2>
-                        <p class="section-subtitle">Your support helps us continue developing and improving Glacier
-                            Client, bringing you the best Minecraft Bedrock Edition experience</p>
+                        <p class="section-subtitle">Your support helps us continue developing and improving Glacier Client, bringing you the best Minecraft Bedrock Edition experience</p>
                     </div>
                     <div class="donate-grid">
                         <div class="donate-card card-base card-shine">
                             <img src="assets/icons/paypal.png" alt="PayPal" class="donate-icon" loading="lazy" />
                             <h3 style="color:#fff;margin-bottom:12px;">PayPal</h3>
-                            <p style="color:var(--text-muted);margin-bottom:20px;flex-grow:1;">Support us directly
-                                through PayPal with a one-time or recurring donation.</p>
-                            <a href="https://paypal.me/PepeOnPayPal" class="btn btn-primary" target="_blank"
-                                rel="noopener">
+                            <p style="color:var(--text-muted);margin-bottom:20px;flex-grow:1;">Support us directly through PayPal with a one-time or recurring donation.</p>
+                            <a href="https://paypal.me/PepeOnPayPal" class="btn btn-primary" target="_blank" rel="noopener">
                                 <i class="fab fa-paypal" aria-hidden="true"></i> Donate via PayPal
                             </a>
                         </div>
                         <div class="donate-card card-base card-shine">
                             <img src="assets/icons/kofi.png" alt="Ko-fi" class="donate-icon" loading="lazy" />
                             <h3 style="color:#fff;margin-bottom:12px;">Ko-fi</h3>
-                            <p style="color:var(--text-muted);margin-bottom:20px;flex-grow:1;">Buy us a coffee to show
-                                your appreciation and support our work.</p>
-                            <a href="https://ko-fi.com/pepeonkofi" class="btn btn-primary" style="background:#FF5E5B;"
-                                target="_blank" rel="noopener">
+                            <p style="color:var(--text-muted);margin-bottom:20px;flex-grow:1;">Buy us a coffee to show your appreciation and support our work.</p>
+                            <a href="https://ko-fi.com/pepeonkofi" class="btn btn-primary" style="background:#FF5E5B;" target="_blank" rel="noopener">
                                 <i class="fas fa-mug-hot" aria-hidden="true"></i> Donate via Ko-fi
                             </a>
                         </div>
                         <div class="donate-card card-base card-shine">
                             <img src="assets/icons/community.png" alt="Community" class="donate-icon" loading="lazy" />
                             <h3 style="color:#fff;margin-bottom:12px;">Community Support</h3>
-                            <p style="color:var(--text-muted);margin-bottom:20px;flex-grow:1;">Join our Discord, share
-                                your experience, and help other users. Community support is invaluable!</p>
-                            <a href="https://dsc.gg/glacierclientmcbe" class="btn btn-secondary" target="_blank"
-                                rel="noopener">
+                            <p style="color:var(--text-muted);margin-bottom:20px;flex-grow:1;">Join our Discord, share your experience, and help other users. Community support is invaluable!</p>
+                            <a href="https://dsc.gg/glacierclientmcbe" class="btn btn-secondary" target="_blank" rel="noopener">
                                 <i class="fab fa-discord" aria-hidden="true"></i> Join Our Discord
                             </a>
                         </div>
@@ -1854,7 +2240,7 @@
                 </div>
             </section>
 
-        </div><!-- /content-container -->
+        </div>
     </main>
 
     <footer>
@@ -1865,27 +2251,38 @@
                     <span class="brand-name">Glacier Client</span>
                 </div>
                 <nav class="footer-social" aria-label="Social media links">
-                    <a href="https://dsc.gg/glacierclientmcbe" class="social-link" target="_blank" rel="noopener"
-                        aria-label="Discord"> <i class="fab fa-discord" aria-hidden="true"></i></a>
-                    <a href="https://github.com/glacierclientmcbe" class="social-link" target="_blank" rel="noopener"
-                        aria-label="GitHub"> <i class="fab fa-github" aria-hidden="true"></i></a>
-                    <a href="https://youtube.com/@glacierclient" class="social-link" target="_blank" rel="noopener"
-                        aria-label="YouTube"> <i class="fab fa-youtube" aria-hidden="true"></i></a>
-                    <a href="https://x.com/glacierclientbe" class="social-link" target="_blank" rel="noopener"
-                        aria-label="Twitter"> <i class="fab fa-twitter" aria-hidden="true"></i></a>
-                    <a href="https://www.instagram.com/glacierclientmcbe" class="social-link" target="_blank"
-                        rel="noopener" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-                    <a href="https://www.tiktok.com/@glacierclientmcbe" class="social-link" target="_blank"
-                        rel="noopener" aria-label="TikTok"> <i class="fab fa-tiktok" aria-hidden="true"></i></a>
+                    <a href="https://dsc.gg/glacierclientmcbe" class="social-link" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord" aria-hidden="true"></i></a>
+                    <a href="https://github.com/glacierclientmcbe" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                    <a href="https://youtube.com/@glacierclient" class="social-link" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                    <a href="https://x.com/glacierclientbe" class="social-link" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/glacierclientmcbe" class="social-link" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="https://www.tiktok.com/@glacierclientmcbe" class="social-link" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok" aria-hidden="true"></i></a>
                 </nav>
             </div>
-            <p class="copyright-text">© <span id="currentYear"></span> Glacier Client. Not affiliated with
-                Mojang/Microsoft</p>
+            <p class="copyright-text">© <span id="currentYear"></span> Glacier Client. Not affiliated with Mojang/Microsoft</p>
         </div>
     </footer>
 
     <script>
-        /* ── Data ─────────────────────────────────────────────────── */
+        const NOTIFICATION = {
+            key: 'glacier-v6.1-release',
+            text: 'Glacier v6.1 is now available!',
+            cta: 'Download',
+            section: 'downloads'
+        };
+
+        const ogMeta = {
+            home:      'Next-gen Minecraft Bedrock client with 37+ modules, draggable HUD, and zero performance impact.',
+            features:  'Explore the advanced features of Glacier Client — config editor, custom themes, and auto-updates.',
+            gallery:   'See Glacier Client in action with screenshots of the mod menu, start screen, and pause screen.',
+            community: 'Join the Glacier Client Discord community for support, updates, and events.',
+            downloads: 'Download the latest Glacier Client version for Minecraft Bedrock Edition.',
+            faq:       'Frequently asked questions about Glacier Client installation, compatibility, and usage.',
+            mods:      'Browse all 37+ modules available in Glacier Client for Minecraft Bedrock Edition.',
+            license:   'Read the Glacier Client license to understand permitted and restricted usage.',
+            donate:    'Support Glacier Client development through PayPal or Ko-fi.'
+        };
+
         const modsData = [
             { id: "capephysics", icon: "assets/mods/capephysics.png", title: "Cape Physics", description: "Adds dynamic physics to player capes for enhanced realism.", tags: ["Cosmetic", "Visual"], categories: ["cosmetic", "visual"] },
             { id: "armorhud", icon: "assets/mods/armorhud.png", title: "Armor HUD", description: "Displays your equipped armor on the HUD.", tags: ["HUD", "Utility", "PvP"], categories: ["hud", "utility", "pvp"] },
@@ -1927,16 +2324,91 @@
         ];
 
         const faqData = [
-            { question: "Which devices are compatible with Glacier Client?", answer: "Glacier Client supports all devices running Minecraft Bedrock Edition version 1.21 or newer." },
-            { question: "Is there a cost associated with using Glacier Client?", answer: "No, Glacier Client is provided completely free of charge and will remain 100% free to use." },
-            { question: "Is Glacier Client safe to install and use?", answer: "Yes, Glacier Client is entirely safe. It functions as a texture pack client, not an executable or injector, minimizing security risks." },
-            { question: "How can I bypass the Linkvertise download links?", answer: "Please refer to the tutorial video below for a step-by-step guide on bypassing Linkvertise links:", videoUrl: "https://www.youtube.com/embed/7Nnc5ff5840" },
-            { question: "What are common reasons for Glacier Client not functioning correctly?", answer: "Potential issues preventing the client from working as expected include:<ul><li>Conflicts with other resource packs or add-ons that modify <code>player.entity.json</code> or <code>hud_screen.json</code> (e.g., \"Actions & Stuff\" packs).</li><li>Server restrictions that disallow client-side UI overrides (e.g., certain Minecraft Event servers).</li></ul><p>Ensure no conflicting packs are active and that the server permits custom UI elements.</p>" },
-            { question: "How do I install Glacier Client?", answer: "Installation typically involves downloading the .mcpack file and opening it with Minecraft. Detailed instructions can be found on our Discord server or in our official documentation." },
-            { question: "Can I use Glacier Client on realms or servers?", answer: "Yes, Glacier Client is designed to be compatible with both realms and most multiplayer servers. However, some servers may have restrictions on custom UI or resource packs, which could affect certain features." },
-            { question: "How often is Glacier Client updated?", answer: "We strive to release updates regularly to ensure compatibility with the latest Minecraft Bedrock Edition versions, introduce new features, and address any bugs. Please check our Discord server for the most current update information." },
-            { question: "Where can I report bugs or suggest features?", answer: "We encourage users to report bugs and suggest new features on our official Discord server. Your feedback is invaluable in improving Glacier Client." },
-            { question: "Does Glacier Client affect game performance?", answer: "Glacier Client is designed to be lightweight and optimized for performance, with minimal to no impact on your game's frame rate or stability. It is only approximately 2MB in size." }
+            {
+                question: "How do I configure Glacier Client?",
+                answer: `<p>You can edit <code>config.json</code> directly or use the online Config Editor at <a href="https://config.glacierclient.xyz/" target="_blank" rel="noopener" style="color:var(--blurple);">config.glacierclient.xyz</a>.</p>
+<p style="margin-top:12px;"><strong>Recommended Editors:</strong></p>
+<ul><li><strong>Android:</strong> MT Manager or QuickEdit</li><li><strong>iOS:</strong> Documents by Readdle</li><li><strong>PC:</strong> VS Code or Notepad++</li></ul>
+<p style="margin-top:12px;"><strong>Finding config.json on Mobile (Android &amp; iOS):</strong></p>
+<ol style="padding-left:20px;margin:8px 0;"><li>Open your device's Files app.</li><li>Navigate to: <code>Android/data/com.mojang.minecraftpe/files/games/com.mojang/resource_packs/</code></li><li>Open the <code>Glacier</code> folder and locate <code>config.json</code>.</li></ol>
+<p style="margin-top:12px;"><strong>Finding config.json on Windows:</strong></p>
+<ol style="padding-left:20px;margin:8px 0;"><li>Press <kbd>Win + R</kbd> and paste: <code>%userprofile%\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\resource_packs</code></li><li>For GDK users: <code>%userprofile%\\AppData\\Roaming\\Minecraft Bedrock\\Users\\Shared\\games\\com.mojang\\resource_packs</code></li><li>Open the <code>Glacier</code> folder and locate <code>config.json</code>.</li></ol>
+<p style="margin-top:12px;"><strong>Value types:</strong> Toggles use <code>true</code>/<code>false</code> · Opacity uses <code>0.0</code>–<code>1.0</code> · Offset (X, Y) adjusts HUD element positions.</p>
+<p style="margin-top:14px;"><strong>Video Tutorials:</strong> <a href="https://youtu.be/RrTHx6V-zp4" target="_blank" rel="noopener" style="color:var(--blurple);">Android / ChromeOS</a> · <a href="https://youtu.be/oaQCtVdNUXg" target="_blank" rel="noopener" style="color:var(--blurple);">iPadOS / iOS</a></p>`
+            },
+            {
+                question: "How do I open the Mod Menu?",
+                answer: `<ol style="padding-left:20px;"><li>Open the <strong>Pause Menu</strong> while in-game.</li><li>Locate the <strong>Grid Icon</strong> button in the bottom-left corner of your screen.</li><li><strong>Double-click</strong> this button to toggle the Mod Menu.</li></ol>`
+            },
+            {
+                question: "How do I import Glacier Client?",
+                answer: `<ol style="padding-left:20px;"><li><strong>Locate the File:</strong> Find the downloaded Glacier Client <code>.zip</code> file on your device.</li><li><strong>Open with ZArchiver:</strong> Tap the file and select ZArchiver from the options.</li><li><strong>Rename the File:</strong> Long-press the file inside ZArchiver, select Rename, and remove the <code>.zip</code> extension so the filename ends in <code>.mcpack</code>.</li><li><strong>Import to Minecraft:</strong> Tap the renamed file once, tap the arrow icon next to "View", then select Minecraft to automatically import and launch the game.</li></ol>
+<p style="margin-top:12px;">Once Minecraft loads, activate Glacier Client in your <strong>Global Resources</strong> settings.</p>`
+            },
+            {
+                question: "How do I bypass Linkvertise to download?",
+                answer: `<ol style="padding-left:20px;"><li>Go to the downloads channel in our Discord server and click your chosen version link.</li><li>On the Linkvertise page, scroll down and click <strong>"Get Glacier Client"</strong>.</li><li>An "Access Options" popup appears — wait for the countdown (typically 10 seconds).</li><li>Once the timer reaches zero, the button becomes active. Click it to be redirected to the download page.</li><li>Click the blue <strong>"Download"</strong> button to save the <code>.mcpack</code> file.</li></ol>`,
+                videoUrl: "https://www.youtube.com/embed/7Nnc5ff5840"
+            },
+            {
+                question: "Which devices and versions are compatible?",
+                answer: `<p>Glacier Client supports all devices running the <strong>Official Release</strong> of Minecraft Bedrock Edition.</p>
+<ul><li><strong>Previews / Betas:</strong> The client may function on Preview builds, but stability is not guaranteed — Mojang frequently changes core UI code in Preview versions.</li><li><strong>Console (Xbox &amp; PlayStation):</strong> Supported via the Realms method — install on Mobile or PC first, activate it on a Realm, then download it on your console through Realm Settings → Resource Packs → Download, and activate it under Global Resources.</li></ul>
+<p style="margin-top:12px;"><a href="https://www.youtube.com/watch?v=1f7P9J-W8aM" target="_blank" rel="noopener" style="color:var(--blurple);">Watch the console install tutorial →</a></p>`
+            },
+            {
+                question: "Why isn't Glacier Client working correctly?",
+                answer: `<p>The most common causes are conflicting packs or server restrictions:</p>
+<ul>
+<li><strong>Conflicting Packs:</strong> Any pack or add-on that modifies <code>player.entity.json</code> (e.g., Actions &amp; Stuff) or <code>hud_screen.json</code> (e.g., Better Bedrock) will conflict with Glacier Client. Disable those packs first.</li>
+<li><strong>Server-Side Restrictions:</strong> Some servers block custom UI overrides entirely — this is common on Minecraft Event servers. Glacier's features will not appear on those servers and this cannot be resolved on our end.</li>
+</ul>`
+            },
+            {
+                question: "Does Glacier Client boost FPS?",
+                answer: `<p>Glacier Client is designed for <strong>utility and customization</strong>, not as an FPS booster.</p>
+<ul>
+<li>Minecraft Bedrock is already a highly optimized engine.</li>
+<li>Most "FPS Booster" packs do not actually improve performance — they often add extra processing overhead without reducing actual engine load, which can <em>decrease</em> FPS.</li>
+<li>Many such packs found online are clickbait designed for views rather than technical improvement.</li>
+</ul>
+<p style="margin-top:10px;">Glacier focuses on providing a stable, high-quality experience with features that genuinely enhance gameplay.</p>`
+            },
+            {
+                question: "How do I report bugs or suggest features?",
+                answer: `<p>We value community input. Please follow this process:</p>
+<ol style="padding-left:20px;">
+<li><strong>Check Existing Reports:</strong> Browse the bug-reports channel in Discord to see if the issue has already been logged.</li>
+<li><strong>Provide Details:</strong> Include your <strong>device model</strong> and a <strong>video or screenshot</strong> of the issue.</li>
+<li><strong>Submit Suggestions:</strong> Post new ideas in the suggestions channel. Check the "Impossible" list in the FAQ before posting to ensure your idea is technically achievable.</li>
+</ol>`
+            },
+            {
+                question: "What features are impossible or not planned?",
+                answer: `<p><strong>Technically impossible</strong> due to engine limitations:</p>
+<ul>
+<li><strong>HUD:</strong> Armor durability on HUD, accurate CPS/Combo counters, Reach counters, Quick Drop on HUD.</li>
+<li><strong>Visuals:</strong> Full Bright, Motion Blur, No Hurt Cam, Item Physics, Shaders.</li>
+<li><strong>Tools:</strong> Minimaps, Keystrokes, Replay Mod, Shulker Previews, Pie Charts, 3rd-person Nametags.</li>
+<li><strong>Automation:</strong> Auto GG, Auto Totem, Autosprint, Toggle Crouch, Toggle Sprint.</li>
+<li><strong>Systems:</strong> Friend Lists, Voice Mod, In-Game Resource Pack switchers.</li>
+</ul>
+<p style="margin-top:12px;"><strong>Not planned:</strong></p>
+<ul>
+<li>Zoom, ESP, View Modals, 3D player models, any form of cheats or hacks, custom textures for the general GUI (excluding Hotbar and EXP bar).</li>
+</ul>`
+            },
+            {
+                question: "Can I review or create content featuring Glacier Client?",
+                answer: `<p>Yes — with the following rules to avoid a server ban or strike:</p>
+<ul>
+<li><strong>Official Links Only:</strong> Always link to our <a href="https://discord.glacierclient.xyz" target="_blank" rel="noopener" style="color:var(--blurple);">official Discord invite</a> — never Mediafire.</li>
+<li><strong>No Misinformation:</strong> Do not spread false claims or engage in defamatory activity.</li>
+<li><strong>No Asset Theft:</strong> Do not publicly distribute pack content without explicit permission.</li>
+<li><strong>Attribution Required:</strong> If you use our draggable mods saving method, you must credit Glacier Client and include our server link. Unauthorized use will result in legal action and a DMCA takedown.</li>
+<li><strong>Private Use OK:</strong> You may use code or content in your own private, non-public packs.</li>
+</ul>`
+            }
         ];
 
         const downloadsData = {
@@ -1972,11 +2444,9 @@
             }
         };
 
-        /* ── Constants ──────────────────────────────────────────────── */
         const MAIN_SECTIONS = new Set(['home', 'features', 'gallery']);
         const ALL_SECTIONS = new Set(['home', 'features', 'gallery', 'community', 'downloads', 'faq', 'mods', 'license', 'donate']);
 
-        /* ── showSection (global) ───────────────────────────────────── */
         let currentSection = 'home';
 
         function showSection(id) {
@@ -2003,9 +2473,13 @@
 
             history.replaceState(null, '', '#' + id);
             closeMobileMenu();
+
+            const desc = ogMeta[id] || ogMeta.home;
+            document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
+            document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
+            document.querySelector('meta[property="og:url"]').setAttribute('content', 'https://glacierclient.xyz/#' + id);
         }
 
-        /* ── Side Nav ───────────────────────────────────────────────── */
         function updateSideNav(id) {
             const nav = document.getElementById('sideNav');
             const dots = MAIN_SECTIONS.has(id)
@@ -2032,7 +2506,6 @@
             });
         }
 
-        /* ── Mobile Menu ────────────────────────────────────────────── */
         function closeMobileMenu() {
             const btn = document.getElementById('mobileMenuBtn');
             const menu = document.getElementById('navMenu');
@@ -2059,7 +2532,6 @@
             });
         }
 
-        /* ── Tabs ───────────────────────────────────────────────────── */
         function setupTabs() {
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -2073,7 +2545,6 @@
             });
         }
 
-        /* ── Mod Filters ────────────────────────────────────────────── */
         function setupModFilters() {
             const cards = document.querySelectorAll('.mod-card');
 
@@ -2102,41 +2573,49 @@
             }
         }
 
-        /* ── Render: Mods ───────────────────────────────────────────── */
+        function initSkeletons() {
+            const modsGrid = document.getElementById('modsGrid');
+            if (modsGrid) {
+                modsGrid.innerHTML = Array(8).fill('<div class="skeleton skeleton-mod"></div>').join('');
+            }
+            ['working-clients', 'legacy-clients', 'working-extensions', 'legacy-extensions'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = Array(2).fill('<div class="skeleton skeleton-download"></div>').join('');
+            });
+        }
+
         function initMods() {
             const grid = document.getElementById('modsGrid');
             if (!grid) return;
             grid.innerHTML = modsData.map(m => `
-      <div class="mod-card card-base" data-categories="${m.categories.join(',')}">
-        <img src="${m.icon}" alt="${m.title}" class="mod-image" loading="lazy" width="76" height="76" />
-        <div class="mod-content">
-          <h3 class="mod-title">${m.title}</h3>
-          <p class="mod-description">${m.description}</p>
-          <div class="mod-tags">${m.tags.map(t => `<span class="mod-tag">${t}</span>`).join('')}</div>
-        </div>
-      </div>`).join('');
+                <div class="mod-card card-base" data-categories="${m.categories.join(',')}">
+                    <img src="${m.icon}" alt="${m.title}" class="mod-image" loading="lazy" width="76" height="76" />
+                    <div class="mod-content">
+                        <h3 class="mod-title">${m.title}</h3>
+                        <p class="mod-description">${m.description}</p>
+                        <div class="mod-tags">${m.tags.map(t => `<span class="mod-tag">${t}</span>`).join('')}</div>
+                    </div>
+                </div>`).join('');
         }
 
-        /* ── Render: FAQ ────────────────────────────────────────────── */
         function initFAQ() {
             const container = document.getElementById('faqContainer');
             if (!container) return;
             container.innerHTML = faqData.map((f, i) => `
-      <div class="faq-item">
-        <details class="faq-card card-base" ${i === 0 ? 'open' : ''}>
-          <summary class="faq-question">
-            <span>${f.question}</span>
-            <i class="fas fa-chevron-down" aria-hidden="true"></i>
-          </summary>
-          <div class="faq-answer">
-            ${f.answer}
-            ${f.videoUrl ? `<div style="margin-top:18px;border-radius:var(--radius);overflow:hidden;"><iframe width="100%" height="300" src="${f.videoUrl}" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" title="Tutorial video"></iframe></div>` : ''}
-          </div>
-        </details>
-      </div>`).join('');
+                <div class="faq-item">
+                    <details class="faq-card card-base" ${i === 0 ? 'open' : ''}>
+                        <summary class="faq-question">
+                            <span>${f.question}</span>
+                            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        </summary>
+                        <div class="faq-answer">
+                            ${f.answer}
+                            ${f.videoUrl ? `<div style="margin-top:18px;border-radius:var(--radius);overflow:hidden;"><iframe width="100%" height="300" src="${f.videoUrl}" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" title="Tutorial video"></iframe></div>` : ''}
+                        </div>
+                    </details>
+                </div>`).join('');
         }
 
-        /* ── Render: Downloads ──────────────────────────────────────── */
         function btnClass(name) { return name === 'Download' ? 'btn-primary' : 'btn-secondary'; }
 
         function createClientCard(item) {
@@ -2144,17 +2623,17 @@
                 `<a href="${o.url}" class="btn ${btnClass(o.name)}" target="_blank" rel="noopener">${o.name}</a>`
             ).join('');
             return `
-      <div class="download-card card-base">
-        <div class="download-header">
-          <h3 class="download-title">${item.version}</h3>
-          <span class="download-tag ${item.tag === 'Latest' ? 'tag-latest' : 'tag-archived'}">${item.tag}</span>
-        </div>
-        <div class="download-meta">
-          <span><i class="fas fa-calendar-alt" aria-hidden="true" style="margin-right:6px;color:var(--blurple);"></i>${item.release}</span>
-          <span><i class="fas fa-file-archive" aria-hidden="true" style="margin-right:6px;color:var(--blurple);"></i>${item.size}</span>
-        </div>
-        <div class="download-buttons">${btns}</div>
-      </div>`;
+                <div class="download-card card-base">
+                    <div class="download-header">
+                        <h3 class="download-title">${item.version}</h3>
+                        <span class="download-tag ${item.tag === 'Latest' ? 'tag-latest' : 'tag-archived'}">${item.tag}</span>
+                    </div>
+                    <div class="download-meta">
+                        <span><i class="fas fa-calendar-alt" aria-hidden="true" style="margin-right:6px;color:var(--blurple);"></i>${item.release}</span>
+                        <span><i class="fas fa-file-archive" aria-hidden="true" style="margin-right:6px;color:var(--blurple);"></i>${item.size}</span>
+                    </div>
+                    <div class="download-buttons">${btns}</div>
+                </div>`;
         }
 
         function createExtCard(item) {
@@ -2162,11 +2641,11 @@
                 `<a href="${o.url}" class="btn ${btnClass(o.name)}" target="_blank" rel="noopener">${o.name}</a>`
             ).join('');
             return `
-      <div class="download-card card-base">
-        <div class="download-header"><h3 class="download-title">${item.version}</h3></div>
-        <p style="color:var(--text-muted);margin-bottom:18px;">${item.description}</p>
-        <div class="download-buttons">${btns}</div>
-      </div>`;
+                <div class="download-card card-base">
+                    <div class="download-header"><h3 class="download-title">${item.version}</h3></div>
+                    <p style="color:var(--text-muted);margin-bottom:18px;">${item.description}</p>
+                    <div class="download-buttons">${btns}</div>
+                </div>`;
         }
 
         function initDownloads() {
@@ -2182,7 +2661,6 @@
             }
         }
 
-        /* ── Header scroll ──────────────────────────────────────────── */
         function setupHeaderScroll() {
             const header = document.getElementById('mainHeader');
             let ticking = false;
@@ -2197,7 +2675,180 @@
             }, { passive: true });
         }
 
-        /* ── Navigation setup ───────────────────────────────────────── */
+        function setupToast() {
+            if (sessionStorage.getItem(NOTIFICATION.key)) return;
+            const banner = document.getElementById('toastBanner');
+            document.getElementById('toastMsg').textContent = NOTIFICATION.text;
+            const ctaEl = document.getElementById('toastCta');
+            ctaEl.textContent = NOTIFICATION.cta;
+            ctaEl.addEventListener('click', e => {
+                e.preventDefault();
+                showSection(NOTIFICATION.section);
+                dismissToast();
+            });
+            banner.classList.add('visible');
+            document.body.classList.add('has-toast');
+            document.getElementById('toastClose').addEventListener('click', dismissToast);
+        }
+
+        function dismissToast() {
+            sessionStorage.setItem(NOTIFICATION.key, '1');
+            document.getElementById('toastBanner').classList.remove('visible');
+            document.body.classList.remove('has-toast');
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('gc-theme', theme);
+            const btn = document.getElementById('themeToggle');
+            btn.innerHTML = theme === 'dark'
+                ? '<i class="fas fa-sun" aria-hidden="true"></i>'
+                : '<i class="fas fa-moon" aria-hidden="true"></i>';
+        }
+
+        function setupThemeToggle() {
+            const stored = localStorage.getItem('gc-theme') || 'dark';
+            applyTheme(stored);
+            document.getElementById('themeToggle').addEventListener('click', () => {
+                const current = document.documentElement.getAttribute('data-theme');
+                applyTheme(current === 'dark' ? 'light' : 'dark');
+            });
+        }
+
+        function setupGlobalSearch() {
+            const trigger = document.getElementById('searchTrigger');
+            const modal = document.getElementById('searchModal');
+            const closeBtn = document.getElementById('searchClose');
+            const input = document.getElementById('globalSearchInput');
+            const results = document.getElementById('searchResults');
+
+            const emptyHint = `<div class="search-empty-hint"><i class="fas fa-search" aria-hidden="true"></i><span>Search across mods, FAQ, downloads and news</span><span style="font-size:.78rem;opacity:.6;">Try "FPS", "install", or "v6.1"</span></div>`;
+
+            function openSearch() {
+                modal.classList.add('open');
+                setTimeout(() => input.focus(), 60);
+            }
+
+            function closeSearch() {
+                modal.classList.remove('open');
+                input.value = '';
+                results.innerHTML = emptyHint;
+            }
+
+            trigger.addEventListener('click', openSearch);
+            closeBtn.addEventListener('click', closeSearch);
+            modal.addEventListener('click', e => { if (e.target === modal) closeSearch(); });
+
+            document.addEventListener('keydown', e => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+                if (e.key === 'Escape' && modal.classList.contains('open')) closeSearch();
+            });
+
+            input.addEventListener('input', () => {
+                const term = input.value.toLowerCase().trim();
+                if (!term) { results.innerHTML = emptyHint; return; }
+
+                const modMatches = modsData.filter(m =>
+                    m.title.toLowerCase().includes(term) || m.description.toLowerCase().includes(term)
+                ).slice(0, 5);
+
+                const faqMatches = faqData.filter(f =>
+                    f.question.toLowerCase().includes(term) || f.answer.toLowerCase().includes(term)
+                ).slice(0, 3);
+
+                const allDownloads = [
+                    ...downloadsData.clients.working,
+                    ...downloadsData.clients.legacy,
+                    ...downloadsData.extensions.working,
+                    ...downloadsData.extensions.legacy
+                ];
+                const dlMatches = allDownloads.filter(d => d.version.toLowerCase().includes(term)).slice(0, 3);
+
+                const newsMatches = [];
+
+                if (!modMatches.length && !faqMatches.length && !dlMatches.length && !newsMatches.length) {
+                    results.innerHTML = `<div class="search-no-results"><i class="fas fa-search" style="display:block;font-size:1.4rem;margin-bottom:10px;opacity:.3;" aria-hidden="true"></i>No results for "${input.value}"</div>`;
+                    return;
+                }
+
+                let html = '';
+
+                if (modMatches.length) {
+                    html += '<div class="search-result-group"><div class="search-result-label">Mods</div>';
+                    html += modMatches.map(m => `
+                        <div class="search-result-item" data-section="mods">
+                            <img src="${m.icon}" alt="${m.title}" class="search-result-icon-img" />
+                            <div>
+                                <div class="search-result-title">${m.title}</div>
+                                <div class="search-result-desc">${m.description.length > 60 ? m.description.slice(0, 60) + '…' : m.description}</div>
+                            </div>
+                        </div>`).join('');
+                    html += '</div>';
+                }
+
+                if (faqMatches.length) {
+                    html += '<div class="search-result-group"><div class="search-result-label">FAQ</div>';
+                    html += faqMatches.map(f => `
+                        <div class="search-result-item" data-section="faq">
+                            <div class="search-result-icon-box" style="background:rgba(114,137,218,.2);"><i class="fas fa-question" style="color:var(--blurple);" aria-hidden="true"></i></div>
+                            <div><div class="search-result-title">${f.question.length > 65 ? f.question.slice(0, 65) + '…' : f.question}</div></div>
+                        </div>`).join('');
+                    html += '</div>';
+                }
+
+                if (dlMatches.length) {
+                    html += '<div class="search-result-group"><div class="search-result-label">Downloads</div>';
+                    html += dlMatches.map(d => `
+                        <div class="search-result-item" data-section="downloads">
+                            <div class="search-result-icon-box" style="background:rgba(87,242,135,.15);"><i class="fas fa-download" style="color:var(--green);" aria-hidden="true"></i></div>
+                            <div><div class="search-result-title">${d.version}</div></div>
+                        </div>`).join('');
+                    html += '</div>';
+                }
+
+                if (newsMatches.length) {
+                    html += '<div class="search-result-group"><div class="search-result-label">News</div>';
+                    html += newsMatches.map(n => `
+                        <div class="search-result-item" data-section="news">
+                            <div class="search-result-icon-box" style="background:rgba(235,69,158,.15);"><i class="fas fa-newspaper" style="color:var(--pink);" aria-hidden="true"></i></div>
+                            <div>
+                                <div class="search-result-title">${n.title}</div>
+                                <div class="search-result-desc">${n.date}</div>
+                            </div>
+                        </div>`).join('');
+                    html += '</div>';
+                }
+
+                results.innerHTML = html;
+                results.querySelectorAll('.search-result-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        showSection(item.dataset.section);
+                        closeSearch();
+                    });
+                });
+            });
+        }
+
+        function setupBackToTop() {
+            const btn = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                btn.classList.toggle('visible', window.scrollY > 320);
+            }, { passive: true });
+            btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        }
+
+        function fetchDiscordCount() {
+            fetch('https://discord.com/api/guilds/938248183878930514/widget.json')
+                .then(r => r.json())
+                .then(d => {
+                    const el = document.getElementById('discordOnline');
+                    if (el && d.presence_count !== undefined) {
+                        el.textContent = d.presence_count.toLocaleString();
+                    }
+                })
+                .catch(() => {});
+        }
+
         function setupNav() {
             document.querySelectorAll('[data-section]').forEach(el => {
                 el.addEventListener('click', e => {
@@ -2218,17 +2869,24 @@
             showSection(ALL_SECTIONS.has(hash) ? hash : 'home');
         }
 
-        /* ── Boot ───────────────────────────────────────────────────── */
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('currentYear').textContent = new Date().getFullYear();
-            initMods();
+            initSkeletons();
             initFAQ();
-            initDownloads();
             setupHeaderScroll();
             setupMobileMenu();
             setupTabs();
-            setupModFilters();
             setupNav();
+            setupToast();
+            setupThemeToggle();
+            setupGlobalSearch();
+            setupBackToTop();
+            fetchDiscordCount();
+            setTimeout(() => {
+                initMods();
+                initDownloads();
+                setupModFilters();
+            }, 80);
         });
     </script>
 </body>
