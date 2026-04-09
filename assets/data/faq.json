@@ -1,43 +1,43 @@
 [
     {
-        "question": "Which devices are compatible with Glacier Client?",
-        "answer": "Glacier Client supports all devices running Minecraft Bedrock Edition version 1.21 or newer."
+        "question": "How do I configure Glacier Client?",
+        "answer": "<p>You can edit <code>config.json</code> directly or use the online Config Editor at <a href=\"https://config.glacierclient.xyz/\" target=\"_blank\" rel=\"noopener\">config.glacierclient.xyz</a>.</p><p><strong>Recommended Editors:</strong></p><ul><li><strong>Android:</strong> MT Manager or QuickEdit</li><li><strong>iOS:</strong> Documents by Readdle</li><li><strong>PC:</strong> VS Code or Notepad++</li></ul><p><strong>Finding config.json on Mobile (Android &amp; iOS):</strong></p><ol><li>Open your device's Files app.</li><li>Navigate to: <code>Android/data/com.mojang.minecraftpe/files/games/com.mojang/resource_packs/</code></li><li>Open the <code>Glacier</code> folder and locate <code>config.json</code>.</li></ol><p><strong>Finding config.json on Windows:</strong></p><ol><li>Press <kbd>Win + R</kbd> and paste: <code>%userprofile%\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\resource_packs</code></li><li>For GDK users: <code>%userprofile%\\AppData\\Roaming\\Minecraft Bedrock\\Users\\Shared\\games\\com.mojang\\resource_packs</code></li><li>Open the <code>Glacier</code> folder and locate <code>config.json</code>.</li></ol><p><strong>Value types:</strong> Toggles use <code>true</code>/<code>false</code> · Opacity uses <code>0.0</code>–<code>1.0</code> · Offset (X, Y) adjusts HUD element positions.</p><p><strong>Video Tutorials:</strong> <a href=\"https://youtu.be/RrTHx6V-zp4\" target=\"_blank\" rel=\"noopener\">Android / ChromeOS</a> · <a href=\"https://youtu.be/oaQCtVdNUXg\" target=\"_blank\" rel=\"noopener\">iPadOS / iOS</a></p>"
     },
     {
-        "question": "Is there a cost associated with using Glacier Client?",
-        "answer": "No, Glacier Client is provided completely free of charge and will remain 100% free to use."
+        "question": "How do I open the Mod Menu?",
+        "answer": "<ol><li>Open the <strong>Pause Menu</strong> while in-game.</li><li>Locate the <strong>Grid Icon</strong> button in the bottom-left corner of your screen.</li><li><strong>Double-click</strong> this button to toggle the Mod Menu.</li></ol>"
     },
     {
-        "question": "Is Glacier Client safe to install and use?",
-        "answer": "Yes, Glacier Client is entirely safe. It functions as a texture pack client, not an executable or injector, minimizing security risks."
+        "question": "How do I import Glacier Client?",
+        "answer": "<ol><li><strong>Locate the File:</strong> Find the downloaded Glacier Client <code>.zip</code> file on your device.</li><li><strong>Open with ZArchiver:</strong> Tap the file and select ZArchiver from the options.</li><li><strong>Rename the File:</strong> Long-press the file inside ZArchiver, select Rename, and remove the <code>.zip</code> extension so the filename ends in <code>.mcpack</code>.</li><li><strong>Import to Minecraft:</strong> Tap the renamed file once, tap the arrow icon next to \"View\", then select Minecraft to automatically import and launch the game.</li></ol><p>Once Minecraft loads, activate Glacier Client in your <strong>Global Resources</strong> settings.</p>"
     },
     {
-        "question": "How can I bypass the Linkvertise download links?",
-        "answer": "Please refer to the tutorial video below for a step-by-step guide on bypassing Linkvertise links:",
+        "question": "How do I bypass Linkvertise to download?",
+        "answer": "<ol><li>Go to the downloads channel in our Discord server and click your chosen version link.</li><li>On the Linkvertise page, scroll down and click <strong>\"Get Glacier Client\"</strong>.</li><li>An \"Access Options\" popup appears — wait for the countdown (typically 10 seconds).</li><li>Once the timer reaches zero, the button becomes active. Click it to be redirected to the download page.</li><li>Click the blue <strong>\"Download\"</strong> button to save the <code>.mcpack</code> file.</li></ol>",
         "videoUrl": "https://www.youtube.com/embed/7Nnc5ff5840"
     },
     {
-        "question": "What are common reasons for Glacier Client not functioning correctly?",
-        "answer": "Potential issues preventing the client from working as expected include:<ul><li>Conflicts with other resource packs or add-ons that modify <code>player.entity.json</code> or <code>hud_screen.json</code> (e.g., \"Actions & Stuff\" packs).</li><li>Server restrictions that disallow client-side UI overrides (e.g., certain Minecraft Event servers).</li></ul><p>Ensure no conflicting packs are active and that the server permits custom UI elements.</p>"
+        "question": "Which devices and versions are compatible?",
+        "answer": "<p>Glacier Client supports all devices running the <strong>Official Release</strong> of Minecraft Bedrock Edition.</p><ul><li><strong>Previews / Betas:</strong> The client may function on Preview builds, but stability is not guaranteed — Mojang frequently changes core UI code in Preview versions.</li><li><strong>Console (Xbox &amp; PlayStation):</strong> Supported via the Realms method — install on Mobile or PC first, activate it on a Realm, then download it on your console through Realm Settings → Resource Packs → Download, and activate it under Global Resources.</li></ul><p><a href=\"https://www.youtube.com/watch?v=1f7P9J-W8aM\" target=\"_blank\" rel=\"noopener\">Watch the console install tutorial →</a></p>"
     },
     {
-        "question": "How do I install Glacier Client?",
-        "answer": "Installation typically involves downloading the .mcpack file and opening it with Minecraft. Detailed instructions can be found on our Discord server or in our official documentation."
+        "question": "Why isn't Glacier Client working correctly?",
+        "answer": "<p>The most common causes are conflicting packs or server restrictions:</p><ul><li><strong>Conflicting Packs:</strong> Any pack or add-on that modifies <code>player.entity.json</code> (e.g., Actions &amp; Stuff) or <code>hud_screen.json</code> (e.g., Better Bedrock) will conflict with Glacier Client. Disable those packs first.</li><li><strong>Server-Side Restrictions:</strong> Some servers block custom UI overrides entirely — this is common on Minecraft Event servers. Glacier's features will not appear on those servers and this cannot be resolved on our end.</li></ul>"
     },
     {
-        "question": "Can I use Glacier Client on realms or servers?",
-        "answer": "Yes, Glacier Client is designed to be compatible with both realms and most multiplayer servers. However, some servers may have restrictions on custom UI or resource packs, which could affect certain features."
+        "question": "Does Glacier Client boost FPS?",
+        "answer": "<p>Glacier Client is designed for <strong>utility and customization</strong>, not as an FPS booster.</p><ul><li>Minecraft Bedrock is already a highly optimized engine.</li><li>Most \"FPS Booster\" packs do not actually improve performance — they often add extra processing overhead without reducing actual engine load, which can <em>decrease</em> FPS.</li><li>Many such packs found online are clickbait designed for views rather than technical improvement.</li></ul><p>Glacier focuses on providing a stable, high-quality experience with features that genuinely enhance gameplay.</p>"
     },
     {
-        "question": "How often is Glacier Client updated?",
-        "answer": "We strive to release updates regularly to ensure compatibility with the latest Minecraft Bedrock Edition versions, introduce new features, and address any bugs. Please check our Discord server for the most current update information."
+        "question": "How do I report bugs or suggest features?",
+        "answer": "<p>We value community input. Please follow this process:</p><ol><li><strong>Check Existing Reports:</strong> Browse the bug-reports channel in Discord to see if the issue has already been logged.</li><li><strong>Provide Details:</strong> Include your <strong>device model</strong> and a <strong>video or screenshot</strong> of the issue.</li><li><strong>Submit Suggestions:</strong> Post new ideas in the suggestions channel. Check the \"Impossible\" list in the FAQ before posting to ensure your idea is technically achievable.</li></ol>"
     },
     {
-        "question": "Where can I report bugs or suggest features?",
-        "answer": "We encourage users to report bugs and suggest new features on our official Discord server. Your feedback is invaluable in improving Glacier Client."
+        "question": "What features are impossible or not planned?",
+        "answer": "<p><strong>Technically impossible</strong> due to engine limitations:</p><ul><li><strong>HUD:</strong> Armor durability on HUD, accurate CPS/Combo counters, Reach counters, Quick Drop on HUD.</li><li><strong>Visuals:</strong> Full Bright, Motion Blur, No Hurt Cam, Item Physics, Shaders.</li><li><strong>Tools:</strong> Minimaps, Keystrokes, Replay Mod, Shulker Previews, Pie Charts, 3rd-person Nametags.</li><li><strong>Automation:</strong> Auto GG, Auto Totem, Autosprint, Toggle Crouch, Toggle Sprint.</li><li><strong>Systems:</strong> Friend Lists, Voice Mod, In-Game Resource Pack switchers.</li></ul><p><strong>Not planned:</strong></p><ul><li>Zoom, ESP, View Modals, 3D player models, any form of cheats or hacks, custom textures for the general GUI (excluding Hotbar and EXP bar).</li></ul>"
     },
     {
-        "question": "Does Glacier Client affect game performance?",
-        "answer": "Glacier Client is designed to be lightweight and optimized for performance, with minimal to no impact on your game's frame rate or stability. It is only approximately 2MB in size."
+        "question": "Can I review or create content featuring Glacier Client?",
+        "answer": "<p>Yes — with the following rules to avoid a server ban or strike:</p><ul><li><strong>Official Links Only:</strong> Always link to our <a href=\"https://discord.glacierclient.xyz\" target=\"_blank\" rel=\"noopener\">official Discord invite</a> — never Mediafire.</li><li><strong>No Misinformation:</strong> Do not spread false claims or engage in defamatory activity.</li><li><strong>No Asset Theft:</strong> Do not publicly distribute pack content without explicit permission.</li><li><strong>Attribution Required:</strong> If you use our draggable mods saving method, you must credit Glacier Client and include our server link. Unauthorized use will result in legal action and a DMCA takedown.</li><li><strong>Private Use OK:</strong> You may use code or content in your own private, non-public packs.</li></ul>"
     }
 ]

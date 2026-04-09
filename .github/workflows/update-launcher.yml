@@ -1,0 +1,37 @@
+name: Update Launcher Releases
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # every 6 hours
+  repository_dispatch:
+    types: [launcher-release]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch launcher releases
+        run: |
+          curl -s https://api.github.com/repos/Glacier-Client-BE/Glacier-Launcher/releases \
+            -H "Accept: application/vnd.github+json" \
+            -o assets/data/launcher.json
+
+      - name: Check for changes
+        id: diff
+        run: |
+          git diff --quiet assets/data/launcher.json && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/data/launcher.json
+          git commit -m "Update launcher releases data"
+          git push
