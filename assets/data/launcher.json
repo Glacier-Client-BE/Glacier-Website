@@ -68,7 +68,7 @@
         "state": "uploaded",
         "size": 171336985,
         "digest": "sha256:18db0cb85fa53249b90e7d5166aa4661b981e18cfc6be0ea1525ba56d316d4d3",
-        "download_count": 265,
+        "download_count": 266,
         "created_at": "2026-04-08T15:29:46Z",
         "updated_at": "2026-04-08T15:29:53Z",
         "browser_download_url": "https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/download/v1.2.1/GlacierLauncher.exe"
