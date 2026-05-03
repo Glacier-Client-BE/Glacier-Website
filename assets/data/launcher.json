@@ -68,7 +68,7 @@
         "state": "uploaded",
         "size": 76009389,
         "digest": "sha256:f308165bc329ae99695fd1b90ffec2f0e68659d9eab277d1ce087b2443c3a72d",
-        "download_count": 0,
+        "download_count": 3,
         "created_at": "2026-05-03T17:27:27Z",
         "updated_at": "2026-05-03T17:27:30Z",
         "browser_download_url": "https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/download/v1.3.8/GlacierLauncher.exe"
@@ -147,7 +147,7 @@
         "state": "uploaded",
         "size": 76000173,
         "digest": "sha256:8b74eaaf37998dd3256b59df0d444a2c5bb5cc4ac2a42c842d099a384a7c9ebe",
-        "download_count": 2,
+        "download_count": 3,
         "created_at": "2026-05-03T16:40:05Z",
         "updated_at": "2026-05-03T16:40:07Z",
         "browser_download_url": "https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/download/v1.3.7/GlacierLauncher.exe"
@@ -1807,7 +1807,7 @@
         "state": "uploaded",
         "size": 171275545,
         "digest": "sha256:4d9c24edff20b66dc8b85addf177a1352603224260585e0d2efbbdc1dae05625",
-        "download_count": 13,
+        "download_count": 14,
         "created_at": "2026-04-07T15:10:46Z",
         "updated_at": "2026-04-07T15:10:51Z",
         "browser_download_url": "https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/download/v1.0.0/GlacierLauncher.exe"
