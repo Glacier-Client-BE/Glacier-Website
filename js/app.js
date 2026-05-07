@@ -1,5 +1,4 @@
 'use strict';
-
 const NOTIFICATION = { key: 'glacier-v6.1-release', text: 'Glacier v6.1 is now available!', cta: 'Download', section: 'downloads' };
 
 const META = {
