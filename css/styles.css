@@ -1264,6 +1264,17 @@ main {
     padding: 24px;
     position: relative;
     overflow: hidden;
+    scroll-margin-top: 120px;
+}
+
+.download-card.dl-highlight {
+    animation: dl-pulse 2.4s var(--ease);
+}
+
+@keyframes dl-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(88, 101, 242, .7); }
+    40% { box-shadow: 0 0 0 12px rgba(88, 101, 242, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(88, 101, 242, 0); }
 }
 
 .download-card::before {

@@ -25,6 +25,8 @@ let downloadsData = { clients: { working: [], legacy: [] }, extensions: { workin
 let modCards = [];
 let revealObs = null;
 let usesCssTimeline = false;
+const dlIndex = new Map();
+let pendingDeepLink = null;
 
 const ESC_RE = /[<>"']/g;
 const ESC_MAP = { '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
@@ -45,7 +47,7 @@ function formatBytes(b) {
     return (b / 1048576).toFixed(1) + ' MB';
 }
 
-function showSection(id) {
+function showSection(id, sub) {
     if (!ALL.has(id)) id = 'home';
 
     const targetEl = $(id + '-section');
@@ -58,22 +60,61 @@ function showSection(id) {
 
     updateSideNav(id);
 
-    if (id === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-        const cc = dom.contentContainer;
-        if (cc) window.scrollTo({ top: cc.offsetTop - dom.headerEl.offsetHeight - 16, behavior: 'smooth' });
+    const hasDeepLink = id === 'downloads' && sub;
+
+    if (!hasDeepLink) {
+        if (id === 'home') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            const cc = dom.contentContainer;
+            if (cc) window.scrollTo({ top: cc.offsetTop - dom.headerEl.offsetHeight - 16, behavior: 'smooth' });
+        }
     }
 
-    history.replaceState(null, '', '#' + id);
+    const hash = hasDeepLink ? id + '/' + sub : id;
+    history.replaceState(null, '', '#' + hash);
     closeMobileMenu();
 
     const desc = META[id] || META.home;
     if (dom.metaOgDesc) dom.metaOgDesc.setAttribute('content', desc);
     if (dom.metaTwDesc) dom.metaTwDesc.setAttribute('content', desc);
-    if (dom.metaOgUrl) dom.metaOgUrl.setAttribute('content', 'https://glacierclient.xyz/#' + id);
+    if (dom.metaOgUrl) dom.metaOgUrl.setAttribute('content', 'https://glacierclient.xyz/#' + hash);
+
+    if (hasDeepLink) {
+        if (dlIndex.size) applyDeepLink(sub);
+        else pendingDeepLink = sub;
+    } else {
+        pendingDeepLink = null;
+    }
 
     requestAnimationFrame(observeReveals);
+}
+
+function parseHash() {
+    const raw = location.hash.slice(1);
+    if (!raw) return { id: '', sub: '' };
+    const i = raw.indexOf('/');
+    return i === -1 ? { id: raw, sub: '' } : { id: raw.slice(0, i), sub: raw.slice(i + 1) };
+}
+
+function slugify(s) {
+    return s.toLowerCase().replace(/\+/g, '-plus').replace(/[^a-z0-9.]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function clientSlug(item) {
+    const m = item.version.match(/v[\d.]+/i);
+    return m ? m[0].toLowerCase() : slugify(item.version);
+}
+
+function applyDeepLink(sub) {
+    const entry = dlIndex.get(sub.toLowerCase());
+    if (!entry) return;
+    setActiveTab(entry.tab);
+    requestAnimationFrame(() => {
+        entry.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        entry.el.classList.add('dl-highlight');
+        setTimeout(() => entry.el.classList.remove('dl-highlight'), 2400);
+    });
 }
 
 function updateSideNav(id) {
@@ -185,8 +226,8 @@ function buttonsHtml(opts) {
     return s;
 }
 
-function clientCard(item) {
-    return '<div class="download-card card-base reveal">'
+function clientCard(item, slug) {
+    return '<div id="dl-' + slug + '" class="download-card card-base reveal">'
         + '<div class="download-header">'
         + '<h3 class="download-title">' + item.version + '</h3>'
         + '<span class="download-tag ' + (item.tag === 'Latest' ? 'tag-latest' : 'tag-archived') + '">' + item.tag + '</span>'
@@ -199,8 +240,8 @@ function clientCard(item) {
         + '</div>';
 }
 
-function extCard(item) {
-    return '<div class="download-card card-base reveal">'
+function extCard(item, slug) {
+    return '<div id="dl-' + slug + '" class="download-card card-base reveal">'
         + '<div class="download-header"><h3 class="download-title">' + item.version + '</h3></div>'
         + '<p class="download-desc">' + item.description + '</p>'
         + '<div class="download-buttons">' + buttonsHtml(item.options) + '</div>'
@@ -209,18 +250,32 @@ function extCard(item) {
 
 function initDownloads() {
     const groups = [
-        ['working-clients', downloadsData.clients.working, clientCard],
-        ['legacy-clients', downloadsData.clients.legacy, clientCard],
-        ['working-extensions', downloadsData.extensions.working, extCard],
-        ['legacy-extensions', downloadsData.extensions.legacy, extCard]
+        ['working-clients', downloadsData.clients.working, clientCard, clientSlug, 'clients'],
+        ['legacy-clients', downloadsData.clients.legacy, clientCard, clientSlug, 'clients'],
+        ['working-extensions', downloadsData.extensions.working, extCard, item => slugify(item.version), 'extensions'],
+        ['legacy-extensions', downloadsData.extensions.legacy, extCard, item => slugify(item.version), 'extensions']
     ];
-    for (const [id, data, fn] of groups) {
+    for (const [id, data, fn, slugFn, tab] of groups) {
         const el = $(id);
         if (!el) continue;
         let html = '';
-        for (const item of data) html += fn(item);
+        const slugs = [];
+        for (const item of data) {
+            const slug = slugFn(item);
+            slugs.push(slug);
+            html += fn(item, slug);
+        }
         el.innerHTML = html;
+        for (let i = 0; i < slugs.length; i++) {
+            dlIndex.set(slugs[i], { tab, el: el.children[i] });
+        }
     }
+    const latestIdx = downloadsData.clients.working.findIndex(c => c.tag === 'Latest');
+    if (latestIdx !== -1) {
+        const wc = $('working-clients');
+        if (wc && wc.children[latestIdx]) dlIndex.set('latest', { tab: 'clients', el: wc.children[latestIdx] });
+    }
+    if (pendingDeepLink) { applyDeepLink(pendingDeepLink); pendingDeepLink = null; }
 }
 
 function initLauncher() {
@@ -241,7 +296,8 @@ function initLauncher() {
                 let btns = '';
                 for (const a of assets) btns += '<a href="' + a.browser_download_url + '" class="btn btn-primary" target="_blank" rel="noopener"><i class="fas fa-download" aria-hidden="true"></i> ' + a.name + '</a>';
                 const size = assets.length ? formatBytes(assets[0].size) : '';
-                html += '<div class="download-card card-base reveal">'
+                const tagSlug = slugify(rel.tag_name);
+                html += '<div id="dl-launcher-' + tagSlug + '" class="download-card card-base reveal">'
                     + '<div class="download-header">'
                     + '<h3 class="download-title">Glacier Launcher ' + rel.tag_name + '</h3>'
                     + '<span class="download-tag ' + (i === 0 ? 'tag-latest' : 'tag-archived') + '">' + tag + '</span>'
@@ -254,6 +310,12 @@ function initLauncher() {
                     + '</div>';
             }
             dom.launcherGrid.innerHTML = html;
+            for (let i = 0; i < rels.length; i++) {
+                const slug = 'launcher-' + slugify(rels[i].tag_name);
+                dlIndex.set(slug, { tab: 'launcher', el: dom.launcherGrid.children[i] });
+                if (i === 0) dlIndex.set('launcher-latest', { tab: 'launcher', el: dom.launcherGrid.children[i] });
+            }
+            if (pendingDeepLink) { applyDeepLink(pendingDeepLink); pendingDeepLink = null; }
             observeReveals();
         })
         .catch(() => {
@@ -536,11 +598,11 @@ function init() {
     fetchDiscord();
 
     window.addEventListener('popstate', () => {
-        const h = location.hash.slice(1);
-        showSection(ALL.has(h) ? h : 'home');
+        const { id, sub } = parseHash();
+        showSection(ALL.has(id) ? id : 'home', sub);
     });
-    const initialHash = location.hash.slice(1);
-    showSection(ALL.has(initialHash) ? initialHash : 'home');
+    const initial = parseHash();
+    showSection(ALL.has(initial.id) ? initial.id : 'home', initial.sub);
 
     loadData().then(() => {
         initFAQ();
