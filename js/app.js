@@ -1,4 +1,18 @@
 'use strict';
+const USE_MONETIZATION = true;
+const LINKVERTISE_USER_ID = 499358;
+
+function getMonetizedUrl(targetUrl) {
+    if (!USE_MONETIZATION || !LINKVERTISE_USER_ID) return targetUrl;
+    try {
+        const encoded = encodeURIComponent(btoa(encodeURI(targetUrl)));
+        const random = Math.random() * 1000;
+        return 'https://link-to.net/' + LINKVERTISE_USER_ID + '/' + random + '/dynamic/?r=' + encoded;
+    } catch (e) {
+        return targetUrl;
+    }
+}
+
 const NOTIFICATION = { key: 'glacier-v6.1-release', text: 'Glacier v6.1 is now available!', cta: 'Download', section: 'downloads' };
 
 const META = {
@@ -294,7 +308,7 @@ function initLauncher() {
                 const date = new Date(rel.published_at).toISOString().slice(0, 10);
                 const assets = rel.assets || [];
                 let btns = '';
-                for (const a of assets) btns += '<a href="' + a.browser_download_url + '" class="btn btn-primary" target="_blank" rel="noopener"><i class="fas fa-download" aria-hidden="true"></i> ' + a.name + '</a>';
+                for (const a of assets) btns += '<a href="' + getMonetizedUrl(a.browser_download_url) + '" class="btn btn-primary" target="_blank" rel="noopener"><i class="fas fa-download" aria-hidden="true"></i> ' + a.name + '</a>';
                 const size = assets.length ? formatBytes(assets[0].size) : '';
                 const tagSlug = slugify(rel.tag_name);
                 html += '<div id="dl-launcher-' + tagSlug + '" class="download-card card-base reveal">'
