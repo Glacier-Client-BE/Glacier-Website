@@ -579,7 +579,7 @@ function init() {
         mobileMenuBtn: $('mobileMenuBtn'),
         sideNav: $('sideNav'),
         sections: document.querySelectorAll('.content-section'),
-        navLinks: document.querySelectorAll('.nav-link'),
+        navLinks: document.querySelectorAll('.nav-tab'),
         contentContainer: document.querySelector('.content-container'),
         modsGrid: $('modsGrid'),
         faqContainer: $('faqContainer'),

@@ -83,35 +83,41 @@
     <div class="side-nav" id="sideNav"></div>
 
     <header id="mainHeader">
-        <div class="header-container container">
-            <a href="#" class="logo" data-section="home">
-                <img src="assets/logo.png" alt="Glacier Client Logo" class="logo-img" width="38" height="38" />
-                <span class="logo-text">Glacier Client</span>
-            </a>
-
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#" class="nav-link active" data-section="home">Home</a></li>
-                <li><a href="#" class="nav-link" data-section="features">Features</a></li>
-                <li><a href="#" class="nav-link" data-section="gallery">Gallery</a></li>
-                <li><a href="#" class="nav-link" data-section="community">Community</a></li>
-                <li><a href="#" class="nav-link" data-section="downloads">Downloads</a></li>
-                <li><a href="#" class="nav-link" data-section="faq">FAQ</a></li>
-                <li><a href="#" class="nav-link" data-section="mods">All Mods</a></li>
-                <li><a href="#" class="nav-link" data-section="license">License</a></li>
-                <li><a href="#" class="nav-link" data-section="donate">Donate</a></li>
-            </ul>
-
-            <div class="header-actions">
-                <button id="searchTrigger" class="header-icon-btn" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                </button>
-                <button id="themeToggle" class="header-icon-btn" aria-label="Toggle theme">
-                    <i class="fas fa-sun" aria-hidden="true"></i>
-                </button>
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
-                    <i class="fas fa-bars" aria-hidden="true"></i>
-                </button>
+        <div class="top-bar">
+            <div class="branding">
+                <img src="assets/logo.png" alt="Glacier Client Logo" class="logo-icon" width="34" height="34" />
+                <div class="branding-text">
+                    <div class="branding-title">Glacier Client</div>
+                    <div class="branding-sub">Client</div>
+                </div>
             </div>
+
+            <div class="top-bar-spacer"></div>
+
+            <nav class="nav-tabs" id="navMenu">
+                <a href="#" class="nav-tab active" data-section="home">Home</a>
+                <a href="#" class="nav-tab" data-section="features">Features</a>
+                <a href="#" class="nav-tab" data-section="gallery">Gallery</a>
+                <a href="#" class="nav-tab" data-section="community">Community</a>
+                <a href="#" class="nav-tab" data-section="downloads">Downloads</a>
+                <a href="#" class="nav-tab" data-section="faq">FAQ</a>
+                <a href="#" class="nav-tab" data-section="mods">All Mods</a>
+                <a href="#" class="nav-tab" data-section="license">License</a>
+                <a href="#" class="nav-tab" data-section="donate">Donate</a>
+            </nav>
+
+            <button id="searchTrigger" class="search-trigger" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <span class="search-hint">Ctrl K</span>
+            </button>
+
+            <button id="themeToggle" class="header-icon-btn" aria-label="Toggle theme" title="Toggle theme">
+                <i class="fas fa-sun" aria-hidden="true"></i>
+            </button>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
         </div>
     </header>
 
