@@ -17,7 +17,7 @@ const NOTIFICATION = { key: 'glacier-v6.1-release', text: 'Glacier v6.1 is now a
 
 const META = {
     home: 'Next-gen Minecraft Bedrock client with 37+ modules, draggable HUD, and zero performance impact.',
-    features: 'Explore the advanced features of Glacier Client — config editor, custom themes, and auto-updates.',
+    features: 'Explore the advanced features of Glacier Client config editor, custom themes, and auto-updates.',
     gallery: 'See Glacier Client in action with screenshots of the mod menu, start screen, and pause screen.',
     community: 'Join the Glacier Client Discord community for support, updates, and events.',
     downloads: 'Download the latest Glacier Client version for Minecraft Bedrock Edition.',

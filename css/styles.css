@@ -263,7 +263,7 @@ body {
 /* ── Fixed blurred launcher background ──
    Combined into ONE static layer (image + overlay + accent glow).
    No animation and a forced composite layer so it never re-rasterizes
-   behind the backdrop-filter glass — this is what stops the flicker. */
+   behind the backdrop-filter glass this is what stops the flicker. */
 body::before {
     content: '';
     position: fixed;
@@ -651,7 +651,7 @@ header {
     will-change: background;
 }
 
-/* Top scrim — fades scrolling content smoothly under the floating header */
+/* Top scrim fades scrolling content smoothly under the floating header */
 header::before {
     content: '';
     position: absolute;
