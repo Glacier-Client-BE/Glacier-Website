@@ -1201,6 +1201,28 @@ main {
     transform: translateY(-4px);
 }
 
+.feature-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 11px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-hover);
+    background: var(--accent-bg);
+    border: 1px solid rgba(114, 137, 218, 0.4);
+    border-radius: var(--pill);
+}
+
+.feature-badge i {
+    font-size: 0.62rem;
+}
+
 .feature-icon {
     font-size: 2.3rem;
     color: var(--blurple);
@@ -2389,27 +2411,6 @@ footer {
     transform: scale(1);
 }
 
-.showcase-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    align-self: flex-start;
-    padding: 4px 12px;
-    margin-bottom: 14px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--accent-hover);
-    background: var(--accent-bg);
-    border: 1px solid rgba(114, 137, 218, 0.4);
-    border-radius: var(--pill);
-}
-
-.showcase-badge i {
-    font-size: 0.66rem;
-}
-
 .showcase-info {
     position: relative;
     z-index: 1;
@@ -2428,7 +2429,7 @@ footer {
 
 .showcase-textstack {
     position: relative;
-    min-height: 230px;
+    min-height: 200px;
 }
 
 .showcase-text {
