@@ -179,7 +179,7 @@ function searchMods(term) {
 
 function initSkeletons() {
     if (dom.modsGrid) dom.modsGrid.innerHTML = '<div class="skeleton skeleton-mod"></div>'.repeat(8);
-    for (const id of ['working-clients', 'legacy-clients', 'working-extensions', 'legacy-extensions']) {
+    for (const id of ['working-clients', 'legacy-clients']) {
         const el = $(id);
         if (el) el.innerHTML = '<div class="skeleton skeleton-download"></div>'.repeat(2);
     }
@@ -223,7 +223,7 @@ function initFAQ() {
             ? '<div class="faq-video"><iframe width="100%" height="300" src="' + f.videoUrl + '" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" title="Tutorial video"></iframe></div>'
             : '';
         html += '<div class="faq-item reveal">'
-            + '<details class="faq-card card-base"' + (i === 0 ? ' open' : '') + '>'
+            + '<details class="faq-card"' + (i === 0 ? ' open' : '') + '>'
             + '<summary class="faq-question"><span>' + f.question + '</span><i class="fas fa-chevron-down" aria-hidden="true"></i></summary>'
             + '<div class="faq-answer">' + f.answer + video + '</div>'
             + '</details>'
@@ -240,8 +240,36 @@ function buttonsHtml(opts) {
     return s;
 }
 
-function clientCard(item, slug) {
-    return '<div id="dl-' + slug + '" class="download-card card-base reveal">'
+const majorVersion = str => {
+    const m = /v(\d+)/i.exec(str || '');
+    return m ? m[1] : null;
+};
+
+function extDropdownHtml(exts) {
+    if (!exts || !exts.length) return '';
+    let rows = '';
+    for (const e of exts) {
+        rows += '<div class="ext-row">'
+            + '<div class="ext-row-info">'
+            + '<span class="ext-row-name">' + e.version + '</span>'
+            + '<span class="ext-row-desc">' + e.description + '</span>'
+            + '</div>'
+            + '<div class="ext-row-actions">' + buttonsHtml(e.options) + '</div>'
+            + '</div>';
+    }
+    const n = exts.length;
+    return '<details class="ext-dropdown">'
+        + '<summary class="ext-summary">'
+        + '<span class="ext-summary-label"><i class="fas fa-puzzle-piece" aria-hidden="true"></i> '
+        + n + ' compatible extension' + (n > 1 ? 's' : '') + '</span>'
+        + '<i class="fas fa-chevron-down ext-chevron" aria-hidden="true"></i>'
+        + '</summary>'
+        + '<div class="ext-list">' + rows + '</div>'
+        + '</details>';
+}
+
+function clientCard(item, slug, exts) {
+    return '<div id="dl-' + slug + '" class="download-card reveal">'
         + '<div class="download-header">'
         + '<h3 class="download-title">' + item.version + '</h3>'
         + '<span class="download-tag ' + (item.tag === 'Latest' ? 'tag-latest' : 'tag-archived') + '">' + item.tag + '</span>'
@@ -251,37 +279,46 @@ function clientCard(item, slug) {
         + '<span><i class="fas fa-file-archive download-meta-icon" aria-hidden="true"></i>' + item.size + '</span>'
         + '</div>'
         + '<div class="download-buttons">' + buttonsHtml(item.options) + '</div>'
-        + '</div>';
-}
-
-function extCard(item, slug) {
-    return '<div id="dl-' + slug + '" class="download-card card-base reveal">'
-        + '<div class="download-header"><h3 class="download-title">' + item.version + '</h3></div>'
-        + '<p class="download-desc">' + item.description + '</p>'
-        + '<div class="download-buttons">' + buttonsHtml(item.options) + '</div>'
+        + extDropdownHtml(exts)
         + '</div>';
 }
 
 function initDownloads() {
+    // Extensions are tagged by client major version in their name, e.g.
+    // "Hitbox (v6)". Group them so each is shown as a dropdown under the
+    // matching client (v6 extensions also cover v6.1).
+    const extByMajor = new Map();
+    for (const e of [...downloadsData.extensions.working, ...downloadsData.extensions.legacy]) {
+        const maj = majorVersion(e.version);
+        if (!maj) continue;
+        if (!extByMajor.has(maj)) extByMajor.set(maj, []);
+        extByMajor.get(maj).push(e);
+    }
+    const usedMajors = new Set();
+
     const groups = [
-        ['working-clients', downloadsData.clients.working, clientCard, clientSlug, 'clients'],
-        ['legacy-clients', downloadsData.clients.legacy, clientCard, clientSlug, 'clients'],
-        ['working-extensions', downloadsData.extensions.working, extCard, item => slugify(item.version), 'extensions'],
-        ['legacy-extensions', downloadsData.extensions.legacy, extCard, item => slugify(item.version), 'extensions']
+        ['working-clients', downloadsData.clients.working],
+        ['legacy-clients', downloadsData.clients.legacy]
     ];
-    for (const [id, data, fn, slugFn, tab] of groups) {
+    for (const [id, data] of groups) {
         const el = $(id);
         if (!el) continue;
         let html = '';
         const slugs = [];
         for (const item of data) {
-            const slug = slugFn(item);
+            const slug = clientSlug(item);
             slugs.push(slug);
-            html += fn(item, slug);
+            const maj = majorVersion(item.version);
+            let exts = null;
+            if (maj && extByMajor.has(maj) && !usedMajors.has(maj)) {
+                exts = extByMajor.get(maj);
+                usedMajors.add(maj);
+            }
+            html += clientCard(item, slug, exts);
         }
         el.innerHTML = html;
         for (let i = 0; i < slugs.length; i++) {
-            dlIndex.set(slugs[i], { tab, el: el.children[i] });
+            dlIndex.set(slugs[i], { tab: 'clients', el: el.children[i] });
         }
     }
     const latestIdx = downloadsData.clients.working.findIndex(c => c.tag === 'Latest');
@@ -311,7 +348,7 @@ function initLauncher() {
                 for (const a of assets) btns += '<a href="' + getMonetizedUrl(a.browser_download_url) + '" class="btn btn-primary" target="_blank" rel="noopener"><i class="fas fa-download" aria-hidden="true"></i> ' + a.name + '</a>';
                 const size = assets.length ? formatBytes(assets[0].size) : '';
                 const tagSlug = slugify(rel.tag_name);
-                html += '<div id="dl-launcher-' + tagSlug + '" class="download-card card-base reveal">'
+                html += '<div id="dl-launcher-' + tagSlug + '" class="download-card reveal">'
                     + '<div class="download-header">'
                     + '<h3 class="download-title">Glacier Launcher ' + rel.tag_name + '</h3>'
                     + '<span class="download-tag ' + (i === 0 ? 'tag-latest' : 'tag-archived') + '">' + tag + '</span>'
@@ -501,36 +538,50 @@ function observeReveals() {
 }
 
 function setupShowcase() {
-    const triggers = document.querySelectorAll('.showcase-trigger');
-    if (!triggers.length || !('IntersectionObserver' in window)) return;
+    const showcase = document.querySelector('.showcase');
+    if (!showcase) return;
 
-    const imgs = document.querySelectorAll('.showcase-img');
-    const texts = document.querySelectorAll('.showcase-text');
-    const ticks = document.querySelectorAll('.showcase-tick');
-    const ratios = new Map();
-    let activeFrame = '0';
+    const imgs = [...document.querySelectorAll('.showcase-img')];
+    const texts = [...document.querySelectorAll('.showcase-text')];
+    const ticks = [...document.querySelectorAll('.showcase-tick')];
+    const frameCount = imgs.length;
+    if (!frameCount) return;
+
+    let activeFrame = -1;
+    let ticking = false;
 
     function activate(frame) {
         if (frame === activeFrame) return;
         activeFrame = frame;
-        for (const el of imgs) el.classList.toggle('is-active', el.dataset.frame === frame);
-        for (const el of texts) el.classList.toggle('is-active', el.dataset.frame === frame);
-        for (const el of ticks) el.classList.toggle('is-active', el.dataset.frame === frame);
+        const f = String(frame);
+        for (const el of imgs) el.classList.toggle('is-active', el.dataset.frame === f);
+        for (const el of texts) el.classList.toggle('is-active', el.dataset.frame === f);
+        for (const el of ticks) el.classList.toggle('is-active', el.dataset.frame === f);
     }
 
-    const thresholds = [];
-    for (let i = 0; i <= 20; i++) thresholds.push(i / 20);
+    // Map scroll progress through the pinned section to a frame index.
+    // Deterministic + rAF-throttled, which reads far smoother than picking
+    // the best intersection ratio between overlapping triggers.
+    function update() {
+        ticking = false;
+        const rect = showcase.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        if (total <= 0) { activate(0); return; }
+        const scrolled = Math.min(Math.max(-rect.top, 0), total);
+        const progress = scrolled / total;
+        let frame = Math.floor(progress * frameCount);
+        if (frame >= frameCount) frame = frameCount - 1;
+        if (frame < 0) frame = 0;
+        activate(frame);
+    }
 
-    const obs = new IntersectionObserver(entries => {
-        for (const e of entries) ratios.set(e.target, e.intersectionRatio);
-        let bestFrame = activeFrame, bestRatio = 0;
-        for (const [el, r] of ratios) {
-            if (r > bestRatio) { bestRatio = r; bestFrame = el.dataset.frame; }
-        }
-        if (bestRatio > 0) activate(bestFrame);
-    }, { threshold: thresholds });
+    function onScroll() {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }
 
-    for (const t of triggers) obs.observe(t);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
 }
 
 function handleSectionClick(id) {

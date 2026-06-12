@@ -203,6 +203,10 @@
                                 data-frame="1" loading="lazy" decoding="async" />
                             <img src="assets/pause_screen.png" alt="Glacier Client Pause Screen" class="showcase-img"
                                 data-frame="2" loading="lazy" decoding="async" />
+                            <img src="assets/start_screen.png" alt="Glacier Launcher custom themes" class="showcase-img"
+                                data-frame="3" loading="lazy" decoding="async" />
+                            <img src="assets/mod_menu.png" alt="Glacier Launcher auto-updates" class="showcase-img"
+                                data-frame="4" loading="lazy" decoding="async" />
                         </div>
                         <div class="showcase-info">
                             <span class="showcase-eyebrow">A peek inside</span>
@@ -222,17 +226,35 @@
                                     <p class="showcase-body">Quick toggles and rich information without breaking your
                                         flow.</p>
                                 </div>
+                                <div class="showcase-text" data-frame="3">
+                                    <span class="showcase-badge"><i class="fas fa-rocket" aria-hidden="true"></i> Launcher
+                                        only</span>
+                                    <h2 class="showcase-heading">Custom Themes.</h2>
+                                    <p class="showcase-body">Multiple theme options to personalize the look and feel of
+                                        your client interface.</p>
+                                </div>
+                                <div class="showcase-text" data-frame="4">
+                                    <span class="showcase-badge"><i class="fas fa-rocket" aria-hidden="true"></i> Launcher
+                                        only</span>
+                                    <h2 class="showcase-heading">Auto-Updates.</h2>
+                                    <p class="showcase-body">Automatic update system that ensures you always have the
+                                        latest features and bug fixes.</p>
+                                </div>
                             </div>
                             <div class="showcase-progress">
                                 <span class="showcase-tick is-active" data-frame="0"></span>
                                 <span class="showcase-tick" data-frame="1"></span>
                                 <span class="showcase-tick" data-frame="2"></span>
+                                <span class="showcase-tick" data-frame="3"></span>
+                                <span class="showcase-tick" data-frame="4"></span>
                             </div>
                         </div>
                     </div>
                     <div class="showcase-trigger" data-frame="0" aria-hidden="true"></div>
                     <div class="showcase-trigger" data-frame="1" aria-hidden="true"></div>
                     <div class="showcase-trigger" data-frame="2" aria-hidden="true"></div>
+                    <div class="showcase-trigger" data-frame="3" aria-hidden="true"></div>
+                    <div class="showcase-trigger" data-frame="4" aria-hidden="true"></div>
                 </section>
             </section>
 
@@ -363,12 +385,18 @@
                 <div class="container">
                     <div class="section-header reveal">
                         <h2 class="section-title">Downloads</h2>
-                        <p class="section-subtitle">Download the latest client versions, extensions, and launcher</p>
+                        <p class="section-subtitle">Download the latest pack client and launcher — DLL and Java builds
+                            coming soon</p>
                     </div>
                     <div class="downloads-tabs">
-                        <button class="tab-button active" data-tab="clients">Client Downloads</button>
-                        <button class="tab-button" data-tab="extensions">Client Extensions</button>
-                        <button class="tab-button" data-tab="launcher">Launcher</button>
+                        <button class="tab-button active" data-tab="clients"><i class="fas fa-cube"
+                                aria-hidden="true"></i> Pack Client Downloads</button>
+                        <button class="tab-button" data-tab="dll"><i class="fas fa-microchip" aria-hidden="true"></i>
+                            MCBE DLL Downloads</button>
+                        <button class="tab-button" data-tab="java"><i class="fab fa-java" aria-hidden="true"></i> Java
+                            Clients Downloads</button>
+                        <button class="tab-button" data-tab="launcher"><i class="fas fa-rocket" aria-hidden="true"></i>
+                            Launcher</button>
                     </div>
                     <div id="clients-tab-content" class="tab-content active">
                         <h3 class="downloads-sub-title">Working Versions</h3>
@@ -376,11 +404,23 @@
                         <h3 class="downloads-sub-title-spaced">Legacy Versions</h3>
                         <div class="downloads-grid" id="legacy-clients"></div>
                     </div>
-                    <div id="extensions-tab-content" class="tab-content">
-                        <h3 class="downloads-sub-title">Working Extensions</h3>
-                        <div class="downloads-grid" id="working-extensions"></div>
-                        <h3 class="downloads-sub-title-spaced">Legacy Extensions</h3>
-                        <div class="downloads-grid" id="legacy-extensions"></div>
+                    <div id="dll-tab-content" class="tab-content">
+                        <div class="coming-soon">
+                            <i class="fas fa-microchip coming-soon-icon" aria-hidden="true"></i>
+                            <h3>MCBE DLL Downloads</h3>
+                            <p>Native DLL injection client for Minecraft Bedrock Edition — currently in development.</p>
+                            <span class="coming-soon-badge"><i class="fas fa-clock" aria-hidden="true"></i> Coming
+                                soon</span>
+                        </div>
+                    </div>
+                    <div id="java-tab-content" class="tab-content">
+                        <div class="coming-soon">
+                            <i class="fab fa-java coming-soon-icon" aria-hidden="true"></i>
+                            <h3>Java Clients Downloads</h3>
+                            <p>Glacier client builds for Minecraft Java Edition — currently in development.</p>
+                            <span class="coming-soon-badge"><i class="fas fa-clock" aria-hidden="true"></i> Coming
+                                soon</span>
+                        </div>
                     </div>
                     <div id="launcher-tab-content" class="tab-content">
                         <h3 class="downloads-sub-title">Glacier Launcher Releases</h3>
