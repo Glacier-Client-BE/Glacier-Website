@@ -77,9 +77,9 @@
     --text-muted: #5b6470;
     --darker: #ffffff;
     --darkest: #f5f6f8;
-    --overlay-top: rgba(245, 246, 248, 0.78);
-    --overlay-mid: rgba(245, 246, 248, 0.60);
-    --overlay-bot: rgba(245, 246, 248, 0.96);
+    --overlay-top: rgba(245, 246, 248, 0.68);
+    --overlay-mid: rgba(245, 246, 248, 0.50);
+    --overlay-bot: rgba(245, 246, 248, 0.90);
     --glass: rgba(255, 255, 255, 0.55);
     --glass-strong: rgba(255, 255, 255, 0.72);
     --glass-border: rgba(0, 0, 0, 0.08);
@@ -280,6 +280,12 @@ body::before {
     transform: translateZ(0);
     backface-visibility: hidden;
     will-change: transform;
+}
+
+/* Light mode: brighten the dark night-scene so it reads as a soft,
+   light backdrop instead of a muddy dark wash under the light overlay. */
+[data-theme="light"] body::before {
+    filter: brightness(1.9) saturate(0.7);
 }
 
 img { display: block; max-width: 100%; }
@@ -2559,20 +2565,24 @@ footer {
     .nav-tabs {
         display: none;
         position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
+        top: calc(100% + 6px);
+        left: 12px;
+        right: 12px;
+        height: auto;
+        align-items: stretch;
         flex-direction: column;
-        background: rgba(35, 39, 42, 0.98);
+        background: var(--surface);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
         padding: 8px;
-        border-radius: 0 0 var(--r-md) var(--r-md);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        border-radius: var(--r-md);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
         z-index: 999;
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
-        animation: slideDown 0.25s var(--ease);
-        gap: 2px;
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+        animation: slideDown 0.2s var(--ease);
+        gap: 4px;
     }
 
     .nav-tabs.active { display: flex; }
@@ -2582,7 +2592,18 @@ footer {
         to { opacity: 1; transform: translateY(0); }
     }
 
-    .nav-tab { padding: 10px 14px; font-size: 0.9rem; }
+    .nav-tab {
+        justify-content: flex-start;
+        width: 100%;
+        padding: 13px 16px;
+        font-size: 0.95rem;
+        border-radius: var(--r-sm);
+        color: var(--text);
+    }
+
+    .nav-tab:hover:not(.active) {
+        background: var(--surface-hover);
+    }
     .mobile-menu-btn { display: inline-flex; }
     .side-nav { display: none; }
     .search-hint { display: none; }
