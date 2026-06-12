@@ -25,6 +25,7 @@
     --r-md: 12px;
     --t: 0.15s ease;
     --blur: 14px;
+    --ctl-h: 40px;
 
     /* Background overlay (over BG.png) */
     --overlay-top: rgba(20, 22, 26, 0.58);
@@ -249,38 +250,26 @@ body {
     min-height: 100vh;
 }
 
-/* ── Fixed blurred launcher background ── */
+/* ── Fixed blurred launcher background ──
+   Combined into ONE static layer (image + overlay + accent glow).
+   No animation and a forced composite layer so it never re-rasterizes
+   behind the backdrop-filter glass — this is what stops the flicker. */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
     background-image:
+        radial-gradient(circle at 18% 22%, rgba(114, 137, 218, 0.18) 0%, transparent 48%),
+        radial-gradient(circle at 82% 78%, rgba(67, 181, 129, 0.12) 0%, transparent 50%),
         linear-gradient(180deg, var(--overlay-top) 0%, var(--overlay-mid) 35%, var(--overlay-bot) 100%),
         url('../assets/BG.png');
-    background-size: cover, cover;
-    background-position: center, center;
-    background-repeat: no-repeat, no-repeat;
-    z-index: -2;
-    transform: scale(1.04);
-}
-
-/* ── Soft accent glow layer over the background ── */
-body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-        radial-gradient(circle at 18% 22%, rgba(114, 137, 218, 0.16) 0%, transparent 48%),
-        radial-gradient(circle at 82% 78%, rgba(67, 181, 129, 0.10) 0%, transparent 50%);
+    background-size: cover, cover, cover, cover;
+    background-position: center, center, center, center;
+    background-repeat: no-repeat;
     z-index: -1;
-    pointer-events: none;
-    will-change: opacity;
-    animation: bgPulse 18s ease-in-out infinite alternate;
-}
-
-@keyframes bgPulse {
-    from { opacity: .55; }
-    to { opacity: 1; }
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
 }
 
 img { display: block; max-width: 100%; }
@@ -742,9 +731,10 @@ header.scrolled::before {
 /* ── Navigation tabs (glassy pill container) ── */
 .nav-tabs {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     gap: 2px;
     list-style: none;
+    height: var(--ctl-h);
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--pill);
@@ -758,7 +748,7 @@ header.scrolled::before {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 7px 16px;
+    padding: 0 16px;
     text-decoration: none;
     color: var(--text-dim);
     font-weight: 500;
@@ -794,14 +784,15 @@ header.scrolled::before {
 .search-trigger {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 7px;
+    height: var(--ctl-h);
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--pill);
-    padding: 7px 13px;
+    padding: 0 15px;
     color: var(--text-dim);
     font-family: inherit;
-    font-size: 11px;
+    font-size: 12px;
     cursor: pointer;
     flex-shrink: 0;
     backdrop-filter: blur(var(--blur));
@@ -838,8 +829,8 @@ header.scrolled::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: var(--ctl-h);
+    height: var(--ctl-h);
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1402,23 +1393,26 @@ main {
 }
 
 .tab-button {
-    padding: 11px 22px;
-    background: var(--bg-item);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--pill);
+    flex: 1;
+    min-width: 140px;
+    padding: 12px 22px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-md);
     color: var(--text-dim);
     font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
-    min-height: 44px;
-    transition: background var(--t), color var(--t), transform var(--t), box-shadow var(--t);
+    min-height: 46px;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    transition: background var(--t), color var(--t), border-color var(--t), box-shadow var(--t);
 }
 
 .tab-button:hover {
-    background: var(--bg-item-hover);
+    background: var(--glass-strong);
     color: var(--text);
-    transform: translateY(-1px);
-    box-shadow: 0 0 12px var(--accent-glow);
+    border-color: var(--glass-border-hover);
 }
 
 [data-theme="light"] .tab-button:hover {
@@ -1426,14 +1420,14 @@ main {
 }
 
 .tab-button.active {
-    background: var(--accent);
-    color: var(--text);
-    box-shadow: 0 0 20px var(--accent-glow);
-    border-color: transparent;
+    background: var(--accent-bg);
+    color: var(--accent-hover);
+    border-color: rgba(114, 137, 218, 0.45);
+    box-shadow: inset 0 0 0 1px rgba(114, 137, 218, 0.25), 0 0 18px var(--accent-glow);
 }
 
 [data-theme="light"] .tab-button.active {
-    color: #fff;
+    color: var(--accent);
 }
 
 .tab-content {
@@ -1649,22 +1643,23 @@ main {
 
 .filter-button {
     padding: 9px 18px;
-    background: var(--bg-item);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
     border-radius: var(--pill);
     color: var(--text-dim);
     font-weight: 500;
     font-size: 0.88rem;
     cursor: pointer;
     min-height: 40px;
-    transition: background var(--t), color var(--t), transform var(--t), box-shadow var(--t);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    transition: background var(--t), color var(--t), border-color var(--t), box-shadow var(--t);
 }
 
 .filter-button:hover {
-    background: var(--bg-item-hover);
+    background: var(--glass-strong);
     color: var(--text);
-    transform: translateY(-1px);
-    box-shadow: 0 0 12px var(--accent-glow);
+    border-color: var(--glass-border-hover);
 }
 
 [data-theme="light"] .filter-button:hover {
@@ -1672,40 +1667,42 @@ main {
 }
 
 .filter-button.active {
-    background: var(--accent);
-    color: var(--text);
-    box-shadow: 0 0 20px var(--accent-glow);
-    border-color: transparent;
+    background: var(--accent-bg);
+    color: var(--accent-hover);
+    border-color: rgba(114, 137, 218, 0.45);
+    box-shadow: inset 0 0 0 1px rgba(114, 137, 218, 0.25), 0 0 16px var(--accent-glow);
 }
 
 [data-theme="light"] .filter-button.active {
-    color: #fff;
+    color: var(--accent);
 }
 
 .search-bar {
     position: relative;
-    max-width: 480px;
+    max-width: 100%;
     margin-bottom: 28px;
 }
 
 .search-bar i {
     position: absolute;
-    left: 15px;
+    left: 18px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--text-muted);
+    color: var(--text-dim);
     pointer-events: none;
-    transition: color var(--normal) var(--ease);
+    transition: color var(--t);
 }
 
 .search-bar input {
     width: 100%;
-    padding: 10px 14px 10px 44px;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--r-sm);
+    padding: 14px 16px 14px 48px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-md);
     color: var(--text);
     font-size: 0.95rem;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
     transition: border-color var(--t), box-shadow var(--t), background var(--t);
 }
 
@@ -1716,16 +1713,16 @@ main {
 .search-bar input:focus {
     outline: none;
     border-color: var(--accent);
-    background: rgba(255, 255, 255, 0.09);
+    background: var(--glass-strong);
     box-shadow: 0 0 0 2px var(--accent-glow);
 }
 
 .search-bar input:focus ~ i {
-    color: var(--blurple);
+    color: var(--accent);
 }
 
 .search-bar input::placeholder {
-    color: rgba(185, 187, 190, .6);
+    color: var(--text-dim);
 }
 
 .mods-grid {
@@ -2031,14 +2028,29 @@ footer {
     transform: translateX(100%);
 }
 
-.downloads-sub-title {
+.downloads-sub-title,
+.downloads-sub-title-spaced {
+    display: flex;
+    align-items: center;
+    gap: 14px;
     margin-bottom: 18px;
-    color: #fff;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
 }
 
 .downloads-sub-title-spaced {
     margin: 36px 0 18px;
-    color: #fff;
+}
+
+.downloads-sub-title::after,
+.downloads-sub-title-spaced::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--glass-border), transparent);
 }
 
 .launcher-loading {
