@@ -144,10 +144,7 @@
 
 /* Panel text → dark */
 [data-theme="light"] .hero-title {
-    background: linear-gradient(100deg, #11151c 60%, var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--accent);
 }
 
 [data-theme="light"] .hero-subtitle,
@@ -900,10 +897,7 @@ main {
     font-size: clamp(2rem, 4vw, 3.5rem);
     font-weight: 800;
     line-height: 1.1;
-    background: linear-gradient(100deg, #ffffff 60%, var(--accent-hover));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--accent);
 }
 
 .hero-subtitle {
