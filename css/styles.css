@@ -260,7 +260,7 @@ a { color: inherit; }
     left: 0;
     right: 0;
     z-index: 1001;
-    background: linear-gradient(90deg, var(--blurple-dark), var(--blurple));
+    background: var(--accent);
     color: #fff;
     display: flex;
     align-items: center;
@@ -1009,7 +1009,7 @@ main {
     transform: translateX(-50%);
     width: 72px;
     height: 4px;
-    background: linear-gradient(90deg, var(--blurple), var(--green));
+    background: var(--accent);
     border-radius: 2px;
 }
 
@@ -2099,10 +2099,7 @@ footer {
 .brand-name {
     font-size: 1.25rem;
     font-weight: 700;
-    background: linear-gradient(90deg, var(--blurple), #9ba9ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--accent);
 }
 
 .footer-social {
@@ -2417,17 +2414,7 @@ footer {
     font-weight: 800;
     line-height: 1.15;
     margin-bottom: 14px;
-    background: linear-gradient(90deg, #fff, var(--blurple));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-[data-theme="light"] .showcase-heading {
-    background: linear-gradient(90deg, #1a1d20, var(--blurple));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--accent);
 }
 
 .showcase-body {
