@@ -21,9 +21,10 @@
     --orange: #faa61a;
 
     /* Spacing & Sizing */
-    --r-sm: 8px;
-    --r-md: 12px;
-    --t: 0.15s ease;
+    --r-sm: 12px;
+    --r-md: 18px;
+    /* Apple-style smooth deceleration curve, used for nearly all UI motion. */
+    --t: 0.32s cubic-bezier(0.32, 0.72, 0, 1);
     --blur: 14px;
     --ctl-h: 40px;
 
@@ -63,14 +64,14 @@
     --yellow: #fee75c;
     --pink: #eb459e;
     --text-muted: var(--text-dim);
-    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-    --fast: 0.15s;
-    --normal: 0.25s;
-    --slow: 0.4s;
-    --radius: 12px;
+    --ease: cubic-bezier(0.32, 0.72, 0, 1);
+    --fast: 0.2s;
+    --normal: 0.32s;
+    --slow: 0.55s;
+    --radius: 18px;
     --pill: 9999px;
-    --shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.45);
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+    --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.42);
 }
 
 [data-theme="light"] {
@@ -990,8 +991,8 @@ main {
 
 .hero {
     background: var(--glass);
-    border-radius: 20px;
-    padding: 64px 48px;
+    border-radius: 28px;
+    padding: 72px 56px;
     margin: 0 20px 60px;
     position: relative;
     overflow: hidden;
@@ -1170,7 +1171,7 @@ main {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 13px 26px;
+    padding: 14px 28px;
     border-radius: var(--r-sm);
     text-decoration: none;
     font-weight: 600;
@@ -1182,6 +1183,12 @@ main {
     overflow: hidden;
     white-space: nowrap;
     min-height: 48px;
+}
+
+/* Tactile press — quick spring back in, like tapping an Apple control. */
+.btn:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
 }
 
 .btn::after {
@@ -1293,7 +1300,7 @@ main {
 }
 
 .feature-card {
-    padding: 28px;
+    padding: 32px;
     position: relative;
     overflow: hidden;
     transition: transform var(--t), background var(--t), border-color var(--t), box-shadow var(--t);
@@ -1797,14 +1804,14 @@ main {
 }
 
 .download-card {
-    padding: 22px 24px;
+    padding: 26px 28px;
     position: relative;
     overflow: hidden;
     scroll-margin-top: 120px;
     background: var(--surface);
     border: 1px solid var(--surface-border);
     border-radius: var(--r-md);
-    transition: background var(--t), border-color var(--t);
+    transition: background var(--t), border-color var(--t), transform var(--t), box-shadow var(--t);
 }
 
 .download-card.dl-highlight {
@@ -1820,6 +1827,8 @@ main {
 .download-card:hover {
     background: var(--surface-hover);
     border-color: var(--glass-border-hover);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
 }
 
 .download-header {
