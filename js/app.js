@@ -423,14 +423,18 @@ function initDownloadCounts() {
     const cells = [...document.querySelectorAll('.dl-count')];
     if (!cells.length) return;
 
+    // Tolerate a trailing slash / placeholder in the configured URL.
+    const apiBase = (COUNTER_API || '').replace(/\/+$/, '');
+    const apiReady = apiBase && !/YOUR-SUBDOMAIN/.test(apiBase);
+
     const setCount = (cell, delta) => {
         const base = Number(cell.dataset.dlBase) || 0;
         const num = cell.querySelector('.dl-count-num');
         if (num) num.textContent = formatCount(base + (Number(delta) || 0));
     };
 
-    if (COUNTER_API && !/YOUR-SUBDOMAIN/.test(COUNTER_API)) {
-        fetch(COUNTER_API + '/counts')
+    if (apiReady) {
+        fetch(apiBase + '/counts')
             .then(r => r.ok ? r.json() : {})
             .then(counts => {
                 for (const cell of cells) {
@@ -453,10 +457,10 @@ function initDownloadCounts() {
         // Optimistic local bump so the user sees it react immediately.
         cell.dataset.dlBase = String((Number(cell.dataset.dlBase) || 0) + 1);
         setCount(cell, 0);
-        if (key && COUNTER_API && !/YOUR-SUBDOMAIN/.test(COUNTER_API)) {
+        if (key && apiReady) {
             // Roll the optimistic +1 back into the base and trust the worker total.
             cell.dataset.dlBase = String((Number(cell.dataset.dlBase) || 1) - 1);
-            fetch(COUNTER_API + '/increment/' + encodeURIComponent(key), { method: 'POST' })
+            fetch(apiBase + '/increment/' + encodeURIComponent(key), { method: 'POST' })
                 .then(r => r.ok ? r.json() : null)
                 .then(d => { if (d && d.count != null) setCount(cell, d.count); })
                 .catch(() => {});
