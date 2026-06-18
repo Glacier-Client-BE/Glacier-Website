@@ -27,6 +27,12 @@
     --blur: 14px;
     --ctl-h: 40px;
 
+    /* Responsive spacing scale — fluid gutters & vertical rhythm */
+    --gutter: clamp(16px, 4vw, 24px);
+    --section-gap: clamp(48px, 7vw, 88px);
+    --block-gap: clamp(40px, 6vw, 72px);
+    --header-gap: clamp(32px, 5vw, 52px);
+
     /* Background overlay (over BG.png) */
     --overlay-top: rgba(20, 22, 26, 0.58);
     --overlay-mid: rgba(20, 22, 26, 0.40);
@@ -124,6 +130,7 @@
 [data-theme="light"] .community-text h2,
 [data-theme="light"] .search-trigger,
 [data-theme="light"] .header-icon-btn,
+[data-theme="light"] .mobile-menu-btn,
 [data-theme="light"] .search-hint,
 [data-theme="light"] .nav-tab:not(.active) {
     color: #fff;
@@ -251,76 +258,129 @@ a { color: inherit; }
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
-}
-
-#toastBanner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1001;
-    background: var(--accent);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px 20px;
-    font-size: .88rem;
-    font-weight: 500;
-    transform: translateY(-100%);
-    transition: transform var(--normal) var(--ease);
-    flex-wrap: wrap;
-}
-
-#toastBanner.visible {
-    transform: translateY(0);
-}
-
-body.has-toast header {
-    top: 40px;
-    transition: top var(--normal) var(--ease);
+    padding: 0 var(--gutter);
 }
 
 header {
-    transition: background var(--normal) var(--ease), box-shadow var(--normal) var(--ease), top var(--normal) var(--ease);
+    transition: background var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
 }
 
-body.has-toast main {
-    margin-top: 108px;
+/* ── Announcement popup (bottom-right) ──
+   Glass card that springs in from the corner and animates back out on dismiss. */
+#toastBanner {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1001;
+    width: min(340px, calc(100vw - 32px));
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 16px;
+    background: var(--glass-strong);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-md);
+    box-shadow: var(--glass-shadow);
+    color: var(--text);
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+    transform-origin: bottom right;
+    pointer-events: none;
+    transition: opacity 0.45s var(--ease), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#toastBanner.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.toast-icon {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: var(--accent-bg);
+    color: var(--accent);
+    font-size: 1rem;
+}
+
+.toast-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    padding-right: 16px;
+}
+
+.toast-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.toast-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text);
 }
 
 .toast-cta {
-    background: rgba(255, 255, 255, .22);
+    align-self: flex-start;
+    margin-top: 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent);
     color: #fff;
     text-decoration: none;
-    padding: 3px 12px;
-    border-radius: var(--pill);
-    font-size: .8rem;
-    font-weight: 700;
-    transition: background var(--fast) var(--ease);
+    padding: 7px 14px;
+    border-radius: var(--r-sm);
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: background var(--fast) var(--ease), transform var(--fast) var(--ease);
     white-space: nowrap;
 }
 
+.toast-cta::after {
+    content: '→';
+    transition: transform var(--fast) var(--ease);
+}
+
 .toast-cta:hover {
-    background: rgba(255, 255, 255, .35);
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.toast-cta:hover::after {
+    transform: translateX(3px);
 }
 
 #toastClose {
+    position: absolute;
+    top: 9px;
+    right: 9px;
     background: none;
     border: none;
-    color: rgba(255, 255, 255, .75);
+    color: var(--text-dim);
     cursor: pointer;
-    padding: 2px 6px;
-    margin-left: 4px;
-    font-size: .95rem;
-    transition: color var(--fast) var(--ease);
+    padding: 4px;
+    font-size: 0.82rem;
     line-height: 1;
+    border-radius: 6px;
+    transition: color var(--fast) var(--ease), background var(--fast) var(--ease);
 }
 
 #toastClose:hover {
-    color: #fff;
+    color: var(--text);
+    background: var(--bg-item-hover);
 }
 
 #searchModal {
@@ -504,6 +564,27 @@ body.has-toast main {
     margin-bottom: 6px;
 }
 
+/* Top reading-progress bar — fills left→right with page scroll */
+#scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 1002;
+    background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.1s linear;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* Lift the back-to-top button above the announcement popup while it is shown */
+body.has-toast #backToTop {
+    bottom: 152px;
+}
+
 #backToTop {
     position: fixed;
     bottom: 28px;
@@ -545,25 +626,54 @@ body.has-toast main {
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
     z-index: 900;
     background: var(--glass-strong);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    padding: 14px 8px;
+    padding: 16px 9px;
     border-radius: var(--pill);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
+    --sn-progress: 0;
+}
+
+/* Vertical progress rail behind the dots: a faint track + an accent fill
+   that grows from the top as the page is scrolled (set via --sn-progress). */
+.side-nav::before,
+.side-nav::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 16px;
+    width: 2px;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.side-nav::before {
+    bottom: 16px;
+    background: var(--glass-border);
+}
+
+.side-nav::after {
+    height: calc((100% - 32px) * var(--sn-progress));
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+    transition: height 0.12s linear;
 }
 
 .side-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.22);
     cursor: pointer;
     transition: background var(--t), transform var(--t), box-shadow var(--t);
     position: relative;
+    z-index: 1;
 }
 
 .side-dot::after {
@@ -572,17 +682,18 @@ body.has-toast main {
     right: 24px;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(35, 39, 42, 0.95);
+    background: var(--surface);
     color: var(--text);
     padding: 5px 11px;
     border-radius: var(--r-sm);
     font-size: 0.78rem;
+    font-weight: 500;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
     transition: opacity var(--t), right var(--t), visibility var(--t);
 }
 
@@ -602,6 +713,17 @@ body.has-toast main {
     background: var(--accent);
     transform: scale(1.4);
     box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.side-dot:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.side-dot:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+    right: 28px;
 }
 
 header {
@@ -969,7 +1091,7 @@ main {
 }
 
 .content-container {
-    padding: 40px 0;
+    padding: var(--section-gap) 0;
     min-height: 400px;
 }
 
@@ -990,7 +1112,13 @@ main {
 
 .section-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: var(--header-gap);
+}
+
+/* Stacked headers — second section block within a page (Advanced Features,
+   Follow Us). Replaces scattered inline margin-top values for consistent rhythm. */
+.section-header--stacked {
+    margin-top: var(--block-gap);
 }
 
 .section-title {
@@ -1585,6 +1713,52 @@ main {
     min-height: 38px;
     padding: 9px 18px;
     font-size: 0.85rem;
+}
+
+.changelog-entry {
+    padding: 14px 16px;
+    background: var(--surface-inset);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--r-sm);
+}
+
+.changelog-entry-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.changelog-entry-version {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+.changelog-entry-date {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+}
+
+.changelog-entry-title {
+    margin: 6px 0 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.changelog-notes {
+    margin: 8px 0 0;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.changelog-notes li {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.45;
 }
 
 .tab-content {
@@ -2554,10 +2728,43 @@ footer {
     [data-theme="light"] .nav-tab:not(.active) {
         color: var(--text);
     }
-    .mobile-menu-btn { display: inline-flex; }
     .side-nav { display: none; }
     .search-hint { display: none; }
-    .search-trigger { padding: 5px 9px; }
+
+    /* On mobile the search and menu buttons become round icon buttons that
+       match the theme toggle (.header-icon-btn). */
+    .search-trigger {
+        width: var(--ctl-h);
+        height: var(--ctl-h);
+        padding: 0;
+        gap: 0;
+        border-radius: 50%;
+        justify-content: center;
+    }
+    .search-trigger i { font-size: 0.9rem; }
+
+    .mobile-menu-btn {
+        display: flex;
+        width: var(--ctl-h);
+        height: var(--ctl-h);
+        min-width: var(--ctl-h);
+        min-height: var(--ctl-h);
+        padding: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--text-dim);
+        font-size: 0.9rem;
+        backdrop-filter: blur(var(--blur));
+        -webkit-backdrop-filter: blur(var(--blur));
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        transition: color var(--t), background var(--t), box-shadow var(--t);
+    }
+    .mobile-menu-btn:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 0 12px var(--accent-glow);
+    }
     .hero { padding: 40px 24px; margin: 0 12px 40px; }
     .hero-container { grid-template-columns: 1fr; gap: 32px; }
 
@@ -2599,5 +2806,16 @@ footer {
     .tab-button { padding: 10px 16px; font-size: .85rem; }
     .donate-grid { grid-template-columns: 1fr; }
     .download-meta { flex-direction: column; gap: 4px; }
-    .header-icon-btn { width: 34px; height: 34px; font-size: .82rem; }
+    .header-icon-btn,
+    .search-trigger,
+    .mobile-menu-btn {
+        width: 34px; height: 34px;
+        min-width: 34px; min-height: 34px;
+        font-size: .82rem;
+    }
+    .search-trigger i, .mobile-menu-btn { font-size: .82rem; }
+
+    /* Announcement popup spans the bottom with even margins on phones */
+    #toastBanner { right: 12px; left: 12px; bottom: 12px; width: auto; }
+    body.has-toast #backToTop { bottom: 140px; }
 }

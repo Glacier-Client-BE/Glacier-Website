@@ -13,7 +13,10 @@ function getMonetizedUrl(targetUrl) {
     }
 }
 
-const NOTIFICATION = { key: 'glacier-v6.1-release', text: 'Glacier v6.1 is now available!', cta: 'Download', section: 'downloads' };
+// Text/key are derived from the latest client in downloads.json at runtime
+// (see applyVersioning); only the static bits live here.
+const NOTIFICATION = { cta: 'Download', section: 'downloads' };
+let toastKey = '';
 
 const META = {
     home: 'Next-gen Minecraft Bedrock client with 37+ modules, draggable HUD, and zero performance impact.',
@@ -41,6 +44,7 @@ let revealObs = null;
 let usesCssTimeline = false;
 const dlIndex = new Map();
 let pendingDeepLink = null;
+let currentSectionId = 'home';
 
 const ESC_RE = /[<>"']/g;
 const ESC_MAP = { '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
@@ -63,6 +67,7 @@ function formatBytes(b) {
 
 function showSection(id, sub) {
     if (!ALL.has(id)) id = 'home';
+    currentSectionId = id;
 
     const targetEl = $(id + '-section');
     for (const s of dom.sections) {
@@ -138,9 +143,40 @@ function updateSideNav(id) {
 
     let html = '';
     for (const [i, l] of dots) {
-        html += '<div class="side-dot' + (i === id ? ' active' : '') + '" data-section="' + i + '" data-tooltip="' + l + '" role="button" tabindex="0" aria-label="Go to ' + l + '"></div>';
+        html += '<div class="side-dot" data-section="' + i + '" data-tooltip="' + l + '" role="button" tabindex="0" aria-label="Go to ' + l + '"></div>';
     }
     dom.sideNav.innerHTML = html;
+    syncSideNav();
+}
+
+// Scroll-spy + progress rail for the side nav. Keeps the active dot in sync
+// with the actual scroll position (footer lights up when reached, the current
+// section otherwise) and drives the vertical rail fill via --sn-progress.
+function syncSideNav() {
+    if (!dom.sideNav) return;
+
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docH > 0 ? Math.min(Math.max(window.scrollY / docH, 0), 1) : 0;
+    dom.sideNav.style.setProperty('--sn-progress', progress.toFixed(4));
+    if (dom.progressBar) dom.progressBar.style.transform = 'scaleX(' + progress.toFixed(4) + ')';
+
+    const dots = dom.sideNav.children;
+    if (!dots.length) return;
+
+    // Footer is "reached" once a meaningful slice of it has scrolled into view
+    // (its top sits at least 40px above the viewport bottom). This stays correct
+    // for a short footer at the end of a tall page, where the footer never
+    // climbs past the upper viewport.
+    const footer = dom.footerEl;
+    const footerActive = footer && footer.getBoundingClientRect().top < window.innerHeight - 40;
+    const activeId = footerActive ? 'footer' : currentSectionId;
+
+    for (const d of dots) {
+        const on = d.dataset.section === activeId;
+        d.classList.toggle('active', on);
+        if (on) d.setAttribute('aria-current', 'true');
+        else d.removeAttribute('aria-current');
+    }
 }
 
 function closeMobileMenu() {
@@ -236,8 +272,38 @@ const btnClass = name => name === 'Download' ? 'btn-primary' : 'btn-secondary';
 
 function buttonsHtml(opts) {
     let s = '';
-    for (const o of opts) s += '<a href="' + o.url + '" class="btn ' + btnClass(o.name) + '" target="_blank" rel="noopener">' + o.name + '</a>';
+    // Options flagged with "monetize" hold a raw file URL (e.g. Mediafire) and
+    // get a fresh Linkvertise link generated on the fly, exactly like the
+    // launcher releases. Pre-made Linkvertise links are used as-is.
+    for (const o of opts) {
+        const href = o.monetize ? getMonetizedUrl(o.url) : o.url;
+        s += '<a href="' + href + '" class="btn ' + btnClass(o.name) + '" target="_blank" rel="noopener">' + o.name + '</a>';
+    }
     return s;
+}
+
+function changelogHtml(entries) {
+    if (!entries || !entries.length) return '';
+    let rows = '';
+    for (const c of entries) {
+        let notes = '';
+        for (const n of c.notes) notes += '<li>' + n + '</li>';
+        rows += '<div class="changelog-entry">'
+            + '<div class="changelog-entry-head">'
+            + '<span class="changelog-entry-version">' + c.version + '</span>'
+            + (c.date ? '<span class="changelog-entry-date">' + c.date + '</span>' : '')
+            + '</div>'
+            + (c.title ? '<p class="changelog-entry-title">' + c.title + '</p>' : '')
+            + '<ul class="changelog-notes">' + notes + '</ul>'
+            + '</div>';
+    }
+    return '<details class="ext-dropdown changelog-dropdown">'
+        + '<summary class="ext-summary">'
+        + '<span class="ext-summary-label"><i class="fas fa-clipboard-list" aria-hidden="true"></i> Changelog</span>'
+        + '<i class="fas fa-chevron-down ext-chevron" aria-hidden="true"></i>'
+        + '</summary>'
+        + '<div class="ext-list">' + rows + '</div>'
+        + '</details>';
 }
 
 const majorVersion = str => {
@@ -279,6 +345,7 @@ function clientCard(item, slug, exts) {
         + '<span><i class="fas fa-file-archive download-meta-icon" aria-hidden="true"></i>' + item.size + '</span>'
         + '</div>'
         + '<div class="download-buttons">' + buttonsHtml(item.options) + '</div>'
+        + changelogHtml(item.changelog)
         + extDropdownHtml(exts)
         + '</div>';
 }
@@ -374,19 +441,39 @@ function initLauncher() {
         });
 }
 
-function setupToast() {
-    if (sessionStorage.getItem(NOTIFICATION.key)) return;
-    $('toastMsg').textContent = NOTIFICATION.text;
+// Pull the latest client version (e.g. "v6.2") out of the downloads data so the
+// header pill and announcement always match the newest release without edits.
+function latestVersionLabel() {
+    const w = (downloadsData.clients && downloadsData.clients.working) || [];
+    const latest = w.find(c => c.tag === 'Latest') || w[0];
+    if (!latest) return null;
+    const m = /v[\d.]+/i.exec(latest.version);
+    return m ? m[0] : latest.version;
+}
+
+function applyVersioning() {
+    const v = latestVersionLabel();
+    if (!v) return;
+    const pill = document.querySelector('.version-pill');
+    if (pill) pill.textContent = v;
+    setupToast(v);
+}
+
+function setupToast(version) {
+    toastKey = 'glacier-' + version + '-release';
+    if (sessionStorage.getItem(toastKey)) return;
+    $('toastMsg').textContent = 'Glacier ' + version + ' is now available!';
     const cta = $('toastCta');
     cta.textContent = NOTIFICATION.cta;
     cta.addEventListener('click', e => { e.preventDefault(); showSection(NOTIFICATION.section); dismissToast(); });
-    $('toastBanner').classList.add('visible');
     document.body.classList.add('has-toast');
     $('toastClose').addEventListener('click', dismissToast);
+    // Let the page settle, then spring the popup in from the corner.
+    setTimeout(() => $('toastBanner').classList.add('visible'), 700);
 }
 
 function dismissToast() {
-    sessionStorage.setItem(NOTIFICATION.key, '1');
+    if (toastKey) sessionStorage.setItem(toastKey, '1');
     $('toastBanner').classList.remove('visible');
     document.body.classList.remove('has-toast');
 }
@@ -500,12 +587,16 @@ function setupScroll() {
         const y = window.scrollY;
         header.classList.toggle('scrolled', y > 50);
         back.classList.toggle('visible', y > 320);
+        syncSideNav();
         raf = false;
     }
 
-    window.addEventListener('scroll', () => {
+    const schedule = () => {
         if (!raf) { raf = true; requestAnimationFrame(tick); }
-    }, { passive: true });
+    };
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    tick();
 
     back.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
@@ -586,9 +677,9 @@ function setupShowcase() {
 
 function handleSectionClick(id) {
     if (id === 'footer') {
-        const f = document.querySelector('footer');
-        if (f) f.scrollIntoView({ behavior: 'smooth' });
-        for (const d of dom.sideNav.querySelectorAll('.side-dot')) d.classList.toggle('active', d.dataset.section === 'footer');
+        if (dom.footerEl) dom.footerEl.scrollIntoView({ behavior: 'smooth' });
+        // The scroll-spy will settle the active dot; reflect it immediately too.
+        syncSideNav();
     } else {
         showSection(id);
     }
@@ -629,6 +720,8 @@ function init() {
         navMenu: $('navMenu'),
         mobileMenuBtn: $('mobileMenuBtn'),
         sideNav: $('sideNav'),
+        progressBar: $('scrollProgress'),
+        footerEl: document.querySelector('footer'),
         sections: document.querySelectorAll('.content-section'),
         navLinks: document.querySelectorAll('.nav-tab'),
         contentContainer: document.querySelector('.content-container'),
@@ -658,7 +751,6 @@ function init() {
     const modSearch = $('modSearch');
     if (modSearch) modSearch.addEventListener('input', debounce(e => searchMods(e.target.value), 100));
 
-    setupToast();
     setupGlobalSearch();
     fetchDiscord();
 
@@ -670,6 +762,7 @@ function init() {
     showSection(ALL.has(initial.id) ? initial.id : 'home', initial.sub);
 
     loadData().then(() => {
+        applyVersioning();
         initFAQ();
         initMods();
         initDownloads();

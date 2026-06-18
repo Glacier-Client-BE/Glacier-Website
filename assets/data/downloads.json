@@ -2,8 +2,32 @@
   "clients": {
     "working": [
       {
-        "version": "Glacier v6.1",
+        "version": "Glacier v6.2",
         "tag": "Latest",
+        "release": "2026-06-18",
+        "size": "3.41 MB",
+        "options": [
+          {"name": "Download", "url": "https://www.mediafire.com/file/eqbd34dxnw35wo2/Glacier_Client_V6.2_[Main].mcpack/file", "monetize": true}
+        ],
+        "changelog": [
+          {
+            "version": "v6.2",
+            "date": "2026-06-18",
+            "title": "HUD Hotfix and more: Restores compatibility with Minecraft Bedrock v26.30.",
+            "notes": [
+              "Fixed errors when enabling the resource pack on MCBE v26.30.",
+              "Fixed HUD elements not rendering or functioning correctly.",
+              "Fixed the Mod Menu not opening after activation.",
+              "Restored full HUD functionality and compatibility with the latest Minecraft update.",
+              "Fixed an error with the Hand Model on Java x Bedrock crossplay servers.",
+              "Fixed issues with texture missing."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "Glacier v6.1",
+        "tag": "Archived",
         "release": "2026-03-08",
         "size": "3.38 MB",
         "options": [
