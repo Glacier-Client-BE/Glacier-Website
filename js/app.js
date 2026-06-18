@@ -60,6 +60,13 @@ const dlIndex = new Map();
 let pendingDeepLink = null;
 let currentSectionId = 'home';
 
+// Eased scroll position that lerps toward window.scrollY each frame. Scroll-
+// linked effects (side rail, top progress bar, showcase) read from this instead
+// of the raw value so they glide and settle rather than tracking 1:1 — the
+// "Apple-esque" feel — while native scrolling stays untouched.
+let smoothY = 0;
+const scrollSubs = [];
+
 const ESC_RE = /[<>"']/g;
 const ESC_MAP = { '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 const escAttr = s => String(s).replace(ESC_RE, c => ESC_MAP[c]);
@@ -170,7 +177,7 @@ function syncSideNav() {
     if (!dom.sideNav) return;
 
     const docH = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docH > 0 ? Math.min(Math.max(window.scrollY / docH, 0), 1) : 0;
+    const progress = docH > 0 ? Math.min(Math.max(smoothY / docH, 0), 1) : 0;
     dom.sideNav.style.setProperty('--sn-progress', progress.toFixed(4));
     if (dom.progressBar) dom.progressBar.style.transform = 'scaleX(' + progress.toFixed(4) + ')';
 
@@ -528,12 +535,14 @@ function applyVersioning() {
     if (!v) return;
     const pill = document.querySelector('.version-pill');
     if (pill) pill.textContent = v;
-    setupToast(v);
+    // The two corner popups share one slot: the version announcement takes
+    // priority; the donation nudge fills in when there's no new release to show.
+    if (!setupToast(v)) setupDonateToast();
 }
 
 function setupToast(version) {
     toastKey = 'glacier-' + version + '-release';
-    if (sessionStorage.getItem(toastKey)) return;
+    if (sessionStorage.getItem(toastKey)) return false;
     $('toastMsg').textContent = 'Glacier ' + version + ' is now available!';
     const cta = $('toastCta');
     cta.textContent = NOTIFICATION.cta;
@@ -542,11 +551,31 @@ function setupToast(version) {
     $('toastClose').addEventListener('click', dismissToast);
     // Let the page settle, then spring the popup in from the corner.
     setTimeout(() => $('toastBanner').classList.add('visible'), 700);
+    return true;
 }
 
 function dismissToast() {
     if (toastKey) sessionStorage.setItem(toastKey, '1');
     $('toastBanner').classList.remove('visible');
+    document.body.classList.remove('has-toast');
+}
+
+// Donation prompt: same springy corner popup as the announcement, shown on
+// every load (when the version announcement isn't taking the slot). The CTA
+// carries data-section="donate" so the global delegation handles navigation;
+// here we just hide it. Dismissing only hides it for the current view — a
+// reload brings it back.
+function setupDonateToast() {
+    const banner = $('donateBanner');
+    if (!banner) return;
+    document.body.classList.add('has-toast');
+    $('donateClose').addEventListener('click', dismissDonateToast);
+    $('donateCta').addEventListener('click', dismissDonateToast);
+    setTimeout(() => banner.classList.add('visible'), 900);
+}
+
+function dismissDonateToast() {
+    $('donateBanner').classList.remove('visible');
     document.body.classList.remove('has-toast');
 }
 
@@ -653,22 +682,39 @@ function fetchDiscord() {
 function setupScroll() {
     const header = dom.headerEl;
     const back = $('backToTop');
-    let raf = false;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let raf = 0;
+    smoothY = window.scrollY;
 
-    function tick() {
-        const y = window.scrollY;
-        header.classList.toggle('scrolled', y > 50);
-        back.classList.toggle('visible', y > 320);
+    // Single rAF loop that drives every scroll-linked effect from one eased
+    // value. It keeps running until smoothY catches the real scroll position,
+    // then parks itself so an idle page costs nothing.
+    function frame() {
+        const targetY = window.scrollY;
+        const diff = targetY - smoothY;
+        if (reduce || Math.abs(diff) < 0.4) {
+            smoothY = targetY;
+        } else {
+            smoothY += diff * 0.16;
+        }
+
+        header.classList.toggle('scrolled', smoothY > 50);
+        back.classList.toggle('visible', smoothY > 320);
         syncSideNav();
-        raf = false;
+        for (const fn of scrollSubs) fn(smoothY);
+
+        if (!reduce && Math.abs(window.scrollY - smoothY) >= 0.4) {
+            raf = requestAnimationFrame(frame);
+        } else {
+            smoothY = window.scrollY;
+            raf = 0;
+        }
     }
 
-    const schedule = () => {
-        if (!raf) { raf = true; requestAnimationFrame(tick); }
-    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(frame); };
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule, { passive: true });
-    tick();
+    frame();
 
     back.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
@@ -707,44 +753,68 @@ function setupShowcase() {
     const imgs = [...document.querySelectorAll('.showcase-img')];
     const texts = [...document.querySelectorAll('.showcase-text')];
     const ticks = [...document.querySelectorAll('.showcase-tick')];
-    const frameCount = imgs.length;
-    if (!frameCount) return;
+    const n = imgs.length;
+    if (!n) return;
+    const span = n - 1;
 
-    let activeFrame = -1;
-    let ticking = false;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const clamp01 = v => (v < 0 ? 0 : v > 1 ? 1 : v);
+    // smootherstep — flat at both ends. Applied within each segment it gives
+    // every frame a "dwell" where it sits fully composed, then a quick crossfade
+    // into the next, instead of a constant linear scrub.
+    const smoother = x => x * x * x * (x * (x * 6 - 15) + 10);
 
-    function activate(frame) {
-        if (frame === activeFrame) return;
-        activeFrame = frame;
-        const f = String(frame);
-        for (const el of imgs) el.classList.toggle('is-active', el.dataset.frame === f);
-        for (const el of texts) el.classList.toggle('is-active', el.dataset.frame === f);
-        for (const el of ticks) el.classList.toggle('is-active', el.dataset.frame === f);
-    }
-
-    // Map scroll progress through the pinned section to a frame index.
-    // Deterministic + rAF-throttled, which reads far smoother than picking
-    // the best intersection ratio between overlapping triggers.
-    function update() {
-        ticking = false;
+    // y is the eased scroll position from the shared loop. We derive the section's
+    // document-space top from the *real* scroll so the mapping stays correct, then
+    // feed the eased y through it for the buttery, slightly-trailing motion.
+    function render(y) {
         const rect = showcase.getBoundingClientRect();
         const total = rect.height - window.innerHeight;
-        if (total <= 0) { activate(0); return; }
-        const scrolled = Math.min(Math.max(-rect.top, 0), total);
-        const progress = scrolled / total;
-        let frame = Math.floor(progress * frameCount);
-        if (frame >= frameCount) frame = frameCount - 1;
-        if (frame < 0) frame = 0;
-        activate(frame);
+        const absTop = rect.top + window.scrollY;
+        const p = total > 0 ? clamp01((y - absTop) / total) : 0;
+
+        const posF = p * span;
+        const lo = Math.min(Math.floor(posF), span);
+        const pos = reduce ? Math.round(posF) : Math.min(lo + smoother(posF - lo), span);
+        const baseI = Math.min(Math.floor(pos), span);
+        const t = pos - baseI;                       // 0..1 within the active segment
+        const nearest = Math.round(pos);
+
+        for (let i = 0; i < n; i++) {
+            const d = pos - i;
+            // Opaque base layer + incoming layer fading over it → a clean dissolve
+            // with no bleed-through to the backdrop mid-transition.
+            const op = i === baseI ? 1 : (i === baseI + 1 ? t : 0);
+
+            const img = imgs[i];
+            const txt = texts[i];
+            if (reduce) {
+                img.style.opacity = img.style.transform = '';
+                if (txt) txt.style.opacity = txt.style.transform = '';
+            } else {
+                const ad = Math.min(Math.abs(d), 1);
+                img.style.opacity = op.toFixed(3);
+                img.style.transform = `translateY(${(-d * 1.6).toFixed(2)}%) scale(${(1 + 0.06 * ad).toFixed(3)})`;
+                if (txt) {
+                    txt.style.opacity = op.toFixed(3);
+                    txt.style.transform = `translateY(${(-d * 14).toFixed(1)}px)`;
+                }
+            }
+            img.classList.toggle('is-active', i === nearest);
+            if (txt) txt.classList.toggle('is-active', i === nearest);
+        }
+
+        for (let i = 0; i < n; i++) {
+            const tick = ticks[i];
+            if (!tick) continue;
+            tick.style.setProperty('--w', clamp01(1 - Math.abs(pos - i)).toFixed(3));
+            tick.style.setProperty('--fill', clamp01(pos - i + 1).toFixed(3));
+            tick.classList.toggle('is-active', i === nearest);
+        }
     }
 
-    function onScroll() {
-        if (!ticking) { ticking = true; requestAnimationFrame(update); }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    update();
+    scrollSubs.push(render);
+    render(smoothY);
 }
 
 function handleSectionClick(id) {

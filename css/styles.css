@@ -282,9 +282,11 @@ header {
     transition: background var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
 }
 
-/* ── Announcement popup (bottom-right) ──
-   Glass card that springs in from the corner and animates back out on dismiss. */
-#toastBanner {
+/* ── Announcement + donation popups (bottom-right) ──
+   Glass card that springs in from the corner and animates back out on dismiss.
+   Only one is ever shown at a time (see setupToast / setupDonateToast). */
+#toastBanner,
+#donateBanner {
     position: fixed;
     right: 24px;
     bottom: 24px;
@@ -308,10 +310,31 @@ header {
     transition: opacity 0.45s var(--ease), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-#toastBanner.visible {
+#toastBanner.visible,
+#donateBanner.visible {
     opacity: 1;
     transform: translateY(0) scale(1);
     pointer-events: auto;
+}
+
+/* Donation popup → warm pink accent on the icon, title and CTA to set it apart
+   from the blurple news popup while keeping the same card. Scoped to #donateBanner
+   so they outrank the shared .toast-* base rules regardless of source order. */
+#donateBanner .toast-icon {
+    background: rgba(235, 69, 158, 0.14);
+    color: var(--pink);
+}
+
+#donateBanner .toast-title {
+    color: var(--pink);
+}
+
+#donateBanner .toast-cta {
+    background: var(--pink);
+}
+
+#donateBanner .toast-cta:hover {
+    background: #f25cae;
 }
 
 .toast-icon {
@@ -380,7 +403,8 @@ header {
     transform: translateX(3px);
 }
 
-#toastClose {
+#toastClose,
+#donateClose {
     position: absolute;
     top: 9px;
     right: 9px;
@@ -395,7 +419,8 @@ header {
     transition: color var(--fast) var(--ease), background var(--fast) var(--ease);
 }
 
-#toastClose:hover {
+#toastClose:hover,
+#donateClose:hover {
     color: var(--text);
     background: var(--bg-item-hover);
 }
@@ -643,52 +668,65 @@ body.has-toast #backToTop {
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    align-items: center;
+    gap: 13px;
     z-index: 900;
     background: var(--glass-strong);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    padding: 16px 9px;
+    padding: 15px 10px;
     border-radius: var(--pill);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
     --sn-progress: 0;
+    /* Gentle-overshoot spring used for the morphing dot/capsule. */
+    --sn-spring: cubic-bezier(0.34, 1.45, 0.5, 1);
 }
 
-/* Vertical progress rail behind the dots: a faint track + an accent fill
-   that grows from the top as the page is scrolled (set via --sn-progress). */
+/* Vertical progress rail: a faint full-height track sitting *behind* the dots,
+   plus an accent fill that grows from the top as the page is scrolled
+   (set via --sn-progress). The fill is lifted in front of the inactive dots so
+   the progress thread reads clearly as it passes over each circle. */
 .side-nav::before,
 .side-nav::after {
     content: '';
     position: absolute;
     left: 50%;
-    top: 16px;
+    top: 15px;
     width: 2px;
     transform: translateX(-50%);
     border-radius: 2px;
-    z-index: 0;
     pointer-events: none;
 }
 
 .side-nav::before {
-    bottom: 16px;
+    bottom: 15px;
     background: var(--glass-border);
+    opacity: 0.7;
+    z-index: 0;
 }
 
 .side-nav::after {
-    height: calc((100% - 32px) * var(--sn-progress));
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent-glow);
-    transition: height 0.12s linear;
+    height: calc((100% - 30px) * var(--sn-progress));
+    background: linear-gradient(180deg, var(--accent), var(--accent-hover));
+    box-shadow: 0 0 9px var(--accent-glow);
+    transition: height 0.18s var(--ease);
+    z-index: 2;
 }
 
 .side-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.22);
+    width: 9px;
+    height: 9px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.24);
     cursor: pointer;
-    transition: background var(--t), transform var(--t), box-shadow var(--t);
+    /* Morph (width/height) springs; colour/glow eases — keeps the capsule snap
+       lively without the colour flashing. */
+    transition: height 0.45s var(--sn-spring),
+                width 0.45s var(--sn-spring),
+                transform 0.3s var(--ease),
+                background 0.28s var(--ease),
+                box-shadow 0.28s var(--ease);
     position: relative;
     z-index: 1;
 }
@@ -696,51 +734,61 @@ body.has-toast #backToTop {
 .side-dot::after {
     content: attr(data-tooltip);
     position: absolute;
-    right: 24px;
+    right: 22px;
     top: 50%;
-    transform: translateY(-50%);
-    background: var(--surface);
+    transform: translateY(-50%) translateX(6px);
+    background: var(--glass-strong);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
     color: var(--text);
-    padding: 5px 11px;
-    border-radius: var(--r-sm);
+    padding: 5px 12px;
+    border-radius: var(--pill);
     font-size: 0.78rem;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 0.2px;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     border: 1px solid var(--glass-border);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
-    transition: opacity var(--t), right var(--t), visibility var(--t);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.32);
+    transition: opacity 0.26s var(--ease),
+                transform 0.4s var(--sn-spring),
+                visibility 0.26s var(--ease);
 }
 
 .side-dot:hover {
-    background: var(--accent);
-    transform: scale(1.3);
-    box-shadow: 0 0 12px var(--accent-glow);
+    background: rgba(255, 255, 255, 0.55);
+    transform: scale(1.18);
+    box-shadow: 0 0 11px var(--accent-glow);
 }
 
-.side-dot:hover::after {
+.side-dot:hover::after,
+.side-dot:focus-visible::after {
     opacity: 1;
     visibility: visible;
-    right: 28px;
+    transform: translateY(-50%) translateX(0);
 }
 
+/* Active section → the dot elongates into a vertical capsule (iOS page-control
+   style) rather than just growing, giving a clear, premium "you are here". */
 .side-dot.active {
-    background: var(--accent);
-    transform: scale(1.4);
+    height: 24px;
+    width: 9px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-hover));
     box-shadow: 0 0 16px var(--accent-glow);
+    /* Sit above the fill line so the capsule reads as one solid pill, not a
+       circle bisected by the rail. */
+    z-index: 3;
+}
+
+.side-dot.active:hover {
+    transform: none;
 }
 
 .side-dot:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
-}
-
-.side-dot:focus-visible::after {
-    opacity: 1;
-    visibility: visible;
-    right: 28px;
 }
 
 header {
@@ -2469,18 +2517,18 @@ footer {
 
 .js-reveal .reveal {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(28px) scale(.975);
     transition: opacity .7s var(--ease), transform .7s var(--ease);
 }
 
 .js-reveal .reveal.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
 @keyframes revealUp {
-    from { opacity: 0; transform: translateY(36px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(36px) scale(.975); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes heroFloat {
@@ -2570,7 +2618,10 @@ footer {
     object-fit: cover;
     opacity: 0;
     transform: scale(1.05);
-    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Opacity & transform are scrubbed inline per-frame from the eased scroll
+       value, so no CSS transition here — it would double-lag the motion. The
+       .is-active rule below is the no-JS fallback (frame 0 ships active). */
+    transition: none;
     will-change: opacity, transform;
 }
 
@@ -2607,7 +2658,8 @@ footer {
     flex-direction: column;
     opacity: 0;
     transform: translateY(14px);
-    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Scrubbed inline per-frame (see .showcase-img). */
+    transition: none;
     pointer-events: none;
 }
 
@@ -2637,21 +2689,34 @@ footer {
     margin-top: 8px;
 }
 
+/* Continuous progress ticks: width (--w) and fill (--fill) are scrubbed inline
+   from the eased scroll value, so the current tick grows and fills smoothly as
+   you scroll through the sequence rather than snapping between fixed widths. */
 .showcase-tick {
-    width: 32px;
-    height: 3px;
-    border-radius: 2px;
+    position: relative;
+    width: calc(30px + 18px * var(--w, 0));
+    height: 4px;
+    border-radius: 3px;
     background: rgba(255, 255, 255, .15);
-    transition: background var(--normal) var(--ease), width var(--normal) var(--ease);
+    overflow: hidden;
+}
+
+.showcase-tick::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+    transform-origin: left center;
+    transform: scaleX(var(--fill, 0));
 }
 
 [data-theme="light"] .showcase-tick {
     background: rgba(0, 0, 0, .14);
 }
 
-.showcase-tick.is-active {
-    background: var(--blurple);
-    width: 48px;
+.showcase-tick.is-active::after {
+    box-shadow: 0 0 10px var(--accent-glow);
 }
 
 .showcase-trigger {
@@ -2696,8 +2761,9 @@ footer {
     .hero-container { gap: 36px; }
     .community-content { grid-template-columns: 1fr; }
     .community-widget iframe { max-height: 340px; }
-    .side-nav { right: 10px; padding: 11px 6px; gap: 11px; }
-    .side-dot { width: 8px; height: 8px; }
+    .side-nav { right: 10px; padding: 13px 8px; gap: 11px; }
+    .side-dot { width: 8px; height: 8px; border-radius: 8px; }
+    .side-dot.active { width: 8px; height: 21px; }
 }
 
 @media (max-width: 768px) {
@@ -2849,7 +2915,7 @@ footer {
     }
     .search-trigger i, .mobile-menu-btn { font-size: .82rem; }
 
-    /* Announcement popup spans the bottom with even margins on phones */
-    #toastBanner { right: 12px; left: 12px; bottom: 12px; width: auto; }
+    /* Announcement / donation popups span the bottom with even margins on phones */
+    #toastBanner, #donateBanner { right: 12px; left: 12px; bottom: 12px; width: auto; }
     body.has-toast #backToTop { bottom: 140px; }
 }
