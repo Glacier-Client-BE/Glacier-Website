@@ -6,7 +6,7 @@ const LINKVERTISE_USER_ID = 499358;
 // Leave empty to disable live counts (cards then show the static base numbers).
 // Expected API:  GET <base>/counts -> { "v6.2": 12, ... }
 //                POST <base>/increment/<key> -> { count: 13 }
-const COUNTER_API = 'https://glacier-downloads.pepeoncloudeflare.workers.dev7';
+const COUNTER_API = 'https://glacier-downloads.pepeoncloudeflare.workers.dev';
 
 // Stable per-version key used by the counter (e.g. "Glacier v6.2" -> "v6.2").
 function countKey(version) {
