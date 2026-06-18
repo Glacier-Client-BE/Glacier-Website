@@ -2,6 +2,20 @@
 const USE_MONETIZATION = true;
 const LINKVERTISE_USER_ID = 499358;
 
+// Base URL of the Cloudflare Worker that tracks live download clicks.
+// Leave empty to disable live counts (cards then show the static base numbers).
+// Expected API:  GET <base>/counts -> { "v6.2": 12, ... }
+//                POST <base>/increment/<key> -> { count: 13 }
+const COUNTER_API = 'https://glacier-downloads.pepeoncloudeflare.workers.dev7';
+
+// Stable per-version key used by the counter (e.g. "Glacier v6.2" -> "v6.2").
+function countKey(version) {
+    const m = /v[\d.]+/i.exec(version || '');
+    return m ? m[0].toLowerCase() : null;
+}
+
+const formatCount = n => Number(n).toLocaleString('en-US');
+
 function getMonetizedUrl(targetUrl) {
     if (!USE_MONETIZATION || !LINKVERTISE_USER_ID) return targetUrl;
     try {
@@ -343,6 +357,11 @@ function clientCard(item, slug, exts) {
         + '<div class="download-meta">'
         + '<span><i class="fas fa-calendar-alt download-meta-icon" aria-hidden="true"></i>' + item.release + '</span>'
         + '<span><i class="fas fa-file-archive download-meta-icon" aria-hidden="true"></i>' + item.size + '</span>'
+        + (item.downloads != null
+            ? '<span class="dl-count" data-dl-key="' + (countKey(item.version) || '') + '" data-dl-base="' + item.downloads + '">'
+              + '<i class="fas fa-download download-meta-icon" aria-hidden="true"></i>'
+              + '<span class="dl-count-num">' + formatCount(item.downloads) + '</span> downloads</span>'
+            : '')
         + '</div>'
         + '<div class="download-buttons">' + buttonsHtml(item.options) + '</div>'
         + changelogHtml(item.changelog)
@@ -394,6 +413,55 @@ function initDownloads() {
         if (wc && wc.children[latestIdx]) dlIndex.set('latest', { tab: 'clients', el: wc.children[latestIdx] });
     }
     if (pendingDeepLink) { applyDeepLink(pendingDeepLink); pendingDeepLink = null; }
+    initDownloadCounts();
+}
+
+// Displayed count = static base (from downloads.json) + live clicks tracked by
+// the Cloudflare Worker. We fetch the worker's deltas once, then optimistically
+// bump the number whenever a download button is clicked.
+function initDownloadCounts() {
+    const cells = [...document.querySelectorAll('.dl-count')];
+    if (!cells.length) return;
+
+    const setCount = (cell, delta) => {
+        const base = Number(cell.dataset.dlBase) || 0;
+        const num = cell.querySelector('.dl-count-num');
+        if (num) num.textContent = formatCount(base + (Number(delta) || 0));
+    };
+
+    if (COUNTER_API && !/YOUR-SUBDOMAIN/.test(COUNTER_API)) {
+        fetch(COUNTER_API + '/counts')
+            .then(r => r.ok ? r.json() : {})
+            .then(counts => {
+                for (const cell of cells) {
+                    const key = cell.dataset.dlKey;
+                    if (key && counts[key] != null) setCount(cell, counts[key]);
+                }
+            })
+            .catch(() => {});
+    }
+
+    // Increment on download-button click (delegated, once).
+    if (initDownloadCounts._bound) return;
+    initDownloadCounts._bound = true;
+    document.addEventListener('click', e => {
+        const btn = e.target.closest('.download-card .download-buttons a');
+        if (!btn) return;
+        const cell = btn.closest('.download-card').querySelector('.dl-count');
+        if (!cell) return;
+        const key = cell.dataset.dlKey;
+        // Optimistic local bump so the user sees it react immediately.
+        cell.dataset.dlBase = String((Number(cell.dataset.dlBase) || 0) + 1);
+        setCount(cell, 0);
+        if (key && COUNTER_API && !/YOUR-SUBDOMAIN/.test(COUNTER_API)) {
+            // Roll the optimistic +1 back into the base and trust the worker total.
+            cell.dataset.dlBase = String((Number(cell.dataset.dlBase) || 1) - 1);
+            fetch(COUNTER_API + '/increment/' + encodeURIComponent(key), { method: 'POST' })
+                .then(r => r.ok ? r.json() : null)
+                .then(d => { if (d && d.count != null) setCount(cell, d.count); })
+                .catch(() => {});
+        }
+    });
 }
 
 function initLauncher() {

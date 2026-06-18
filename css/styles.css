@@ -1853,6 +1853,15 @@ main {
     font-size: .9rem;
 }
 
+.dl-count {
+    white-space: nowrap;
+}
+
+.dl-count-num {
+    color: var(--text);
+    font-weight: 600;
+}
+
 .download-buttons {
     display: flex;
     flex-wrap: wrap;
