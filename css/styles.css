@@ -221,12 +221,28 @@ html {
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     background: transparent;
     color: var(--text);
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
+}
+
+/* Larger / heading text uses Roboto bold; body text uses Plus Jakarta Sans. */
+h1, h2, h3,
+.hero-title,
+.section-title,
+.branding-title,
+.feature-title,
+.download-title,
+.stat-number,
+.downloads-sub-title,
+.downloads-sub-title-spaced {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
 }
 
 /* ── Fixed blurred launcher background ──
@@ -1017,7 +1033,7 @@ main {
 
 .hero-title {
     font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.1;
     color: var(--accent);
 }
@@ -1817,7 +1833,7 @@ main {
 
 .download-title {
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #fff;
     transition: color var(--normal) var(--ease);
 }
