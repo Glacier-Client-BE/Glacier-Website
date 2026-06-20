@@ -262,10 +262,23 @@ body::before {
     background-size: cover, cover, cover, cover;
     background-position: center, center, center, center;
     background-repeat: no-repeat;
-    z-index: -1;
+    z-index: -2;
     transform: translateZ(0);
     backface-visibility: hidden;
     will-change: transform;
+}
+
+/* ── Kinetic particle field ──
+   Sandboxed full-viewport canvas painted between BG.png (z-index -2) and all
+   page content (z-index >= 0). Fixed + pointer-events:none, so it never blocks
+   clicks and contributes zero layout — no CLS during load or resize.
+   Disabled entirely when the user prefers reduced motion (see js/kinetic.js). */
+.kinetic-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    display: block;
 }
 
 img { display: block; max-width: 100%; }
@@ -2918,4 +2931,90 @@ footer {
     /* Announcement / donation popups span the bottom with even margins on phones */
     #toastBanner, #donateBanner { right: 12px; left: 12px; bottom: 12px; width: auto; }
     body.has-toast #backToTop { bottom: 140px; }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Interactive 3D tilt
+   Pointer-driven perspective rotation with a moving glare highlight, applied
+   to cards and the hero image. JS sets --tilt-rx / --tilt-ry / the glare
+   position and toggles .is-tilting; everything else is declarative here so the
+   resting/hover state still composes. Gated off for touch + reduced-motion.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Containers get perspective so children rotate in shared 3D space. */
+.features-grid,
+.gallery-container,
+.donate-grid,
+.social-grid,
+.license-content,
+.mods-grid,
+.hero-image {
+    perspective: 1100px;
+}
+
+.tilt-3d {
+    --tilt-rx: 0deg;
+    --tilt-ry: 0deg;
+    --tilt-lift: 0px;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+/* While the pointer is over a tilt element, JS-driven rotation takes over from
+   the default hover transform. The faster, snappier transition is used only on
+   release so the lift settles smoothly back to rest. */
+.tilt-3d.is-tilting {
+    transform:
+        perspective(1100px)
+        rotateX(var(--tilt-rx))
+        rotateY(var(--tilt-ry))
+        translateY(var(--tilt-lift))
+        translateZ(0);
+    transition: transform 0.08s linear;
+}
+
+/* Moving glare — a soft radial highlight tracking the pointer. */
+.tilt-glare {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 2;
+    background: radial-gradient(
+        circle at var(--glare-x, 50%) var(--glare-y, 50%),
+        rgba(255, 255, 255, 0.28),
+        rgba(255, 255, 255, 0) 45%);
+    transition: opacity var(--normal) var(--ease);
+    mix-blend-mode: soft-light;
+}
+
+.tilt-3d.is-tilting .tilt-glare {
+    opacity: 1;
+}
+
+/* Lift inner media a touch toward the viewer for parallax depth. */
+.tilt-3d.is-tilting .feature-icon,
+.tilt-3d.is-tilting img {
+    transform: translateZ(40px);
+}
+
+[data-theme="light"] .tilt-glare {
+    background: radial-gradient(
+        circle at var(--glare-x, 50%) var(--glare-y, 50%),
+        rgba(255, 255, 255, 0.55),
+        rgba(255, 255, 255, 0) 45%);
+}
+
+/* No tilt where it can't help: coarse pointers (touch) and reduced motion. */
+@media (hover: none), (pointer: coarse) {
+    .tilt-glare { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tilt-3d.is-tilting {
+        transform: none;
+        transition: none;
+    }
+    .tilt-glare { display: none; }
 }
