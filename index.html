@@ -33,8 +33,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto:wght@500;700;900&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="css/styles.css?v=2026-06-18-smooth" />
-    <script src="js/app.js?v=2026-06-14b" defer></script>
+    <link rel="stylesheet" href="css/styles.css?v=2026-06-21-revamp3" />
+    <script type="module" src="js/main.js?v=2026-06-21-revamp3"></script>
     <script src="js/kinetic.js?v=2026-06-20" defer></script>
     <script src="https://publisher.linkvertise.com/cdn/linkvertise.js"></script>
     <script>
@@ -95,7 +95,20 @@
         <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
 
-    <nav class="side-nav" id="sideNav" aria-label="Section navigation"></nav>
+    <aside class="quick-dock" id="quickDock" aria-label="Quick actions">
+        <a class="quick-action" href="#" data-section="downloads" data-tooltip="Download"
+            aria-label="Go to downloads">
+            <i class="fas fa-download" aria-hidden="true"></i>
+        </a>
+        <a class="quick-action quick-action--discord" href="https://discord.glacierclient.xyz/" target="_blank"
+            rel="noopener" data-tooltip="Join Discord" aria-label="Join our Discord">
+            <i class="fab fa-discord" aria-hidden="true"></i>
+        </a>
+        <a class="quick-action" href="https://config.glacierclient.xyz/" target="_blank" rel="noopener"
+            data-tooltip="Config Editor" aria-label="Open the config editor">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+        </a>
+    </aside>
 
     <header id="mainHeader">
         <div class="top-bar">
@@ -140,7 +153,7 @@
     <main>
         <section class="hero" id="hero-section">
             <div class="hero-container container">
-                <div class="hero-content">
+                <div class="hero-content" data-parallax="0.05">
                     <h1 class="hero-title">Next Generation Minecraft Experience</h1>
                     <p class="hero-subtitle">Optimized texture pack client for Minecraft Bedrock Edition with extensive
                         modules, draggable GUI, and lightweight performance. Experience the future of Minecraft with
@@ -222,7 +235,10 @@
                                 data-frame="2" loading="lazy" decoding="async" />
                         </div>
                         <div class="showcase-info">
-                            <span class="showcase-eyebrow">A peek inside</span>
+                            <div class="showcase-topline">
+                                <span class="showcase-eyebrow">A peek inside</span>
+                                <span class="showcase-count" aria-hidden="true"><span class="showcase-count-num">01</span><span class="showcase-count-sep">/</span><span class="showcase-count-total">03</span></span>
+                            </div>
                             <div class="showcase-textstack">
                                 <div class="showcase-text is-active" data-frame="0">
                                     <h2 class="showcase-heading">Modular menu, your way.</h2>
@@ -240,10 +256,21 @@
                                         flow.</p>
                                 </div>
                             </div>
-                            <div class="showcase-progress">
-                                <span class="showcase-tick is-active" data-frame="0"></span>
-                                <span class="showcase-tick" data-frame="1"></span>
-                                <span class="showcase-tick" data-frame="2"></span>
+                            <div class="showcase-controls">
+                                <button class="showcase-arrow" data-dir="-1" aria-label="Previous screen">
+                                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                                </button>
+                                <div class="showcase-progress" role="tablist" aria-label="Choose screen">
+                                    <button class="showcase-tick is-active" data-frame="0" role="tab"
+                                        aria-label="Mod menu"></button>
+                                    <button class="showcase-tick" data-frame="1" role="tab"
+                                        aria-label="Start screen"></button>
+                                    <button class="showcase-tick" data-frame="2" role="tab"
+                                        aria-label="Pause screen"></button>
+                                </div>
+                                <button class="showcase-arrow" data-dir="1" aria-label="Next screen">
+                                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -111,13 +111,14 @@
 [data-theme="light"] .card-base,
 [data-theme="light"] .hero,
 [data-theme="light"] .showcase-pin,
-[data-theme="light"] .side-nav {
+[data-theme="light"] .quick-dock {
     background: rgba(255, 255, 255, 0.86);
     border-color: rgba(0, 0, 0, 0.08);
 }
 
-[data-theme="light"] .side-dot {
-    background: rgba(0, 0, 0, 0.25);
+[data-theme="light"] .quick-action {
+    background: rgba(0, 0, 0, 0.05);
+    color: #1a1d20;
 }
 
 [data-theme="light"] footer {
@@ -263,7 +264,9 @@ body::before {
     background-position: center, center, center, center;
     background-repeat: no-repeat;
     z-index: -2;
-    transform: translateZ(0);
+    /* Slight over-scale so the far layer can drift (--bg-parallax, set per frame
+       from the eased scroll value) without exposing a gap at the edges. */
+    transform: translate3d(0, var(--bg-parallax, 0px), 0) scale(1.08);
     backface-visibility: hidden;
     will-change: transform;
 }
@@ -674,7 +677,12 @@ body.has-toast #backToTop {
     transform: translateY(-3px);
 }
 
-.side-nav {
+/* ── Quick-actions dock (right rail) ──
+   A persistent glass dock of the site's primary CTAs — download, Discord and the
+   config editor — pinned to the right edge. Replaces the old section-dot rail,
+   which only duplicated the top nav. Each action reveals its label on hover/focus
+   and lifts toward the cursor. */
+.quick-dock {
     position: fixed;
     right: 20px;
     top: 50%;
@@ -682,72 +690,66 @@ body.has-toast #backToTop {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 13px;
+    gap: 8px;
     z-index: 900;
+    padding: 8px;
     background: var(--glass-strong);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    padding: 15px 10px;
-    border-radius: var(--pill);
     border: 1px solid var(--glass-border);
+    border-radius: var(--pill);
     box-shadow: var(--glass-shadow);
-    --sn-progress: 0;
-    /* Gentle-overshoot spring used for the morphing dot/capsule. */
-    --sn-spring: cubic-bezier(0.34, 1.45, 0.5, 1);
 }
 
-/* Vertical progress rail: a faint full-height track sitting *behind* the dots,
-   plus an accent fill that grows from the top as the page is scrolled
-   (set via --sn-progress). The fill is lifted in front of the inactive dots so
-   the progress thread reads clearly as it passes over each circle. */
-.side-nav::before,
-.side-nav::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 15px;
-    width: 2px;
-    transform: translateX(-50%);
-    border-radius: 2px;
-    pointer-events: none;
-}
-
-.side-nav::before {
-    bottom: 15px;
-    background: var(--glass-border);
-    opacity: 0.7;
-    z-index: 0;
-}
-
-.side-nav::after {
-    height: calc((100% - 30px) * var(--sn-progress));
-    background: linear-gradient(180deg, var(--accent), var(--accent-hover));
-    box-shadow: 0 0 9px var(--accent-glow);
-    transition: height 0.18s var(--ease);
-    z-index: 2;
-}
-
-.side-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 9px;
-    background: rgba(255, 255, 255, 0.24);
-    cursor: pointer;
-    /* Morph (width/height) springs; colour/glow eases — keeps the capsule snap
-       lively without the colour flashing. */
-    transition: height 0.45s var(--sn-spring),
-                width 0.45s var(--sn-spring),
-                transform 0.3s var(--ease),
-                background 0.28s var(--ease),
-                box-shadow 0.28s var(--ease);
+.quick-action {
     position: relative;
-    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: var(--text-dim);
+    background: var(--bg-item);
+    border: 1px solid transparent;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.32s var(--ease),
+                background 0.28s var(--ease),
+                color 0.28s var(--ease),
+                box-shadow 0.28s var(--ease);
 }
 
-.side-dot::after {
+.quick-action:hover {
+    color: #fff;
+    background: var(--accent);
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: 0 8px 20px var(--accent-glow);
+}
+
+/* Discord wears its own brand colour on hover. */
+.quick-action--discord:hover {
+    background: #5865F2;
+    box-shadow: 0 8px 20px rgba(88, 101, 242, 0.5);
+}
+
+/* Tactile press — eases in, snaps back via the resting transition. */
+.quick-action:active {
+    transform: scale(0.9);
+    transition: transform 0.1s ease;
+}
+
+.quick-action:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* Hover/focus label, sitting just left of the dock. */
+.quick-action::after {
     content: attr(data-tooltip);
     position: absolute;
-    right: 22px;
+    right: 56px;
     top: 50%;
     transform: translateY(-50%) translateX(6px);
     background: var(--glass-strong);
@@ -766,42 +768,15 @@ body.has-toast #backToTop {
     border: 1px solid var(--glass-border);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.32);
     transition: opacity 0.26s var(--ease),
-                transform 0.4s var(--sn-spring),
+                transform 0.4s cubic-bezier(0.34, 1.45, 0.5, 1),
                 visibility 0.26s var(--ease);
 }
 
-.side-dot:hover {
-    background: rgba(255, 255, 255, 0.55);
-    transform: scale(1.18);
-    box-shadow: 0 0 11px var(--accent-glow);
-}
-
-.side-dot:hover::after,
-.side-dot:focus-visible::after {
+.quick-action:hover::after,
+.quick-action:focus-visible::after {
     opacity: 1;
     visibility: visible;
     transform: translateY(-50%) translateX(0);
-}
-
-/* Active section → the dot elongates into a vertical capsule (iOS page-control
-   style) rather than just growing, giving a clear, premium "you are here". */
-.side-dot.active {
-    height: 24px;
-    width: 9px;
-    background: linear-gradient(180deg, var(--accent), var(--accent-hover));
-    box-shadow: 0 0 16px var(--accent-glow);
-    /* Sit above the fill line so the capsule reads as one solid pill, not a
-       circle bisected by the rail. */
-    z-index: 3;
-}
-
-.side-dot.active:hover {
-    transform: none;
-}
-
-.side-dot:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
 }
 
 header {
@@ -1094,16 +1069,31 @@ main {
 }
 
 .hero-title {
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-size: clamp(2.2rem, 5vw, 4rem);
     font-weight: 700;
-    line-height: 1.1;
-    color: var(--accent);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    /* Editorial gradient wash — text fades from full white into the accent,
+       giving the headline depth instead of a flat fill. */
+    background: linear-gradient(180deg, var(--text) 0%, var(--text) 38%, var(--accent) 130%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+[data-theme="light"] .hero-title {
+    background: linear-gradient(180deg, #0e1116 0%, #1b2430 40%, var(--accent) 135%);
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .hero-subtitle {
-    font-size: clamp(.95rem, 1.5vw, 1.15rem);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
     color: var(--text-muted);
     line-height: 1.65;
+    max-width: 38ch;
+    letter-spacing: -0.003em;
 }
 
 .hero-buttons {
@@ -1200,31 +1190,37 @@ main {
 }
 
 .section-title {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-size: clamp(2rem, 3.4vw, 2.9rem);
     font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.022em;
     color: #fff;
     display: inline-block;
     position: relative;
 }
 
+/* Refined accent — a short, soft gradient rule with a faint glow rather than a
+   hard template-style bar. Sits centred just beneath the title. */
 .section-title::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -14px;
     left: 50%;
     transform: translateX(-50%);
-    width: 72px;
-    height: 4px;
-    background: var(--accent);
+    width: 54px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
     border-radius: 2px;
+    box-shadow: 0 0 16px var(--accent-glow);
 }
 
 .section-subtitle {
     color: var(--text-muted);
-    font-size: 1.05rem;
-    max-width: 680px;
-    margin: 20px auto 0;
-    line-height: 1.65;
+    font-size: clamp(1rem, 1.4vw, 1.12rem);
+    max-width: 600px;
+    margin: 26px auto 0;
+    line-height: 1.6;
+    letter-spacing: -0.003em;
 }
 
 .btn {
@@ -1361,7 +1357,7 @@ main {
 }
 
 .feature-card {
-    padding: 32px;
+    padding: 34px 32px;
     position: relative;
     overflow: hidden;
     transition: transform var(--t), background var(--t), border-color var(--t), box-shadow var(--t);
@@ -1372,8 +1368,22 @@ main {
     -webkit-backdrop-filter: blur(var(--blur));
 }
 
+/* Frosted top highlight — the thin bright edge Apple's panels catch from above. */
+.feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
 .feature-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
+    background: var(--glass-strong);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--shadow-lg), 0 0 0 1px var(--accent-bg);
 }
 
 .feature-badge {
@@ -1399,20 +1409,30 @@ main {
 }
 
 .feature-icon {
-    font-size: 2.3rem;
-    color: var(--blurple);
-    margin-bottom: 18px;
-    display: inline-block;
-    transition: transform var(--normal) var(--ease);
+    font-size: 1.6rem;
+    color: var(--accent-hover);
+    margin-bottom: 22px;
+    width: 58px;
+    height: 58px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: linear-gradient(150deg, var(--accent-bg), rgba(114, 137, 218, 0.04));
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    transition: transform var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
 }
 
 .feature-card:hover .feature-icon {
-    transform: scale(1.2) rotate(5deg);
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 8px 22px var(--accent-glow);
 }
 
 .feature-title {
-    font-size: 1.4rem;
+    font-size: 1.32rem;
     font-weight: 600;
+    letter-spacing: -0.012em;
     margin-bottom: 12px;
     color: #fff;
     transition: color var(--normal) var(--ease);
@@ -1558,7 +1578,9 @@ main {
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    transition: all var(--t);
+    /* Name the exact properties rather than `all` — `all` also transitions
+       layout/colour props that should snap, and costs needless style work. */
+    transition: transform var(--t), background var(--t), border-color var(--t), box-shadow var(--t);
 }
 
 [data-theme="light"] .social-card {
@@ -2539,6 +2561,24 @@ footer {
     transform: translateY(0) scale(1);
 }
 
+/* Staggered cascade — siblings in a grid reveal one after another rather than
+   snapping in together, for that composed, sequential Apple feel. */
+.js-reveal .features-grid .reveal:nth-child(2),
+.js-reveal .gallery-container .reveal:nth-child(2),
+.js-reveal .social-grid .reveal:nth-child(2),
+.js-reveal .donate-grid .reveal:nth-child(2),
+.js-reveal .license-content .reveal:nth-child(2) { transition-delay: .08s; }
+
+.js-reveal .features-grid .reveal:nth-child(3),
+.js-reveal .gallery-container .reveal:nth-child(3),
+.js-reveal .social-grid .reveal:nth-child(3),
+.js-reveal .donate-grid .reveal:nth-child(3),
+.js-reveal .license-content .reveal:nth-child(3) { transition-delay: .16s; }
+
+.js-reveal .social-grid .reveal:nth-child(4) { transition-delay: .24s; }
+.js-reveal .social-grid .reveal:nth-child(5) { transition-delay: .32s; }
+.js-reveal .social-grid .reveal:nth-child(6) { transition-delay: .40s; }
+
 @keyframes revealUp {
     from { opacity: 0; transform: translateY(36px) scale(.975); }
     to { opacity: 1; transform: translateY(0) scale(1); }
@@ -2576,41 +2616,76 @@ footer {
     }
 }
 
+/* ──────────────────────────────────────────────────────────────────────────
+   Parallax depth
+   Scroll-linked layers that drift at different rates to fake 3D depth — the
+   foreground content trails the far BG.png layer as you scroll. JS sets
+   --parallax-y per element (and --bg-parallax on <html>) from the same eased
+   scroll value the showcase reads, so the motion shares that buttery,
+   slightly-trailing feel. Add data-parallax="<factor>" to any non-reveal,
+   non-transitioned element to enrol it. Off entirely for reduced motion.
+   ────────────────────────────────────────────────────────────────────────── */
+[data-parallax] {
+    transform: translate3d(0, var(--parallax-y, 0px), 0);
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-parallax] { transform: none !important; }
+}
+
 .showcase {
     position: relative;
-    margin: 80px auto 60px;
-    max-width: 1200px;
-    padding: 0 20px;
+    /* No bottom margin: the content-container's padding + footer's top margin
+       already supply the rhythm before the footer. An extra bottom margin here
+       only stacked onto those, leaving home looser than every other tab. */
+    margin: clamp(64px, 9vw, 120px) auto 0;
+    max-width: 1240px;
+    padding: 0 var(--gutter);
     contain: layout;
 }
 
 .showcase-pin {
     position: sticky;
-    top: 90px;
-    height: calc(100vh - 110px);
-    min-height: 480px;
+    top: 88px;
+    height: calc(100vh - 108px);
+    min-height: 500px;
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 48px;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(32px, 4vw, 64px);
     align-items: center;
-    padding: 36px;
+    padding: clamp(28px, 3.5vw, 52px);
     background: var(--glass-strong);
     border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
-    box-shadow: var(--glass-shadow);
+    border-radius: 28px;
+    backdrop-filter: blur(calc(var(--blur) + 6px));
+    -webkit-backdrop-filter: blur(calc(var(--blur) + 6px));
+    /* Layered depth shadow + a frosted top highlight (the bright edge Apple's
+       panels catch from above). */
+    box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.14);
     overflow: hidden;
     z-index: 1;
+    /* --gp (set per chapter by the showcase JS) is registered as an animatable
+       number below, so the ambient glow eases between positions on each step. */
+    transition: box-shadow var(--t), --gp .9s var(--ease);
 }
 
+@property --gp {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+}
+
+/* Ambient light that sweeps across the panel as you scroll the sequence:
+   --gp (0..1, set per-frame by the showcase JS) glides the glow centres. */
 .showcase-pin::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 15% 25%, rgba(114, 137, 218, .18) 0%, transparent 55%),
-                radial-gradient(circle at 85% 75%, rgba(87, 242, 135, .12) 0%, transparent 55%);
+    background: radial-gradient(60% 60% at calc(8% + var(--gp, 0) * 78%) 22%, rgba(114, 137, 218, .22) 0%, transparent 60%),
+                radial-gradient(55% 55% at calc(92% - var(--gp, 0) * 70%) 82%, rgba(87, 242, 135, .14) 0%, transparent 60%);
     pointer-events: none;
+    transition: none;
 }
 
 .showcase-stage {
@@ -2618,9 +2693,31 @@ footer {
     aspect-ratio: 16 / 10;
     border-radius: var(--r-md);
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* Deep cinematic drop + an accent rim-light + inner top sheen. */
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.06),
+                0 0 40px -8px var(--accent-glow);
     z-index: 1;
+    transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+
+/* Hover lifts the device frame toward the viewer and intensifies the rim glow. */
+.showcase-stage:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 42px 96px rgba(0, 0, 0, 0.66),
+                0 0 0 1px rgba(255, 255, 255, 0.12),
+                0 0 60px -6px var(--accent-glow);
+}
+
+/* Glass sheen across the top of the device frame. */
+.showcase-stage::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, transparent 28%);
+    pointer-events: none;
+    z-index: 3;
+    mix-blend-mode: overlay;
 }
 
 .showcase-img {
@@ -2630,17 +2727,18 @@ footer {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transform: scale(1.05);
-    /* Opacity & transform are scrubbed inline per-frame from the eased scroll
-       value, so no CSS transition here — it would double-lag the motion. The
-       .is-active rule below is the no-JS fallback (frame 0 ships active). */
-    transition: none;
+    /* Rests slightly enlarged & nudged down; eases into a crisp, settled frame
+       when its chapter becomes active. Pure CSS transition (driven by the
+       .is-active class from the IntersectionObserver) → identical, clean motion
+       at any scroll speed. The longer transform timing trails the fade for depth. */
+    transform: scale(1.06) translateY(1.6%);
+    transition: opacity .8s var(--ease), transform 1.15s var(--ease);
     will-change: opacity, transform;
 }
 
 .showcase-img.is-active {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
 }
 
 .showcase-info {
@@ -2648,15 +2746,56 @@ footer {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 22px;
+}
+
+.showcase-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
 }
 
 .showcase-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     text-transform: uppercase;
-    letter-spacing: 2.2px;
+    letter-spacing: 2.4px;
     font-size: .72rem;
     font-weight: 800;
-    color: var(--blurple);
+    color: var(--accent-hover);
+}
+
+/* Leading accent line before the eyebrow label — an editorial flourish. */
+.showcase-eyebrow::before {
+    content: '';
+    width: 26px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent));
+}
+
+/* Monospace-feel frame counter (01 / 03) — the current index is set by JS. */
+.showcase-count {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    font-size: .82rem;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+.showcase-count-num {
+    color: var(--accent-hover);
+}
+
+.showcase-count-sep {
+    margin: 0 4px;
+    opacity: .5;
+}
+
+.showcase-count-total {
+    opacity: .65;
 }
 
 .showcase-textstack {
@@ -2670,9 +2809,10 @@ footer {
     display: flex;
     flex-direction: column;
     opacity: 0;
-    transform: translateY(14px);
-    /* Scrubbed inline per-frame (see .showcase-img). */
-    transition: none;
+    transform: translateY(22px);
+    /* Eased crossfade + rise, slightly delayed so the copy settles just after
+       the image — a clean, staggered reveal rather than everything at once. */
+    transition: opacity .6s var(--ease), transform .7s var(--ease);
     pointer-events: none;
 }
 
@@ -2680,38 +2820,109 @@ footer {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+    transition-delay: .12s;
 }
 
 .showcase-heading {
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-size: clamp(1.75rem, 3.2vw, 2.7rem);
     font-weight: 800;
-    line-height: 1.15;
-    margin-bottom: 14px;
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+    margin-bottom: 16px;
     color: var(--accent);
 }
 
 .showcase-body {
     color: var(--text-muted);
-    line-height: 1.6;
-    max-width: 420px;
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.62;
+    max-width: 42ch;
+    letter-spacing: -0.003em;
+}
+
+/* Cycler controls — prev/next arrows flanking the clickable progress dots. */
+.showcase-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.showcase-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    color: var(--accent-hover);
+    font-size: .85rem;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(var(--blur));
+    backdrop-filter: blur(var(--blur));
+    transition: transform .3s var(--ease), background .3s var(--ease),
+                border-color .3s var(--ease), box-shadow .3s var(--ease), opacity .3s var(--ease);
+}
+
+.showcase-arrow:hover:not(:disabled) {
+    transform: scale(1.08);
+    background: var(--accent-bg);
+    border-color: var(--glass-border-hover);
+    box-shadow: 0 6px 18px var(--accent-glow);
+}
+
+.showcase-arrow:active:not(:disabled) {
+    transform: scale(0.94);
+}
+
+.showcase-arrow:disabled {
+    opacity: 0.32;
+    cursor: default;
 }
 
 .showcase-progress {
     display: flex;
     gap: 10px;
-    margin-top: 8px;
+    margin: 0;
 }
 
-/* Continuous progress ticks: width (--w) and fill (--fill) are scrubbed inline
-   from the eased scroll value, so the current tick grows and fills smoothly as
-   you scroll through the sequence rather than snapping between fixed widths. */
+/* Progress ticks: the active chapter's tick widens; every passed tick fills.
+   Both transition on the same eased curve as the panel, so the indicator glides
+   in lockstep with the chapter change. */
 .showcase-tick {
     position: relative;
-    width: calc(30px + 18px * var(--w, 0));
+    width: 30px;
     height: 4px;
+    padding: 0;
+    border: none;
     border-radius: 3px;
     background: rgba(255, 255, 255, .15);
-    overflow: hidden;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: width .6s var(--ease), background .3s var(--ease);
+}
+
+/* Invisible vertical padding so the slim 4px bar is comfortably clickable. */
+.showcase-tick::before {
+    content: '';
+    position: absolute;
+    inset: -11px 0;
+}
+
+.showcase-tick:hover {
+    background: rgba(255, 255, 255, .35);
+}
+
+[data-theme="light"] .showcase-tick:hover {
+    background: rgba(0, 0, 0, .3);
+}
+
+.showcase-tick.is-active {
+    width: 48px;
 }
 
 .showcase-tick::after {
@@ -2721,7 +2932,12 @@ footer {
     border-radius: inherit;
     background: linear-gradient(90deg, var(--accent), var(--accent-hover));
     transform-origin: left center;
-    transform: scaleX(var(--fill, 0));
+    transform: scaleX(0);
+    transition: transform .6s var(--ease);
+}
+
+.showcase-tick.is-filled::after {
+    transform: scaleX(1);
 }
 
 [data-theme="light"] .showcase-tick {
@@ -2738,7 +2954,7 @@ footer {
 }
 
 @media (max-width: 900px) {
-    .showcase { margin: 60px auto 40px; }
+    .showcase { margin: 60px auto 0; }
     .showcase-pin {
         grid-template-columns: 1fr;
         gap: 22px;
@@ -2765,8 +2981,25 @@ footer {
     }
     body::before { animation: none; }
     .reveal { opacity: 1 !important; transform: none !important; }
-    .showcase-img.is-active, .showcase-text.is-active { opacity: 1 !important; transform: none !important; }
+
+    /* The showcase is an opt-in, interactive component, so it keeps a gentle
+       motion budget even here — but only the vestibular-safe kind: a plain
+       opacity crossfade for the frames/copy and soft fades on the controls,
+       with NO movement, scale or parallax. This is why the slideshow still
+       dissolves (rather than hard-cutting) and the controls still respond when
+       the OS "reduce motion" / Windows "animation effects off" setting is on. */
+    .showcase-img,
+    .showcase-text {
+        transition: opacity .55s ease !important;
+        transform: none !important;
+    }
+    .showcase-img.is-active, .showcase-text.is-active { opacity: 1 !important; }
     .showcase-img:not(.is-active), .showcase-text:not(.is-active) { opacity: 0 !important; }
+
+    .showcase-tick { transition: width .45s ease, background .3s ease !important; }
+    .showcase-tick::after { transition: transform .45s ease !important; }
+    .showcase-arrow { transition: background .25s ease, border-color .25s ease, opacity .25s ease !important; }
+    .showcase-stage { transition: box-shadow .4s ease !important; }
 }
 
 @media (max-width: 1024px) {
@@ -2774,9 +3007,7 @@ footer {
     .hero-container { gap: 36px; }
     .community-content { grid-template-columns: 1fr; }
     .community-widget iframe { max-height: 340px; }
-    .side-nav { right: 10px; padding: 13px 8px; gap: 11px; }
-    .side-dot { width: 8px; height: 8px; border-radius: 8px; }
-    .side-dot.active { width: 8px; height: 21px; }
+    .quick-dock { right: 12px; }
 }
 
 @media (max-width: 768px) {
@@ -2841,7 +3072,7 @@ footer {
     [data-theme="light"] .nav-tab:not(.active) {
         color: var(--text);
     }
-    .side-nav { display: none; }
+    .quick-dock { display: none; }
     .search-hint { display: none; }
 
     /* On mobile the search and menu buttons become round icon buttons that
@@ -3017,4 +3248,53 @@ footer {
         transition: none;
     }
     .tilt-glare { display: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Tactile press feedback
+   Every pressable control should acknowledge the press — the interface
+   "listening" to the user. The scale eases IN on press (deliberate) and the
+   element snaps back on release via its resting transition (Emil's asymmetric
+   press/release). Kept subtle on large targets, snappier on small ones.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Round header controls + back-to-top — frequently tapped, so they get a clear
+   but small push. */
+.header-icon-btn:active,
+.search-trigger:active,
+.mobile-menu-btn:active,
+#backToTop:active,
+.showcase-arrow:active:not(:disabled) {
+    transform: scale(0.93);
+    transition: transform 0.12s ease;
+}
+
+/* Pill / tab controls — nav tabs, download tabs, mod filters. */
+.nav-tab:active,
+.tab-button:active,
+.filter-button:active,
+.toast-cta:active {
+    transform: scale(0.96);
+    transition: transform 0.12s ease;
+}
+
+/* Footer social glyphs are small round targets → a satisfying deeper press. */
+.social-link:active {
+    transform: scale(0.9);
+    transition: transform 0.1s ease;
+}
+
+/* Cards lack any press feel on touch, where the 3D tilt and :hover lift are
+   both disabled. Restore it there only, so this never competes with the
+   pointer-driven tilt transform on desktop. */
+@media (hover: none), (pointer: coarse) {
+    .feature-card:active,
+    .gallery-item:active,
+    .mod-card:active,
+    .social-card:active,
+    .donate-card:active,
+    .license-card:active {
+        transform: scale(0.98);
+        transition: transform 0.12s ease;
+    }
 }
