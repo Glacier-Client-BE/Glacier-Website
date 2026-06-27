@@ -47,9 +47,15 @@ function init() {
 
     state.dom.mobileMenuBtn.addEventListener('click', e => { e.stopPropagation(); toggleMobileMenu(); });
 
+    const themeToggle = $('themeToggle');
     applyTheme(localStorage.getItem('gc-theme') || 'dark');
-    $('themeToggle').addEventListener('click', () => {
+    let themeSpins = 0;
+    themeToggle.addEventListener('click', () => {
         applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        // Each toggle spins the button a further full turn — a small reward for
+        // flipping the lights. (Disabled under reduced motion via CSS.)
+        themeSpins++;
+        themeToggle.style.setProperty('--gc-spin', (themeSpins * 360) + 'deg');
     });
 
     const modSearch = $('modSearch');

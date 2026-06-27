@@ -3,7 +3,7 @@
 import { state } from './state.js';
 import { $, escAttr, slice, debounce } from './utils.js';
 import { NOTIFICATION } from './config.js';
-import { showSection } from './navigation.js';
+import { showSection, searchMods } from './navigation.js';
 import { latestVersionLabel } from './content.js';
 
 let toastKey = '';
@@ -66,12 +66,44 @@ export function applyTheme(theme) {
         : '<i class="fas fa-moon" aria-hidden="true"></i>';
 }
 
-const SEARCH_HINT = '<div class="search-empty-hint"><i class="fas fa-search" aria-hidden="true"></i><span>Search across mods, FAQ, downloads and news</span><span class="search-hint-sub">Try "FPS", "install", or "v6.1"</span></div>';
+const SEARCH_HINT = '<div class="search-empty-hint"><i class="fas fa-search" aria-hidden="true"></i><span>Search across mods, FAQ, downloads and pages</span><span class="search-hint-sub">Try "FPS", "install", or "v6.1"</span></div>';
+
+// Sections reachable straight from search — so typing "donate", "license" or
+// "community" jumps you there, not just content matches.
+const SEARCH_PAGES = [
+    ['home', 'Home', 'fa-house'],
+    ['features', 'Features', 'fa-star'],
+    ['gallery', 'Gallery', 'fa-images'],
+    ['community', 'Community', 'fa-users'],
+    ['downloads', 'Downloads', 'fa-download'],
+    ['faq', 'FAQ', 'fa-circle-question'],
+    ['mods', 'All Mods', 'fa-cubes'],
+    ['license', 'License', 'fa-scale-balanced'],
+    ['donate', 'Donate', 'fa-heart']
+];
+
+// Wrap the first case-insensitive hit of `term` in <mark>. Runs on trusted data
+// (mod titles, FAQ questions, version strings), so the matched slice is safe to
+// re-insert as HTML.
+function highlight(text, term) {
+    if (!term) return text;
+    const i = text.toLowerCase().indexOf(term);
+    if (i === -1) return text;
+    return text.slice(0, i) + '<mark class="search-hl">' + text.slice(i, i + term.length) + '</mark>' + text.slice(i + term.length);
+}
+
+const dlSlug = version => {
+    const m = String(version).match(/v[\d.]+/i);
+    return m ? m[0].toLowerCase() : null;
+};
 
 export function setupGlobalSearch() {
     const modal = $('searchModal');
     const input = $('globalSearchInput');
     const results = $('searchResults');
+
+    let items = [];   // current result rows, for keyboard navigation
+    let active = -1;   // highlighted row index
 
     function open() {
         modal.classList.add('open');
@@ -81,6 +113,44 @@ export function setupGlobalSearch() {
         modal.classList.remove('open');
         input.value = '';
         results.innerHTML = SEARCH_HINT;
+        items = []; active = -1;
+    }
+
+    function setActive(i) {
+        if (!items.length) return;
+        active = (i + items.length) % items.length;
+        for (let k = 0; k < items.length; k++) items[k].classList.toggle('is-active', k === active);
+        items[active].scrollIntoView({ block: 'nearest' });
+    }
+
+    // Activate a result: deep-link where we can (flash the download, open the
+    // FAQ, filter to the mod), otherwise just switch to the section.
+    function activate(item) {
+        const { section, dl, faq, mod } = item.dataset;
+        close();
+        if (dl) { showSection('downloads', dl); return; }
+        showSection(section);
+        if (faq) openFaqItem(Number(faq));
+        else if (mod) filterToMod(mod);
+    }
+
+    function openFaqItem(idx) {
+        requestAnimationFrame(() => {
+            const el = document.querySelectorAll('#faqContainer .faq-item')[idx];
+            if (!el) return;
+            const d = el.querySelector('details');
+            if (d) d.open = true;
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    }
+
+    function filterToMod(title) {
+        const ms = $('modSearch');
+        if (ms) { ms.value = title; searchMods(title); }
+        requestAnimationFrame(() => {
+            const card = [...document.querySelectorAll('#modsGrid .mod-card')].find(c => c.style.display !== 'none');
+            if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
     }
 
     $('searchTrigger').addEventListener('click', open);
@@ -92,9 +162,17 @@ export function setupGlobalSearch() {
         else if (e.key === 'Escape' && modal.classList.contains('open')) close();
     });
 
+    // Arrow keys move the highlight; Enter opens the highlighted row.
+    input.addEventListener('keydown', e => {
+        if (!items.length) return;
+        if (e.key === 'ArrowDown') { e.preventDefault(); setActive(active + 1); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(active - 1); }
+        else if (e.key === 'Enter') { e.preventDefault(); if (items[active]) activate(items[active]); }
+    });
+
     const run = debounce(() => {
         const term = input.value.toLowerCase().trim();
-        if (!term) { results.innerHTML = SEARCH_HINT; return; }
+        if (!term) { results.innerHTML = SEARCH_HINT; items = []; active = -1; return; }
 
         const mods = [];
         for (const m of state.modsData) {
@@ -103,9 +181,10 @@ export function setupGlobalSearch() {
         }
 
         const faqs = [];
-        for (const f of state.faqData) {
+        for (let i = 0; i < state.faqData.length; i++) {
             if (faqs.length >= 3) break;
-            if (f.question.toLowerCase().includes(term) || f.answer.toLowerCase().includes(term)) faqs.push(f);
+            const f = state.faqData[i];
+            if (f.question.toLowerCase().includes(term) || f.answer.toLowerCase().includes(term)) faqs.push({ f, i });
         }
 
         const dl = [];
@@ -117,34 +196,52 @@ export function setupGlobalSearch() {
             }
         }
 
-        if (!mods.length && !faqs.length && !dl.length) {
+        const pages = SEARCH_PAGES.filter(p => p[1].toLowerCase().includes(term)).slice(0, 4);
+
+        if (!mods.length && !faqs.length && !dl.length && !pages.length) {
             results.innerHTML = '<div class="search-no-results"><i class="fas fa-search search-no-results-icon" aria-hidden="true"></i>No results for "' + escAttr(input.value) + '"</div>';
+            items = []; active = -1;
             return;
         }
 
         let html = '';
         if (mods.length) {
             html += '<div class="search-result-group"><div class="search-result-label">Mods</div>';
-            for (const m of mods) html += '<div class="search-result-item" data-section="mods"><img src="' + m.icon + '" alt="' + escAttr(m.title) + '" class="search-result-icon-img" /><div><div class="search-result-title">' + m.title + '</div><div class="search-result-desc">' + slice(m.description, 60) + '</div></div></div>';
+            for (const m of mods) html += '<div class="search-result-item" data-section="mods" data-mod="' + escAttr(m.title) + '"><img src="' + m.icon + '" alt="' + escAttr(m.title) + '" class="search-result-icon-img" /><div><div class="search-result-title">' + highlight(m.title, term) + '</div><div class="search-result-desc">' + slice(m.description, 60) + '</div></div></div>';
             html += '</div>';
         }
         if (faqs.length) {
             html += '<div class="search-result-group"><div class="search-result-label">FAQ</div>';
-            for (const f of faqs) html += '<div class="search-result-item" data-section="faq"><div class="search-result-icon-box icon-box-faq"><i class="fas fa-question" aria-hidden="true"></i></div><div><div class="search-result-title">' + slice(f.question, 65) + '</div></div></div>';
+            for (const { f, i } of faqs) html += '<div class="search-result-item" data-section="faq" data-faq="' + i + '"><div class="search-result-icon-box icon-box-faq"><i class="fas fa-question" aria-hidden="true"></i></div><div><div class="search-result-title">' + highlight(slice(f.question, 65), term) + '</div></div></div>';
             html += '</div>';
         }
         if (dl.length) {
             html += '<div class="search-result-group"><div class="search-result-label">Downloads</div>';
-            for (const d of dl) html += '<div class="search-result-item" data-section="downloads"><div class="search-result-icon-box icon-box-dl"><i class="fas fa-download" aria-hidden="true"></i></div><div><div class="search-result-title">' + d.version + '</div></div></div>';
+            for (const d of dl) {
+                const slug = dlSlug(d.version);
+                html += '<div class="search-result-item" data-section="downloads"' + (slug ? ' data-dl="' + slug + '"' : '') + '><div class="search-result-icon-box icon-box-dl"><i class="fas fa-download" aria-hidden="true"></i></div><div><div class="search-result-title">' + highlight(d.version, term) + '</div></div></div>';
+            }
+            html += '</div>';
+        }
+        if (pages.length) {
+            html += '<div class="search-result-group"><div class="search-result-label">Pages</div>';
+            for (const [id, name, icon] of pages) html += '<div class="search-result-item" data-section="' + id + '"><div class="search-result-icon-box icon-box-faq"><i class="fas ' + icon + '" aria-hidden="true"></i></div><div><div class="search-result-title">' + highlight(name, term) + '</div></div></div>';
             html += '</div>';
         }
         results.innerHTML = html;
+        items = [...results.querySelectorAll('.search-result-item')];
+        active = -1;
+        if (items.length) setActive(0);   // preselect first so Enter works immediately
     }, 120);
 
     input.addEventListener('input', run);
     results.addEventListener('click', e => {
         const item = e.target.closest('.search-result-item');
-        if (item) { showSection(item.dataset.section); close(); }
+        if (item) activate(item);
+    });
+    results.addEventListener('pointermove', e => {
+        const item = e.target.closest('.search-result-item');
+        if (item) setActive(items.indexOf(item));
     });
 }
 

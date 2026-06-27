@@ -833,7 +833,7 @@ header.scrolled::before {
 }
 
 .branding:hover .logo-icon {
-    transform: scale(1.05);
+    transform: rotate(-8deg) scale(1.12);
 }
 
 .branding-text {
@@ -3296,5 +3296,114 @@ footer {
     .license-card:active {
         transform: scale(0.98);
         transition: transform 0.12s ease;
+    }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Search — keyboard navigation, match highlight, shortcut footer
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* The row under the keyboard cursor (or the pointer) — same wash as :hover so
+   mouse and keyboard share one highlight. */
+.search-result-item.is-active {
+    background: rgba(114, 137, 218, .18);
+}
+
+[data-theme="light"] .search-result-item.is-active {
+    background: rgba(114, 137, 218, .12);
+}
+
+/* Matched substring inside a result title. */
+.search-hl {
+    background: transparent;
+    color: var(--accent-hover);
+    font-weight: 700;
+}
+
+[data-theme="light"] .search-hl {
+    color: var(--accent);
+}
+
+/* Shortcut legend along the bottom of the search box. */
+.search-modal-foot {
+    display: flex;
+    gap: 18px;
+    padding: 10px 18px;
+    border-top: 1px solid rgba(255, 255, 255, .06);
+    font-size: .74rem;
+    color: var(--text-muted);
+}
+
+.search-modal-foot kbd {
+    display: inline-block;
+    min-width: 18px;
+    padding: 1px 5px;
+    margin-right: 3px;
+    text-align: center;
+    font-family: inherit;
+    font-size: .72rem;
+    line-height: 1.5;
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 4px;
+    color: var(--text-dim);
+}
+
+[data-theme="light"] .search-modal-foot {
+    border-top-color: rgba(0, 0, 0, .08);
+}
+
+[data-theme="light"] .search-modal-foot kbd {
+    background: rgba(0, 0, 0, .05);
+    border-color: rgba(0, 0, 0, .12);
+}
+
+@media (max-width: 768px) {
+    .search-modal-foot { display: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Theme toggle — a bit of fun
+   The sun spins while you hover it (dark mode), the moon gives a gentle tilt
+   (light mode), and the whole button does a full turn on every toggle (the
+   --gc-spin angle is bumped by JS). All motion collapses under reduced motion.
+   ────────────────────────────────────────────────────────────────────────── */
+#themeToggle {
+    transform: rotate(var(--gc-spin, 0deg));
+    transition: color var(--t), background var(--t), box-shadow var(--t),
+                transform 0.6s var(--ease);
+}
+
+#themeToggle:active {
+    transform: rotate(var(--gc-spin, 0deg)) scale(0.92);
+    transition: transform 0.1s ease;
+}
+
+#themeToggle i {
+    transition: transform 0.45s var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    [data-theme="dark"] #themeToggle:hover i {
+        animation: gc-sun-spin 4s linear infinite;
+    }
+    [data-theme="light"] #themeToggle:hover i {
+        transform: rotate(-22deg) scale(1.12);
+    }
+}
+
+@keyframes gc-sun-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #themeToggle {
+        transform: none;
+        transition: color var(--t), background var(--t), box-shadow var(--t);
+    }
+    #themeToggle i,
+    [data-theme="dark"] #themeToggle:hover i {
+        animation: none;
+        transform: none;
     }
 }
