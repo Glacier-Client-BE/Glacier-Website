@@ -10,6 +10,11 @@ on:
 permissions:
   contents: write
 
+# Never let a scheduled run and a manual / dispatch run push at the same time.
+concurrency:
+  group: update-launcher
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -17,21 +22,59 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Fetch launcher releases
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          curl -s https://api.github.com/repos/Glacier-Client-BE/Glacier-Launcher/releases \
-            -H "Accept: application/vnd.github+json" \
-            -o assets/data/launcher.json
+          set -euo pipefail
 
-      - name: Check for changes
-        id: diff
-        run: |
-          git diff --quiet assets/data/launcher.json && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+          # Authenticated request → higher rate limit and more reliable. -f makes
+          # curl fail on any HTTP error so we never overwrite good data with an
+          # error body.
+          curl -fsSL \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/Glacier-Client-BE/Glacier-Launcher/releases \
+            -o releases.raw.json
+
+          # Keep only the fields the site actually renders. This shrinks the file
+          # from the full API dump to a small array, so it changes (and commits)
+          # only on a real release change, and diffs stay readable.
+          jq '[.[] | {
+                tag_name,
+                published_at,
+                assets: [.assets[] | { name, browser_download_url, size }]
+              }]' releases.raw.json > releases.clean.json
+
+          # Refuse to publish an empty / non-array result — treat it as a
+          # transient failure and leave the committed file untouched.
+          count=$(jq 'if type == "array" then length else -1 end' releases.clean.json)
+          if [ "$count" -lt 1 ]; then
+            echo "::error::Fetched data was empty or not an array (count=$count); leaving launcher.json untouched."
+            exit 1
+          fi
+
+          mkdir -p assets/data
+          mv releases.clean.json assets/data/launcher.json
+          rm -f releases.raw.json
 
       - name: Commit and push
-        if: steps.diff.outputs.changed == 'true'
         run: |
+          set -euo pipefail
+
+          if git diff --quiet -- assets/data/launcher.json; then
+            echo "No launcher data changes."
+            exit 0
+          fi
+
+          latest=$(jq -r '.[0].tag_name // "unknown"' assets/data/launcher.json)
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/data/launcher.json
-          git commit -m "Update launcher releases data"
-          git push
+          git commit -m "Update launcher releases data (${latest})"
+
+          # Rebase on top of anything pushed since checkout, then push (retry once).
+          git push || {
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push
+          }
