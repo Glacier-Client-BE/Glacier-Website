@@ -1,5 +1,16 @@
 [
   {
+    "tag_name": "v1.12.2",
+    "published_at": "2026-07-07T11:57:34Z",
+    "assets": [
+      {
+        "name": "GlacierLauncher.exe",
+        "browser_download_url": "https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/download/v1.12.2/GlacierLauncher.exe",
+        "size": 90145914
+      }
+    ]
+  },
+  {
     "tag_name": "v1.12.1",
     "published_at": "2026-07-07T08:22:04Z",
     "assets": [
@@ -314,17 +325,6 @@
       {
         "name": "GlacierLauncher.exe",
         "browser_download_url": "https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/download/v1.1.2/GlacierLauncher.exe",
-        "size": 171287833
-      }
-    ]
-  },
-  {
-    "tag_name": "v1.1.1",
-    "published_at": "2026-04-08T09:38:19Z",
-    "assets": [
-      {
-        "name": "GlacierLauncher.exe",
-        "browser_download_url": "https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/download/v1.1.1/GlacierLauncher.exe",
         "size": 171287833
       }
     ]
