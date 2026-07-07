@@ -25,7 +25,9 @@
             ]
           }
         ]
-      },
+      }
+    ],
+    "legacy": [
       {
         "version": "Glacier v6.1",
         "tag": "Archived",
@@ -35,10 +37,8 @@
         "options": [
           {"name": "Download", "url": "https://direct-link.net/499358/U4NMXDgoiYoq"}
         ]
-      }
-    ],
-    "legacy": [
-      {
+      },
+      {        {
         "version": "Glacier v6",
         "tag": "Archived",
         "release": "2025-12-25",
