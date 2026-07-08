@@ -6,7 +6,7 @@
 // after the document is parsed.
 
 import { state } from './modules/state.js';
-import { $, debounce } from './modules/utils.js';
+import { $, debounce, markCopyableCode } from './modules/utils.js';
 import { ALL } from './modules/config.js';
 import { setupScroll } from './modules/scroll.js';
 import { setupReveal, observeReveals } from './modules/reveal.js';
@@ -29,6 +29,7 @@ function init() {
         contentContainer: document.querySelector('.content-container'),
         modsGrid: $('modsGrid'),
         faqContainer: $('faqContainer'),
+        faqFilterControls: $('faqFilterControls'),
         launcherGrid: $('launcher-releases'),
         metaOgDesc: document.querySelector('meta[property="og:description"]'),
         metaTwDesc: document.querySelector('meta[name="twitter:description"]'),
@@ -42,8 +43,9 @@ function init() {
     setupReveal();
     setupShowcase();
     setupParallax();
-    setupTilt('.feature-card, .gallery-item, .donate-card, .social-card, .license-card, .hero-image');
+    setupTilt('.feature-card, .gallery-item, .donate-card, .social-card, .license-card, .hero-image, .showcase-video-card');
     setupDelegation();
+    markCopyableCode(document);
 
     state.dom.mobileMenuBtn.addEventListener('click', e => { e.stopPropagation(); toggleMobileMenu(); });
 

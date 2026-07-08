@@ -20,13 +20,16 @@ export const META = {
     home: 'Next-gen Minecraft Bedrock client with 37+ modules, draggable HUD, and zero performance impact.',
     features: 'Explore the advanced features of Glacier Client config editor, custom themes, and auto-updates.',
     gallery: 'See Glacier Client in action with screenshots of the mod menu, start screen, and pause screen.',
-    community: 'Join the Glacier Client Discord community for support, updates, and events.',
+    community: 'Join the Glacier Client Discord community and watch creator showcases of the client in action.',
     downloads: 'Download the latest Glacier Client version for Minecraft Bedrock Edition.',
     faq: 'Frequently asked questions about Glacier Client installation, compatibility, and usage.',
     mods: 'Browse all 37+ modules available in Glacier Client for Minecraft Bedrock Edition.',
     license: 'Read the Glacier Client license to understand permitted and restricted usage.',
+    tos: 'Read the Glacier Client Terms of Service governing use of the client and our community services.',
+    privacy: 'Read the Glacier Client Privacy Policy to see what data is collected and how it is used.',
+    mediakit: 'Glacier Client media kit and brand guidelines: logos, screenshots, colors, typography, and UI components.',
     donate: 'Support Glacier Client development through PayPal or Ko-fi.'
 };
 
 export const MAIN = new Set(['home', 'features', 'gallery']);
-export const ALL = new Set(['home', 'features', 'gallery', 'community', 'downloads', 'faq', 'mods', 'license', 'donate']);
+export const ALL = new Set(['home', 'features', 'gallery', 'community', 'downloads', 'faq', 'mods', 'license', 'tos', 'privacy', 'mediakit', 'donate']);

@@ -23,6 +23,8 @@
     /* Spacing & Sizing */
     --r-sm: 12px;
     --r-md: 18px;
+    --r-lg: 28px;
+    --r-pill: 9999px;
     /* Apple-style smooth deceleration curve, used for nearly all UI motion. */
     --t: 0.32s cubic-bezier(0.32, 0.72, 0, 1);
     --blur: 14px;
@@ -96,6 +98,37 @@
     --surface-hover: #f0f1f4;
     --surface-border: rgba(0, 0, 0, 0.08);
     --surface-inset: #eceef1;
+}
+
+/* ── Custom scrollbar ── */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--blurple-dark) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--blurple-dark);
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: var(--pill);
+    transition: background-color var(--fast) var(--ease);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--blurple);
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
 }
 
 /* ── Light theme ──
@@ -2088,6 +2121,34 @@ body.is-404 #donateBanner {
     margin: 0 auto;
 }
 
+.faq-category-group {
+    margin-bottom: 36px;
+}
+
+.faq-category-group:last-child {
+    margin-bottom: 0;
+}
+
+.faq-category-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.faq-category-heading i {
+    color: var(--blurple);
+    font-size: 1rem;
+}
+
+[data-theme="light"] .faq-category-heading {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
 .faq-item {
     margin-bottom: 14px;
 }
@@ -2165,6 +2226,102 @@ body.is-404 #donateBanner {
 
 .faq-answer li {
     margin-bottom: 7px;
+}
+
+.copyable-code {
+    cursor: pointer;
+    position: relative;
+    border-bottom: 1px dashed currentColor;
+    transition: color var(--fast) var(--ease);
+}
+
+.copyable-code:hover {
+    color: var(--blurple);
+}
+
+.copyable-code::after {
+    content: 'Click to copy';
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    transform: translateX(-50%) translateY(4px);
+    background: var(--surface-inset, #1f2227);
+    color: var(--text);
+    font-family: var(--font-body, inherit);
+    font-size: .72rem;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--surface-border);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--fast) var(--ease), transform var(--fast) var(--ease);
+    z-index: 5;
+}
+
+.copyable-code:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.copyable-code.code-copied::after {
+    content: 'Copied!';
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
+}
+
+/* ── Brand guide: click-to-copy CSS on any specimen ──
+   The clicked element's own computed styles are read at click time (see
+   copyCssSnippet in navigation.js), so the copied CSS can never drift out
+   of sync with what's actually rendered. */
+.copy-css-item {
+    cursor: pointer;
+    position: relative;
+    transition: outline-color var(--fast) var(--ease);
+    outline: 1px dashed transparent;
+    outline-offset: 3px;
+}
+
+.copy-css-item:hover {
+    outline-color: var(--blurple);
+}
+
+.copy-css-item::after {
+    content: 'Copy CSS';
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    transform: translateX(-50%) translateY(4px);
+    background: var(--surface-inset, #1f2227);
+    color: var(--text);
+    font-size: .72rem;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--surface-border);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--fast) var(--ease), transform var(--fast) var(--ease);
+    z-index: 5;
+}
+
+.copy-css-item:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.copy-css-item.code-copied::after {
+    content: 'Copied!';
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
 }
 
 .filter-controls {
@@ -2395,6 +2552,356 @@ body.is-404 #donateBanner {
     line-height: 1.65;
 }
 
+.mediakit-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+.mediakit-card--wide {
+    grid-column: 1 / -1;
+}
+
+.mediakit-card {
+    padding: 28px;
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--r-md);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+}
+
+.mediakit-card h3 {
+    color: #fff;
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+}
+
+.mediakit-card .btn {
+    width: 100%;
+}
+
+.mediakit-asset-block {
+    margin-bottom: 24px;
+}
+
+.mediakit-asset-block--last {
+    margin-bottom: 0;
+}
+
+.mediakit-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-bottom: 16px;
+    border-radius: var(--radius);
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.mediakit-preview img {
+    width: 96px;
+    height: 96px;
+    object-fit: contain;
+}
+
+.mediakit-preview--bg {
+    padding: 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.mediakit-preview--bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mediakit-shot-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mediakit-shot {
+    position: relative;
+    display: block;
+    border-radius: var(--r-sm);
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.mediakit-shot img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform var(--normal) var(--ease), filter var(--normal) var(--ease);
+}
+
+.mediakit-shot span {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 8px 12px;
+    font-size: .82rem;
+    color: #fff;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+}
+
+.mediakit-shot:hover img {
+    transform: scale(1.04);
+    filter: brightness(0.8);
+}
+
+/* ── Brand guide: shared subhead used by Colors, Typography, Cards, Nav,
+   Buttons & Layout specimen groups — label + hairline rule, like the Figma doc. */
+.guide-subhead {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 28px 0 14px;
+}
+
+.guide-subhead:first-child {
+    margin-top: 0;
+}
+
+.guide-subhead::after {
+    content: '';
+    flex: 1 0 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] .guide-subhead::after {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.color-swatch-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    margin-bottom: 8px;
+}
+
+.color-swatch {
+    position: relative;
+    height: 122px;
+    padding: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--r-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: transform var(--fast) var(--ease);
+}
+
+.color-swatch:hover {
+    transform: translateY(-2px);
+}
+
+.color-swatch b {
+    font-size: .82rem;
+    font-weight: 700;
+}
+
+.color-swatch span {
+    font-size: .7rem;
+    opacity: .8;
+    font-family: monospace;
+}
+
+.color-swatch.code-copied::after {
+    content: 'Copied!';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--green);
+    color: #fff;
+    font-size: .68rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 4px 9px;
+    border-radius: var(--pill);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.color-swatch--tint {
+    background: var(--blurple-faint);
+    box-shadow: 0 0 22px var(--blurple-glow);
+    color: #fff;
+    cursor: default;
+}
+
+[data-theme="light"] .color-swatch--tint {
+    color: var(--text);
+}
+
+/* ── Brand guide: typography specimens ── */
+.type-specimen {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.type-specimen--last,
+.type-specimen:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+[data-theme="light"] .type-specimen {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+.type-specimen-label {
+    margin-top: 8px;
+    font-size: .74rem;
+    color: var(--text-muted);
+    font-family: monospace;
+}
+
+/* ── Brand guide: inert component specimens ──
+   Real classes reused for visual fidelity so hover/press states stay
+   authentic; clicks are safely inert because the demo markup omits the
+   data-section/data-category/data-tab attributes the delegated handler
+   keys off (see the dataset guards in navigation.js). */
+
+/* Pill nav, reproduced standalone so it stays visible (and wraps) at every
+   viewport instead of inheriting #navMenu's mobile dropdown behaviour. */
+.guide-nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 2px;
+    height: auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--r-pill);
+    padding: 3px;
+    margin-bottom: 14px;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.guide-nav-tabs .nav-tab {
+    width: auto;
+    justify-content: center;
+    height: var(--ctl-h);
+}
+
+.badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.toast-demo {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 16px;
+    max-width: 340px;
+    background: var(--glass-strong);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-md);
+    box-shadow: var(--glass-shadow);
+}
+
+.toast-demo--donate .toast-icon {
+    background: rgba(235, 69, 158, 0.14);
+    color: var(--pink);
+}
+
+.toast-demo--donate .toast-title {
+    color: var(--pink);
+}
+
+.toast-demo--donate .toast-cta {
+    background: var(--pink);
+}
+
+/* ── Brand guide: radii, spacing & effects specimens ── */
+.radii-row,
+.spacing-row,
+.effect-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 8px;
+}
+
+.radii-specimen,
+.spacing-specimen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: .78rem;
+    color: var(--text-muted);
+}
+
+.radii-box {
+    width: 94px;
+    height: 66px;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+}
+
+.spacing-specimen {
+    justify-content: flex-end;
+    height: 68px;
+}
+
+.spacing-bar {
+    width: 28px;
+    background: var(--blurple);
+    border-radius: 4px 4px 0 0;
+}
+
+.effect-specimen {
+    flex: 1 1 180px;
+    height: 98px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--r-md);
+    color: #fff;
+    font-weight: 600;
+}
+
+.effect-specimen--glass {
+    background: var(--glass-strong);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.effect-specimen--solid {
+    background: var(--surface);
+    box-shadow: var(--shadow-lg);
+}
+
+.effect-specimen--glow {
+    background: var(--surface);
+    box-shadow: 0 0 32px var(--blurple-glow);
+    border: 1px solid var(--glass-border);
+}
+
 .donate-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
@@ -2526,6 +3033,27 @@ footer {
     box-shadow: 0 5px 15px rgba(114, 137, 218, .35);
 }
 
+.footer-legal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+    font-size: .85rem;
+    color: var(--text-muted);
+}
+
+.footer-legal a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--normal) var(--ease);
+}
+
+.footer-legal a:hover {
+    color: #fff;
+}
+
 .copyright-text {
     color: var(--text-muted);
     text-align: center;
@@ -2609,6 +3137,118 @@ footer {
     margin-top: 18px;
     border-radius: var(--radius);
     overflow: hidden;
+}
+
+.showcase-video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 24px;
+    margin-bottom: 8px;
+}
+
+.showcase-view-all {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+.showcase-video-card {
+    padding: 0;
+    overflow: hidden;
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--r-md);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+}
+
+.showcase-video-card:hover {
+    transform: translateY(-4px);
+}
+
+.showcase-video-thumb {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    background: #000;
+    overflow: hidden;
+}
+
+.showcase-video-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--normal) var(--ease), filter var(--normal) var(--ease);
+}
+
+.showcase-video-thumb:hover img {
+    transform: scale(1.05);
+    filter: brightness(0.75);
+}
+
+.showcase-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 0, 0, 0.85);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: transform var(--normal) var(--ease), background var(--normal) var(--ease);
+}
+
+.showcase-play-btn i {
+    margin-left: 3px;
+}
+
+.showcase-video-thumb:hover .showcase-play-btn {
+    transform: translate(-50%, -50%) scale(1.12);
+    background: rgb(255, 0, 0);
+}
+
+.showcase-video-frame {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+}
+
+.showcase-video-info {
+    padding: 16px 18px 20px;
+}
+
+.showcase-video-title {
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.showcase-video-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: .85rem;
+}
+
+.showcase-video-channel {
+    color: var(--blurple);
+    font-weight: 600;
+}
+
+.showcase-video-sep {
+    opacity: .5;
 }
 
 .icon-box-faq {

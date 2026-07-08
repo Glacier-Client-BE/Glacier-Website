@@ -1,9 +1,10 @@
 'use strict';
 
 import { state } from './state.js';
-import { $ } from './utils.js';
+import { $, markCopyableCode } from './utils.js';
 import { ALL, META } from './config.js';
 import { observeReveals } from './reveal.js';
+import { filterFAQCategory } from './content.js';
 
 // Shows the custom 404 page for a path that doesn't match any known section.
 // Leaves the URL as-is (whatever the visitor actually landed on).
@@ -112,6 +113,55 @@ export function toggleMobileMenu() {
     state.dom.mobileMenuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
 
+function copyText(el, text) {
+    if (!navigator.clipboard) return;
+    navigator.clipboard.writeText(text).then(() => {
+        clearTimeout(el._copyTimer);
+        el.classList.add('code-copied');
+        el._copyTimer = setTimeout(() => el.classList.remove('code-copied'), 1400);
+    }).catch(() => {});
+}
+
+// Property sets per specimen "kind" for the brand guide's click-to-copy-CSS
+// feature. Reads the element's own computed style at click time, so the
+// copied snippet always matches what's actually on screen.
+const CSS_COPY_PROPS = {
+    type: ['font-family', 'font-weight', 'font-size', 'letter-spacing', 'line-height', 'color'],
+    component: ['background-color', 'color', 'border-radius', 'padding', 'font-size', 'font-weight', 'box-shadow', 'border'],
+    shape: ['border-radius', 'width', 'height'],
+    space: ['width', 'height'],
+    effect: ['background', 'backdrop-filter', 'box-shadow', 'border', 'border-radius']
+};
+
+function cssSnippetFor(el) {
+    const props = CSS_COPY_PROPS[el.dataset.copyKind] || CSS_COPY_PROPS.component;
+    const cs = getComputedStyle(el);
+    return props.map(p => p + ': ' + cs.getPropertyValue(p) + ';').join('\n');
+}
+
+function playShowcaseVideo(card) {
+    if (!card || card.dataset.playing) return;
+    card.dataset.playing = '1';
+    const id = card.dataset.videoId;
+    const thumb = card.querySelector('.showcase-video-thumb');
+    const iframe = document.createElement('iframe');
+    iframe.className = 'showcase-video-frame';
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+    iframe.title = card.querySelector('.showcase-video-title').textContent;
+    iframe.frameBorder = '0';
+    iframe.allow = 'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
+    iframe.allowFullscreen = true;
+    thumb.replaceWith(iframe);
+}
+
+function setActiveFAQCategory(cat) {
+    if (!state.dom.faqFilterControls) return;
+    for (const b of state.dom.faqFilterControls.querySelectorAll('[data-faq-category]')) {
+        b.classList.toggle('active', b.dataset.faqCategory === cat);
+    }
+    filterFAQCategory(cat);
+}
+
 function setActiveCategory(cat) {
     for (const b of document.querySelectorAll('.filter-button')) b.classList.toggle('active', b.dataset.category === cat);
     for (const c of state.modCards) {
@@ -141,9 +191,19 @@ export function setupDelegation() {
             if (id) { e.preventDefault(); handleSectionClick(id); return; }
         }
         const tab = e.target.closest('.tab-button');
-        if (tab) { setActiveTab(tab.dataset.tab); return; }
+        if (tab && tab.dataset.tab) { setActiveTab(tab.dataset.tab); return; }
+        const faqFilter = e.target.closest('[data-faq-category]');
+        if (faqFilter && faqFilter.dataset.faqCategory) { setActiveFAQCategory(faqFilter.dataset.faqCategory); return; }
+        const videoThumb = e.target.closest('.showcase-video-thumb');
+        if (videoThumb) { playShowcaseVideo(videoThumb.closest('.showcase-video-card')); return; }
+        const copyable = e.target.closest('.copyable-code');
+        if (copyable) { copyText(copyable, copyable.textContent); return; }
+        const swatch = e.target.closest('.color-swatch[data-copy-hex]');
+        if (swatch) { copyText(swatch, swatch.dataset.copyHex); return; }
         const filter = e.target.closest('.filter-button');
-        if (filter) { setActiveCategory(filter.dataset.category); return; }
+        if (filter && filter.dataset.category) { setActiveCategory(filter.dataset.category); return; }
+        const cssItem = e.target.closest('.copy-css-item');
+        if (cssItem) { copyText(cssItem, cssSnippetFor(cssItem)); return; }
         if (!state.dom.navMenu.contains(e.target) && !state.dom.mobileMenuBtn.contains(e.target)) closeMobileMenu();
     });
 }

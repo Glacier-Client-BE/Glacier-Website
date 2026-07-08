@@ -1,7 +1,7 @@
 'use strict';
 
 import { state } from './state.js';
-import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl } from './utils.js';
+import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl, markCopyableCode } from './utils.js';
 import { COUNTER_API } from './config.js';
 import { applyDeepLink } from './navigation.js';
 import { observeReveals } from './reveal.js';
@@ -56,22 +56,63 @@ export function initMods() {
 }
 
 // ── FAQ ───────────────────────────────────────────────────────────────────
+const FAQ_ICONS = {
+    'Getting Started': 'fa-flag-checkered',
+    'Installation & Setup': 'fa-download',
+    'Troubleshooting': 'fa-wrench',
+    'Features & Compatibility': 'fa-layer-group',
+    'Community & Content': 'fa-users',
+    'Legal & Privacy': 'fa-scale-balanced'
+};
+
+function faqCategoryOrder() {
+    const seen = [];
+    for (const f of state.faqData) if (!seen.includes(f.category)) seen.push(f.category);
+    return seen;
+}
+
+function faqCardHtml(f, open) {
+    const video = f.videoUrl
+        ? '<div class="faq-video"><iframe width="100%" height="300" src="' + f.videoUrl + '" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" title="Tutorial video"></iframe></div>'
+        : '';
+    return '<div class="faq-item reveal" data-category="' + escAttr(f.category) + '">'
+        + '<details class="faq-card"' + (open ? ' open' : '') + '>'
+        + '<summary class="faq-question"><span>' + f.question + '</span><i class="fas fa-chevron-down" aria-hidden="true"></i></summary>'
+        + '<div class="faq-answer">' + f.answer + video + '</div>'
+        + '</details>'
+        + '</div>';
+}
+
 export function initFAQ() {
     if (!state.dom.faqContainer) return;
+    const categories = faqCategoryOrder();
+
+    let filterHtml = '<button class="filter-button active" data-faq-category="all">All Questions</button>';
+    for (const cat of categories) {
+        filterHtml += '<button class="filter-button" data-faq-category="' + escAttr(cat) + '">' + cat + '</button>';
+    }
+    if (state.dom.faqFilterControls) state.dom.faqFilterControls.innerHTML = filterHtml;
+
     let html = '';
-    for (let i = 0; i < state.faqData.length; i++) {
-        const f = state.faqData[i];
-        const video = f.videoUrl
-            ? '<div class="faq-video"><iframe width="100%" height="300" src="' + f.videoUrl + '" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" title="Tutorial video"></iframe></div>'
-            : '';
-        html += '<div class="faq-item reveal">'
-            + '<details class="faq-card"' + (i === 0 ? ' open' : '') + '>'
-            + '<summary class="faq-question"><span>' + f.question + '</span><i class="fas fa-chevron-down" aria-hidden="true"></i></summary>'
-            + '<div class="faq-answer">' + f.answer + video + '</div>'
-            + '</details>'
-            + '</div>';
+    let first = true;
+    for (const cat of categories) {
+        const items = state.faqData.filter(f => f.category === cat);
+        html += '<div class="faq-category-group" data-category="' + escAttr(cat) + '">'
+            + '<h3 class="faq-category-heading"><i class="fas ' + (FAQ_ICONS[cat] || 'fa-circle-question') + '" aria-hidden="true"></i> ' + cat + '</h3>';
+        for (const f of items) {
+            html += faqCardHtml(f, first);
+            first = false;
+        }
+        html += '</div>';
     }
     state.dom.faqContainer.innerHTML = html;
+    markCopyableCode(state.dom.faqContainer);
+}
+
+export function filterFAQCategory(cat) {
+    for (const group of state.dom.faqContainer.querySelectorAll('.faq-category-group')) {
+        group.style.display = (cat === 'all' || group.dataset.category === cat) ? '' : 'none';
+    }
 }
 
 // ── Downloads ─────────────────────────────────────────────────────────────

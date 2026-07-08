@@ -37,6 +37,16 @@ export function slugify(s) {
     return s.toLowerCase().replace(/\+/g, '-plus').replace(/[^a-z0-9.]+/g, '-').replace(/^-|-$/g, '');
 }
 
+// Flags <code> elements that look like copyable file paths (contain a path
+// separator and are reasonably long) so click-to-copy only applies where
+// useful, not to every short inline <code>true</code>/<code>v6.2</code>.
+export function markCopyableCode(root) {
+    for (const el of (root || document).querySelectorAll('code:not(.copyable-code)')) {
+        const text = el.textContent.trim();
+        if (/[\\/]/.test(text) && text.length > 8) el.classList.add('copyable-code');
+    }
+}
+
 export function getMonetizedUrl(targetUrl) {
     if (!USE_MONETIZATION || !LINKVERTISE_USER_ID) return targetUrl;
     try {
