@@ -1718,6 +1718,46 @@ main {
     border-radius: var(--pill);
 }
 
+.notfound-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 96px 28px;
+}
+
+.notfound-code {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: clamp(4.5rem, 14vw, 9rem);
+    line-height: 1;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2, var(--accent)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.notfound-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.notfound-desc {
+    color: var(--text-dim);
+    max-width: 420px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.notfound-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 /* ── Extension dropdown (under client cards) ── */
 .ext-dropdown {
     margin-top: 18px;

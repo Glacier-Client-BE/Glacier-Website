@@ -13,7 +13,7 @@ import { setupReveal, observeReveals } from './modules/reveal.js';
 import { setupShowcase } from './modules/showcase.js';
 import { setupParallax } from './modules/parallax.js';
 import { setupTilt } from './modules/tilt.js';
-import { showSection, parseHash, setupDelegation, toggleMobileMenu, searchMods } from './modules/navigation.js';
+import { showSection, showNotFound, parsePath, setupDelegation, toggleMobileMenu, searchMods } from './modules/navigation.js';
 import { loadData, initSkeletons, initFAQ, initMods, initDownloads, initLauncher } from './modules/content.js';
 import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord } from './modules/ui.js';
 
@@ -65,11 +65,13 @@ function init() {
     fetchDiscord();
 
     window.addEventListener('popstate', () => {
-        const { id, sub } = parseHash();
-        showSection(ALL.has(id) ? id : 'home', sub);
+        const { id, sub } = parsePath();
+        if (id && !ALL.has(id)) showNotFound();
+        else showSection(id, sub);
     });
-    const initial = parseHash();
-    showSection(ALL.has(initial.id) ? initial.id : 'home', initial.sub);
+    const initial = parsePath();
+    if (initial.id && !ALL.has(initial.id)) showNotFound();
+    else showSection(initial.id, initial.sub);
 
     loadData().then(() => {
         applyVersioning();

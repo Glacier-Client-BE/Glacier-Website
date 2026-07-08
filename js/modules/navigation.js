@@ -5,8 +5,23 @@ import { $ } from './utils.js';
 import { ALL, META } from './config.js';
 import { observeReveals } from './reveal.js';
 
+// Shows the custom 404 page for a path that doesn't match any known section.
+// Leaves the URL as-is (whatever the visitor actually landed on).
+export function showNotFound() {
+    const targetEl = $('notfound-section');
+    for (const s of state.dom.sections) {
+        s.classList.toggle('active', s === targetEl);
+    }
+    for (const l of state.dom.navLinks) {
+        l.classList.remove('active');
+    }
+    document.title = 'Page Not Found | Glacier Client';
+    closeMobileMenu();
+    requestAnimationFrame(observeReveals);
+}
+
 // Single-page section switcher. Toggles the active section + nav tab, syncs the
-// URL hash and SEO meta, and handles download deep links (#downloads/<slug>).
+// URL path and SEO meta, and handles download deep links (/downloads/<slug>).
 export function showSection(id, sub) {
     if (!ALL.has(id)) id = 'home';
 
@@ -29,14 +44,14 @@ export function showSection(id, sub) {
         }
     }
 
-    const hash = hasDeepLink ? id + '/' + sub : id;
-    history.replaceState(null, '', '#' + hash);
+    const path = id === 'home' ? '/' : '/' + id + (hasDeepLink ? '/' + sub : '');
+    if (location.pathname !== path) history.pushState(null, '', path);
     closeMobileMenu();
 
     const desc = META[id] || META.home;
     if (state.dom.metaOgDesc) state.dom.metaOgDesc.setAttribute('content', desc);
     if (state.dom.metaTwDesc) state.dom.metaTwDesc.setAttribute('content', desc);
-    if (state.dom.metaOgUrl) state.dom.metaOgUrl.setAttribute('content', 'https://glacierclient.xyz/#' + hash);
+    if (state.dom.metaOgUrl) state.dom.metaOgUrl.setAttribute('content', 'https://glacierclient.xyz' + path);
 
     if (hasDeepLink) {
         if (state.dlIndex.size) applyDeepLink(sub);
@@ -48,8 +63,8 @@ export function showSection(id, sub) {
     requestAnimationFrame(observeReveals);
 }
 
-export function parseHash() {
-    const raw = location.hash.slice(1);
+export function parsePath() {
+    const raw = location.pathname.replace(/^\/+|\/+$/g, '');
     if (!raw) return { id: '', sub: '' };
     const i = raw.indexOf('/');
     return i === -1 ? { id: raw, sub: '' } : { id: raw.slice(0, i), sub: raw.slice(i + 1) };
