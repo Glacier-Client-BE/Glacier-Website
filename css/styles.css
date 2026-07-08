@@ -1718,19 +1718,89 @@ main {
     border-radius: var(--pill);
 }
 
+/* Standalone 404 page — hides the chrome (header, hero, footer, toasts, docks)
+   so only the logo + message + back-home button remain on screen. */
+body.is-404 #mainHeader,
+body.is-404 #hero-section,
+body.is-404 footer,
+body.is-404 #scrollProgress,
+body.is-404 #quickDock,
+body.is-404 #backToTop,
+body.is-404 #toastBanner,
+body.is-404 #donateBanner {
+    display: none !important;
+}
+
+#notfound-section {
+    min-height: 100vh;
+}
+
 .notfound-box {
+    display: flex;
+    min-height: 100vh;
+    padding: 28px;
+    align-items: center;
+    justify-content: center;
+}
+
+.notfound-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 10px;
-    padding: 96px 28px;
+    gap: 14px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    box-shadow: var(--glass-shadow);
+    padding: clamp(40px, 6vw, 72px) clamp(28px, 8vw, 88px);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(24px);
+    animation: heroIn 0.7s var(--ease) forwards;
+}
+
+.notfound-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(114, 137, 218, .15) 0%, transparent 55%), radial-gradient(circle at 80% 80%, rgba(87, 242, 135, .1) 0%, transparent 55%);
+    pointer-events: none;
+}
+
+.notfound-stack {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(4px, 1vw, 10px);
+    position: relative;
+    z-index: 1;
+}
+
+.notfound-logo {
+    width: clamp(72px, 10vw, 112px);
+    height: clamp(72px, 10vw, 112px);
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 16px rgba(120, 140, 255, 0.4));
+    animation: notfoundFloat 3.6s ease-in-out infinite;
+}
+
+@keyframes notfoundFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .notfound-logo { animation: none; }
 }
 
 .notfound-code {
     font-family: 'Roboto', sans-serif;
     font-weight: 900;
-    font-size: clamp(4.5rem, 14vw, 9rem);
+    font-size: clamp(72px, 10vw, 112px);
     line-height: 1;
     background: linear-gradient(135deg, var(--accent), var(--accent-2, var(--accent)));
     -webkit-background-clip: text;
@@ -1742,6 +1812,8 @@ main {
     font-size: 1.6rem;
     font-weight: 700;
     color: var(--text);
+    position: relative;
+    z-index: 1;
 }
 
 .notfound-desc {
@@ -1749,13 +1821,8 @@ main {
     max-width: 420px;
     line-height: 1.6;
     margin-bottom: 8px;
-}
-
-.notfound-actions {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 /* ── Extension dropdown (under client cards) ── */

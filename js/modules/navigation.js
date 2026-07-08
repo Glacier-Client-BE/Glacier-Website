@@ -16,6 +16,7 @@ export function showNotFound() {
         l.classList.remove('active');
     }
     document.title = 'Page Not Found | Glacier Client';
+    document.body.classList.add('is-404');
     closeMobileMenu();
     requestAnimationFrame(observeReveals);
 }
@@ -24,6 +25,7 @@ export function showNotFound() {
 // URL path and SEO meta, and handles download deep links (/downloads/<slug>).
 export function showSection(id, sub) {
     if (!ALL.has(id)) id = 'home';
+    document.body.classList.remove('is-404');
 
     const targetEl = $(id + '-section');
     for (const s of state.dom.sections) {
