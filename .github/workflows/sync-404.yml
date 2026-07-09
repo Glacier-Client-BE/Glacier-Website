@@ -1,0 +1,38 @@
+name: Sync 404 page
+
+# 404.html must be a byte-for-byte copy of index.html — GitHub Pages serves it
+# for any unknown path and the client-side router then shows the right section
+# (or the custom 404 view). Whenever index.html changes on main, copy it over
+# so the 404 page can never go stale again.
+on:
+  push:
+    branches: [main]
+    paths: [index.html]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-404
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copy index.html to 404.html and push if changed
+        run: |
+          set -euo pipefail
+          cp index.html 404.html
+          if git diff --quiet -- 404.html; then
+            echo "404.html already in sync — nothing to do."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 404.html
+          git commit -m "chore: sync 404.html from index.html"
+          git push

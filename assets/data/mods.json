@@ -1,298 +1,39 @@
 [
-    {
-        "id": "capephysics",
-        "icon": "assets/mods/capephysics.png",
-        "title": "Cape Physics",
-        "description": "Adds dynamic physics to player capes for enhanced realism.",
-        "tags": ["Cosmetic", "Visual"],
-        "categories": ["cosmetic", "visual"]
-    },
-    {
-        "id": "armorhud",
-        "icon": "assets/mods/armorhud.png",
-        "title": "Armor HUD",
-        "description": "Displays your equipped armor on the HUD.",
-        "tags": ["HUD", "Utility", "PvP"],
-        "categories": ["hud", "utility", "pvp"]
-    },
-    {
-        "id": "bowindicator",
-        "icon": "assets/mods/bowindicator.png",
-        "title": "Bow Indicator",
-        "description": "Shows the charge level of your bow for accurate shots.",
-        "tags": ["HUD", "PvP"],
-        "categories": ["hud", "pvp"]
-    },
-    {
-        "id": "chat",
-        "icon": "assets/mods/chat.png",
-        "title": "Chat",
-        "description": "Enhances the in-game chat experience with various features.",
-        "tags": ["Utility"],
-        "categories": ["utility"]
-    },
-    {
-        "id": "chunkborder",
-        "icon": "assets/mods/chunkmap.png",
-        "title": "Chunk Border",
-        "description": "Displays the chunk when holding a nautilus shell in offhand while in 3rd person.",
-        "tags": ["Visual", "Utility"],
-        "categories": ["visual", "utility"]
-    },
-    {
-        "id": "clockcompass",
-        "icon": "assets/mods/clockcompass.png",
-        "title": "Clock Compass",
-        "description": "Displays a clock and compass on your HUD for easier navigation.",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "coordinates",
-        "icon": "assets/mods/coordinates.png",
-        "title": "Coordinates",
-        "description": "Displays your current X, Y, Z coordinates on screen with other useful information.",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "crosshairchanger",
-        "icon": "assets/mods/crosshairs.png",
-        "title": "Crosshair Changer",
-        "description": "Allows you to customize the appearance of your crosshair.",
-        "tags": ["Cosmetic", "Visual", "PvP"],
-        "categories": ["cosmetic", "visual", "pvp"]
-    },
-    {
-        "id": "dayevent",
-        "icon": "assets/mods/dayevent.png",
-        "title": "Day Event",
-        "description": "Displays in-game day events on the HUD.",
-        "tags": ["Utility"],
-        "categories": ["utility"]
-    },
-    {
-        "id": "daycounter",
-        "icon": "assets/mods/daycounter.png",
-        "title": "Day Counter",
-        "description": "Keeps track of the number of days passed in your Minecraft world.",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "debughud",
-        "icon": "assets/mods/debughud.png",
-        "title": "Debug HUD",
-        "description": "Displays detailed technical information about the game state.",
-        "tags": ["Utility"],
-        "categories": ["utility"]
-    },
-    {
-        "id": "directionhud",
-        "icon": "assets/mods/directionhud.png",
-        "title": "Direction HUD",
-        "description": "Displays your current facing direction (North, South, East, West).",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "expcalculator",
-        "icon": "assets/mods/expcalculator.png",
-        "title": "Exp Calculator",
-        "description": "Calculates experience needed for the next level.",
-        "tags": ["Utility"],
-        "categories": ["utility"]
-    },
-    {
-        "id": "forcecoords",
-        "icon": "assets/mods/forcecoords.png",
-        "title": "ForceCoords",
-        "description": "Forces coordinates display even when normally hidden.",
-        "tags": ["Utility"],
-        "categories": ["utility"]
-    },
-    {
-        "id": "fpscounter",
-        "icon": "assets/mods/fpscounter.png",
-        "title": "FPS Counter",
-        "description": "Displays your current frames per second.",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "hitbox",
-        "icon": "assets/mods/hitbox.png",
-        "title": "Hitbox",
-        "description": "Displays a hitbox on the player.",
-        "tags": ["Visual", "PvP"],
-        "categories": ["visual", "pvp"]
-    },
-    {
-        "id": "hitcolor",
-        "icon": "assets/mods/hitcolor.png",
-        "title": "Hit Color",
-        "description": "Changes the color of the player when getting hit.",
-        "tags": ["Visual", "PvP"],
-        "categories": ["visual", "pvp"]
-    },
-    {
-        "id": "hotbar",
-        "icon": "assets/mods/hotbar.png",
-        "title": "Hotbar",
-        "description": "Customizable hotbar display with additional information.",
-        "tags": ["HUD", "Visual"],
-        "categories": ["hud", "visual"]
-    },
-    {
-        "id": "hudpopup",
-        "icon": "assets/mods/hudpopup.png",
-        "title": "HUD Popup",
-        "description": "Displays bug report pop-up message on your HUD.",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "inventoryhud",
-        "icon": "assets/mods/inventoryhud.png",
-        "title": "InventoryHUD",
-        "description": "An enhanced inventory display directly on your screen.",
-        "tags": ["HUD", "Utility", "PvP"],
-        "categories": ["hud", "utility", "pvp"]
-    },
-    {
-        "id": "itemcounter",
-        "icon": "assets/mods/itemcounters.png",
-        "title": "Item Counter",
-        "description": "Counts Arrows, Potions and Totems items in your inventory or hotbar.",
-        "tags": ["HUD", "Utility", "PvP"],
-        "categories": ["hud", "utility", "pvp"]
-    },
-    {
-        "id": "lowdurability",
-        "icon": "assets/mods/lowdurability.png",
-        "title": "Low Durability",
-        "description": "Alerts you when your equipped items have low durability.",
-        "tags": ["HUD", "Utility", "PvP"],
-        "categories": ["hud", "utility", "pvp"]
-    },
-    {
-        "id": "mainhandhud",
-        "icon": "assets/mods/mainhandhud.png",
-        "title": "Main Hand HUD",
-        "description": "Shows the item held in your main hand with it's durability.",
-        "tags": ["HUD", "Utility", "PvP"],
-        "categories": ["hud", "utility", "pvp"]
-    },
-    {
-        "id": "mobileshortcuts",
-        "icon": "assets/mods/mobileshortcuts.png",
-        "title": "Mobile Shortcuts",
-        "description": "Provides quick-access shortcuts optimized for mobile gameplay.",
-        "tags": ["Utility", "Mobile"],
-        "categories": ["utility", "mobile"]
-    },
-    {
-        "id": "offhandhud",
-        "icon": "assets/mods/offhandhud.png",
-        "title": "Offhand HUD",
-        "description": "Shows the item held in your offhand.",
-        "tags": ["HUD", "Utility", "PvP"],
-        "categories": ["hud", "utility", "pvp"]
-    },
-    {
-        "id": "playerlist",
-        "icon": "assets/mods/playerlist.png",
-        "title": "Playerlist",
-        "description": "Displays a list of players currently in your world or server.",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "safezoneviewer",
-        "icon": "assets/mods/safezoneviewer.png",
-        "title": "Safe Zone Viewer",
-        "description": "Visualizes safe areas or boundaries within the game world.",
-        "tags": ["Visual", "Utility"],
-        "categories": ["visual", "utility"]
-    },
-    {
-        "id": "saturationdisplaychanger",
-        "icon": "assets/mods/display.png",
-        "title": "Saturation Display Changer",
-        "description": "Adds a saturated overlay on your screen.",
-        "tags": ["HUD", "Visual"],
-        "categories": ["hud", "visual"]
-    },
-    {
-        "id": "serverdisplay",
-        "icon": "assets/mods/serverdisplay.png",
-        "title": "Server Display",
-        "description": "Shows information about the server you are currently on.",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "shinypotions",
-        "icon": "assets/mods/shinypotions.png",
-        "title": "Shiny Potions",
-        "description": "Adds a visual glint or enhanced effect to potion items.",
-        "tags": ["Visual", "Cosmetic"],
-        "categories": ["visual", "cosmetic"]
-    },
-    {
-        "id": "slotcounter",
-        "icon": "assets/mods/slotcounter.png",
-        "title": "Slot Counter",
-        "description": "Counts the number of occupied and empty slots in your inventory.",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "speedometer",
-        "icon": "assets/mods/speedometer.png",
-        "title": "Speedometer",
-        "description": "Displays your current movement speed in blocks per second.",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "statushud",
-        "icon": "assets/mods/statushud.png",
-        "title": "Status HUD",
-        "description": "Displays various player status.",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "targethud",
-        "icon": "assets/mods/targethud.png",
-        "title": "Target HUD",
-        "description": "Shows information about the player you are currently targeting.",
-        "tags": ["HUD", "PvP"],
-        "categories": ["hud", "pvp"]
-    },
-    {
-        "id": "timerhud",
-        "icon": "assets/mods/timerhud.png",
-        "title": "Timer HUD",
-        "description": "A timer display to keep track of your session time.",
-        "tags": ["HUD", "Utility"],
-        "categories": ["hud", "utility"]
-    },
-    {
-        "id": "walkdistance",
-        "icon": "assets/mods/walkdistance.png",
-        "title": "Walk Distance",
-        "description": "Displays the total distance you have walked in the game.",
-        "tags": ["Utility"],
-        "categories": ["utility"]
-    },
-    {
-        "id": "waypointsplus",
-        "icon": "assets/mods/waypointsplus.png",
-        "title": "Waypoints+",
-        "description": "Waypoints, death points, green screen visual.",
-        "tags": ["Utility", "Visual"],
-        "categories": ["utility", "visual"]
-    }
+    {"id":"capephysics","icon":"assets/mods/capephysics.png","titleKey":"mod.capephysics.title","descKey":"mod.capephysics.desc","tags":["tag.cosmetic","tag.visual"],"categories":["cosmetic","visual"]},
+    {"id":"armorhud","icon":"assets/mods/armorhud.png","titleKey":"mod.armorhud.title","descKey":"mod.armorhud.desc","tags":["tag.hud","tag.utility","tag.pvp"],"categories":["hud","utility","pvp"]},
+    {"id":"bowindicator","icon":"assets/mods/bowindicator.png","titleKey":"mod.bowindicator.title","descKey":"mod.bowindicator.desc","tags":["tag.hud","tag.pvp"],"categories":["hud","pvp"]},
+    {"id":"chat","icon":"assets/mods/chat.png","titleKey":"mod.chat.title","descKey":"mod.chat.desc","tags":["tag.utility"],"categories":["utility"]},
+    {"id":"chunkborder","icon":"assets/mods/chunkborder.png","titleKey":"mod.chunkborder.title","descKey":"mod.chunkborder.desc","tags":["tag.visual","tag.utility"],"categories":["visual","utility"]},
+    {"id":"clockcompass","icon":"assets/mods/clockcompass.png","titleKey":"mod.clockcompass.title","descKey":"mod.clockcompass.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"coordinates","icon":"assets/mods/coordinates.png","titleKey":"mod.coordinates.title","descKey":"mod.coordinates.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"crosshairchanger","icon":"assets/mods/crosshairs.png","titleKey":"mod.crosshairchanger.title","descKey":"mod.crosshairchanger.desc","tags":["tag.cosmetic","tag.visual","tag.pvp"],"categories":["cosmetic","visual","pvp"]},
+    {"id":"dayevent","icon":"assets/mods/dayevent.png","titleKey":"mod.dayevent.title","descKey":"mod.dayevent.desc","tags":["tag.utility"],"categories":["utility"]},
+    {"id":"daycounter","icon":"assets/mods/daycounter.png","titleKey":"mod.daycounter.title","descKey":"mod.daycounter.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"debughud","icon":"assets/mods/debughud.png","titleKey":"mod.debughud.title","descKey":"mod.debughud.desc","tags":["tag.utility"],"categories":["utility"]},
+    {"id":"directionhud","icon":"assets/mods/directionhud.png","titleKey":"mod.directionhud.title","descKey":"mod.directionhud.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"expcalculator","icon":"assets/mods/expcalculator.png","titleKey":"mod.expcalculator.title","descKey":"mod.expcalculator.desc","tags":["tag.utility"],"categories":["utility"]},
+    {"id":"forcecoords","icon":"assets/mods/forcecoords.png","titleKey":"mod.forcecoords.title","descKey":"mod.forcecoords.desc","tags":["tag.utility"],"categories":["utility"]},
+    {"id":"fpscounter","icon":"assets/mods/fpscounter.png","titleKey":"mod.fpscounter.title","descKey":"mod.fpscounter.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"hitbox","icon":"assets/mods/hitbox.png","titleKey":"mod.hitbox.title","descKey":"mod.hitbox.desc","tags":["tag.visual","tag.pvp"],"categories":["visual","pvp"]},
+    {"id":"hitcolor","icon":"assets/mods/hitcolor.png","titleKey":"mod.hitcolor.title","descKey":"mod.hitcolor.desc","tags":["tag.visual","tag.pvp"],"categories":["visual","pvp"]},
+    {"id":"hotbar","icon":"assets/mods/hotbar.png","titleKey":"mod.hotbar.title","descKey":"mod.hotbar.desc","tags":["tag.hud","tag.visual"],"categories":["hud","visual"]},
+    {"id":"hudpopup","icon":"assets/mods/hudpopup.png","titleKey":"mod.hudpopup.title","descKey":"mod.hudpopup.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"inventoryhud","icon":"assets/mods/inventoryhud.png","titleKey":"mod.inventoryhud.title","descKey":"mod.inventoryhud.desc","tags":["tag.hud","tag.utility","tag.pvp"],"categories":["hud","utility","pvp"]},
+    {"id":"itemcounter","icon":"assets/mods/itemcounter.png","titleKey":"mod.itemcounter.title","descKey":"mod.itemcounter.desc","tags":["tag.hud","tag.utility","tag.pvp"],"categories":["hud","utility","pvp"]},
+    {"id":"lowdurability","icon":"assets/mods/lowdurability.png","titleKey":"mod.lowdurability.title","descKey":"mod.lowdurability.desc","tags":["tag.hud","tag.utility","tag.pvp"],"categories":["hud","utility","pvp"]},
+    {"id":"mainhandhud","icon":"assets/mods/mainhandhud.png","titleKey":"mod.mainhandhud.title","descKey":"mod.mainhandhud.desc","tags":["tag.hud","tag.utility","tag.pvp"],"categories":["hud","utility","pvp"]},
+    {"id":"mobileshortcuts","icon":"assets/mods/mobileshortcuts.png","titleKey":"mod.mobileshortcuts.title","descKey":"mod.mobileshortcuts.desc","tags":["tag.utility","tag.mobile"],"categories":["utility","mobile"]},
+    {"id":"offhandhud","icon":"assets/mods/offhandhud.png","titleKey":"mod.offhandhud.title","descKey":"mod.offhandhud.desc","tags":["tag.hud","tag.utility","tag.pvp"],"categories":["hud","utility","pvp"]},
+    {"id":"playerlist","icon":"assets/mods/playerlist.png","titleKey":"mod.playerlist.title","descKey":"mod.playerlist.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"safezoneviewer","icon":"assets/mods/safezoneviewer.png","titleKey":"mod.safezoneviewer.title","descKey":"mod.safezoneviewer.desc","tags":["tag.visual","tag.utility"],"categories":["visual","utility"]},
+    {"id":"saturationdisplaychanger","icon":"assets/mods/display.png","titleKey":"mod.saturationdisplaychanger.title","descKey":"mod.saturationdisplaychanger.desc","tags":["tag.hud","tag.visual"],"categories":["hud","visual"]},
+    {"id":"serverdisplay","icon":"assets/mods/serverdisplay.png","titleKey":"mod.serverdisplay.title","descKey":"mod.serverdisplay.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"shinypotions","icon":"assets/mods/shinypotions.png","titleKey":"mod.shinypotions.title","descKey":"mod.shinypotions.desc","tags":["tag.visual","tag.cosmetic"],"categories":["visual","cosmetic"]},
+    {"id":"slotcounter","icon":"assets/mods/slotcounter.png","titleKey":"mod.slotcounter.title","descKey":"mod.slotcounter.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"speedometer","icon":"assets/mods/speedometer.png","titleKey":"mod.speedometer.title","descKey":"mod.speedometer.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"statushud","icon":"assets/mods/statushud.png","titleKey":"mod.statushud.title","descKey":"mod.statushud.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"targethud","icon":"assets/mods/targethud.png","titleKey":"mod.targethud.title","descKey":"mod.targethud.desc","tags":["tag.hud","tag.pvp"],"categories":["hud","pvp"]},
+    {"id":"timerhud","icon":"assets/mods/timerhud.png","titleKey":"mod.timerhud.title","descKey":"mod.timerhud.desc","tags":["tag.hud","tag.utility"],"categories":["hud","utility"]},
+    {"id":"walkdistance","icon":"assets/mods/walkdistance.png","titleKey":"mod.walkdistance.title","descKey":"mod.walkdistance.desc","tags":["tag.utility"],"categories":["utility"]},
+    {"id":"waypointsplus","icon":"assets/mods/waypointsplus.png","titleKey":"mod.waypointsplus.title","descKey":"mod.waypointsplus.desc","tags":["tag.utility","tag.visual"],"categories":["utility","visual"]}
 ]

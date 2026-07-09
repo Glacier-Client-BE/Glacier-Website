@@ -33,8 +33,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto:wght@500;700;900&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="css/styles.css?v=2026-07-08-copybadge" />
-    <script type="module" src="js/main.js?v=2026-07-08-copybadge"></script>
+    <link rel="stylesheet" href="css/styles.css?v=2026-07-08-d" />
+    <script type="module" src="js/main.js?v=2026-07-08-d"></script>
     <script src="js/kinetic.js?v=2026-06-20" defer></script>
     <script src="https://publisher.linkvertise.com/cdn/linkvertise.js"></script>
     <script>
@@ -47,27 +47,29 @@
 
 <body>
 
+    <div id="cursorGlow" aria-hidden="true"></div>
+
     <div id="scrollProgress" aria-hidden="true"></div>
 
     <div id="toastBanner" role="status" aria-live="polite">
         <div class="toast-icon" aria-hidden="true"><i class="fas fa-bullhorn"></i></div>
         <div class="toast-body">
-            <span class="toast-title">Announcement</span>
+            <span class="toast-title" data-i18n="toast.announcement">Announcement</span>
             <span id="toastMsg" class="toast-text"></span>
             <a id="toastCta" href="#" class="toast-cta"></a>
         </div>
-        <button id="toastClose" aria-label="Dismiss announcement"><i class="fas fa-times"
+        <button id="toastClose" data-i18n-aria="toast.dismiss" aria-label="Dismiss announcement"><i class="fas fa-times"
                 aria-hidden="true"></i></button>
     </div>
 
     <div id="donateBanner" class="toast" role="status" aria-live="polite">
         <div class="toast-icon toast-icon--donate" aria-hidden="true"><i class="fas fa-heart"></i></div>
         <div class="toast-body">
-            <span class="toast-title toast-title--donate">Support Glacier</span>
-            <span class="toast-text">Glacier is free forever. A small donation keeps it that way.</span>
-            <a id="donateCta" href="/donate" class="toast-cta toast-cta--donate" data-section="donate">Donate</a>
+            <span class="toast-title toast-title--donate" data-i18n="donate.toastTitle">Support Glacier</span>
+            <span class="toast-text" data-i18n="donate.toastText">Glacier is free forever. A small donation keeps it that way.</span>
+            <a id="donateCta" href="/donate" class="toast-cta toast-cta--donate" data-section="donate" data-i18n="nav.donate">Donate</a>
         </div>
-        <button id="donateClose" aria-label="Dismiss donation prompt"><i class="fas fa-times"
+        <button id="donateClose" data-i18n-aria="donate.dismiss" aria-label="Dismiss donation prompt"><i class="fas fa-times"
                 aria-hidden="true"></i></button>
     </div>
 
@@ -129,21 +131,33 @@
             <div class="top-bar-spacer"></div>
 
             <nav class="nav-tabs" id="navMenu">
-                <a href="/" class="nav-tab active" data-section="home">Home</a>
-                <a href="/features" class="nav-tab" data-section="features">Features</a>
-                <a href="/gallery" class="nav-tab" data-section="gallery">Gallery</a>
-                <a href="/community" class="nav-tab" data-section="community">Community</a>
-                <a href="/downloads" class="nav-tab" data-section="downloads">Downloads</a>
-                <a href="/faq" class="nav-tab" data-section="faq">FAQ</a>
-                <a href="/mods" class="nav-tab" data-section="mods">All Mods</a>
-                <a href="/license" class="nav-tab" data-section="license">License</a>
-                <a href="/donate" class="nav-tab" data-section="donate">Donate</a>
+                <a href="/" class="nav-tab active" data-section="home" data-i18n="nav.home">Home</a>
+                <a href="/features" class="nav-tab" data-section="features" data-i18n="nav.features">Features</a>
+                <a href="/gallery" class="nav-tab" data-section="gallery" data-i18n="nav.gallery">Gallery</a>
+                <a href="/community" class="nav-tab" data-section="community" data-i18n="nav.community">Community</a>
+                <a href="/downloads" class="nav-tab" data-section="downloads" data-i18n="nav.downloads">Downloads</a>
+                <a href="/faq" class="nav-tab" data-section="faq" data-i18n="nav.faq">FAQ</a>
+                <a href="/docs" class="nav-tab" data-section="docs" data-i18n="nav.docs">Docs</a>
+                <a href="/mods" class="nav-tab" data-section="mods" data-i18n="nav.mods">All Mods</a>
+                <a href="/license" class="nav-tab" data-section="license" data-i18n="nav.license">License</a>
+                <a href="/donate" class="nav-tab" data-section="donate" data-i18n="nav.donate">Donate</a>
             </nav>
 
             <button id="searchTrigger" class="search-trigger" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">
                 <i class="fas fa-search" aria-hidden="true"></i>
                 <span class="search-hint">Ctrl K</span>
             </button>
+
+            <div class="lang-custom-dropdown" id="langDropdown" title="Language">
+                <button class="lang-dropdown-trigger" id="langDropdownTrigger" type="button"
+                    aria-haspopup="listbox" aria-expanded="false" aria-label="Select language">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span id="currentLangLabel">English</span>
+                    <i class="fas fa-chevron-down lang-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="lang-dropdown-menu" id="langDropdownMenu" role="listbox"
+                    aria-label="Available languages"></div>
+            </div>
 
             <button id="themeToggle" class="header-icon-btn" aria-label="Toggle theme" title="Toggle theme">
                 <i class="fas fa-sun" aria-hidden="true"></i>
@@ -159,35 +173,35 @@
         <section class="hero" id="hero-section">
             <div class="hero-container container">
                 <div class="hero-content" data-parallax="0.05">
-                    <h1 class="hero-title">Next Generation Minecraft Experience</h1>
-                    <p class="hero-subtitle">Optimized texture pack client for Minecraft Bedrock Edition with extensive
+                    <h1 class="hero-title" data-i18n="hero.title">Next Generation Minecraft Experience</h1>
+                    <p class="hero-subtitle" data-i18n="hero.subtitle">Optimized texture pack client for Minecraft Bedrock Edition with extensive
                         modules, draggable GUI, and lightweight performance. Experience the future of Minecraft with
                         smooth animations and a clean interface.</p>
                     <div class="hero-buttons">
                         <a href="/downloads" class="btn btn-primary" data-section="downloads">
-                            <i class="fas fa-download" aria-hidden="true"></i> Download Now
+                            <i class="fas fa-download" aria-hidden="true"></i> <span data-i18n="hero.download">Download Now</span>
                         </a>
                         <a href="https://config.glacierclient.xyz/" class="btn btn-secondary" target="_blank"
                             rel="noopener">
-                            <i class="fas fa-sliders-h" aria-hidden="true"></i> Config Editor
+                            <i class="fas fa-sliders-h" aria-hidden="true"></i> <span data-i18n="hero.config">Config Editor</span>
                         </a>
                     </div>
                     <div class="hero-stats">
                         <div class="hero-stat">
-                            <span class="hero-stat-num" id="discordOnline">&mdash;</span>
-                            <span class="hero-stat-label">Online on Discord</span>
+                            <span class="hero-stat-num" id="discordOnline" data-discord-online>&mdash;</span>
+                            <span class="hero-stat-label" data-i18n="hero.online">Online on Discord</span>
                         </div>
                         <div class="hero-stat">
                             <span class="hero-stat-num">37+</span>
-                            <span class="hero-stat-label">Modules</span>
+                            <span class="hero-stat-label" data-i18n="hero.modules">Modules</span>
                         </div>
                         <div class="hero-stat">
                             <span class="hero-stat-num">2 MB</span>
-                            <span class="hero-stat-label">Pack Size</span>
+                            <span class="hero-stat-label" data-i18n="hero.packSize">Pack Size</span>
                         </div>
                         <div class="hero-stat">
-                            <span class="hero-stat-num">Free</span>
-                            <span class="hero-stat-label">Forever</span>
+                            <span class="hero-stat-num" data-i18n="hero.free">Free</span>
+                            <span class="hero-stat-label" data-i18n="hero.forever">Forever</span>
                         </div>
                     </div>
                 </div>
@@ -203,27 +217,27 @@
             <section id="home-section" class="content-section active">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title">Core Features</h2>
-                        <p class="section-subtitle">Experience the power of Glacier Client with these standout features
+                        <h2 class="section-title" data-i18n="core.title">Core Features</h2>
+                        <p class="section-subtitle" data-i18n="core.sub">Experience the power of Glacier Client with these standout features
                         </p>
                     </div>
                     <div class="features-grid">
                         <div class="feature-card card-base card-shine reveal">
                             <div class="feature-icon"><i class="fas fa-cubes" aria-hidden="true"></i></div>
-                            <h3 class="feature-title">37+ Modules</h3>
-                            <p class="feature-desc">Extensive modules with real-time configuration and customization
+                            <h3 class="feature-title" data-i18n="feat.modules.title">37+ Modules</h3>
+                            <p class="feature-desc" data-i18n="feat.modules.desc">Extensive modules with real-time configuration and customization
                                 options for every playstyle.</p>
                         </div>
                         <div class="feature-card card-base card-shine reveal">
                             <div class="feature-icon"><i class="fas fa-arrows-alt" aria-hidden="true"></i></div>
-                            <h3 class="feature-title">Draggable Mods</h3>
-                            <p class="feature-desc">Modules are fully movable to customize your HUD exactly how you want
+                            <h3 class="feature-title" data-i18n="feat.draggable.title">Draggable Mods</h3>
+                            <p class="feature-desc" data-i18n="feat.draggable.desc">Modules are fully movable to customize your HUD exactly how you want
                                 it.</p>
                         </div>
                         <div class="feature-card card-base card-shine reveal">
                             <div class="feature-icon"><i class="fas fa-bolt" aria-hidden="true"></i></div>
-                            <h3 class="feature-title">Lightweight</h3>
-                            <p class="feature-desc">Only 2MB with zero performance impact, ensuring smooth gameplay even
+                            <h3 class="feature-title" data-i18n="feat.lightweight.title">Lightweight</h3>
+                            <p class="feature-desc" data-i18n="feat.lightweight.desc">Only 2MB with zero performance impact, ensuring smooth gameplay even
                                 on lower-end devices.</p>
                         </div>
                     </div>
@@ -241,23 +255,23 @@
                         </div>
                         <div class="showcase-info">
                             <div class="showcase-topline">
-                                <span class="showcase-eyebrow">A peek inside</span>
+                                <span class="showcase-eyebrow" data-i18n="showcase.eyebrow">A peek inside</span>
                                 <span class="showcase-count" aria-hidden="true"><span class="showcase-count-num">01</span><span class="showcase-count-sep">/</span><span class="showcase-count-total">03</span></span>
                             </div>
                             <div class="showcase-textstack">
                                 <div class="showcase-text is-active" data-frame="0">
-                                    <h2 class="showcase-heading">Modular menu, your way.</h2>
-                                    <p class="showcase-body">Drag, drop, and dial-in 37+ modules in real time. Customize
+                                    <h2 class="showcase-heading" data-i18n="showcase.modMenu.heading">Modular menu, your way.</h2>
+                                    <p class="showcase-body" data-i18n="showcase.modMenu.body">Drag, drop, and dial-in 37+ modules in real time. Customize
                                         the HUD without ever leaving the game.</p>
                                 </div>
                                 <div class="showcase-text" data-frame="1">
-                                    <h2 class="showcase-heading">A custom welcome.</h2>
-                                    <p class="showcase-body">Branded main menu with crisp typography and smooth
+                                    <h2 class="showcase-heading" data-i18n="showcase.startScreen.heading">A custom welcome.</h2>
+                                    <p class="showcase-body" data-i18n="showcase.startScreen.body">Branded main menu with crisp typography and smooth
                                         animation, every launch.</p>
                                 </div>
                                 <div class="showcase-text" data-frame="2">
-                                    <h2 class="showcase-heading">QOL-first pause.</h2>
-                                    <p class="showcase-body">Quick toggles and rich information without breaking your
+                                    <h2 class="showcase-heading" data-i18n="showcase.pauseScreen.heading">QOL-first pause.</h2>
+                                    <p class="showcase-body" data-i18n="showcase.pauseScreen.body">Quick toggles and rich information without breaking your
                                         flow.</p>
                                 </div>
                             </div>
@@ -286,9 +300,9 @@
 
                 <div class="container">
                     <div class="section-header section-header--stacked reveal">
-                        <h2 class="section-title">What Creators Are Saying</h2>
-                        <p class="section-subtitle">Hand-picked reviews and showcases from the Minecraft Bedrock
-                            community</p>
+	                        <h2 class="section-title" data-i18n="creators.title">What Creators Are Saying</h2>
+	                        <p class="section-subtitle" data-i18n="creators.sub">Hand-picked reviews and showcases from the Minecraft Bedrock
+	                            community</p>
                     </div>
                     <div class="showcase-video-grid">
                         <div class="showcase-video-card card-base reveal" data-video-id="ocWqAqCTILY">
@@ -343,7 +357,7 @@
                     </div>
                     <div class="showcase-view-all reveal">
                         <a href="/community" class="btn btn-secondary" data-section="community">
-                            <i class="fab fa-youtube" aria-hidden="true"></i> View All Showcases
+                            <i class="fab fa-youtube" aria-hidden="true"></i> <span data-i18n="btn.viewAll">View All Showcases</span>
                         </a>
                     </div>
                 </div>
@@ -352,101 +366,99 @@
             <section id="features-section" class="content-section">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title">Core Features</h2>
-                        <p class="section-subtitle">Experience the power of Glacier Client with these standout features
+                        <h2 class="section-title" data-i18n="core.title">Core Features</h2>
+                        <p class="section-subtitle" data-i18n="core.sub">Experience the power of Glacier Client with these standout features
                         </p>
                     </div>
-                    <div class="features-grid">
-                        <div class="feature-card card-base card-shine reveal">
-                            <div class="feature-icon"><i class="fas fa-cubes" aria-hidden="true"></i></div>
-                            <h3 class="feature-title">37+ Modules</h3>
-                            <p class="feature-desc">Extensive modules with real-time configuration and customization
-                                options for every playstyle.</p>
-                        </div>
-                        <div class="feature-card card-base card-shine reveal">
-                            <div class="feature-icon"><i class="fas fa-arrows-alt" aria-hidden="true"></i></div>
-                            <h3 class="feature-title">Draggable Mods</h3>
-                            <p class="feature-desc">Modules are fully movable to customize your HUD exactly how you want
-                                it.</p>
-                        </div>
-                        <div class="feature-card card-base card-shine reveal">
-                            <div class="feature-icon"><i class="fas fa-bolt" aria-hidden="true"></i></div>
-                            <h3 class="feature-title">Lightweight</h3>
-                            <p class="feature-desc">Only 2MB with zero performance impact, ensuring smooth gameplay even
-                                on lower-end devices.</p>
-                        </div>
-                    </div>
-                    <div class="section-header section-header--stacked reveal">
-                        <h2 class="section-title">Advanced Features</h2>
-                        <p class="section-subtitle">Discover the powerful capabilities of Glacier Client</p>
-                    </div>
-                    <div class="features-grid">
-                        <div class="feature-card card-base card-shine reveal">
-                            <div class="feature-icon"><i class="fas fa-sliders-h" aria-hidden="true"></i></div>
-                            <h3 class="feature-title">Config Editor</h3>
-                            <p class="feature-desc">Built-in configuration editor that allows you to customize every
-                                aspect of your client experience.</p>
-                        </div>
-                        <div class="feature-card card-base card-shine reveal">
-                            <span class="feature-badge"><i class="fas fa-rocket" aria-hidden="true"></i> Launcher
-                                only</span>
-                            <div class="feature-icon"><i class="fas fa-palette" aria-hidden="true"></i></div>
-                            <h3 class="feature-title">Custom Themes</h3>
-                            <p class="feature-desc">Multiple theme options to personalize the look and feel of your
-                                client interface.</p>
-                        </div>
-                        <div class="feature-card card-base card-shine reveal">
-                            <span class="feature-badge"><i class="fas fa-rocket" aria-hidden="true"></i> Launcher
-                                only</span>
-                            <div class="feature-icon"><i class="fas fa-sync-alt" aria-hidden="true"></i></div>
-                            <h3 class="feature-title">Auto-Updates</h3>
-                            <p class="feature-desc">Automatic update system that ensures you always have the latest
-                                features and bug fixes.</p>
-                        </div>
-                    </div>
+	                    <div class="features-grid">
+	                        <div class="feature-card card-base card-shine reveal">
+	                            <div class="feature-icon"><i class="fas fa-cubes" aria-hidden="true"></i></div>
+	                            <h3 class="feature-title" data-i18n="feat.modules.title">37+ Modules</h3>
+	                            <p class="feature-desc" data-i18n="feat.modules.desc">Extensive modules with real-time configuration and customization
+	                                options for every playstyle.</p>
+	                        </div>
+	                        <div class="feature-card card-base card-shine reveal">
+	                            <div class="feature-icon"><i class="fas fa-arrows-alt" aria-hidden="true"></i></div>
+	                            <h3 class="feature-title" data-i18n="feat.draggable.title">Draggable Mods</h3>
+	                            <p class="feature-desc" data-i18n="feat.draggable.desc">Modules are fully movable to customize your HUD exactly how you want
+	                                it.</p>
+	                        </div>
+	                        <div class="feature-card card-base card-shine reveal">
+	                            <div class="feature-icon"><i class="fas fa-bolt" aria-hidden="true"></i></div>
+	                            <h3 class="feature-title" data-i18n="feat.lightweight.title">Lightweight</h3>
+	                            <p class="feature-desc" data-i18n="feat.lightweight.desc">Only 2MB with zero performance impact, ensuring smooth gameplay even
+	                                on lower-end devices.</p>
+	                        </div>
+	                    </div>
+	                    <div class="section-header section-header--stacked reveal">
+	                        <h2 class="section-title" data-i18n="adv.title">Advanced Features</h2>
+	                        <p class="section-subtitle" data-i18n="adv.sub">Discover the powerful capabilities of Glacier Client</p>
+	                    </div>
+	                    <div class="features-grid">
+	                        <div class="feature-card card-base card-shine reveal">
+	                            <div class="feature-icon"><i class="fas fa-sliders-h" aria-hidden="true"></i></div>
+	                            <h3 class="feature-title" data-i18n="adv.config.title">Config Editor</h3>
+	                            <p class="feature-desc" data-i18n="adv.config.desc">Built-in configuration editor that allows you to customize every
+	                                aspect of your client experience.</p>
+	                        </div>
+	                        <div class="feature-card card-base card-shine reveal">
+	                            <span class="feature-badge"><i class="fas fa-rocket" aria-hidden="true"></i> <span data-i18n="badge.launcherOnly">Launcher only</span></span>
+	                            <div class="feature-icon"><i class="fas fa-palette" aria-hidden="true"></i></div>
+	                            <h3 class="feature-title" data-i18n="adv.themes.title">Custom Themes</h3>
+	                            <p class="feature-desc" data-i18n="adv.themes.desc">Multiple theme options to personalize the look and feel of your
+	                                client interface.</p>
+	                        </div>
+	                        <div class="feature-card card-base card-shine reveal">
+	                            <span class="feature-badge"><i class="fas fa-rocket" aria-hidden="true"></i> <span data-i18n="badge.launcherOnly">Launcher only</span></span>
+	                            <div class="feature-icon"><i class="fas fa-sync-alt" aria-hidden="true"></i></div>
+	                            <h3 class="feature-title" data-i18n="adv.autoupdate.title">Auto-Updates</h3>
+	                            <p class="feature-desc" data-i18n="adv.autoupdate.desc">Automatic update system that ensures you always have the latest
+	                                features and bug fixes.</p>
+	                        </div>
+	                    </div>
                 </div>
             </section>
 
-            <section id="gallery-section" class="content-section">
-                <div class="container">
-                    <div class="section-header reveal">
-                        <h2 class="section-title">Screenshots</h2>
-                        <p class="section-subtitle">See Glacier Client in action</p>
-                    </div>
-                    <div class="gallery-container">
-                        <div class="gallery-item reveal">
-                            <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu" loading="lazy"
-                                decoding="async" />
-                            <div class="gallery-overlay">
-                                <h3>Mod Menu</h3>
-                                <p>Easy-to-use interface for managing all your mods</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item reveal">
-                            <img src="assets/start_screen.png" alt="Glacier Client Start Screen" loading="lazy"
-                                decoding="async" />
-                            <div class="gallery-overlay">
-                                <h3>Start Screen</h3>
-                                <p>Custom main menu with a unique design</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item reveal">
-                            <img src="assets/pause_screen.png" alt="Glacier Client Pause Screen" loading="lazy"
-                                decoding="async" />
-                            <div class="gallery-overlay">
-                                <h3>Pause Screen</h3>
-                                <p>Custom pause menu with QOL features</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+	            <section id="gallery-section" class="content-section">
+	                <div class="container">
+	                    <div class="section-header reveal">
+	                        <h2 class="section-title" data-i18n="gallery.title">Screenshots</h2>
+	                        <p class="section-subtitle" data-i18n="gallery.sub">See Glacier Client in action</p>
+	                    </div>
+	                    <div class="gallery-container">
+	                        <div class="gallery-item reveal">
+	                            <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu" loading="lazy"
+	                                decoding="async" />
+	                            <div class="gallery-overlay">
+	                                <h3 data-i18n="gallery.modMenu.title">Mod Menu</h3>
+	                                <p data-i18n="gallery.modMenu.desc">Easy-to-use interface for managing all your mods</p>
+	                            </div>
+	                        </div>
+	                        <div class="gallery-item reveal">
+	                            <img src="assets/start_screen.png" alt="Glacier Client Start Screen" loading="lazy"
+	                                decoding="async" />
+	                            <div class="gallery-overlay">
+	                                <h3 data-i18n="gallery.startScreen.title">Start Screen</h3>
+	                                <p data-i18n="gallery.startScreen.desc">Custom main menu with a unique design</p>
+	                            </div>
+	                        </div>
+	                        <div class="gallery-item reveal">
+	                            <img src="assets/pause_screen.png" alt="Glacier Client Pause Screen" loading="lazy"
+	                                decoding="async" />
+	                            <div class="gallery-overlay">
+	                                <h3 data-i18n="gallery.pauseScreen.title">Pause Screen</h3>
+	                                <p data-i18n="gallery.pauseScreen.desc">Custom pause menu with QOL features</p>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </section>
 
             <section id="community-section" class="content-section">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title">Join Our Community</h2>
-                        <p class="section-subtitle">Connect with other Glacier Client users and get support</p>
+                        <h2 class="section-title" data-i18n="join.title">Join Our Community</h2>
+                        <p class="section-subtitle" data-i18n="join.sub">Connect with other Glacier Client users and get support</p>
                     </div>
                     <div class="community-content">
                         <div class="community-widget">
@@ -455,27 +467,27 @@
                                 sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
                                 title="Discord widget"></iframe>
                         </div>
-                        <div class="community-text">
-                            <h2>Join Our Discord!</h2>
-                            <p>Connect with other Glacier Client users, get support, share your creations, and stay
-                                up-to-date with the latest news and updates.</p>
-                            <ul>
-                                <li>Get help with installation and troubleshooting</li>
-                                <li>Suggest new features and modules</li>
-                                <li>Participate in events and giveaways</li>
-                                <li>Chat directly with the developers</li>
-                            </ul>
+	                    <div class="community-text">
+	                            <h2 data-i18n="community.joinDiscord">Join Our Discord!</h2>
+	                            <p data-i18n="community.joinDesc">Connect with other Glacier Client users, get support, share your creations, and stay
+	                                up-to-date with the latest news and updates.</p>
+	                            <ul>
+	                                <li data-i18n="community.li1">Get help with installation and troubleshooting</li>
+	                                <li data-i18n="community.li2">Suggest new features and modules</li>
+	                                <li data-i18n="community.li3">Participate in events and giveaways</li>
+	                                <li data-i18n="community.li4">Chat directly with the developers</li>
+	                            </ul>
                             <a href="https://discord.glacierclient.xyz/" class="btn btn-primary"
                                 style="background:#5865F2;" target="_blank" rel="noopener">
-                                <i class="fab fa-discord" aria-hidden="true"></i> Join Discord
+                                <i class="fab fa-discord" aria-hidden="true"></i> <span data-i18n="btn.joinDiscord">Join Discord</span>
                             </a>
                         </div>
                     </div>
 
                     <div class="section-header section-header--stacked reveal">
-                        <h2 class="section-title">Community Showcases</h2>
-                        <p class="section-subtitle">See what creators in the Minecraft Bedrock community are saying
-                            about Glacier Client</p>
+	                        <h2 class="section-title" data-i18n="showcases.title">Community Showcases</h2>
+	                        <p class="section-subtitle" data-i18n="showcases.sub">See what creators in the Minecraft Bedrock community are saying
+	                            about Glacier Client</p>
                     </div>
                     <div class="showcase-video-grid">
                         <div class="showcase-video-card card-base reveal" data-video-id="ocWqAqCTILY">
@@ -527,11 +539,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="showcase-video-card card-base reveal" data-video-id="9AONoKL11YE">
+                            <button class="showcase-video-thumb" aria-label="Play video: Glacier Client V5 For MCPE 1.21+ ( Mod Menu, FPS Boost) No lag by BRAVE SHAHEEN YT">
+                                <img src="https://i.ytimg.com/vi/9AONoKL11YE/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
+                                <span class="showcase-play-btn" aria-hidden="true"><i class="fas fa-play"></i></span>
+                            </button>
+                            <div class="showcase-video-info">
+                                <h3 class="showcase-video-title">Glacier Client V5 For MCPE 1.21+ ( Mod Menu, FPS
+                                    Boost) No lag</h3>
+                                <div class="showcase-video-meta">
+                                    <span class="showcase-video-channel">BRAVE SHAHEEN YT</span>
+                                    <span class="showcase-video-sep" aria-hidden="true">&middot;</span>
+                                    <span>7.6K views</span>
+                                    <span class="showcase-video-sep" aria-hidden="true">&middot;</span>
+                                    <span>1 year ago</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="section-header section-header--stacked reveal">
-                        <h2 class="section-title">Follow Us</h2>
-                        <p class="section-subtitle">Stay connected with Glacier Client across all platforms</p>
+	                        <h2 class="section-title" data-i18n="follow.title">Follow Us</h2>
+	                        <p class="section-subtitle" data-i18n="follow.sub">Stay connected with Glacier Client across all platforms</p>
                     </div>
                     <div class="social-grid">
                         <a href="https://discord.glacierclient.xyz/" class="social-card card-base card-shine reveal"
@@ -561,56 +590,54 @@
             <section id="downloads-section" class="content-section">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title">Downloads</h2>
+                        <h2 class="section-title" data-i18n="downloads.title">Downloads</h2>
                         <p class="section-subtitle">Download the latest pack client and launcher DLL and Java builds
                             coming soon</p>
                     </div>
-                    <div class="downloads-tabs">
-                        <button class="tab-button active" data-tab="clients"><i class="fas fa-cube"
-                                aria-hidden="true"></i> Pack Client Downloads</button>
-                        <button class="tab-button" data-tab="dll"><i class="fas fa-microchip" aria-hidden="true"></i>
-                            MCBE DLL Downloads</button>
-                        <button class="tab-button" data-tab="java"><i class="fab fa-java" aria-hidden="true"></i> Java
-                            Clients Downloads</button>
-                        <button class="tab-button" data-tab="launcher"><i class="fas fa-rocket" aria-hidden="true"></i>
-                            Launcher</button>
-                    </div>
-                    <div id="clients-tab-content" class="tab-content active">
-                        <h3 class="downloads-sub-title">Working Versions</h3>
-                        <div class="downloads-grid" id="working-clients"></div>
-                        <h3 class="downloads-sub-title-spaced">Legacy Versions</h3>
-                        <div class="downloads-grid" id="legacy-clients"></div>
-                    </div>
-                    <div id="dll-tab-content" class="tab-content">
-                        <div class="coming-soon">
-                            <i class="fas fa-microchip coming-soon-icon" aria-hidden="true"></i>
-                            <h3>MCBE DLL Downloads</h3>
-                            <p>Native DLL injection client for Minecraft Bedrock Edition currently in development.</p>
-                            <span class="coming-soon-badge"><i class="fas fa-clock" aria-hidden="true"></i> Coming
-                                soon</span>
-                        </div>
-                    </div>
-                    <div id="java-tab-content" class="tab-content">
-                        <div class="coming-soon">
-                            <i class="fab fa-java coming-soon-icon" aria-hidden="true"></i>
-                            <h3>Java Clients Downloads</h3>
-                            <p>Glacier client builds for Minecraft Java Edition currently in development.</p>
-                            <span class="coming-soon-badge"><i class="fas fa-clock" aria-hidden="true"></i> Coming
-                                soon</span>
-                        </div>
-                    </div>
-                    <div id="launcher-tab-content" class="tab-content">
-                        <h3 class="downloads-sub-title">Glacier Launcher Releases</h3>
-                        <div class="downloads-grid" id="launcher-releases"></div>
-                    </div>
+	                    <div class="downloads-tabs">
+	                        <button class="tab-button active" data-tab="clients"><i class="fas fa-cube"
+	                                aria-hidden="true"></i> <span data-i18n="dl.tab.clients">Pack Client Downloads</span></button>
+	                        <button class="tab-button" data-tab="dll"><i class="fas fa-microchip" aria-hidden="true"></i>
+	                            <span data-i18n="dl.tab.dll">MCBE DLL Downloads</span></button>
+	                        <button class="tab-button" data-tab="java"><i class="fab fa-java" aria-hidden="true"></i> <span data-i18n="dl.tab.java">Java
+	                            Clients Downloads</span></button>
+	                        <button class="tab-button" data-tab="launcher"><i class="fas fa-rocket" aria-hidden="true"></i>
+	                            <span data-i18n="dl.tab.launcher">Launcher</span></button>
+	                    </div>
+	                    <div id="clients-tab-content" class="tab-content active">
+	                        <h3 class="downloads-sub-title" data-i18n="dl.working">Working Versions</h3>
+	                        <div class="downloads-grid" id="working-clients"></div>
+	                        <h3 class="downloads-sub-title-spaced" data-i18n="dl.legacy">Legacy Versions</h3>
+	                        <div class="downloads-grid" id="legacy-clients"></div>
+	                    </div>
+	                    <div id="dll-tab-content" class="tab-content">
+	                        <div class="coming-soon">
+	                            <i class="fas fa-microchip coming-soon-icon" aria-hidden="true"></i>
+	                            <h3 data-i18n="dl.dll.title">MCBE DLL Downloads</h3>
+	                            <p data-i18n="dl.dll.desc">Native DLL injection client for Minecraft Bedrock Edition currently in development.</p>
+	                            <span class="coming-soon-badge"><i class="fas fa-clock" aria-hidden="true"></i> <span data-i18n="badge.comingSoon">Coming soon</span></span>
+	                        </div>
+	                    </div>
+	                    <div id="java-tab-content" class="tab-content">
+	                        <div class="coming-soon">
+	                            <i class="fab fa-java coming-soon-icon" aria-hidden="true"></i>
+	                            <h3 data-i18n="dl.java.title">Java Clients Downloads</h3>
+	                            <p data-i18n="dl.java.desc">Glacier client builds for Minecraft Java Edition currently in development.</p>
+	                            <span class="coming-soon-badge"><i class="fas fa-clock" aria-hidden="true"></i> <span data-i18n="badge.comingSoon">Coming soon</span></span>
+	                        </div>
+	                    </div>
+	                    <div id="launcher-tab-content" class="tab-content">
+	                        <h3 class="downloads-sub-title" data-i18n="dl.launcherReleases">Glacier Launcher Releases</h3>
+	                        <div class="downloads-grid" id="launcher-releases"></div>
+	                    </div>
                 </div>
             </section>
 
             <section id="faq-section" class="content-section">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title">Frequently Asked Questions</h2>
-                        <p class="section-subtitle">Comprehensive answers to common inquiries about Glacier Client</p>
+                        <h2 class="section-title" data-i18n="faq.title">Frequently Asked Questions</h2>
+	                        <p class="section-subtitle" data-i18n="faq.sub">Comprehensive answers to common inquiries about Glacier Client</p>
                     </div>
                     <div class="filter-controls" id="faqFilterControls"></div>
                     <div class="faq-container" id="faqContainer"></div>
@@ -620,38 +647,131 @@
             <section id="mods-section" class="content-section">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title">Explore All Glacier Mods</h2>
-                        <p class="section-subtitle">Discover a wide range of modules to enhance your Minecraft Bedrock
-                            Edition experience</p>
-                    </div>
-                    <div class="filter-controls">
-                        <button class="filter-button active" data-category="all">All Mods</button>
-                        <button class="filter-button" data-category="hud">HUD</button>
-                        <button class="filter-button" data-category="cosmetic">Cosmetic</button>
-                        <button class="filter-button" data-category="pvp">PvP</button>
-                        <button class="filter-button" data-category="utility">Utility</button>
-                        <button class="filter-button" data-category="visual">Visual</button>
+                        <h2 class="section-title" data-i18n="mods.title">Explore All Glacier Mods</h2>
+	                        <p class="section-subtitle" data-i18n="mods.sub">Discover a wide range of modules to enhance your Minecraft Bedrock
+	                            Edition experience</p>
+	                    </div>
+	                    <div class="filter-controls">
+	                        <button class="filter-button active" data-category="all" data-i18n="mods.filter.all">All Mods</button>
+	                        <button class="filter-button" data-category="hud" data-i18n="mods.filter.hud">HUD</button>
+	                        <button class="filter-button" data-category="cosmetic" data-i18n="mods.filter.cosmetic">Cosmetic</button>
+	                        <button class="filter-button" data-category="pvp" data-i18n="mods.filter.pvp">PvP</button>
+	                        <button class="filter-button" data-category="utility" data-i18n="mods.filter.utility">Utility</button>
+	                        <button class="filter-button" data-category="visual" data-i18n="mods.filter.visual">Visual</button>
+	                        <button class="filter-button" data-category="favorites"><i class="fas fa-star"
+	                                aria-hidden="true"></i> <span data-i18n="mods.filter.favorites">Favorites</span></button>
                     </div>
                     <div class="search-bar">
-                        <input type="text" id="modSearch" placeholder="Search for a mod…" aria-label="Search mods" />
+                        <input type="text" id="modSearch" placeholder="Search for a mod…" data-i18n-ph="search.mods" aria-label="Search mods" />
                         <i class="fas fa-search" aria-hidden="true"></i>
                     </div>
+                    <div class="mods-count" id="modsCount" aria-live="polite"></div>
                     <div class="mods-grid" id="modsGrid"></div>
+	                    <div class="mods-empty" id="modsEmpty" style="display:none;">
+	                        <i class="far fa-star" aria-hidden="true"></i>
+	                        <p data-i18n="mods.empty">No mods match. Try another search, or star some favorites first.</p>
+	                    </div>
+                </div>
+            </section>
+
+            <section id="docs-section" class="content-section">
+                <div class="container">
+                    <div class="section-header reveal">
+                        <h2 class="section-title" data-i18n="docs.title">Documentation</h2>
+                        <p class="section-subtitle">Everything you need to install, configure, and troubleshoot Glacier
+	                            Client in one place</p>
+	                    </div>
+	                    <div class="docs-layout">
+	                        <nav class="docs-toc reveal" aria-label="Documentation sections">
+	                            <span class="docs-toc-label" data-i18n="docs.tocLabel">On this page</span>
+	                            <a href="#docs-install" class="docs-toc-link" data-i18n="docs.toc.install">Installation</a>
+	                            <a href="#docs-config" class="docs-toc-link" data-i18n="docs.toc.config">Configuration</a>
+	                            <a href="#docs-versions" class="docs-toc-link" data-i18n="docs.toc.versions">Supported Versions</a>
+	                            <a href="#docs-troubleshooting" class="docs-toc-link" data-i18n="docs.toc.troubleshoot">Troubleshooting</a>
+	                        </nav>
+	                        <div class="docs-content">
+	                            <div class="docs-card card-base reveal" id="docs-install">
+	                                <h3><i class="fas fa-download" aria-hidden="true"></i> <span data-i18n="docs.install.title">Installation</span></h3>
+	                                <p data-i18n-html="docs.install.body">Download the <code>.mcpack</code> file, rename it if needed with ZArchiver so it
+	                                    ends in <code>.mcpack</code>, then open it to import into Minecraft. Activate it
+	                                    in <strong>Global Resources</strong> afterward.</p>
+	                                <p data-i18n-html="docs.install.faqLink">Full step-by-step instructions for Mobile, PC, and Console are in the
+	                                    <a href="/faq" data-section="faq">FAQ</a>.</p>
+	                            </div>
+	                            <div class="docs-card card-base reveal" id="docs-config">
+	                                <h3><i class="fas fa-sliders-h" aria-hidden="true"></i> <span data-i18n="docs.config.title">Configuration</span></h3>
+	                                <p data-i18n-html="docs.config.body">Edit <code>config.json</code> directly, or use the online
+	                                    <a href="https://config.glacierclient.xyz/" target="_blank" rel="noopener">Config
+	                                        Editor</a>. Toggles use <code>true</code>/<code>false</code>, opacity uses
+	                                    <code>0.0</code>&ndash;<code>1.0</code>, and offsets adjust HUD element position.</p>
+                                <p><strong>Android / iOS path:</strong></p>
+                                <p><code>Android/data/com.mojang.minecraftpe/files/games/com.mojang/resource_packs/Glacier/config.json</code>
+                                </p>
+                                <p><strong>Windows path:</strong></p>
+                                <p><code>%userprofile%\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\resource_packs\Glacier\config.json</code>
+                                </p>
+                            </div>
+                            <div class="docs-card card-base reveal" id="docs-versions">
+	                                <h3><i class="fas fa-code-branch" aria-hidden="true"></i> <span data-i18n="docs.versions.title">Supported Versions</span></h3>
+	                                <div class="docs-table-wrap">
+                                    <table class="docs-table">
+                                        <thead>
+                                            <tr>
+                                                <th data-i18n="docs.versions.col.platform">Platform</th>
+                                                <th data-i18n="docs.versions.col.status">Status</th>
+                                                <th data-i18n="docs.versions.col.notes">Notes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Official Release (Mobile / PC)</td>
+                                                <td><span class="docs-status docs-status--ok">Supported</span></td>
+                                                <td>Recommended, always up to date</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Xbox &amp; PlayStation</td>
+                                                <td><span class="docs-status docs-status--ok">Supported</span></td>
+                                                <td>Via Realms</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Preview / Beta builds</td>
+                                                <td><span class="docs-status docs-status--partial">Partial</span></td>
+                                                <td>Mojang changes core UI often</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Minecraft Java Edition</td>
+                                                <td><span class="docs-status docs-status--soon">In development</span></td>
+                                                <td>Follow Discord for progress</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="docs-card card-base reveal" id="docs-troubleshooting">
+	                                <h3><i class="fas fa-wrench" aria-hidden="true"></i> <span data-i18n="docs.troubleshoot.title">Troubleshooting</span></h3>
+	                                <p data-i18n-html="docs.troubleshoot.body">Most issues come from conflicting resource packs or server-side restrictions. See
+	                                    the <a href="/faq" data-section="faq">Troubleshooting section of the FAQ</a> for
+	                                    fixes, or report a bug in our
+	                                    <a href="https://discord.glacierclient.xyz" target="_blank" rel="noopener">Discord
+	                                        server</a>.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <section id="license-section" class="content-section">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title">Glacier Client License</h2>
-                        <p class="section-subtitle">This license governs your use of Glacier Client's assets, code,
-                            and associated content. By downloading, reviewing, or building upon Glacier Client, you
-                            agree to the terms below.</p>
+	                        <h2 class="section-title" data-i18n="license.title">Glacier Client License</h2>
+	                        <p class="section-subtitle" data-i18n="license.sub">This license governs your use of Glacier Client's assets, code,
+	                            and associated content. By downloading, reviewing, or building upon Glacier Client, you
+	                            agree to the terms below.</p>
                     </div>
                     <div class="license-content">
                         <div class="license-card card-base reveal">
-                            <h3>Permitted Use</h3>
-                            <ul>
+	                            <h3 data-i18n="license.permitted">Permitted Use</h3>
+                            <ul data-i18n-html="license.permitted.body">
                                 <li><strong>Reviews and Content Creation:</strong> You may create videos, streams, or
                                     written reviews featuring Glacier Client, provided you link only to our
                                     <a href="https://discord.glacierclient.xyz" target="_blank" rel="noopener">official
@@ -662,8 +782,8 @@
                             </ul>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>Prohibited Use</h3>
-                            <ul>
+                            <h3 data-i18n="license.prohibited">Prohibited Use</h3>
+                            <ul data-i18n-html="license.prohibited.body">
                                 <li><strong>Misinformation:</strong> Spreading false claims or engaging in defamatory
                                     conduct against Glacier Client or its developers is prohibited.</li>
                                 <li><strong>Redistribution:</strong> Publicly distributing Glacier Client's assets or
@@ -675,8 +795,8 @@
                             </ul>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>Attribution Requirements</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">Any public project that incorporates
+                            <h3 data-i18n="license.attribution">Attribution Requirements</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="license.attribution.body">Any public project that incorporates
                                 Glacier Client's proprietary systems, including the draggable mods saving method, must
                                 clearly credit Glacier Client and include a link to our official Discord server.
                                 Failure to comply constitutes a violation of this license and may result in
@@ -684,16 +804,16 @@
                                 against the infringing project.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>Ownership</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">Glacier Client, including its source
+                            <h3 data-i18n="license.ownership">Ownership</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="license.ownership.body">Glacier Client, including its source
                                 code, textures, UI assets, branding, and the "Glacier Client" and "Glacier Productions"
                                 names, is the intellectual property of Glacier Productions. This license grants you a
                                 limited, revocable right to use the client as described above; it does not transfer
                                 ownership of any underlying assets or code to you.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>Third-Party Assets</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">Glacier Client is an independent
+                            <h3 data-i18n="license.thirdParty">Third-Party Assets</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="license.thirdParty.body">Glacier Client is an independent
                                 resource pack built for Minecraft Bedrock Edition and is not affiliated with, endorsed
                                 by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang
                                 Synergies AB. Any third-party libraries or assets bundled with Glacier Client remain
@@ -701,8 +821,8 @@
                                 licenses.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>No Warranty &amp; Termination</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">Glacier Client is provided
+                            <h3 data-i18n="license.warranty">No Warranty &amp; Termination</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="license.warranty.body">Glacier Client is provided
                                 <strong>"as is"</strong> without warranty of any kind, express or implied. We reserve
                                 the right to revoke the rights granted under this license, at our discretion, from
                                 any individual or project found to be in violation of these terms.</p>
@@ -714,29 +834,29 @@
             <section id="tos-section" class="content-section">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title">Terms of Service</h2>
-                        <p class="section-subtitle">These terms govern your access to and use of Glacier Client, our
-                            Discord server, and related services. Last updated: July 8, 2026.</p>
+	                        <h2 class="section-title" data-i18n="tos.title">Terms of Service</h2>
+	                        <p class="section-subtitle" data-i18n="tos.sub">These terms govern your access to and use of Glacier Client, our
+	                            Discord server, and related services. Last updated: July 8, 2026.</p>
                     </div>
                     <div class="license-content">
                         <div class="license-card card-base reveal">
-                            <h3>1. Acceptance of Terms</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">By downloading, installing, or using
+                            <h3 data-i18n="tos.s1">1. Acceptance of Terms</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="tos.s1.body">By downloading, installing, or using
                                 Glacier Client, or by joining our Discord server, you agree to be bound by these Terms
                                 of Service and our <a href="/privacy" data-section="privacy">Privacy Policy</a>. If
                                 you do not agree, do not use Glacier Client or its associated services.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>2. Nature of the Service</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">Glacier Client is a free,
+                            <h3 data-i18n="tos.s2">2. Nature of the Service</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="tos.s2.body">Glacier Client is a free,
                                 community-developed resource pack and companion launcher for Minecraft Bedrock
                                 Edition. It is provided for personal, non-commercial use and does not modify
                                 Minecraft's game logic, grant unfair multiplayer advantages, or interact with servers
                                 in ways prohibited by Mojang's End User License Agreement.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>3. Acceptable Use</h3>
-                            <ul>
+                            <h3 data-i18n="tos.s3">3. Acceptable Use</h3>
+                            <ul data-i18n-html="tos.s3.body">
                                 <li>You must be old enough to use Discord and Minecraft under their respective terms
                                     of service, or have parental consent to do so.</li>
                                 <li>You will not use Glacier Client or our Discord server to harass others, distribute
@@ -749,16 +869,16 @@
                             </ul>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>4. Downloads &amp; Third-Party Links</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">Some download links are routed
+                            <h3 data-i18n="tos.s4">4. Downloads &amp; Third-Party Links</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="tos.s4.body">Some download links are routed
                                 through third-party services (such as Linkvertise) to help fund development. We do
                                 not control the content of these intermediary pages and are not responsible for ads
                                 or content displayed on them. Always download Glacier Client through links posted in
                                 our official Discord server or on this website.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>5. Disclaimer of Warranty &amp; Liability</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">Glacier Client is provided
+                            <h3 data-i18n="tos.s5">5. Disclaimer of Warranty &amp; Liability</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="tos.s5.body">Glacier Client is provided
                                 <strong>"as is"</strong> without warranties of any kind. We do not guarantee
                                 uninterrupted operation, compatibility with every device or server, or that the
                                 client will be free of bugs. To the fullest extent permitted by law, Glacier
@@ -768,22 +888,22 @@
                                 Minecraft servers.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>6. Donations</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">Donations made via PayPal or Ko-fi
+                            <h3 data-i18n="tos.s6">6. Donations</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="tos.s6.body">Donations made via PayPal or Ko-fi
                                 are voluntary contributions to support ongoing development and do not purchase any
                                 good, service, feature, or entitlement. Donations are generally non-refundable except
                                 where required by law or platform policy.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>7. Changes to These Terms</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">We may update these Terms of Service
+                            <h3 data-i18n="tos.s7">7. Changes to These Terms</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="tos.s7.body">We may update these Terms of Service
                                 from time to time to reflect changes in the project or applicable law. Continued use
                                 of Glacier Client after changes are posted constitutes acceptance of the revised
                                 terms. Material changes will be announced in our Discord server.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>8. Contact</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">Questions about these terms can be
+                            <h3 data-i18n="tos.s8">8. Contact</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="tos.s8.body">Questions about these terms can be
                                 directed to our team through the <a href="https://discord.glacierclient.xyz"
                                     target="_blank" rel="noopener">official Discord server</a>.</p>
                         </div>
@@ -794,14 +914,14 @@
             <section id="privacy-section" class="content-section">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title">Privacy Policy</h2>
-                        <p class="section-subtitle">How Glacier Client and glacierclient.xyz collect, use, and protect
-                            your information. Last updated: July 8, 2026.</p>
+	                        <h2 class="section-title" data-i18n="privacy.title">Privacy Policy</h2>
+	                        <p class="section-subtitle" data-i18n="privacy.sub">How Glacier Client and glacierclient.xyz collect, use, and protect
+	                            your information. Last updated: July 8, 2026.</p>
                     </div>
                     <div class="license-content">
                         <div class="license-card card-base reveal">
-                            <h3>Information We Collect</h3>
-                            <ul>
+                            <h3 data-i18n="privacy.s1">Information We Collect</h3>
+                            <ul data-i18n-html="privacy.s1.body">
                                 <li><strong>Client Configuration:</strong> Glacier Client stores your preferences
                                     (toggles, opacity, HUD positions) locally in <code>config.json</code> on your own
                                     device. This data never leaves your device and is not transmitted to us.</li>
@@ -818,44 +938,44 @@
                             </ul>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>How We Use Information</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">Any data described above is used
+                            <h3 data-i18n="privacy.s2">How We Use Information</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="privacy.s2.body">Any data described above is used
                                 solely to operate and improve Glacier Client and this website, for example, to track
                                 aggregate download popularity across versions. We do not sell, rent, or share your
                                 information with third parties for marketing purposes.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>Third-Party Services</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">This website relies on a small number
+                            <h3 data-i18n="privacy.s3">Third-Party Services</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="privacy.s3.body">This website relies on a small number
                                 of third-party services to function, including Cloudflare (hosting and download
                                 counters), Discord (community widget and invites), and Linkvertise (monetized download
                                 links). These services may independently collect data, such as IP address, under
                                 their own privacy policies, which we encourage you to review.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>Cookies &amp; Local Storage</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">We use browser local storage, not
+                            <h3 data-i18n="privacy.s4">Cookies &amp; Local Storage</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="privacy.s4.body">We use browser local storage, not
                                 tracking cookies, to remember your theme preference. We do not use advertising or
                                 cross-site tracking cookies on glacierclient.xyz. Third-party services embedded on
                                 this site, such as Linkvertise, may set their own cookies as described in their
                                 respective policies.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>Children's Privacy</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">Glacier Client is not directed at
+                            <h3 data-i18n="privacy.s5">Children's Privacy</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="privacy.s5.body">Glacier Client is not directed at
                                 children under the age required by Discord's and Minecraft's own terms of service.
                                 We do not knowingly collect personal information from children under that age.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>Changes to This Policy</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">We may update this Privacy Policy
+                            <h3 data-i18n="privacy.s6">Changes to This Policy</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="privacy.s6.body">We may update this Privacy Policy
                                 periodically to reflect changes in our practices or for legal reasons. Material
                                 changes will be announced in our Discord server, and the "Last updated" date above
                                 will be revised accordingly.</p>
                         </div>
                         <div class="license-card card-base reveal">
-                            <h3>Contact</h3>
-                            <p style="color:var(--text-muted);line-height:1.65;">For privacy-related questions or
+                            <h3 data-i18n="privacy.s7">Contact</h3>
+                            <p style="color:var(--text-muted);line-height:1.65;" data-i18n-html="privacy.s7.body">For privacy-related questions or
                                 requests, reach out via our <a href="https://discord.glacierclient.xyz"
                                     target="_blank" rel="noopener">official Discord server</a>.</p>
                         </div>
@@ -1063,6 +1183,7 @@
                         <span class="nav-tab copy-css-item" data-copy-kind="component">Community</span>
                         <span class="nav-tab copy-css-item" data-copy-kind="component">Downloads</span>
                         <span class="nav-tab copy-css-item" data-copy-kind="component">FAQ</span>
+                        <span class="nav-tab copy-css-item" data-copy-kind="component">Docs</span>
                         <span class="nav-tab copy-css-item" data-copy-kind="component">All Mods</span>
                         <span class="nav-tab copy-css-item" data-copy-kind="component">License</span>
                         <span class="nav-tab copy-css-item" data-copy-kind="component">Donate</span>
@@ -1099,7 +1220,7 @@
                         <span class="btn btn-secondary copy-css-item" data-copy-kind="component" style="opacity:.45;cursor:not-allowed;">Disabled</span>
                     </div>
                     <div class="badge-row" style="margin-top:16px;">
-                        <span class="btn btn-secondary copy-css-item" data-copy-kind="component" style="background:#5865F2;"><i class="fab fa-discord" aria-hidden="true"></i> Join Discord</span>
+                        <span class="btn btn-secondary copy-css-item" data-copy-kind="component" style="background:#5865F2;"><i class="fab fa-discord" aria-hidden="true"></i> <span data-i18n="btn.joinDiscord">Join Discord</span></span>
                         <span class="header-icon-btn copy-css-item" data-copy-kind="component"><i class="fas fa-sun" aria-hidden="true"></i></span>
                         <span class="header-icon-btn copy-css-item" data-copy-kind="component"><i class="fas fa-search" aria-hidden="true"></i></span>
                         <span class="header-icon-btn copy-css-item" data-copy-kind="component"><i class="fab fa-discord" aria-hidden="true"></i></span>
@@ -1140,41 +1261,71 @@
             <section id="donate-section" class="content-section">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title">Support Glacier Client</h2>
-                        <p class="section-subtitle">Your support helps us continue developing and improving Glacier
-                            Client, bringing you the best Minecraft Bedrock Edition experience</p>
-                    </div>
-                    <div class="donate-grid">
-                        <div class="donate-card card-base card-shine reveal">
-                            <img src="assets/icons/paypal.png" alt="PayPal" class="donate-icon" loading="lazy"
-                                decoding="async" />
-                            <h3>PayPal</h3>
-                            <p>Support us directly through PayPal with a one-time or recurring donation.</p>
-                            <a href="https://paypal.me/PepeOnPayPal" class="btn btn-primary" target="_blank"
-                                rel="noopener">
-                                <i class="fab fa-paypal" aria-hidden="true"></i> Donate via PayPal
-                            </a>
-                        </div>
-                        <div class="donate-card card-base card-shine reveal">
-                            <img src="assets/icons/kofi.png" alt="Ko-fi" class="donate-icon" loading="lazy"
-                                decoding="async" />
-                            <h3>Ko-fi</h3>
-                            <p>Buy us a coffee to show your appreciation and support our work.</p>
-                            <a href="https://ko-fi.com/pepeonkofi" class="btn btn-primary" style="background:#FF5E5B;"
-                                target="_blank" rel="noopener">
-                                <i class="fas fa-mug-hot" aria-hidden="true"></i> Donate via Ko-fi
-                            </a>
-                        </div>
-                        <div class="donate-card card-base card-shine reveal">
-                            <img src="assets/icons/community.png" alt="Community" class="donate-icon" loading="lazy"
-                                decoding="async" />
-                            <h3>Community Support</h3>
-                            <p>Join our Discord, share your experience, and help other users. Community support is
-                                invaluable!</p>
-                            <a href="https://discord.glacierclient.xyz/" class="btn btn-secondary" target="_blank"
-                                rel="noopener">
-                                <i class="fab fa-discord" aria-hidden="true"></i> Join Our Discord
-                            </a>
+                        <h2 class="section-title" data-i18n="donate.title">Support Glacier Client</h2>
+	                        <p class="section-subtitle" data-i18n="donate.sub">Your support helps us continue developing and improving Glacier
+	                            Client, bringing you the best Minecraft Bedrock Edition experience</p>
+	                    </div>
+	                    <div class="donate-grid">
+	                        <div class="donate-card card-base card-shine reveal">
+	                            <img src="assets/icons/paypal.png" alt="PayPal" class="donate-icon" loading="lazy"
+	                                decoding="async" />
+	                            <h3 data-i18n="donate.paypal.title">PayPal</h3>
+	                            <p data-i18n="donate.paypal.desc">Support us directly through PayPal with a one-time or recurring donation.</p>
+	                            <a href="https://paypal.me/PepeOnPayPal" class="btn btn-primary" target="_blank"
+	                                rel="noopener">
+	                                <i class="fab fa-paypal" aria-hidden="true"></i> <span data-i18n="donate.paypal.btn">Donate via PayPal</span>
+	                            </a>
+	                        </div>
+	                        <div class="donate-card card-base card-shine reveal">
+	                            <img src="assets/icons/kofi.png" alt="Ko-fi" class="donate-icon" loading="lazy"
+	                                decoding="async" />
+	                            <h3 data-i18n="donate.kofi.title">Ko-fi</h3>
+	                            <p data-i18n="donate.kofi.desc">Buy us a coffee to show your appreciation and support our work.</p>
+	                            <a href="https://ko-fi.com/pepeonkofi" class="btn btn-primary" style="background:#FF5E5B;"
+	                                target="_blank" rel="noopener">
+	                                <i class="fas fa-mug-hot" aria-hidden="true"></i> <span data-i18n="donate.kofi.btn">Donate via Ko-fi</span>
+	                            </a>
+	                        </div>
+	                        <div class="donate-card card-base card-shine reveal">
+	                            <img src="assets/icons/community.png" alt="Community" class="donate-icon" loading="lazy"
+	                                decoding="async" />
+	                            <h3 data-i18n="donate.community.title">Community Support</h3>
+	                            <p data-i18n="donate.community.desc">Join our Discord, share your experience, and help other users. Community support is
+	                                invaluable!</p>
+	                            <a href="https://discord.glacierclient.xyz/" class="btn btn-secondary" target="_blank"
+	                                rel="noopener">
+	                                <i class="fab fa-discord" aria-hidden="true"></i> <span data-i18n="btn.joinDiscord">Join Our Discord</span>
+	                            </a>
+	                        </div>
+	                    </div>
+                </div>
+            </section>
+
+            <section id="best-bedrock-client-section" class="content-section">
+                <div class="container">
+                    <div class="section-header reveal">
+	                        <h2 class="section-title" data-i18n="bedrock.title">Best Minecraft Bedrock Client</h2>
+	                        <p class="section-subtitle" data-i18n="bedrock.sub">What to look for in a Bedrock client, and where Glacier fits in
+	                        </p>
+	                    </div>
+	                    <div class="docs-content">
+	                        <div class="docs-card card-base reveal">
+	                            <h3><i class="fas fa-star" aria-hidden="true"></i> <span data-i18n="bedrock.q1">What makes a Bedrock client "the
+	                                best"?</span></h3>
+	                            <p data-i18n="bedrock.q1.body">The best Minecraft Bedrock client is safe to use on Realms and vanilla servers, doesn't
+	                                inject code or grant gameplay advantages, and stays lightweight enough to run on
+	                                mobile devices. Look for a resource-pack-based approach, active updates that keep pace
+	                                with Minecraft's own releases, and a HUD you can actually customize.</p>
+	                        </div>
+	                        <div class="docs-card card-base reveal">
+	                            <h3><i class="fas fa-cubes" aria-hidden="true"></i> <span data-i18n="bedrock.q2">Where Glacier Client fits</span></h3>
+	                            <p data-i18n="bedrock.q2.body">Glacier Client is a free resource pack for Minecraft Bedrock Edition with 37+ modules,
+	                                a draggable HUD, and a config editor, built entirely on Minecraft's supported resource
+	                                pack system rather than code injection. It runs on Mobile, PC, and Console (via
+	                                Realms), at around 2MB with no measurable performance cost.</p>
+                            <p>See the full <a href="/features" data-section="features">Features</a> list, browse
+                                <a href="/mods" data-section="mods">All Mods</a>, or head straight to
+                                <a href="/downloads" data-section="downloads">Downloads</a> to try it.</p>
                         </div>
                     </div>
                 </div>
@@ -1187,11 +1338,11 @@
                             <img src="assets/logo.png" alt="Glacier Client Logo" class="notfound-logo" width="128" height="128" />
                             <div class="notfound-code" aria-hidden="true">404</div>
                         </div>
-                        <h1 class="notfound-title">Lost in the snow.</h1>
-                        <p class="notfound-desc">The page you're looking for doesn't exist or has moved.</p>
-                        <a href="/" class="btn btn-primary" data-section="home">
-                            <i class="fas fa-house" aria-hidden="true"></i> Back Home
-                        </a>
+	                        <h1 class="notfound-title" data-i18n="notfound.title">Lost in the snow.</h1>
+	                        <p class="notfound-desc" data-i18n="notfound.desc">The page you're looking for doesn't exist or has moved.</p>
+	                        <a href="/" class="btn btn-primary" data-section="home">
+	                            <i class="fas fa-house" aria-hidden="true"></i> <span data-i18n="notfound.back">Back Home</span>
+	                        </a>
                     </div>
                 </div>
             </section>
@@ -1201,37 +1352,64 @@
 
     <footer>
         <div class="container footer-container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="assets/logo.png" alt="Glacier Client Logo" class="footer-logo" width="38" height="38" />
-                    <span class="brand-name">Glacier Client</span>
+            <div class="footer-grid">
+                <div class="footer-col footer-col--brand">
+                    <div class="footer-brand">
+                        <img src="assets/logo.png" alt="Glacier Client Logo" class="footer-logo" width="38"
+                            height="38" />
+                        <span class="brand-name">Glacier Client</span>
+                    </div>
+                    <p class="footer-blurb" data-i18n="footer.blurb">A free, lightweight resource pack client for Minecraft Bedrock Edition.
+                        37+ modules, zero performance impact.</p>
+	                    <a class="footer-discord-live" href="https://discord.glacierclient.xyz/" target="_blank"
+	                        rel="noopener">
+	                        <span class="footer-discord-dot" aria-hidden="true"></span>
+	                        <span data-discord-online>&mdash;</span> <span data-i18n="footer.onlineDiscord">online on Discord</span>
+	                    </a>
+                    <nav class="footer-social" aria-label="Social media links">
+                        <a href="https://discord.glacierclient.xyz/" class="social-link" target="_blank"
+                            rel="noopener" aria-label="Discord"><i class="fab fa-discord" aria-hidden="true"></i></a>
+                        <a href="https://github.com/Glacier-Client-BE" class="social-link" target="_blank"
+                            rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="https://youtube.com/@glacierclient" class="social-link" target="_blank"
+                            rel="noopener" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                        <a href="https://x.com/glacierclientbe" class="social-link" target="_blank" rel="noopener"
+                            aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/glacierclientmcbe" class="social-link" target="_blank"
+                            rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"
+                                aria-hidden="true"></i></a>
+                        <a href="https://www.tiktok.com/@glacierclientmcbe" class="social-link" target="_blank"
+                            rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok" aria-hidden="true"></i></a>
+                    </nav>
                 </div>
-                <nav class="footer-social" aria-label="Social media links">
-                    <a href="https://discord.glacierclient.xyz/" class="social-link" target="_blank" rel="noopener"
-                        aria-label="Discord"><i class="fab fa-discord" aria-hidden="true"></i></a>
-                    <a href="https://github.com/Glacier-Client-BE" class="social-link" target="_blank" rel="noopener"
-                        aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
-                    <a href="https://youtube.com/@glacierclient" class="social-link" target="_blank" rel="noopener"
-                        aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
-                    <a href="https://x.com/glacierclientbe" class="social-link" target="_blank" rel="noopener"
-                        aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                    <a href="https://www.instagram.com/glacierclientmcbe" class="social-link" target="_blank"
-                        rel="noopener" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-                    <a href="https://www.tiktok.com/@glacierclientmcbe" class="social-link" target="_blank"
-                        rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok" aria-hidden="true"></i></a>
-                </nav>
+                <div class="footer-col">
+                    <span class="footer-col-title" data-i18n="footer.product">Product</span>
+                    <a href="/features" data-section="features">Features</a>
+                    <a href="/mods" data-section="mods">All Mods</a>
+                    <a href="/gallery" data-section="gallery">Gallery</a>
+                    <a href="/downloads" data-section="downloads">Downloads</a>
+                </div>
+                <div class="footer-col">
+                    <span class="footer-col-title" data-i18n="footer.resources">Resources</span>
+                    <a href="/docs" data-section="docs">Documentation</a>
+                    <a href="/faq" data-section="faq">FAQ</a>
+                    <a href="/best-bedrock-client" data-section="best-bedrock-client">Best Bedrock Client</a>
+                    <a href="/mediakit" data-section="mediakit">Media Kit</a>
+                </div>
+                <div class="footer-col">
+                    <span class="footer-col-title" data-i18n="footer.community">Community</span>
+                    <a href="/community" data-section="community">Showcases</a>
+                    <a href="https://discord.glacierclient.xyz/" target="_blank" rel="noopener">Discord Server</a>
+                    <a href="/donate" data-section="donate">Donate</a>
+                </div>
+                <div class="footer-col">
+                    <span class="footer-col-title" data-i18n="footer.legal">Legal</span>
+                    <a href="/license" data-section="license">License</a>
+                    <a href="/tos" data-section="tos">Terms of Service</a>
+                    <a href="/privacy" data-section="privacy">Privacy Policy</a>
+                </div>
             </div>
-            <nav class="footer-legal" aria-label="Legal links">
-                <a href="/license" data-section="license">License</a>
-                <span aria-hidden="true">&middot;</span>
-                <a href="/tos" data-section="tos">Terms of Service</a>
-                <span aria-hidden="true">&middot;</span>
-                <a href="/privacy" data-section="privacy">Privacy Policy</a>
-                <span aria-hidden="true">&middot;</span>
-                <a href="/mediakit" data-section="mediakit">Media Kit &amp; Brand Guidelines</a>
-            </nav>
-            <p class="copyright-text">&copy; <span id="currentYear"></span> Glacier Client. Not affiliated with
-                Mojang/Microsoft</p>
+            <p class="copyright-text">&copy; <span id="currentYear"></span> Glacier Productions. <span data-i18n="footer.notAffiliated">Not affiliated with Mojang/Microsoft</span></p>
         </div>
     </footer>
 </body>

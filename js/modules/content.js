@@ -6,6 +6,7 @@ import { COUNTER_API } from './config.js';
 import { applyDeepLink } from './navigation.js';
 import { observeReveals } from './reveal.js';
 import { setupTilt } from './tilt.js';
+import { t, currentLang } from './i18n.js';
 
 // ── Data loading ──────────────────────────────────────────────────────────
 export function loadData() {
@@ -22,23 +23,46 @@ export function initSkeletons() {
         const el = $(id);
         if (el) el.innerHTML = '<div class="skeleton skeleton-download"></div>'.repeat(2);
     }
-    if (state.dom.launcherGrid) state.dom.launcherGrid.innerHTML = '<div class="launcher-loading"><i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Loading launcher releases...</div>';
+    if (state.dom.launcherGrid) state.dom.launcherGrid.innerHTML = '<div class="launcher-loading"><i class="fas fa-spinner fa-spin" aria-hidden="true"></i> ' + t(currentLang(), 'dl.loadingLauncher') + '</div>';
 }
 
 // ── Mods ──────────────────────────────────────────────────────────────────
+const FAV_KEY = 'gc-fav-mods';
+
+function loadFavorites() {
+    try { return new Set(JSON.parse(localStorage.getItem(FAV_KEY)) || []); }
+    catch { return new Set(); }
+}
+
+function saveFavorites(favs) {
+    try { localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); } catch { }
+}
+
 export function initMods() {
     if (!state.dom.modsGrid) return;
+    const lang = currentLang();
+    const favs = loadFavorites();
     let html = '';
     for (const m of state.modsData) {
+        const title = m.titleKey ? t(lang, m.titleKey) : m.title;
+        const desc = m.descKey ? t(lang, m.descKey) : m.description;
         let tags = '';
-        for (const t of m.tags) tags += '<span class="mod-tag">' + t + '</span>';
-        html += '<div class="mod-card card-base reveal" data-categories="' + m.categories.join(',') + '">'
-            + '<img src="' + m.icon + '" alt="' + escAttr(m.title) + '" class="mod-image" loading="lazy" decoding="async" width="76" height="76" />'
-            + '<div class="mod-content">'
-            + '<h3 class="mod-title">' + m.title + '</h3>'
-            + '<p class="mod-description">' + m.description + '</p>'
-            + '<div class="mod-tags">' + tags + '</div>'
+        for (const tagKey of m.tags) {
+            const tagText = tagKey.startsWith('tag.') ? t(lang, tagKey) : tagKey;
+            tags += '<span class="mod-tag">' + tagText + '</span>';
+        }
+        const fav = favs.has(m.id);
+        html += '<div class="mod-card card-base reveal' + (fav ? ' is-fav' : '') + '"'
+            + ' data-categories="' + m.categories.join(',') + '" data-mod-id="' + escAttr(m.id) + '">'
+            + '<button class="mod-fav" type="button" aria-pressed="' + fav + '"'
+            + ' aria-label="' + (fav ? 'Unfavorite ' : 'Favorite ') + escAttr(title) + '">'
+            + '<i class="' + (fav ? 'fas' : 'far') + ' fa-star" aria-hidden="true"></i></button>'
+            + '<div class="mod-icon-tile">'
+            + '<img src="' + m.icon + '" alt="" class="mod-image" loading="lazy" decoding="async" width="48" height="48" />'
             + '</div>'
+            + '<h3 class="mod-title">' + title + '</h3>'
+            + '<p class="mod-description">' + desc + '</p>'
+            + '<div class="mod-tags">' + tags + '</div>'
             + '</div>';
     }
     state.dom.modsGrid.innerHTML = html;
@@ -47,12 +71,52 @@ export function initMods() {
     for (const el of state.dom.modsGrid.children) {
         state.modCards.push({
             el,
+            id: el.dataset.modId,
             cats: el.dataset.categories.split(','),
             title: el.querySelector('.mod-title').textContent.toLowerCase(),
             desc: el.querySelector('.mod-description').textContent.toLowerCase()
         });
     }
     setupTilt('.mod-card');
+    refreshModsVisibility();
+}
+
+// Toggles a mod's favorite star (delegated from navigation.js). Favorites are
+// persisted and float to the top of the grid via CSS order.
+export function toggleModFavorite(btn) {
+    const card = btn.closest('.mod-card');
+    if (!card) return;
+    const id = card.dataset.modId;
+    const favs = loadFavorites();
+    const nowFav = !favs.has(id);
+    if (nowFav) favs.add(id); else favs.delete(id);
+    saveFavorites(favs);
+    card.classList.toggle('is-fav', nowFav);
+    btn.setAttribute('aria-pressed', String(nowFav));
+    const title = card.querySelector('.mod-title').textContent;
+    btn.setAttribute('aria-label', (nowFav ? 'Unfavorite ' : 'Favorite ') + title);
+    btn.querySelector('i').className = (nowFav ? 'fas' : 'far') + ' fa-star';
+    // If the Favorites filter is active, an un-starred card leaves the view.
+    if (state.modFilter.cat === 'favorites') refreshModsVisibility();
+}
+
+// One source of truth for which mod cards are visible: the active category
+// chip (incl. the special "favorites" one) AND the search term must both match.
+export function refreshModsVisibility() {
+    const { cat, term } = state.modFilter;
+    let shown = 0;
+    for (const c of state.modCards) {
+        const catOk = cat === 'all'
+            || (cat === 'favorites' ? c.el.classList.contains('is-fav') : c.cats.includes(cat));
+        const termOk = !term || c.title.includes(term) || c.desc.includes(term);
+        const ok = catOk && termOk;
+        c.el.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+    }
+    const count = $('modsCount');
+    if (count) count.textContent = t(currentLang(), 'mods.countOf').replace('{shown}', shown).replace('{total}', state.modCards.length);
+    const empty = $('modsEmpty');
+    if (empty) empty.style.display = shown ? 'none' : '';
 }
 
 // ── FAQ ───────────────────────────────────────────────────────────────────
@@ -85,11 +149,13 @@ function faqCardHtml(f, open) {
 
 export function initFAQ() {
     if (!state.dom.faqContainer) return;
+    const lang = currentLang();
     const categories = faqCategoryOrder();
 
-    let filterHtml = '<button class="filter-button active" data-faq-category="all">All Questions</button>';
+    let filterHtml = '<button class="filter-button active" data-faq-category="all">' + t(lang, 'faq.allQuestions') + '</button>';
     for (const cat of categories) {
-        filterHtml += '<button class="filter-button" data-faq-category="' + escAttr(cat) + '">' + cat + '</button>';
+        const catLabel = t(lang, 'faqcat.' + cat);
+        filterHtml += '<button class="filter-button" data-faq-category="' + escAttr(cat) + '">' + catLabel + '</button>';
     }
     if (state.dom.faqFilterControls) state.dom.faqFilterControls.innerHTML = filterHtml;
 
@@ -97,10 +163,13 @@ export function initFAQ() {
     let first = true;
     for (const cat of categories) {
         const items = state.faqData.filter(f => f.category === cat);
+        const catLabel = t(lang, 'faqcat.' + cat);
         html += '<div class="faq-category-group" data-category="' + escAttr(cat) + '">'
-            + '<h3 class="faq-category-heading"><i class="fas ' + (FAQ_ICONS[cat] || 'fa-circle-question') + '" aria-hidden="true"></i> ' + cat + '</h3>';
+            + '<h3 class="faq-category-heading"><i class="fas ' + (FAQ_ICONS[cat] || 'fa-circle-question') + '" aria-hidden="true"></i> ' + catLabel + '</h3>';
         for (const f of items) {
-            html += faqCardHtml(f, first);
+            const question = t(lang, 'faqq.' + f.id);
+            const answer = t(lang, 'faqa.' + f.id);
+            html += faqCardHtml({ ...f, question, answer }, first);
             first = false;
         }
         html += '</div>';
@@ -120,34 +189,46 @@ const btnClass = name => name === 'Download' ? 'btn-primary' : 'btn-secondary';
 
 function buttonsHtml(opts) {
     let s = '';
+    const lang = currentLang();
     // Options flagged with "monetize" hold a raw file URL (e.g. Mediafire) and
     // get a fresh Linkvertise link generated on the fly, exactly like the
-    // launcher releases. Pre-made Linkvertise links are used as-is.
+    // launcher releases. Pre-made Linkvertise links are used as-is. Provider
+    // names (Linkvertise, LootLabs) are proper nouns and stay untranslated;
+    // only the generic "Download" label is localized.
     for (const o of opts) {
         const href = o.monetize ? getMonetizedUrl(o.url) : o.url;
-        s += '<a href="' + href + '" class="btn ' + btnClass(o.name) + '" target="_blank" rel="noopener">' + o.name + '</a>';
+        const label = o.name === 'Download' ? t(lang, 'btn.download') : o.name;
+        s += '<a href="' + href + '" class="btn ' + btnClass(o.name) + '" target="_blank" rel="noopener">' + label + '</a>';
     }
     return s;
 }
 
 function changelogHtml(entries) {
     if (!entries || !entries.length) return '';
+    const lang = currentLang();
     let rows = '';
     for (const c of entries) {
+        // Translation keys are keyed by the changelog's own version string
+        // (e.g. "changelog.v6.2.title"). Falls back to the raw JSON text when
+        // no translation exists yet, so newly-added releases never render
+        // blank while translations catch up.
+        const title = c.title ? (t(lang, 'changelog.' + c.version + '.title') || c.title) : '';
         let notes = '';
-        for (const n of c.notes) notes += '<li>' + n + '</li>';
+        c.notes.forEach((n, i) => {
+            notes += '<li>' + (t(lang, 'changelog.' + c.version + '.note' + i) || n) + '</li>';
+        });
         rows += '<div class="changelog-entry">'
             + '<div class="changelog-entry-head">'
             + '<span class="changelog-entry-version">' + c.version + '</span>'
             + (c.date ? '<span class="changelog-entry-date">' + c.date + '</span>' : '')
             + '</div>'
-            + (c.title ? '<p class="changelog-entry-title">' + c.title + '</p>' : '')
+            + (title ? '<p class="changelog-entry-title">' + title + '</p>' : '')
             + '<ul class="changelog-notes">' + notes + '</ul>'
             + '</div>';
     }
     return '<details class="ext-dropdown changelog-dropdown">'
         + '<summary class="ext-summary">'
-        + '<span class="ext-summary-label"><i class="fas fa-clipboard-list" aria-hidden="true"></i> Changelog</span>'
+        + '<span class="ext-summary-label"><i class="fas fa-clipboard-list" aria-hidden="true"></i> ' + t(lang, 'dl.changelogLabel') + '</span>'
         + '<i class="fas fa-chevron-down ext-chevron" aria-hidden="true"></i>'
         + '</summary>'
         + '<div class="ext-list">' + rows + '</div>'
@@ -177,21 +258,41 @@ function extDropdownHtml(exts) {
             + '</div>';
     }
     const n = exts.length;
+    const lang = currentLang();
+    const label = t(lang, n > 1 ? 'dl.extMany' : 'dl.extOne').replace('{n}', n);
     return '<details class="ext-dropdown">'
         + '<summary class="ext-summary">'
         + '<span class="ext-summary-label"><i class="fas fa-puzzle-piece" aria-hidden="true"></i> '
-        + n + ' compatible extension' + (n > 1 ? 's' : '') + '</span>'
+        + label + '</span>'
         + '<i class="fas fa-chevron-down ext-chevron" aria-hidden="true"></i>'
         + '</summary>'
         + '<div class="ext-list">' + rows + '</div>'
         + '</details>';
 }
 
+function mirrorsHtml(mirrors) {
+    if (!mirrors || !mirrors.length) return '';
+    const lang = currentLang();
+    let links = '';
+    for (const m of mirrors) {
+        links += '<a href="' + m.url + '" class="mirror-link' + (m.outdated ? ' mirror-link--outdated' : '') + '"'
+            + ' target="_blank" rel="noopener"'
+            + (m.outdated ? ' title="' + escAttr(t(lang, 'dl.mirrorPending')) + '"' : '')
+            + '>' + escAttr(m.name) + '</a>';
+    }
+    return '<div class="download-mirrors">'
+        + '<span class="download-mirrors-label">' + t(lang, 'dl.alsoAvailableOn') + '</span>'
+        + links
+        + '</div>';
+}
+
 function clientCard(item, slug, exts) {
+    const lang = currentLang();
+    const tagLabel = item.tag === 'Latest' ? t(lang, 'dl.tagLatest') : t(lang, 'dl.tagArchived');
     return '<div id="dl-' + slug + '" class="download-card reveal">'
         + '<div class="download-header">'
         + '<h3 class="download-title">' + item.version + '</h3>'
-        + '<span class="download-tag ' + (item.tag === 'Latest' ? 'tag-latest' : 'tag-archived') + '">' + item.tag + '</span>'
+        + '<span class="download-tag ' + (item.tag === 'Latest' ? 'tag-latest' : 'tag-archived') + '">' + tagLabel + '</span>'
         + '</div>'
         + '<div class="download-meta">'
         + '<span><i class="fas fa-calendar-alt download-meta-icon" aria-hidden="true"></i>' + item.release + '</span>'
@@ -199,10 +300,11 @@ function clientCard(item, slug, exts) {
         + (item.downloads != null
             ? '<span class="dl-count" data-dl-key="' + (countKey(item.version) || '') + '" data-dl-base="' + item.downloads + '">'
               + '<i class="fas fa-download download-meta-icon" aria-hidden="true"></i>'
-              + '<span class="dl-count-num">' + formatCount(item.downloads) + '</span> downloads</span>'
+              + '<span class="dl-count-num">' + formatCount(item.downloads) + '</span> ' + t(lang, 'dl.downloadsWord') + '</span>'
             : '')
         + '</div>'
         + '<div class="download-buttons">' + buttonsHtml(item.options) + '</div>'
+        + mirrorsHtml(item.mirrors)
         + changelogHtml(item.changelog)
         + extDropdownHtml(exts)
         + '</div>';
@@ -309,17 +411,18 @@ function initDownloadCounts() {
 
 export function initLauncher() {
     if (!state.dom.launcherGrid) return;
+    const lang = currentLang();
     fetch('assets/data/launcher.json')
         .then(r => r.json())
         .then(rels => {
             if (!Array.isArray(rels) || !rels.length) {
-                state.dom.launcherGrid.innerHTML = '<p class="launcher-empty">No launcher releases found.</p>';
+                state.dom.launcherGrid.innerHTML = '<p class="launcher-empty">' + t(lang, 'dl.noLauncherReleases') + '</p>';
                 return;
             }
             let html = '';
             for (let i = 0; i < rels.length; i++) {
                 const rel = rels[i];
-                const tag = i === 0 ? 'Latest' : 'Archived';
+                const tag = i === 0 ? t(lang, 'dl.tagLatest') : t(lang, 'dl.tagArchived');
                 const date = new Date(rel.published_at).toISOString().slice(0, 10);
                 const assets = rel.assets || [];
                 let btns = '';
@@ -348,7 +451,7 @@ export function initLauncher() {
             observeReveals();
         })
         .catch(() => {
-            state.dom.launcherGrid.innerHTML = '<p class="launcher-error">Failed to load launcher releases. <a href="https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/" target="_blank" rel="noopener">View on GitHub</a></p>';
+            state.dom.launcherGrid.innerHTML = '<p class="launcher-error">' + t(lang, 'dl.failedLoadLauncher') + ' <a href="https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/" target="_blank" rel="noopener">' + t(lang, 'dl.viewOnGithub') + '</a></p>';
         });
 }
 

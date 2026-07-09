@@ -10,6 +10,11 @@
         "options": [
           {"name": "Download", "url": "https://www.mediafire.com/file/eqbd34dxnw35wo2/Glacier_Client_V6.2_[Main].mcpack/file", "monetize": true}
         ],
+        "mirrors": [
+          {"name": "MCPEDL", "url": "https://mcpedl.com/glacier-client-v6-for-mcbe/"},
+          {"name": "CurseForge", "url": "https://www.curseforge.com/minecraft-bedrock/texture-packs/glacier-client-v6-for-mcbe"},
+          {"name": "BetterBedrock", "url": "https://betterbedrock.com/project/preview/glacier_client_v6", "outdated": true}
+        ],
         "changelog": [
           {
             "version": "v6.2",
@@ -57,6 +62,11 @@
         "options": [
           {"name": "Linkvertise", "url": "https://link-center.net/499358/KEBMHbdFAIOT"},
           {"name": "LootLabs", "url": "https://lootdest.org/s?b6cpLNDy"}
+        ],
+        "mirrors": [
+          {"name": "MCPEDL", "url": "https://mcpedl.com/glacier-client-v5/"},
+          {"name": "CurseForge", "url": "https://www.curseforge.com/minecraft-bedrock/texture-packs/glacier-client-v5"},
+          {"name": "BetterBedrock", "url": "https://betterbedrock.com/project/preview/glacier_client_v5"}
         ]
       },
       {

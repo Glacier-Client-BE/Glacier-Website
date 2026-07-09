@@ -2,9 +2,9 @@
 
 import { state } from './state.js';
 import { $, markCopyableCode } from './utils.js';
-import { ALL, META } from './config.js';
+import { ALL, META, TITLES } from './config.js';
 import { observeReveals } from './reveal.js';
-import { filterFAQCategory } from './content.js';
+import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js';
 
 // Shows the custom 404 page for a path that doesn't match any known section.
 // Leaves the URL as-is (whatever the visitor actually landed on).
@@ -51,6 +51,7 @@ export function showSection(id, sub) {
     if (location.pathname !== path) history.pushState(null, '', path);
     closeMobileMenu();
 
+    document.title = TITLES[id] || TITLES.home;
     const desc = META[id] || META.home;
     if (state.dom.metaOgDesc) state.dom.metaOgDesc.setAttribute('content', desc);
     if (state.dom.metaTwDesc) state.dom.metaTwDesc.setAttribute('content', desc);
@@ -163,18 +164,16 @@ function setActiveFAQCategory(cat) {
 }
 
 function setActiveCategory(cat) {
-    for (const b of document.querySelectorAll('.filter-button')) b.classList.toggle('active', b.dataset.category === cat);
-    for (const c of state.modCards) {
-        const ok = cat === 'all' || c.cats.includes(cat);
-        c.el.style.display = ok ? '' : 'none';
+    for (const b of document.querySelectorAll('#mods-section .filter-button')) {
+        b.classList.toggle('active', b.dataset.category === cat);
     }
+    state.modFilter.cat = cat;
+    refreshModsVisibility();
 }
 
 export function searchMods(term) {
-    term = term.toLowerCase().trim();
-    for (const c of state.modCards) {
-        c.el.style.display = (!term || c.title.includes(term) || c.desc.includes(term)) ? '' : 'none';
-    }
+    state.modFilter.term = term.toLowerCase().trim();
+    refreshModsVisibility();
 }
 
 export function handleSectionClick(id) {
@@ -200,6 +199,8 @@ export function setupDelegation() {
         if (copyable) { copyText(copyable, copyable.textContent); return; }
         const swatch = e.target.closest('.color-swatch[data-copy-hex]');
         if (swatch) { copyText(swatch, swatch.dataset.copyHex); return; }
+        const fav = e.target.closest('.mod-fav');
+        if (fav) { toggleModFavorite(fav); return; }
         const filter = e.target.closest('.filter-button');
         if (filter && filter.dataset.category) { setActiveCategory(filter.dataset.category); return; }
         const cssItem = e.target.closest('.copy-css-item');

@@ -16,6 +16,10 @@ export const state = {
     // Rendered mod cards (element + searchable text), for filtering/search.
     modCards: [],
 
+    // Active mods filter: category chip ('all', 'favorites', or a category)
+    // plus the lowercased search term. Both must match for a card to show.
+    modFilter: { cat: 'all', term: '' },
+
     // Download deep-link index: slug -> { tab, el }. Plus any pending deep link
     // requested before the cards finished rendering.
     dlIndex: new Map(),

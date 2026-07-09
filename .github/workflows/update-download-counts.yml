@@ -1,0 +1,105 @@
+name: Update Download Counts
+
+# Bakes the live click counts from the Cloudflare Worker into
+# assets/data/downloads.json's static "downloads" fields, so the number
+# shown is reasonable even before the client-side fetch to the Worker
+# resolves (or if it fails). Runs on the same 6-hour cadence as
+# update-launcher.yml.
+#
+# The Worker's /counts endpoint returns a running total per version key
+# that is never reset. We track how much of that total has already been
+# folded into downloads.json (in download-counts-state.json) and only add
+# the new portion each run — this avoids double-counting without ever
+# touching or resetting the Worker's own counters.
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # every 6 hours, same as update-launcher.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-download-counts
+  cancel-in-progress: false
+
+env:
+  COUNTER_API: https://glacier-downloads.pepeoncloudeflare.workers.dev
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch live counts from the Cloudflare Worker
+        run: |
+          set -euo pipefail
+          curl -fsSL "$COUNTER_API/counts" -o counts.raw.json
+          # Refuse to proceed on a non-object response — treat it as a
+          # transient failure rather than baking in garbage.
+          if ! jq -e 'type == "object"' counts.raw.json > /dev/null; then
+            echo "::error::Worker /counts did not return an object; aborting."
+            exit 1
+          fi
+
+      - name: Fold new deltas into downloads.json
+        run: |
+          node <<'EOF'
+          const fs = require('fs');
+
+          const counts = JSON.parse(fs.readFileSync('counts.raw.json', 'utf8'));
+          const dlPath = 'assets/data/downloads.json';
+          const statePath = '.github/download-counts-state.json';
+
+          const downloads = JSON.parse(fs.readFileSync(dlPath, 'utf8'));
+          const state = fs.existsSync(statePath) ? JSON.parse(fs.readFileSync(statePath, 'utf8')) : {};
+
+          const countKey = (version) => {
+              const m = /v[\d.]+/i.exec(version || '');
+              return m ? m[0].toLowerCase() : null;
+          };
+
+          let changed = false;
+          for (const item of [...downloads.clients.working, ...downloads.clients.legacy]) {
+              const key = countKey(item.version);
+              if (!key || !(key in counts)) continue;
+              const worker = Number(counts[key]) || 0;
+              const seen = Number(state[key]) || 0;
+              // The Worker's counter only ever grows. A drop would mean it was
+              // redeployed/cleared out-of-band — treat that as "no new
+              // increments yet" rather than subtracting from downloads.json.
+              const delta = Math.max(0, worker - seen);
+              if (delta > 0) {
+                  item.downloads = (Number(item.downloads) || 0) + delta;
+                  changed = true;
+              }
+              state[key] = worker;
+          }
+
+          if (changed) {
+              fs.writeFileSync(dlPath, JSON.stringify(downloads, null, 2) + '\n');
+          }
+          fs.mkdirSync('.github', { recursive: true });
+          fs.writeFileSync(statePath, JSON.stringify(state, null, 4) + '\n');
+          console.log(changed ? 'Updated downloads.json' : 'No new counts to fold in.');
+          EOF
+
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+          git add assets/data/downloads.json .github/download-counts-state.json
+          if git diff --cached --quiet; then
+            echo "No download count changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: fold live download counts into downloads.json"
+
+          # Rebase on top of anything pushed since checkout, then push (retry once).
+          git push || {
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push
+          }

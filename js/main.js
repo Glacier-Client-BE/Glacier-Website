@@ -15,7 +15,10 @@ import { setupParallax } from './modules/parallax.js';
 import { setupTilt } from './modules/tilt.js';
 import { showSection, showNotFound, parsePath, setupDelegation, toggleMobileMenu, searchMods } from './modules/navigation.js';
 import { loadData, initSkeletons, initFAQ, initMods, initDownloads, initLauncher } from './modules/content.js';
-import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord } from './modules/ui.js';
+import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord, retranslateToast } from './modules/ui.js';
+import { setupCursorGlow } from './modules/cursorGlow.js';
+import { setupDocsToc } from './modules/docs.js';
+import { setupI18n } from './modules/i18n.js';
 
 function init() {
     state.dom = {
@@ -46,6 +49,9 @@ function init() {
     setupTilt('.feature-card, .gallery-item, .donate-card, .social-card, .license-card, .hero-image, .showcase-video-card');
     setupDelegation();
     markCopyableCode(document);
+    setupCursorGlow();
+    setupDocsToc();
+    setupI18n();
 
     state.dom.mobileMenuBtn.addEventListener('click', e => { e.stopPropagation(); toggleMobileMenu(); });
 
@@ -82,6 +88,18 @@ function init() {
         initDownloads();
         initLauncher();
         observeReveals();
+
+        // Data-driven sections (mods, FAQ, downloads) render from JSON via
+        // translation keys, not data-i18n, so they need an explicit re-render
+        // whenever the active language changes.
+        document.addEventListener('gc:langchange', () => {
+            initFAQ();
+            initMods();
+            initDownloads();
+            initLauncher();
+            retranslateToast();
+            observeReveals();
+        });
     });
 }
 

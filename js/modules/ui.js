@@ -5,8 +5,10 @@ import { $, escAttr, slice, debounce } from './utils.js';
 import { NOTIFICATION } from './config.js';
 import { showSection, searchMods } from './navigation.js';
 import { latestVersionLabel } from './content.js';
+import { t, currentLang } from './i18n.js';
 
 let toastKey = '';
+let toastVersion = null;
 
 // Sync the header version pill + corner popups to the newest release. The two
 // corner popups share one slot: the version announcement takes priority; the
@@ -22,15 +24,28 @@ export function applyVersioning() {
 function setupToast(version) {
     toastKey = 'glacier-' + version + '-release';
     if (sessionStorage.getItem(toastKey)) return false;
-    $('toastMsg').textContent = 'Glacier ' + version + ' is now available!';
+    toastVersion = version;
+    renderToastText();
     const cta = $('toastCta');
-    cta.textContent = NOTIFICATION.cta;
     cta.addEventListener('click', e => { e.preventDefault(); showSection(NOTIFICATION.section); dismissToast(); });
     document.body.classList.add('has-toast');
     $('toastClose').addEventListener('click', dismissToast);
     // Let the page settle, then spring the popup in from the corner.
     setTimeout(() => $('toastBanner').classList.add('visible'), 700);
     return true;
+}
+
+function renderToastText() {
+    if (toastVersion == null) return;
+    $('toastMsg').textContent = t(currentLang(), 'toast.available').replace('{version}', toastVersion);
+    $('toastCta').textContent = t(currentLang(), 'btn.download');
+}
+
+// The toast message/CTA are set programmatically (they interpolate the
+// version number), so they don't carry data-i18n and need an explicit
+// re-render whenever the language changes; main.js calls this on gc:langchange.
+export function retranslateToast() {
+    renderToastText();
 }
 
 function dismissToast() {
@@ -249,8 +264,9 @@ export function fetchDiscord() {
     fetch('https://discord.com/api/guilds/938248183878930514/widget.json')
         .then(r => r.json())
         .then(d => {
-            const el = $('discordOnline');
-            if (el && d.presence_count !== undefined) el.textContent = d.presence_count.toLocaleString();
+            if (d.presence_count === undefined) return;
+            const text = d.presence_count.toLocaleString();
+            for (const el of document.querySelectorAll('[data-discord-online]')) el.textContent = text;
         })
         .catch(() => {});
 }

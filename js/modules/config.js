@@ -14,7 +14,7 @@ export const COUNTER_API = 'https://glacier-downloads.pepeoncloudeflare.workers.
 
 // Text/key are derived from the latest client in downloads.json at runtime
 // (see applyVersioning); only the static bits live here.
-export const NOTIFICATION = { cta: 'Download', section: 'downloads' };
+export const NOTIFICATION = { section: 'downloads' };
 
 export const META = {
     home: 'Next-gen Minecraft Bedrock client with 37+ modules, draggable HUD, and zero performance impact.',
@@ -28,8 +28,28 @@ export const META = {
     tos: 'Read the Glacier Client Terms of Service governing use of the client and our community services.',
     privacy: 'Read the Glacier Client Privacy Policy to see what data is collected and how it is used.',
     mediakit: 'Glacier Client media kit and brand guidelines: logos, screenshots, colors, typography, and UI components.',
-    donate: 'Support Glacier Client development through PayPal or Ko-fi.'
+    donate: 'Support Glacier Client development through PayPal or Ko-fi.',
+    docs: 'Documentation for Glacier Client: installation paths, config.json reference, and supported Minecraft Bedrock versions.',
+    'best-bedrock-client': 'Why Glacier Client is one of the best free Minecraft Bedrock clients: 37+ modules, a draggable HUD, and zero performance impact.'
+};
+
+// Per-page browser titles, applied on every section switch.
+export const TITLES = {
+    home: 'Glacier Client | Next-Gen Minecraft Bedrock Experience',
+    features: 'Features | Glacier Client',
+    gallery: 'Gallery | Glacier Client',
+    community: 'Community & Showcases | Glacier Client',
+    downloads: 'Downloads | Glacier Client',
+    faq: 'FAQ | Glacier Client',
+    mods: 'All Mods | Glacier Client',
+    license: 'License | Glacier Client',
+    tos: 'Terms of Service | Glacier Client',
+    privacy: 'Privacy Policy | Glacier Client',
+    mediakit: 'Media Kit & Brand Guidelines | Glacier Client',
+    donate: 'Donate | Glacier Client',
+    docs: 'Documentation | Glacier Client',
+    'best-bedrock-client': 'Best Minecraft Bedrock Client | Glacier Client'
 };
 
 export const MAIN = new Set(['home', 'features', 'gallery']);
-export const ALL = new Set(['home', 'features', 'gallery', 'community', 'downloads', 'faq', 'mods', 'license', 'tos', 'privacy', 'mediakit', 'donate']);
+export const ALL = new Set(['home', 'features', 'gallery', 'community', 'downloads', 'faq', 'mods', 'license', 'tos', 'privacy', 'mediakit', 'donate', 'docs', 'best-bedrock-client']);
