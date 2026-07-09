@@ -297,6 +297,66 @@ header {
     transition: background var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
 }
 
+/* ── Stale-build banner (top) ──────────────────────────────────────────────
+   Shown by js/modules/updateCheck.js when it detects the currently loaded
+   page is running an older build than what's now deployed. */
+#updateBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 10px 20px;
+    background: var(--blurple);
+    color: #fff;
+    font-size: .88rem;
+    font-weight: 600;
+    text-align: center;
+    transform: translateY(-100%);
+    transition: transform var(--normal) var(--ease);
+}
+
+#updateBar.visible {
+    display: flex;
+    transform: translateY(0);
+}
+
+.update-bar-refresh {
+    padding: 5px 14px;
+    border: none;
+    border-radius: var(--pill);
+    background: rgba(255, 255, 255, .18);
+    color: #fff;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: .85rem;
+    cursor: pointer;
+    transition: background var(--t);
+}
+
+.update-bar-refresh:hover {
+    background: rgba(255, 255, 255, .3);
+}
+
+.update-bar-dismiss {
+    display: inline-flex;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, .8);
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 4px;
+}
+
+.update-bar-dismiss:hover {
+    color: #fff;
+}
+
 /* ── Announcement + donation popups (bottom-right) ──
    Glass card that springs in from the corner and animates back out on dismiss.
    Only one is ever shown at a time (see setupToast / setupDonateToast). */

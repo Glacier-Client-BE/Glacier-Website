@@ -21,6 +21,9 @@ export const FAQ_STRINGS = {
         'dl.viewOnGithub': 'View on GitHub',
         'dl.alsoAvailableOn': 'Also available on',
         'dl.mirrorPending': 'Not yet updated to the latest hotfix',
+        'update.available': 'A new version of this site is available.',
+        'update.refresh': 'Refresh',
+        'update.dismiss': 'Dismiss',
 
         'toast.announcement': 'Announcement',
         'toast.available': 'Glacier {version} is now available!',
@@ -183,6 +186,9 @@ export const FAQ_STRINGS = {
         'dl.viewOnGithub': 'Auf GitHub ansehen',
         'dl.alsoAvailableOn': 'Auch verfügbar auf',
         'dl.mirrorPending': 'Noch nicht auf den neuesten Hotfix aktualisiert',
+        'update.available': 'Eine neue Version dieser Website ist verfügbar.',
+        'update.refresh': 'Aktualisieren',
+        'update.dismiss': 'Schließen',
 
         'toast.announcement': 'Ankündigung',
         'toast.available': 'Glacier {version} ist jetzt verfügbar!',
@@ -345,6 +351,9 @@ export const FAQ_STRINGS = {
         'dl.viewOnGithub': 'Ver en GitHub',
         'dl.alsoAvailableOn': 'También disponible en',
         'dl.mirrorPending': 'Aún no actualizado al último hotfix',
+        'update.available': 'Hay una nueva versión de este sitio disponible.',
+        'update.refresh': 'Actualizar',
+        'update.dismiss': 'Descartar',
 
         'toast.announcement': 'Anuncio',
         'toast.available': '¡Glacier {version} ya está disponible!',
@@ -507,6 +516,9 @@ export const FAQ_STRINGS = {
         'dl.viewOnGithub': 'Voir sur GitHub',
         'dl.alsoAvailableOn': 'Également disponible sur',
         'dl.mirrorPending': 'Pas encore mis à jour avec le dernier correctif',
+        'update.available': 'Une nouvelle version de ce site est disponible.',
+        'update.refresh': 'Actualiser',
+        'update.dismiss': 'Ignorer',
 
         'toast.announcement': 'Annonce',
         'toast.available': 'Glacier {version} est maintenant disponible !',
@@ -669,6 +681,9 @@ export const FAQ_STRINGS = {
         'dl.viewOnGithub': 'Vedi su GitHub',
         'dl.alsoAvailableOn': 'Disponibile anche su',
         'dl.mirrorPending': 'Non ancora aggiornato all\'ultimo hotfix',
+        'update.available': 'È disponibile una nuova versione di questo sito.',
+        'update.refresh': 'Aggiorna',
+        'update.dismiss': 'Ignora',
 
         'toast.announcement': 'Annuncio',
         'toast.available': 'Glacier {version} è ora disponibile!',
@@ -831,6 +846,9 @@ export const FAQ_STRINGS = {
         'dl.viewOnGithub': 'Ver no GitHub',
         'dl.alsoAvailableOn': 'Também disponível em',
         'dl.mirrorPending': 'Ainda não atualizado para o hotfix mais recente',
+        'update.available': 'Está disponível uma nova versão deste site.',
+        'update.refresh': 'Atualizar',
+        'update.dismiss': 'Dispensar',
 
         'toast.announcement': 'Anúncio',
         'toast.available': 'O Glacier {version} já está disponível!',
@@ -993,6 +1011,9 @@ export const FAQ_STRINGS = {
         'dl.viewOnGithub': 'Ver no GitHub',
         'dl.alsoAvailableOn': 'Também disponível em',
         'dl.mirrorPending': 'Ainda não atualizado para o hotfix mais recente',
+        'update.available': 'Uma nova versão deste site está disponível.',
+        'update.refresh': 'Atualizar',
+        'update.dismiss': 'Dispensar',
 
         'toast.announcement': 'Anúncio',
         'toast.available': 'O Glacier {version} já está disponível!',

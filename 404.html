@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Stamped by .github/workflows/stamp-version.yml on every push to main.
+         js/modules/updateCheck.js polls this to detect when an open tab is
+         running stale JS and offer a refresh. -->
+    <meta name="site-build" content="2026-07-09-a" />
     <title>Glacier Client | Next-Gen Minecraft Bedrock Experience</title>
     <meta name="description"
         content="Glacier Client is an optimized texture pack client for Minecraft Bedrock Edition, featuring an extensive library of mods, a draggable GUI, and lightweight performance. Download the next-gen Minecraft experience today!" />
@@ -33,19 +37,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto:wght@500;700;900&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="css/styles.css?v=2026-07-08-d" />
-    <script type="module" src="js/main.js?v=2026-07-08-d"></script>
+    <link rel="stylesheet" href="css/styles.css?v=2026-07-09-a" />
+    <script type="module" src="js/main.js?v=2026-07-09-a"></script>
     <script src="js/kinetic.js?v=2026-06-20" defer></script>
     <script src="https://publisher.linkvertise.com/cdn/linkvertise.js"></script>
     <script>
-      linkvertise(499358, {
-        whitelist: ["github.com"],
-        blacklist: []
-      });
+      // Ad blockers commonly block this script (net::ERR_BLOCKED_BY_CLIENT),
+      // which would otherwise throw an uncaught ReferenceError here.
+      if (typeof linkvertise === 'function') {
+        linkvertise(499358, {
+          whitelist: ["github.com"],
+          blacklist: []
+        });
+      }
     </script>
 </head>
 
 <body>
+
+    <div id="updateBar" role="status" aria-live="polite">
+        <span data-i18n="update.available">A new version of this site is available.</span>
+        <button id="updateBarRefresh" class="update-bar-refresh" data-i18n="update.refresh">Refresh</button>
+        <button id="updateBarDismiss" class="update-bar-dismiss" data-i18n-aria="update.dismiss" aria-label="Dismiss">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+    </div>
 
     <div id="cursorGlow" aria-hidden="true"></div>
 

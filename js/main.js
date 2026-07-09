@@ -19,6 +19,7 @@ import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord, retransla
 import { setupCursorGlow } from './modules/cursorGlow.js';
 import { setupDocsToc } from './modules/docs.js';
 import { setupI18n } from './modules/i18n.js';
+import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js';
 
 function init() {
     state.dom = {
@@ -52,6 +53,7 @@ function init() {
     setupCursorGlow();
     setupDocsToc();
     setupI18n();
+    setupUpdateCheck();
 
     state.dom.mobileMenuBtn.addEventListener('click', e => { e.stopPropagation(); toggleMobileMenu(); });
 
@@ -98,6 +100,7 @@ function init() {
             initDownloads();
             initLauncher();
             retranslateToast();
+            retranslateUpdateBar();
             observeReveals();
         });
     });

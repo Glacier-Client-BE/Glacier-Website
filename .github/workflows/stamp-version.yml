@@ -1,0 +1,47 @@
+name: Stamp Asset Versions
+
+# Cache-busts every same-origin JS module import, the entry script/
+# stylesheet, and the <meta name="site-build"> marker on every push to
+# main — see .github/scripts/stamp-version.js for why this needs to cover
+# the whole module graph, not just js/main.js's own URL.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stamp-version
+  cancel-in-progress: false
+
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bump the cache-busting version
+        run: |
+          set -euo pipefail
+          VERSION=$(date -u +%Y%m%d%H%M%S) node .github/scripts/stamp-version.js
+
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+          git add index.html 404.html js
+          if git diff --cached --quiet; then
+            echo "No version bump needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: bump asset cache-busting version"
+
+          # Rebase on top of anything pushed since checkout, then push (retry once).
+          git push || {
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push
+          }
