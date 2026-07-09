@@ -1,11 +1,11 @@
 'use strict';
 
-import { state } from './state.js';
-import { $, escAttr, slice, debounce } from './utils.js';
-import { NOTIFICATION } from './config.js';
-import { showSection, searchMods } from './navigation.js';
-import { latestVersionLabel } from './content.js';
-import { t, currentLang } from './i18n.js';
+import { state } from './state.js?v=20260709100324';
+import { $, escAttr, slice, debounce } from './utils.js?v=20260709100324';
+import { NOTIFICATION } from './config.js?v=20260709100324';
+import { showSection, searchMods } from './navigation.js?v=20260709100324';
+import { latestVersionLabel } from './content.js?v=20260709100324';
+import { t, currentLang } from './i18n.js?v=20260709100324';
 
 let toastKey = '';
 let toastVersion = null;

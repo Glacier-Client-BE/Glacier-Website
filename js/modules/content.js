@@ -1,12 +1,12 @@
 'use strict';
 
-import { state } from './state.js';
-import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl, markCopyableCode } from './utils.js';
-import { COUNTER_API } from './config.js';
-import { applyDeepLink } from './navigation.js';
-import { observeReveals } from './reveal.js';
-import { setupTilt } from './tilt.js';
-import { t, currentLang } from './i18n.js';
+import { state } from './state.js?v=20260709100324';
+import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl, markCopyableCode } from './utils.js?v=20260709100324';
+import { COUNTER_API } from './config.js?v=20260709100324';
+import { applyDeepLink } from './navigation.js?v=20260709100324';
+import { observeReveals } from './reveal.js?v=20260709100324';
+import { setupTilt } from './tilt.js?v=20260709100324';
+import { t, currentLang } from './i18n.js?v=20260709100324';
 
 // ── Data loading ──────────────────────────────────────────────────────────
 export function loadData() {
