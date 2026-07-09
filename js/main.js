@@ -5,21 +5,21 @@
 // data-driven sections. Loaded as an ES module (see index.html), so it runs
 // after the document is parsed.
 
-import { state } from './modules/state.js?v=20260709100324';
-import { $, debounce, markCopyableCode } from './modules/utils.js?v=20260709100324';
-import { ALL } from './modules/config.js?v=20260709100324';
-import { setupScroll } from './modules/scroll.js?v=20260709100324';
-import { setupReveal, observeReveals } from './modules/reveal.js?v=20260709100324';
-import { setupShowcase } from './modules/showcase.js?v=20260709100324';
-import { setupParallax } from './modules/parallax.js?v=20260709100324';
-import { setupTilt } from './modules/tilt.js?v=20260709100324';
-import { showSection, showNotFound, parsePath, setupDelegation, toggleMobileMenu, searchMods } from './modules/navigation.js?v=20260709100324';
-import { loadData, initSkeletons, initFAQ, initMods, initDownloads, initLauncher } from './modules/content.js?v=20260709100324';
-import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord, retranslateToast } from './modules/ui.js?v=20260709100324';
-import { setupCursorGlow } from './modules/cursorGlow.js?v=20260709100324';
-import { setupDocsToc } from './modules/docs.js?v=20260709100324';
-import { setupI18n } from './modules/i18n.js?v=20260709100324';
-import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js?v=20260709100324';
+import { state } from './modules/state.js?v=20260709101109';
+import { $, debounce, markCopyableCode } from './modules/utils.js?v=20260709101109';
+import { ALL } from './modules/config.js?v=20260709101109';
+import { setupScroll } from './modules/scroll.js?v=20260709101109';
+import { setupReveal, observeReveals } from './modules/reveal.js?v=20260709101109';
+import { setupShowcase } from './modules/showcase.js?v=20260709101109';
+import { setupParallax } from './modules/parallax.js?v=20260709101109';
+import { setupTilt } from './modules/tilt.js?v=20260709101109';
+import { showSection, showNotFound, parsePath, setupDelegation, toggleMobileMenu, searchMods } from './modules/navigation.js?v=20260709101109';
+import { loadData, initSkeletons, initFAQ, initMods, initDownloads, initLauncher } from './modules/content.js?v=20260709101109';
+import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord, retranslateToast } from './modules/ui.js?v=20260709101109';
+import { setupCursorGlow } from './modules/cursorGlow.js?v=20260709101109';
+import { setupDocsToc } from './modules/docs.js?v=20260709101109';
+import { setupI18n } from './modules/i18n.js?v=20260709101109';
+import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js?v=20260709101109';
 
 function init() {
     state.dom = {
