@@ -8,9 +8,15 @@ name: Update Download Counts
 #
 # The Worker's /counts endpoint returns a running total per version key
 # that is never reset. We track how much of that total has already been
-# folded into downloads.json (in download-counts-state.json) and only add
-# the new portion each run — this avoids double-counting without ever
-# touching or resetting the Worker's own counters.
+# folded into downloads.json in assets/data/download-counts-baseline.json
+# and only add the new portion each run — this avoids double-counting
+# without ever touching or resetting the Worker's own counters.
+#
+# That baseline file is served publicly (not tucked in .github/) because
+# js/modules/content.js reads it too: the client displays
+# base + (live worker count − baseline), not base + live worker count,
+# otherwise every click already folded into the base here would also get
+# re-added client-side and the number would compound every 6 hours.
 
 on:
   schedule:
@@ -51,7 +57,7 @@ jobs:
 
           const counts = JSON.parse(fs.readFileSync('counts.raw.json', 'utf8'));
           const dlPath = 'assets/data/downloads.json';
-          const statePath = '.github/download-counts-state.json';
+          const statePath = 'assets/data/download-counts-baseline.json';
 
           const downloads = JSON.parse(fs.readFileSync(dlPath, 'utf8'));
           const state = fs.existsSync(statePath) ? JSON.parse(fs.readFileSync(statePath, 'utf8')) : {};
@@ -81,7 +87,6 @@ jobs:
           if (changed) {
               fs.writeFileSync(dlPath, JSON.stringify(downloads, null, 2) + '\n');
           }
-          fs.mkdirSync('.github', { recursive: true });
           fs.writeFileSync(statePath, JSON.stringify(state, null, 4) + '\n');
           console.log(changed ? 'Updated downloads.json' : 'No new counts to fold in.');
           EOF
@@ -89,7 +94,7 @@ jobs:
       - name: Commit and push
         run: |
           set -euo pipefail
-          git add assets/data/downloads.json .github/download-counts-state.json
+          git add assets/data/downloads.json assets/data/download-counts-baseline.json
           if git diff --cached --quiet; then
             echo "No download count changes."
             exit 0

@@ -357,9 +357,25 @@ export function initDownloads() {
     initDownloadCounts();
 }
 
+// The Worker's /counts (and /increment) return a running total per key that
+// is never reset. update-download-counts.yml periodically folds that total
+// into downloads.json's base and records how much it folded in
+// assets/data/download-counts-baseline.json. So the *live* portion to add on
+// top of the base is (worker total − baseline), never the raw worker total —
+// otherwise every already-folded click gets counted a second time on top of
+// the updated base, compounding a little more on every fold. Cached as a
+// promise since multiple call sites need it and it only needs fetching once
+// per page load.
+let baselinePromise = null;
+function getBaseline() {
+    if (!baselinePromise) {
+        baselinePromise = fetch('assets/data/download-counts-baseline.json').then(r => r.ok ? r.json() : {}).catch(() => ({}));
+    }
+    return baselinePromise;
+}
+
 // Displayed count = static base (from downloads.json) + live clicks tracked by
-// the Cloudflare Worker. We fetch the worker's deltas once, then optimistically
-// bump the number whenever a download button is clicked.
+// the Cloudflare Worker, adjusted for whatever's already folded into that base.
 function initDownloadCounts() {
     const cells = [...document.querySelectorAll('.dl-count')];
     if (!cells.length) return;
@@ -375,15 +391,17 @@ function initDownloadCounts() {
     };
 
     if (apiReady) {
-        fetch(apiBase + '/counts')
-            .then(r => r.ok ? r.json() : {})
-            .then(counts => {
-                for (const cell of cells) {
-                    const key = cell.dataset.dlKey;
-                    if (key && counts[key] != null) setCount(cell, counts[key]);
-                }
-            })
-            .catch(() => {});
+        Promise.all([
+            fetch(apiBase + '/counts').then(r => r.ok ? r.json() : {}).catch(() => ({})),
+            getBaseline()
+        ]).then(([counts, baseline]) => {
+            for (const cell of cells) {
+                const key = cell.dataset.dlKey;
+                if (!key || counts[key] == null) continue;
+                const live = Math.max(0, (Number(counts[key]) || 0) - (Number(baseline[key]) || 0));
+                setCount(cell, live);
+            }
+        });
     }
 
     // Increment on download-button click (delegated, once).
@@ -403,7 +421,13 @@ function initDownloadCounts() {
             cell.dataset.dlBase = String((Number(cell.dataset.dlBase) || 1) - 1);
             fetch(apiBase + '/increment/' + encodeURIComponent(key), { method: 'POST' })
                 .then(r => r.ok ? r.json() : null)
-                .then(d => { if (d && d.count != null) setCount(cell, d.count); })
+                .then(d => {
+                    if (!d || d.count == null) return;
+                    return getBaseline().then(baseline => {
+                        const live = Math.max(0, (Number(d.count) || 0) - (Number(baseline[key]) || 0));
+                        setCount(cell, live);
+                    });
+                })
                 .catch(() => {});
         }
     });
