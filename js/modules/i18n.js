@@ -5,7 +5,7 @@
 // in-place when the language changes; everything else (FAQ/mod data, legal
 // pages) intentionally stays English. Unknown keys fall back to English.
 
-import { FAQ_STRINGS } from './i18nFaq.js?v=20260726110749';
+import { FAQ_STRINGS } from './i18nFaq.js?v=20260726111702';
 
 export const LANGS = [
     ['en', 'English'],
@@ -39,6 +39,12 @@ const STRINGS = {
         'nav.help': 'Help',
         'nav.license': 'License', 'nav.donate': 'Donate',
         'a11y.skip': 'Skip to main content',
+        // Eyebrow labels introducing each chapter within a merged page.
+        'sub.screenshots': 'See it in action',
+        'sub.modules': 'The full library',
+        'sub.faq': 'Common questions',
+        'sub.showcases': 'From the community',
+        'sub.follow': 'Stay in the loop',
         // Hero
         'hero.title': 'A full mod menu that installs like a texture pack.',
         'hero.subtitle': 'Drag, drop, and tune 37+ modules without leaving your game. Glacier never touches game logic — so it installs like any resource pack, runs on Mobile, PC, and Console, and stays free forever.',

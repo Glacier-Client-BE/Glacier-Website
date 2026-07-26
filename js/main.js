@@ -5,20 +5,20 @@
 // data-driven sections. Loaded as an ES module (see index.html), so it runs
 // after the document is parsed.
 
-import { state } from './modules/state.js?v=20260726110749';
-import { $, debounce, markCopyableCode } from './modules/utils.js?v=20260726110749';
-import { ALL } from './modules/config.js?v=20260726110749';
-import { setupScroll } from './modules/scroll.js?v=20260726110749';
-import { setupReveal, observeReveals } from './modules/reveal.js?v=20260726110749';
-import { setupShowcase } from './modules/showcase.js?v=20260726110749';
-import { setupParallax } from './modules/parallax.js?v=20260726110749';
-import { setupTilt } from './modules/tilt.js?v=20260726110749';
-import { showSection, showNotFound, parsePath, setupDelegation, toggleMobileMenu, searchMods } from './modules/navigation.js?v=20260726110749';
-import { loadData, initSkeletons, initFAQ, initMods, initDownloads, initLauncher } from './modules/content.js?v=20260726110749';
-import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord, retranslateToast } from './modules/ui.js?v=20260726110749';
-import { setupDocsToc } from './modules/docs.js?v=20260726110749';
-import { setupI18n } from './modules/i18n.js?v=20260726110749';
-import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js?v=20260726110749';
+import { state } from './modules/state.js?v=20260726111702';
+import { $, debounce, markCopyableCode } from './modules/utils.js?v=20260726111702';
+import { ALL } from './modules/config.js?v=20260726111702';
+import { setupScroll } from './modules/scroll.js?v=20260726111702';
+import { setupReveal, observeReveals } from './modules/reveal.js?v=20260726111702';
+import { setupShowcase } from './modules/showcase.js?v=20260726111702';
+import { setupParallax } from './modules/parallax.js?v=20260726111702';
+import { setupTilt } from './modules/tilt.js?v=20260726111702';
+import { showSection, showNotFound, parsePath, setupDelegation, toggleMobileMenu, searchMods } from './modules/navigation.js?v=20260726111702';
+import { loadData, initSkeletons, initFAQ, initMods, initDownloads, initLauncher } from './modules/content.js?v=20260726111702';
+import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord, retranslateToast } from './modules/ui.js?v=20260726111702';
+import { setupDocsToc } from './modules/docs.js?v=20260726111702';
+import { setupI18n } from './modules/i18n.js?v=20260726111702';
+import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js?v=20260726111702';
 
 function init() {
     state.dom = {

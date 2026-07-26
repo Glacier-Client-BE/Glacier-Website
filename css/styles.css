@@ -1265,6 +1265,55 @@ main {
     margin-top: calc(var(--section-gap) * 1.5);
 }
 
+/* ── Sub-section header (a chapter within a page) ──────────────────────────
+   Condensing ten tabs into six left several pages holding content that used to
+   be a page of its own. Rendered with the full-size centred .section-header,
+   they read as separate pages bolted together. This is deliberately quieter —
+   left-aligned, smaller, introduced by the same accent-rule eyebrow the
+   showcase uses — so each page keeps one page-level title and everything after
+   it reads as a chapter of that page. Applied consistently across Features,
+   Help and Community so the three pages share one rhythm. */
+.subsection-header {
+    text-align: left;
+    margin-bottom: var(--header-gap);
+}
+
+.subsection-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2.4px;
+    font-size: .72rem;
+    font-weight: 800;
+    color: var(--accent-hover);
+}
+
+/* Same leading accent line as .showcase-eyebrow. */
+.subsection-eyebrow::before {
+    content: '';
+    width: 26px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent));
+}
+
+.subsection-header .section-title {
+    font-size: clamp(1.6rem, 2.3vw, 2.1rem);
+}
+
+.subsection-header .section-subtitle {
+    margin: 14px 0 0;
+    max-width: 68ch;
+}
+
+/* Community stacks its chapters inside one container rather than absorbing
+   separate ones, so it needs the same air the absorbed containers get above. */
+.section-header--stacked.subsection-header {
+    margin-top: calc(var(--section-gap) * 1.5);
+}
+
 .section-title {
     font-size: clamp(2rem, 3.4vw, 2.9rem);
     font-weight: 700;
