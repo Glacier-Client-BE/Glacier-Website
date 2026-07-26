@@ -283,7 +283,12 @@ body::before {
 }
 
 img { display: block; max-width: 100%; }
-a { color: inherit; }
+
+/* Links never underline anywhere on the site — every link either sits in a
+   styled control (nav tab, button, card) or is set apart by the accent colour,
+   so the underline only added visual noise. Inline links in body copy that
+   previously relied on it are accent-coloured instead. */
+a { color: inherit; text-decoration: none; }
 
 .container {
     width: 100%;
@@ -2369,7 +2374,12 @@ body.is-404 #donateBanner {
     line-height: 1.65;
 }
 
-.faq-answer a {
+/* Links inside body copy carry the accent colour. With underlines gone
+   site-wide, colour is the only thing left marking a link mid-sentence, so
+   every prose context that can contain one has to opt in. */
+.faq-answer a,
+.license-card a,
+.section-subtitle a {
     color: var(--blurple);
 }
 
@@ -4630,14 +4640,13 @@ footer {
 
 .docs-card a:not(.btn) {
     color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color var(--normal) var(--ease), color var(--normal) var(--ease);
+    transition: color var(--normal) var(--ease);
 }
 
+/* Brightening to --accent-hover is the whole hover affordance here; the rule
+   used to also draw a border-bottom, which read as an underline. */
 .docs-card a:not(.btn):hover {
     color: var(--accent-hover);
-    border-bottom-color: currentColor;
 }
 
 .docs-table-wrap { overflow-x: auto; }
