@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Config Editor | Glacier Client</title>
+    <meta name="description"
+        content="Visually edit, drag and export your Glacier Client config.json for Minecraft Bedrock Edition. Toggle modules, tweak opacity and reposition the HUD in real time." />
+    <!-- This page is built and deployed from the main site repo (see
+         .github/workflows/deploy-config-editor.yml) so it shares one design
+         system with glacierclient.xyz, but it is served from its own
+         subdomain — the canonical URL is always the subdomain, never
+         glacierclient.xyz/config/. -->
+    <link rel="canonical" href="https://config.glacierclient.xyz/" />
+    <meta property="og:title" content="Glacier Config Editor" />
+    <meta property="og:description" content="Visually edit, drag and export your Glacier Client config.json." />
+    <meta property="og:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
+    <meta property="og:url" content="https://config.glacierclient.xyz/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@glacierclientbe" />
+    <meta name="twitter:title" content="Glacier Config Editor" />
+    <meta name="twitter:description" content="Visually edit, drag and export your Glacier Client config.json." />
+    <meta name="twitter:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto:wght@500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <!-- Same non-blocking Font Awesome load as the main site. -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    </noscript>
+    <!-- Root-absolute so the one stylesheet resolves both here (deployed at the
+         subdomain root) and at glacierclient.xyz/config/ during development. -->
+    <link rel="stylesheet" href="/css/styles.css?v=20260726113218" />
+    <link rel="stylesheet" href="editor.css?v=20260726113218" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+</head>
+
+<body>
+
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header id="mainHeader">
+        <div class="top-bar">
+            <a class="branding" href="https://glacierclient.xyz/">
+                <img src="/assets/logo.png" alt="Glacier Client Logo" class="logo-icon" width="34" height="34" />
+                <div class="branding-text">
+                    <div class="branding-title">Glacier Client</div>
+                    <div class="branding-sub">Config Editor</div>
+                </div>
+                <span class="version-pill" id="versionPill">v6</span>
+            </a>
+
+            <div class="top-bar-spacer"></div>
+
+            <!-- The main site's six destinations, in the same order, at the same
+                 widths — a seventh tab overflows the bar between 768px and the
+                 point the nav collapses. This page is identified by the
+                 branding sub-label and the page title instead. Links are
+                 absolute because the editor lives on its own subdomain. -->
+            <nav class="nav-tabs" id="navMenu">
+                <a href="https://glacierclient.xyz/" class="nav-tab">Home</a>
+                <a href="https://glacierclient.xyz/features" class="nav-tab">Features</a>
+                <a href="https://glacierclient.xyz/downloads" class="nav-tab">Downloads</a>
+                <a href="https://glacierclient.xyz/community" class="nav-tab">Community</a>
+                <a href="https://glacierclient.xyz/docs" class="nav-tab">Help</a>
+                <a href="https://glacierclient.xyz/donate" class="nav-tab">Donate</a>
+            </nav>
+
+            <button id="themeToggle" class="header-icon-btn" aria-label="Toggle theme" title="Toggle theme">
+                <i class="fas fa-sun" aria-hidden="true"></i>
+            </button>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <div class="container">
+
+            <div class="section-header">
+                <h2 class="section-title">Config Editor</h2>
+                <p class="section-subtitle">Toggle modules, drag the HUD where you want it, and export a ready-to-import
+                    pack &mdash; no JSON editing required.</p>
+            </div>
+
+            <!-- Editor toolbar: everything that acts on the document lives here
+                 rather than in the header, so the header stays the site's. -->
+            <div class="editor-toolbar">
+                <div class="editor-toolbar-group">
+                    <span class="editor-toolbar-label">Client version</span>
+                    <div class="version-tabs" id="versionTabs" role="group" aria-label="Config version"></div>
+                </div>
+                <div class="editor-toolbar-spacer"></div>
+                <div class="seg-group">
+                    <button class="icon-btn-sm" id="undoBtn" title="Undo (Ctrl+Z)" aria-label="Undo" disabled><i
+                            class="fas fa-undo" aria-hidden="true"></i></button>
+                    <button class="icon-btn-sm" id="redoBtn" title="Redo (Ctrl+Y)" aria-label="Redo" disabled><i
+                            class="fas fa-redo" aria-hidden="true"></i></button>
+                </div>
+                <button class="chip-btn" id="tutorialBtn"><i class="fas fa-book" aria-hidden="true"></i> Tutorial</button>
+                <a class="chip-btn accent" href="https://discord.glacierclient.xyz/" target="_blank" rel="noopener"><i
+                        class="fab fa-discord" aria-hidden="true"></i> Discord</a>
+            </div>
+
+            <div class="mobile-switch" id="mobileSwitch">
+                <button data-view="config" class="active"><i class="fas fa-cog" aria-hidden="true"></i> Config</button>
+                <button data-view="preview"><i class="fas fa-eye" aria-hidden="true"></i> Preview</button>
+            </div>
+
+            <div class="workspace card-base">
+                <!-- ── Sidebar: configuration ── -->
+                <aside class="ws-sidebar" id="configPanel">
+                    <div class="ws-sidebar-head">
+                        <div class="panel-head-row">
+                            <h3 class="panel-title"><i class="fas fa-sliders-h" aria-hidden="true"></i> Configuration
+                            </h3>
+                            <button class="chip-btn danger" id="resetSectionBtn" title="Reset current section"><i
+                                    class="fas fa-rotate-left" aria-hidden="true"></i> Reset</button>
+                        </div>
+                        <div class="section-pills" id="sectionPills"></div>
+                        <div class="search-bar" id="searchWrap">
+                            <i class="fas fa-search search-ico" aria-hidden="true"></i>
+                            <input type="text" id="searchInput" placeholder="Search modules&hellip;"
+                                aria-label="Search modules" />
+                            <button class="search-clear" id="searchClear" aria-label="Clear search"><i
+                                    class="fas fa-times" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="scroll-body" id="controlsScroll">
+                        <div class="controls-list" id="controlsList"></div>
+                    </div>
+
+                    <div class="ws-sidebar-foot">
+                        <div class="export-wrap">
+                            <button class="btn btn-primary" id="exportBtn" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-download" aria-hidden="true"></i> Export <i
+                                    class="fas fa-chevron-up caret" aria-hidden="true"></i>
+                            </button>
+                            <div class="export-menu" id="exportMenu" role="menu">
+                                <button class="export-opt" id="optPack" role="menuitem">
+                                    <span class="export-opt-ico"><i class="fas fa-box-open" aria-hidden="true"></i></span>
+                                    <span class="export-opt-text">
+                                        <span class="eo-title">Download Config Pack <span
+                                                class="eo-badge">Recommended</span></span>
+                                        <span class="eo-sub">.mcpack &mdash; import straight into Minecraft</span>
+                                    </span>
+                                </button>
+                                <button class="export-opt" id="optJson" role="menuitem">
+                                    <span class="export-opt-ico"><i class="fas fa-file-code" aria-hidden="true"></i></span>
+                                    <span class="export-opt-text">
+                                        <span class="eo-title">Export JSON</span>
+                                        <span class="eo-sub">Raw config.json file</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" id="importBtn" title="Import JSON" aria-label="Import JSON"><i
+                                class="fas fa-upload" aria-hidden="true"></i></button>
+                        <input type="file" id="fileInput" accept=".json,application/json" hidden />
+                    </div>
+                </aside>
+
+                <!-- ── Preview stage ── -->
+                <section class="ws-preview mobile-hidden" id="previewPanel">
+                    <div class="ws-preview-bar">
+                        <div class="view-tabs">
+                            <button class="view-tab active" data-view="visual"><i class="fas fa-eye"
+                                    aria-hidden="true"></i> Visual</button>
+                            <button class="view-tab" data-view="raw"><i class="fas fa-code" aria-hidden="true"></i>
+                                Code</button>
+                        </div>
+                        <div class="ws-preview-actions">
+                            <button class="chip-btn accent" id="copyBtn" style="display:none"><i class="fas fa-copy"
+                                    aria-hidden="true"></i> Copy</button>
+                            <button class="tool-btn active" id="bgToggle" title="Toggle Minecraft background"
+                                aria-label="Toggle background"><i class="fas fa-image" aria-hidden="true"></i></button>
+                            <button class="tool-btn" id="fsToggle" title="Fullscreen" aria-label="Fullscreen"><i
+                                    class="fas fa-expand" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                    <div class="ws-preview-body" id="viewBody"></div>
+                </section>
+            </div>
+
+            <!-- Chapter pattern borrowed from the main site: a quiet, left-aligned
+                 header introduced by the accent-rule eyebrow. -->
+            <div class="section-header subsection-header section-header--stacked">
+                <span class="subsection-eyebrow">Next steps</span>
+                <h2 class="section-title">Once you&rsquo;ve exported</h2>
+                <p class="section-subtitle">Drop the pack above Glacier in your resource pack list, or replace
+                    <code>config.json</code> by hand.</p>
+            </div>
+
+            <div class="editor-next-grid">
+                <a class="editor-next-card card-base" href="#" id="cardTutorial">
+                    <div class="feature-icon"><i class="fas fa-book-open" aria-hidden="true"></i></div>
+                    <h3 class="feature-title">Where is config.json?</h3>
+                    <p class="feature-desc">Exact paths for Android, iOS and Windows, plus the editors that won&rsquo;t
+                        corrupt the file.</p>
+                </a>
+                <a class="editor-next-card card-base" href="https://glacierclient.xyz/docs" target="_blank"
+                    rel="noopener">
+                    <div class="feature-icon"><i class="fas fa-circle-question" aria-hidden="true"></i></div>
+                    <h3 class="feature-title">Installation guide</h3>
+                    <p class="feature-desc">Full setup docs and troubleshooting for every platform Glacier runs on.</p>
+                </a>
+                <a class="editor-next-card card-base" href="https://glacierclient.xyz/downloads" target="_blank"
+                    rel="noopener">
+                    <div class="feature-icon"><i class="fas fa-download" aria-hidden="true"></i></div>
+                    <h3 class="feature-title">Get the client</h3>
+                    <p class="feature-desc">Don&rsquo;t have Glacier yet? Grab the latest release &mdash; free,
+                        forever.</p>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col footer-col--brand">
+                    <a class="footer-brand" href="https://glacierclient.xyz/">
+                        <img src="/assets/logo.png" alt="Glacier Client Logo" class="footer-logo" width="38"
+                            height="38" />
+                        <span class="brand-name">Glacier Client</span>
+                    </a>
+                    <p class="footer-blurb">A free, lightweight resource pack client for Minecraft Bedrock Edition.
+                        37+ modules, zero performance impact.</p>
+                    <nav class="footer-social" aria-label="Social media links">
+                        <a href="https://discord.glacierclient.xyz/" class="social-link" target="_blank"
+                            rel="noopener" aria-label="Discord"><i class="fab fa-discord" aria-hidden="true"></i></a>
+                        <a href="https://github.com/Glacier-Client-BE" class="social-link" target="_blank"
+                            rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="https://youtube.com/@glacierclient" class="social-link" target="_blank"
+                            rel="noopener" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                        <a href="https://x.com/glacierclientbe" class="social-link" target="_blank" rel="noopener"
+                            aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/glacierclientmcbe" class="social-link" target="_blank"
+                            rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"
+                                aria-hidden="true"></i></a>
+                        <a href="https://www.tiktok.com/@glacierclientmcbe" class="social-link" target="_blank"
+                            rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok" aria-hidden="true"></i></a>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <span class="footer-col-title">Product</span>
+                    <a href="https://glacierclient.xyz/features">Features</a>
+                    <a href="https://glacierclient.xyz/mods">All Mods</a>
+                    <a href="https://glacierclient.xyz/gallery">Gallery</a>
+                    <a href="https://glacierclient.xyz/downloads">Downloads</a>
+                </div>
+                <div class="footer-col">
+                    <span class="footer-col-title">Resources</span>
+                    <a href="https://glacierclient.xyz/docs">Documentation</a>
+                    <a href="https://glacierclient.xyz/faq">FAQ</a>
+                    <a href="#" id="footerTutorial">Config Tutorial</a>
+                    <a href="https://glacierclient.xyz/mediakit">Media Kit</a>
+                </div>
+                <div class="footer-col">
+                    <span class="footer-col-title">Community</span>
+                    <a href="https://glacierclient.xyz/community">Showcases</a>
+                    <a href="https://discord.glacierclient.xyz/" target="_blank" rel="noopener">Discord Server</a>
+                    <a href="https://glacierclient.xyz/donate">Donate</a>
+                </div>
+                <div class="footer-col">
+                    <span class="footer-col-title">Legal</span>
+                    <a href="https://glacierclient.xyz/license">License</a>
+                    <a href="https://glacierclient.xyz/tos">Terms of Service</a>
+                    <a href="https://glacierclient.xyz/privacy">Privacy Policy</a>
+                </div>
+            </div>
+            <p class="copyright-text">&copy; <span id="currentYear"></span> Glacier Productions. Not affiliated with
+                Mojang/Microsoft</p>
+        </div>
+    </footer>
+
+    <!-- ── Tutorial modal ── -->
+    <div class="modal-overlay" id="tutorialModal">
+        <div class="card-base modal" role="dialog" aria-modal="true" aria-label="Configuration tutorial">
+            <div class="modal-head">
+                <div class="modal-head-left">
+                    <div class="modal-badge"><i class="fas fa-snowflake" aria-hidden="true"></i></div>
+                    <div>
+                        <div class="modal-title">Configuration Guide</div>
+                        <div class="modal-sub">Locate &middot; edit &middot; customize</div>
+                    </div>
+                </div>
+                <button class="header-icon-btn" id="modalClose" aria-label="Close tutorial"><i class="fas fa-times"
+                        aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-tabs" id="modalTabs"></div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-foot">
+                <span class="muted" style="font-size:.68rem"><kbd>Esc</kbd> to close</span>
+                <button class="btn btn-primary" id="modalGotIt" style="flex:0">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="editor-toast" id="toast"><i class="fas fa-check-circle" aria-hidden="true"></i><span
+            id="toastMsg"></span></div>
+
+    <script src="config-data.js?v=20260726113218"></script>
+    <script src="app.js?v=20260726113218"></script>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+name: Deploy Config Editor
+
+# The config editor lives in this repo (config/) so it shares one design system
+# with the main site, but it is served from its own subdomain —
+# config.glacierclient.xyz — and GitHub Pages allows exactly one custom domain
+# per repo. So this workflow assembles the editor plus the shared files it
+# depends on (the site stylesheet, the background photo, the logo) and pushes
+# the result to Glacier-Client-BE/Glacier-Client-Config-Editor, whose Pages
+# site owns that CNAME.
+#
+# That repo is a deploy target only — never edit it directly, anything
+# committed there is overwritten on the next push to main here.
+#
+# Setup: a repo secret named CONFIG_EDITOR_TOKEN holding a token with
+# `contents: write` on Glacier-Client-Config-Editor (a fine-grained PAT scoped
+# to that one repo is enough).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'config/**'
+      - 'css/styles.css'
+      - 'assets/BG.webp'
+      - 'assets/logo.png'
+      - 'assets/mods/**'
+      - '.github/workflows/deploy-config-editor.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-config-editor
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble the deploy directory
+        run: |
+          set -euo pipefail
+
+          # config/ becomes the site root, so its relative URLs (app.js,
+          # editor.css, img/…) resolve unchanged.
+          mkdir -p dist
+          cp -R config/. dist/
+
+          # Root-absolute URLs in config/index.html and css/styles.css
+          # (/css/styles.css, /assets/logo.png, ../assets/BG.webp) resolve
+          # against this root — the same paths the main site uses, which is why
+          # the page also renders correctly at glacierclient.xyz/config/ during
+          # development.
+          mkdir -p dist/css dist/assets dist/assets/mods
+          cp css/styles.css dist/css/styles.css
+          cp assets/BG.webp assets/logo.png dist/assets/
+          # Per-module artwork, shared with the main site's mods grid.
+          cp assets/mods/*.png dist/assets/mods/
+
+          # Owns the subdomain on GitHub Pages.
+          echo 'config.glacierclient.xyz' > dist/CNAME
+
+          cat > dist/README.md <<'EOF'
+          # Glacier Client Config Editor
+
+          **This repository is a deploy target — do not edit it directly.**
+
+          The source lives in [Glacier-Website](https://github.com/Glacier-Client-BE/Glacier-Website)
+          under `config/`, and every push to `main` there rebuilds this repository's
+          tree. Any commit made here is overwritten on the next deploy.
+
+          Served at <https://config.glacierclient.xyz>.
+          EOF
+
+      - name: Push to the config editor repo
+        env:
+          TOKEN: ${{ secrets.CONFIG_EDITOR_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${TOKEN}" ]; then
+            echo "::error::CONFIG_EDITOR_TOKEN is not set — cannot deploy the config editor."
+            exit 1
+          fi
+
+          git clone --depth 1 \
+            "https://x-access-token:${TOKEN}@github.com/Glacier-Client-BE/Glacier-Client-Config-Editor.git" \
+            target
+
+          # dist/ is the whole published site, so anything the target still
+          # holds from a previous deploy has to go — otherwise removed files
+          # keep being served. History is preserved; only the tree is replaced.
+          find target -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -R dist/. target/
+
+          cd target
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Config editor already up to date — nothing to deploy."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "deploy: config editor from ${GITHUB_SHA}"
+          git push

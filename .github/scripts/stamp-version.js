@@ -57,4 +57,21 @@ for (const htmlFile of ['index.html', '404.html']) {
     fs.writeFileSync(htmlFile, html);
 }
 
+// The config editor (config/, deployed to config.glacierclient.xyz — see
+// .github/workflows/deploy-config-editor.yml) shares css/styles.css with the
+// main site, so it has to share the cache-busting token too: a deploy that
+// bumped the main site but left the editor pointing at an unversioned URL
+// would serve the editor a stale stylesheet. It has no module graph — the two
+// scripts are plain <script> tags — so stamping the entry points is enough.
+{
+    const editorHtml = 'config/index.html';
+    if (fs.existsSync(editorHtml)) {
+        let html = fs.readFileSync(editorHtml, 'utf8');
+        for (const asset of ['css\\/styles\\.css', 'editor\\.css', 'config-data\\.js', 'app\\.js']) {
+            html = html.replace(new RegExp(`(${asset})(\\?v=[^"']*)?`, 'g'), `$1?v=${VERSION}`);
+        }
+        fs.writeFileSync(editorHtml, html);
+    }
+}
+
 console.log(`Stamped ${VERSION} across ${touched} of ${files.length} module files + HTML entries.`);

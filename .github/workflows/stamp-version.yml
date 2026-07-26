@@ -31,7 +31,7 @@ jobs:
       - name: Commit and push
         run: |
           set -euo pipefail
-          git add index.html 404.html js
+          git add index.html 404.html js config/index.html
           if git diff --cached --quiet; then
             echo "No version bump needed."
             exit 0
