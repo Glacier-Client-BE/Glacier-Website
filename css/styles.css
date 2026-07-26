@@ -1262,7 +1262,7 @@ main {
 #features-screenshots,
 #features-modules,
 #docs-faq {
-    margin-top: calc(var(--section-gap) * 1.5);
+    margin-top: var(--section-gap);
 }
 
 /* ── Sub-section header (a chapter within a page) ──────────────────────────
@@ -1273,16 +1273,26 @@ main {
    showcase uses — so each page keeps one page-level title and everything after
    it reads as a chapter of that page. Applied consistently across Features,
    Help and Community so the three pages share one rhythm. */
+/* The hairline above each chapter is what makes a page read as one continuous
+   document rather than stacked blocks — it carries the eye from the end of one
+   chapter into the start of the next. */
 .subsection-header {
     text-align: left;
     margin-bottom: var(--header-gap);
+    padding-top: 44px;
+    border-top: 1px solid var(--glass-border);
 }
 
+/* Block-level, not inline-flex: .section-title is display:inline-block (it
+   anchors its own underline), so an inline eyebrow would sit on the same line
+   as the heading instead of above it. width:fit-content keeps the accent rule
+   tight to the label. */
 .subsection-eyebrow {
-    display: inline-flex;
+    display: flex;
+    width: fit-content;
     align-items: center;
     gap: 10px;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     text-transform: uppercase;
     letter-spacing: 2.4px;
     font-size: .72rem;
@@ -1303,15 +1313,22 @@ main {
     font-size: clamp(1.6rem, 2.3vw, 2.1rem);
 }
 
+/* The page-level underline is centred under the title; on a left-aligned
+   chapter heading that reads as floating loose, so anchor it to the start. */
+.subsection-header .section-title::after {
+    left: 0;
+    transform: none;
+}
+
 .subsection-header .section-subtitle {
-    margin: 14px 0 0;
+    margin: 26px 0 0;
     max-width: 68ch;
 }
 
 /* Community stacks its chapters inside one container rather than absorbing
    separate ones, so it needs the same air the absorbed containers get above. */
 .section-header--stacked.subsection-header {
-    margin-top: calc(var(--section-gap) * 1.5);
+    margin-top: var(--section-gap);
 }
 
 .section-title {
@@ -1578,11 +1595,14 @@ main {
     gap: 22px;
 }
 
+/* Sized by aspect ratio, not a fixed 240px height: these are 16:9 screenshots,
+   and forcing them into a short box cropped most of the UI out of frame —
+   badly on phones, where the column narrows but the height did not. */
 .gallery-item {
     position: relative;
     border-radius: var(--r-md);
     overflow: hidden;
-    height: 240px;
+    aspect-ratio: 16 / 9;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform var(--t), box-shadow var(--t), border-color var(--t);
@@ -1597,15 +1617,20 @@ main {
     border-color: var(--blurple);
 }
 
+/* contain, not cover: a screenshot loses its meaning the moment the UI it is
+   showing is cropped out. The tile matches the source ratio, so the letterbox
+   is negligible. */
 .gallery-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform var(--normal) var(--ease);
 }
 
+/* A gentle lift only — the old 1.08 pushed the edges of the screenshot out of
+   the tile, which read as "zoomed in and cut off". */
 .gallery-item:hover img {
-    transform: scale(1.08);
+    transform: scale(1.02);
 }
 
 .gallery-overlay {
@@ -3627,7 +3652,9 @@ footer {
 
 .showcase-stage {
     position: relative;
-    aspect-ratio: 16 / 10;
+    /* Matches the source screenshots (1920x1080). At 16/10 the object-fit:cover
+       below had to crop them to fill the frame. */
+    aspect-ratio: 16 / 9;
     border-radius: var(--r-md);
     overflow: hidden;
     /* Deep cinematic drop + an accent rim-light + inner top sheen. */
