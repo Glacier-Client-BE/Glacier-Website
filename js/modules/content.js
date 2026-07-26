@@ -1,12 +1,12 @@
 'use strict';
 
-import { state } from './state.js?v=20260709202401';
-import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl, markCopyableCode } from './utils.js?v=20260709202401';
-import { COUNTER_API } from './config.js?v=20260709202401';
-import { applyDeepLink } from './navigation.js?v=20260709202401';
-import { observeReveals } from './reveal.js?v=20260709202401';
-import { setupTilt } from './tilt.js?v=20260709202401';
-import { t, currentLang } from './i18n.js?v=20260709202401';
+import { state } from './state.js?v=20260726094126';
+import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl, markCopyableCode } from './utils.js?v=20260726094126';
+import { COUNTER_API } from './config.js?v=20260726094126';
+import { applyDeepLink } from './navigation.js?v=20260726094126';
+import { observeReveals } from './reveal.js?v=20260726094126';
+import { setupTilt } from './tilt.js?v=20260726094126';
+import { t, currentLang } from './i18n.js?v=20260726094126';
 
 // ── Data loading ──────────────────────────────────────────────────────────
 export function loadData() {
@@ -374,9 +374,40 @@ function getBaseline() {
     return baselinePromise;
 }
 
+// Every client release (current + legacy). Extensions are excluded — they carry
+// no download figures, so they'd contribute nothing but noise to the total.
+function clientEntries() {
+    const c = state.downloadsData.clients || {};
+    return [...(c.working || []), ...(c.legacy || [])];
+}
+
+// Lifetime downloads across all client releases, for the hero stat. Uses exactly
+// the same maths as the per-card counts: static base from downloads.json plus
+// (worker total − folded baseline), never the raw worker total. Called once with
+// no live data so the base renders immediately, then again when /counts lands.
+// Shown with a trailing "+" because the earliest releases (v1–v3) predate
+// tracking and mirror downloads were never counted — the real figure is higher.
+function renderTotalDownloads(counts, baseline) {
+    const el = $('heroDownloads');
+    if (!el) return;
+    let total = 0;
+    for (const item of clientEntries()) {
+        if (item.downloads == null) continue;
+        total += Number(item.downloads) || 0;
+        const key = countKey(item.version);
+        if (!key || !counts || counts[key] == null) continue;
+        total += Math.max(0, (Number(counts[key]) || 0) - (Number((baseline || {})[key]) || 0));
+    }
+    if (total > 0) el.textContent = formatCount(total) + '+';
+}
+
 // Displayed count = static base (from downloads.json) + live clicks tracked by
 // the Cloudflare Worker, adjusted for whatever's already folded into that base.
 function initDownloadCounts() {
+    // Render the hero total before the per-card work, so it still appears on
+    // pages/states where no .dl-count cells are in the DOM.
+    renderTotalDownloads(null, null);
+
     const cells = [...document.querySelectorAll('.dl-count')];
     if (!cells.length) return;
 
@@ -401,6 +432,7 @@ function initDownloadCounts() {
                 const live = Math.max(0, (Number(counts[key]) || 0) - (Number(baseline[key]) || 0));
                 setCount(cell, live);
             }
+            renderTotalDownloads(counts, baseline);
         });
     }
 
@@ -482,9 +514,22 @@ export function initLauncher() {
 // Pull the latest client version (e.g. "v6.2") out of the downloads data so the
 // header pill and announcement always match the newest release without edits.
 export function latestVersionLabel() {
-    const w = (state.downloadsData.clients && state.downloadsData.clients.working) || [];
-    const latest = w.find(c => c.tag === 'Latest') || w[0];
+    const latest = latestClient();
     if (!latest) return null;
     const m = /v[\d.]+/i.exec(latest.version);
     return m ? m[0] : latest.version;
+}
+
+// The newest working client from downloads.json — the one the hero stats and
+// the release toast both describe.
+function latestClient() {
+    const w = (state.downloadsData.clients && state.downloadsData.clients.working) || [];
+    return w.find(c => c.tag === 'Latest') || w[0] || null;
+}
+
+// Download size of the latest release (e.g. "3.41 MB"), so the hero stat tracks
+// the actual pack instead of a hard-coded number that silently goes stale.
+export function latestPackSize() {
+    const latest = latestClient();
+    return (latest && latest.size) || null;
 }

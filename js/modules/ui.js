@@ -1,11 +1,11 @@
 'use strict';
 
-import { state } from './state.js?v=20260709202401';
-import { $, escAttr, slice, debounce } from './utils.js?v=20260709202401';
-import { NOTIFICATION } from './config.js?v=20260709202401';
-import { showSection, searchMods } from './navigation.js?v=20260709202401';
-import { latestVersionLabel } from './content.js?v=20260709202401';
-import { t, currentLang } from './i18n.js?v=20260709202401';
+import { state } from './state.js?v=20260726094126';
+import { $, escAttr, slice, debounce } from './utils.js?v=20260726094126';
+import { NOTIFICATION } from './config.js?v=20260726094126';
+import { showSection, searchMods } from './navigation.js?v=20260726094126';
+import { latestVersionLabel, latestPackSize } from './content.js?v=20260726094126';
+import { t, currentLang } from './i18n.js?v=20260726094126';
 
 let toastKey = '';
 let toastVersion = null;
@@ -14,6 +14,12 @@ let toastVersion = null;
 // corner popups share one slot: the version announcement takes priority; the
 // donation nudge fills in when there's no new release to show.
 export function applyVersioning() {
+    // Pack size comes from the same release entry as the version, but it's set
+    // independently so a missing size never suppresses the version pill/toast.
+    const size = latestPackSize();
+    const sizeEl = $('heroPackSize');
+    if (size && sizeEl) sizeEl.textContent = size;
+
     const v = latestVersionLabel();
     if (!v) return;
     const pill = document.querySelector('.version-pill');

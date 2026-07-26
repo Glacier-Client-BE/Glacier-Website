@@ -5,7 +5,7 @@
 // in-place when the language changes; everything else (FAQ/mod data, legal
 // pages) intentionally stays English. Unknown keys fall back to English.
 
-import { FAQ_STRINGS } from './i18nFaq.js?v=20260709202401';
+import { FAQ_STRINGS } from './i18nFaq.js?v=20260726094126';
 
 export const LANGS = [
     ['en', 'English'],
@@ -36,16 +36,19 @@ const STRINGS = {
         // Navigation
         'nav.home': 'Home', 'nav.features': 'Features', 'nav.gallery': 'Gallery', 'nav.community': 'Community',
         'nav.downloads': 'Downloads', 'nav.faq': 'FAQ', 'nav.docs': 'Docs', 'nav.mods': 'All Mods',
+        'nav.help': 'Help',
         'nav.license': 'License', 'nav.donate': 'Donate',
+        'a11y.skip': 'Skip to main content',
         // Hero
-        'hero.title': 'Next Generation Minecraft Experience',
-        'hero.subtitle': 'Optimized texture pack client for Minecraft Bedrock Edition with extensive modules, draggable GUI, and lightweight performance. Experience the future of Minecraft with smooth animations and a clean interface.',
+        'hero.title': 'A full mod menu that installs like a texture pack.',
+        'hero.subtitle': 'Drag, drop, and tune 37+ modules without leaving your game. Glacier never touches game logic — so it installs like any resource pack, runs on Mobile, PC, and Console, and stays free forever.',
         'hero.download': 'Download Now', 'hero.config': 'Config Editor',
+        'hero.downloads': 'Downloads',
         'hero.online': 'Online on Discord', 'hero.modules': 'Modules', 'hero.packSize': 'Pack Size',
         'hero.free': 'Free', 'hero.forever': 'Forever',
         // Core Features
-        'core.title': 'Core Features',
-        'core.sub': 'Experience the power of Glacier Client with these standout features',
+        'core.title': 'Built to stay out of your way',
+        'core.sub': 'Six reasons players keep Glacier installed',
         'feature.draggable': 'Draggable GUI',
         'feature.draggableDesc': 'Move and arrange UI elements to your preference',
         'feature.modules': 'Extensive Modules',
@@ -55,7 +58,7 @@ const STRINGS = {
         'feature.smooth': 'Smooth Animations',
         'feature.smoothDesc': 'Premium animation polish across the interface',
         // Creators & Showcases
-        'creators.title': 'What Creators Are Saying',
+        'creators.title': 'Creators put Glacier to the test',
         'join.title': 'Join Our Community',
         'join.sub': 'Connect with other Glacier Client users and get support',
         'showcases.title': 'Community Showcases', 'follow.title': 'Follow Us',
@@ -148,12 +151,12 @@ const STRINGS = {
         'adv.autoupdate.desc': 'Automatic update system that ensures you always have the latest features and bug fixes.',
         'badge.comingSoon': 'Coming soon',
         'badge.launcherOnly': 'Launcher only',
-        'feat.modules.title': '37+ Modules',
-        'feat.modules.desc': 'Extensive modules with real-time configuration and customization options for every playstyle.',
-        'feat.draggable.title': 'Draggable Mods',
-        'feat.draggable.desc': 'Modules are fully movable to customize your HUD exactly how you want it.',
-        'feat.lightweight.title': 'Lightweight',
-        'feat.lightweight.desc': 'Only 2MB with zero performance impact, ensuring smooth gameplay even on lower-end devices.',
+        'feat.modules.title': 'See what you were missing',
+        'feat.modules.desc': 'Coordinates, FPS, armour, hitboxes, and 30+ more. Turn any module on mid-game and tune it live.',
+        'feat.draggable.title': 'Your HUD, your layout',
+        'feat.draggable.desc': 'Drag any module anywhere on screen. Build the exact heads-up display you play best with.',
+        'feat.lightweight.title': 'Never costs you frames',
+        'feat.lightweight.desc': 'A tiny download that stays out of your frame budget, even on older phones.',
         'creators.sub': 'Hand-picked reviews and showcases from the Minecraft Bedrock community',
         'showcase.eyebrow': 'A peek inside',
         'showcase.modMenu.heading': 'Modular menu, your way.',

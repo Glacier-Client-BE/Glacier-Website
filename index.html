@@ -7,24 +7,24 @@
     <!-- Stamped by .github/workflows/stamp-version.yml on every push to main.
          js/modules/updateCheck.js polls this to detect when an open tab is
          running stale JS and offer a refresh. -->
-    <meta name="site-build" content="20260709202401" />
-    <title>Glacier Client | Next-Gen Minecraft Bedrock Experience</title>
+    <meta name="site-build" content="20260726094126" />
+    <title>Glacier Client | Free Minecraft Bedrock Client &amp; Mod Menu</title>
     <meta name="description"
-        content="Glacier Client is an optimized texture pack client for Minecraft Bedrock Edition, featuring an extensive library of mods, a draggable GUI, and lightweight performance. Download the next-gen Minecraft experience today!" />
+        content="Free Minecraft Bedrock client with a 37+ module mod menu and draggable HUD. Installs like a resource pack on Mobile, PC, and Console. Download Glacier Client." />
     <meta name="keywords"
-        content="Minecraft, Bedrock, client, Glacier, Bedrock Edition, mods, texture pack, client, PvP, FPS, performance, client mod, bedrock client" />
+        content="minecraft bedrock client, mcpe client, minecraft pe client, bedrock client download, minecraft bedrock mod menu, free bedrock client, bedrock hud mod, minecraft coordinates mod, fps counter bedrock, glacier client" />
     <link rel="canonical" href="https://glacierclient.xyz" />
-    <meta property="og:title" content="Glacier Client | Minecraft BE" />
+    <meta property="og:title" content="Glacier Client | Free Minecraft Bedrock Client &amp; Mod Menu" />
     <meta property="og:description"
-        content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance. Download now!" />
+        content="A full mod menu that installs like a texture pack. 37+ draggable modules for Minecraft Bedrock — Mobile, PC, and Console. Free forever." />
     <meta property="og:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
     <meta property="og:url" content="https://glacierclient.xyz" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@glacierclientbe" />
-    <meta name="twitter:title" content="Glacier Client | Minecraft BE" />
+    <meta name="twitter:title" content="Glacier Client | Free Minecraft Bedrock Client &amp; Mod Menu" />
     <meta name="twitter:description"
-        content="Next Gen Minecraft Experience - Optimized Texture Pack Client for Bedrock Edition with extensive modules, a draggable GUI, and lightweight performance." />
+        content="A full mod menu that installs like a texture pack. 37+ draggable modules for Minecraft Bedrock — Mobile, PC, and Console. Free forever." />
     <meta name="twitter:image" content="https://glacierclient.xyz/assets/mod_menu.png" />
     <script
         type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Glacier Client","url":"https://glacierclient.xyz","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://glacierclient.xyz/search?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
@@ -33,27 +33,44 @@
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="image" href="assets/mod_menu.png" fetchpriority="high" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preload" as="image" href="assets/mod_menu.webp" fetchpriority="high" />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto:wght@500;700;900&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="css/styles.css?v=20260709202401" />
-    <script type="module" src="js/main.js?v=20260709202401"></script>
+    <!-- Font Awesome ships ~110KB of CSS for the ~40 glyphs this site uses, so it
+         loads non-render-blocking: the browser fetches it at low priority and
+         promotes it to a stylesheet on load. Icons paint a beat after first
+         paint; they sit inside sized controls so nothing reflows. -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    </noscript>
+    <link rel="stylesheet" href="css/styles.css?v=20260726094126" />
+    <script type="module" src="js/main.js?v=20260726094126"></script>
     <script src="js/kinetic.js?v=2026-06-20" defer></script>
-    <script src="https://publisher.linkvertise.com/cdn/linkvertise.js"></script>
+    <script src="https://publisher.linkvertise.com/cdn/linkvertise.js" defer></script>
     <script>
-      // Ad blockers commonly block this script (net::ERR_BLOCKED_BY_CLIENT),
-      // which would otherwise throw an uncaught ReferenceError here.
-      if (typeof linkvertise === 'function') {
-        linkvertise(499358, {
-          whitelist: ["github.com"],
-          blacklist: []
-        });
-      }
+      // linkvertise.js is deferred so it can't block first paint. Deferred scripts
+      // run in order before DOMContentLoaded, so the global is ready by the time
+      // this fires. Ad blockers commonly block the script entirely
+      // (net::ERR_BLOCKED_BY_CLIENT), which would otherwise throw here.
+      document.addEventListener('DOMContentLoaded', function () {
+        if (typeof linkvertise === 'function') {
+          linkvertise(499358, {
+            whitelist: ["github.com"],
+            blacklist: []
+          });
+        }
+      });
     </script>
 </head>
 
 <body>
+
+    <!-- WCAG 2.4.1 (Bypass Blocks): 20 nav tabs sit before the content, so keyboard
+         and screen-reader users get a first-tab escape hatch straight to <main>. -->
+    <a class="skip-link" href="#main-content" data-i18n="a11y.skip">Skip to main content</a>
 
     <div id="updateBar" role="status" aria-live="polite">
         <span data-i18n="update.available">A new version of this site is available.</span>
@@ -62,8 +79,6 @@
             <i class="fas fa-times" aria-hidden="true"></i>
         </button>
     </div>
-
-    <div id="cursorGlow" aria-hidden="true"></div>
 
     <div id="scrollProgress" aria-hidden="true"></div>
 
@@ -146,30 +161,31 @@
 
             <div class="top-bar-spacer"></div>
 
+            <!-- Six destinations, not ten. Gallery + All Mods live inside Features;
+                 FAQ lives inside Help (docs). The old routes still resolve — see
+                 MERGED in js/modules/config.js — and every merged page is still
+                 linked directly from the footer. -->
             <nav class="nav-tabs" id="navMenu">
                 <a href="/" class="nav-tab active" data-section="home" data-i18n="nav.home">Home</a>
                 <a href="/features" class="nav-tab" data-section="features" data-i18n="nav.features">Features</a>
-                <a href="/gallery" class="nav-tab" data-section="gallery" data-i18n="nav.gallery">Gallery</a>
-                <a href="/community" class="nav-tab" data-section="community" data-i18n="nav.community">Community</a>
                 <a href="/downloads" class="nav-tab" data-section="downloads" data-i18n="nav.downloads">Downloads</a>
-                <a href="/faq" class="nav-tab" data-section="faq" data-i18n="nav.faq">FAQ</a>
-                <a href="/docs" class="nav-tab" data-section="docs" data-i18n="nav.docs">Docs</a>
-                <a href="/mods" class="nav-tab" data-section="mods" data-i18n="nav.mods">All Mods</a>
-                <a href="/license" class="nav-tab" data-section="license" data-i18n="nav.license">License</a>
+                <a href="/community" class="nav-tab" data-section="community" data-i18n="nav.community">Community</a>
+                <a href="/docs" class="nav-tab" data-section="docs" data-i18n="nav.help">Help</a>
                 <a href="/donate" class="nav-tab" data-section="donate" data-i18n="nav.donate">Donate</a>
             </nav>
 
             <button id="searchTrigger" class="search-trigger" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">
                 <i class="fas fa-search" aria-hidden="true"></i>
-                <span class="search-hint">Ctrl K</span>
             </button>
 
             <div class="lang-custom-dropdown" id="langDropdown" title="Language">
                 <button class="lang-dropdown-trigger" id="langDropdownTrigger" type="button"
                     aria-haspopup="listbox" aria-expanded="false" aria-label="Select language">
                     <i class="fas fa-globe" aria-hidden="true"></i>
-                    <span id="currentLangLabel">English</span>
-                    <i class="fas fa-chevron-down lang-chevron" aria-hidden="true"></i>
+                    <!-- Kept in the DOM (i18n.js writes the active language here, and it
+                         gives the button its accessible name) but visually hidden so the
+                         control is a circle matching the search + theme buttons. -->
+                    <span id="currentLangLabel" class="visually-hidden">English</span>
                 </button>
                 <div class="lang-dropdown-menu" id="langDropdownMenu" role="listbox"
                     aria-label="Available languages"></div>
@@ -185,14 +201,14 @@
         </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
         <section class="hero" id="hero-section">
             <div class="hero-container container">
                 <div class="hero-content" data-parallax="0.05">
-                    <h1 class="hero-title" data-i18n="hero.title">Next Generation Minecraft Experience</h1>
-                    <p class="hero-subtitle" data-i18n="hero.subtitle">Optimized texture pack client for Minecraft Bedrock Edition with extensive
-                        modules, draggable GUI, and lightweight performance. Experience the future of Minecraft with
-                        smooth animations and a clean interface.</p>
+                    <h1 class="hero-title" data-i18n="hero.title">A full mod menu that installs like a texture pack.</h1>
+                    <p class="hero-subtitle" data-i18n="hero.subtitle">Drag, drop, and tune 37+ modules without leaving your game. Glacier never
+                        touches game logic &mdash; so it installs like any resource pack, runs on Mobile, PC, and
+                        Console, and stays free forever.</p>
                     <div class="hero-buttons">
                         <a href="/downloads" class="btn btn-primary" data-section="downloads">
                             <i class="fas fa-download" aria-hidden="true"></i> <span data-i18n="hero.download">Download Now</span>
@@ -204,6 +220,12 @@
                     </div>
                     <div class="hero-stats">
                         <div class="hero-stat">
+                            <!-- Summed from every client release in downloads.json plus live
+                                 Worker clicks (see renderTotalDownloads in content.js). -->
+                            <span class="hero-stat-num" id="heroDownloads">&mdash;</span>
+                            <span class="hero-stat-label" data-i18n="hero.downloads">Downloads</span>
+                        </div>
+                        <div class="hero-stat">
                             <span class="hero-stat-num" id="discordOnline" data-discord-online>&mdash;</span>
                             <span class="hero-stat-label" data-i18n="hero.online">Online on Discord</span>
                         </div>
@@ -212,7 +234,9 @@
                             <span class="hero-stat-label" data-i18n="hero.modules">Modules</span>
                         </div>
                         <div class="hero-stat">
-                            <span class="hero-stat-num">2 MB</span>
+                            <!-- Replaced at runtime with the latest release's size from
+                                 downloads.json (see applyVersioning). -->
+                            <span class="hero-stat-num" id="heroPackSize">2 MB</span>
                             <span class="hero-stat-label" data-i18n="hero.packSize">Pack Size</span>
                         </div>
                         <div class="hero-stat">
@@ -222,8 +246,10 @@
                     </div>
                 </div>
                 <div class="hero-image">
-                    <img src="assets/mod_menu.png" alt="Glacier Client Interface" loading="eager" decoding="async"
-                        fetchpriority="high" width="600" height="400" />
+                    <img src="assets/mod_menu.webp"
+                        alt="Glacier Client mod menu open in Minecraft Bedrock Edition, showing the draggable module list"
+                        loading="eager" decoding="async"
+                        fetchpriority="high" width="1110" height="659" />
                 </div>
             </div>
         </section>
@@ -233,28 +259,24 @@
             <section id="home-section" class="content-section active">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title" data-i18n="core.title">Core Features</h2>
-                        <p class="section-subtitle" data-i18n="core.sub">Experience the power of Glacier Client with these standout features
-                        </p>
+                        <h2 class="section-title" data-i18n="core.title">Built to stay out of your way</h2>
+                        <p class="section-subtitle" data-i18n="core.sub">Six reasons players keep Glacier installed</p>
                     </div>
                     <div class="features-grid">
                         <div class="feature-card card-base card-shine reveal">
                             <div class="feature-icon"><i class="fas fa-cubes" aria-hidden="true"></i></div>
-                            <h3 class="feature-title" data-i18n="feat.modules.title">37+ Modules</h3>
-                            <p class="feature-desc" data-i18n="feat.modules.desc">Extensive modules with real-time configuration and customization
-                                options for every playstyle.</p>
+                            <h3 class="feature-title" data-i18n="feat.modules.title">See what you were missing</h3>
+                            <p class="feature-desc" data-i18n="feat.modules.desc">Coordinates, FPS, armour, hitboxes, and 30+ more. Turn any module on mid-game and tune it live.</p>
                         </div>
                         <div class="feature-card card-base card-shine reveal">
                             <div class="feature-icon"><i class="fas fa-arrows-alt" aria-hidden="true"></i></div>
-                            <h3 class="feature-title" data-i18n="feat.draggable.title">Draggable Mods</h3>
-                            <p class="feature-desc" data-i18n="feat.draggable.desc">Modules are fully movable to customize your HUD exactly how you want
-                                it.</p>
+                            <h3 class="feature-title" data-i18n="feat.draggable.title">Your HUD, your layout</h3>
+                            <p class="feature-desc" data-i18n="feat.draggable.desc">Drag any module anywhere on screen. Build the exact heads-up display you play best with.</p>
                         </div>
                         <div class="feature-card card-base card-shine reveal">
                             <div class="feature-icon"><i class="fas fa-bolt" aria-hidden="true"></i></div>
-                            <h3 class="feature-title" data-i18n="feat.lightweight.title">Lightweight</h3>
-                            <p class="feature-desc" data-i18n="feat.lightweight.desc">Only 2MB with zero performance impact, ensuring smooth gameplay even
-                                on lower-end devices.</p>
+                            <h3 class="feature-title" data-i18n="feat.lightweight.title">Never costs you frames</h3>
+                            <p class="feature-desc" data-i18n="feat.lightweight.desc">The whole pack is 2MB. It stays out of your frame budget, even on older phones.</p>
                         </div>
                     </div>
                 </div>
@@ -262,11 +284,11 @@
                 <section class="showcase" aria-label="Glacier Client interface showcase">
                     <div class="showcase-pin">
                         <div class="showcase-stage">
-                            <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu" class="showcase-img is-active"
+                            <img src="assets/mod_menu.webp" alt="Glacier Client Mod Menu" class="showcase-img is-active"
                                 data-frame="0" loading="lazy" decoding="async" />
-                            <img src="assets/start_screen.png" alt="Glacier Client Start Screen" class="showcase-img"
+                            <img src="assets/start_screen.webp" alt="Glacier Client Start Screen" class="showcase-img"
                                 data-frame="1" loading="lazy" decoding="async" />
-                            <img src="assets/pause_screen.png" alt="Glacier Client Pause Screen" class="showcase-img"
+                            <img src="assets/pause_screen.webp" alt="Glacier Client Pause Screen" class="showcase-img"
                                 data-frame="2" loading="lazy" decoding="async" />
                         </div>
                         <div class="showcase-info">
@@ -316,7 +338,7 @@
 
                 <div class="container">
                     <div class="section-header section-header--stacked reveal">
-	                        <h2 class="section-title" data-i18n="creators.title">What Creators Are Saying</h2>
+	                        <h2 class="section-title" data-i18n="creators.title">Creators put Glacier to the test</h2>
 	                        <p class="section-subtitle" data-i18n="creators.sub">Hand-picked reviews and showcases from the Minecraft Bedrock
 	                            community</p>
                     </div>
@@ -382,35 +404,25 @@
             <section id="features-section" class="content-section">
                 <div class="container">
                     <div class="section-header reveal">
-                        <h2 class="section-title" data-i18n="core.title">Core Features</h2>
-                        <p class="section-subtitle" data-i18n="core.sub">Experience the power of Glacier Client with these standout features
-                        </p>
+                        <h2 class="section-title" data-i18n="core.title">Built to stay out of your way</h2>
+                        <p class="section-subtitle" data-i18n="core.sub">Six reasons players keep Glacier installed</p>
                     </div>
 	                    <div class="features-grid">
 	                        <div class="feature-card card-base card-shine reveal">
 	                            <div class="feature-icon"><i class="fas fa-cubes" aria-hidden="true"></i></div>
-	                            <h3 class="feature-title" data-i18n="feat.modules.title">37+ Modules</h3>
-	                            <p class="feature-desc" data-i18n="feat.modules.desc">Extensive modules with real-time configuration and customization
-	                                options for every playstyle.</p>
+	                            <h3 class="feature-title" data-i18n="feat.modules.title">See what you were missing</h3>
+	                            <p class="feature-desc" data-i18n="feat.modules.desc">Coordinates, FPS, armour, hitboxes, and 30+ more. Turn any module on mid-game and tune it live.</p>
 	                        </div>
 	                        <div class="feature-card card-base card-shine reveal">
 	                            <div class="feature-icon"><i class="fas fa-arrows-alt" aria-hidden="true"></i></div>
-	                            <h3 class="feature-title" data-i18n="feat.draggable.title">Draggable Mods</h3>
-	                            <p class="feature-desc" data-i18n="feat.draggable.desc">Modules are fully movable to customize your HUD exactly how you want
-	                                it.</p>
+	                            <h3 class="feature-title" data-i18n="feat.draggable.title">Your HUD, your layout</h3>
+	                            <p class="feature-desc" data-i18n="feat.draggable.desc">Drag any module anywhere on screen. Build the exact heads-up display you play best with.</p>
 	                        </div>
 	                        <div class="feature-card card-base card-shine reveal">
 	                            <div class="feature-icon"><i class="fas fa-bolt" aria-hidden="true"></i></div>
-	                            <h3 class="feature-title" data-i18n="feat.lightweight.title">Lightweight</h3>
-	                            <p class="feature-desc" data-i18n="feat.lightweight.desc">Only 2MB with zero performance impact, ensuring smooth gameplay even
-	                                on lower-end devices.</p>
+	                            <h3 class="feature-title" data-i18n="feat.lightweight.title">Never costs you frames</h3>
+	                            <p class="feature-desc" data-i18n="feat.lightweight.desc">A tiny download that stays out of your frame budget, even on older phones.</p>
 	                        </div>
-	                    </div>
-	                    <div class="section-header section-header--stacked reveal">
-	                        <h2 class="section-title" data-i18n="adv.title">Advanced Features</h2>
-	                        <p class="section-subtitle" data-i18n="adv.sub">Discover the powerful capabilities of Glacier Client</p>
-	                    </div>
-	                    <div class="features-grid">
 	                        <div class="feature-card card-base card-shine reveal">
 	                            <div class="feature-icon"><i class="fas fa-sliders-h" aria-hidden="true"></i></div>
 	                            <h3 class="feature-title" data-i18n="adv.config.title">Config Editor</h3>
@@ -433,17 +445,15 @@
 	                        </div>
 	                    </div>
                 </div>
-            </section>
 
-	            <section id="gallery-section" class="content-section">
-	                <div class="container">
+	                <div class="container" id="features-screenshots">
 	                    <div class="section-header reveal">
 	                        <h2 class="section-title" data-i18n="gallery.title">Screenshots</h2>
 	                        <p class="section-subtitle" data-i18n="gallery.sub">See Glacier Client in action</p>
 	                    </div>
 	                    <div class="gallery-container">
 	                        <div class="gallery-item reveal">
-	                            <img src="assets/mod_menu.png" alt="Glacier Client Mod Menu" loading="lazy"
+	                            <img src="assets/mod_menu.webp" alt="Glacier Client Mod Menu" loading="lazy"
 	                                decoding="async" />
 	                            <div class="gallery-overlay">
 	                                <h3 data-i18n="gallery.modMenu.title">Mod Menu</h3>
@@ -451,7 +461,7 @@
 	                            </div>
 	                        </div>
 	                        <div class="gallery-item reveal">
-	                            <img src="assets/start_screen.png" alt="Glacier Client Start Screen" loading="lazy"
+	                            <img src="assets/start_screen.webp" alt="Glacier Client Start Screen" loading="lazy"
 	                                decoding="async" />
 	                            <div class="gallery-overlay">
 	                                <h3 data-i18n="gallery.startScreen.title">Start Screen</h3>
@@ -459,7 +469,7 @@
 	                            </div>
 	                        </div>
 	                        <div class="gallery-item reveal">
-	                            <img src="assets/pause_screen.png" alt="Glacier Client Pause Screen" loading="lazy"
+	                            <img src="assets/pause_screen.webp" alt="Glacier Client Pause Screen" loading="lazy"
 	                                decoding="async" />
 	                            <div class="gallery-overlay">
 	                                <h3 data-i18n="gallery.pauseScreen.title">Pause Screen</h3>
@@ -468,7 +478,35 @@
 	                        </div>
 	                    </div>
 	                </div>
-	            </section>
+
+                <div class="container" id="features-modules">
+                    <div class="section-header reveal">
+                        <h2 class="section-title" data-i18n="mods.title">Explore All Glacier Mods</h2>
+	                        <p class="section-subtitle" data-i18n="mods.sub">Discover a wide range of modules to enhance your Minecraft Bedrock
+	                            Edition experience</p>
+	                    </div>
+	                    <div class="filter-controls">
+	                        <button class="filter-button active" data-category="all" data-i18n="mods.filter.all">All Mods</button>
+	                        <button class="filter-button" data-category="hud" data-i18n="mods.filter.hud">HUD</button>
+	                        <button class="filter-button" data-category="cosmetic" data-i18n="mods.filter.cosmetic">Cosmetic</button>
+	                        <button class="filter-button" data-category="pvp" data-i18n="mods.filter.pvp">PvP</button>
+	                        <button class="filter-button" data-category="utility" data-i18n="mods.filter.utility">Utility</button>
+	                        <button class="filter-button" data-category="visual" data-i18n="mods.filter.visual">Visual</button>
+	                        <button class="filter-button" data-category="favorites"><i class="fas fa-star"
+	                                aria-hidden="true"></i> <span data-i18n="mods.filter.favorites">Favorites</span></button>
+                    </div>
+                    <div class="search-bar">
+                        <input type="text" id="modSearch" placeholder="Search for a mod…" data-i18n-ph="search.mods" aria-label="Search mods" />
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </div>
+                    <div class="mods-count" id="modsCount" aria-live="polite"></div>
+                    <div class="mods-grid" id="modsGrid"></div>
+	                    <div class="mods-empty" id="modsEmpty" style="display:none;">
+	                        <i class="far fa-star" aria-hidden="true"></i>
+	                        <p data-i18n="mods.empty">No mods match. Try another search, or star some favorites first.</p>
+	                    </div>
+                </div>
+            </section>
 
             <section id="community-section" class="content-section">
                 <div class="container">
@@ -649,47 +687,6 @@
                 </div>
             </section>
 
-            <section id="faq-section" class="content-section">
-                <div class="container">
-                    <div class="section-header reveal">
-                        <h2 class="section-title" data-i18n="faq.title">Frequently Asked Questions</h2>
-	                        <p class="section-subtitle" data-i18n="faq.sub">Comprehensive answers to common inquiries about Glacier Client</p>
-                    </div>
-                    <div class="filter-controls" id="faqFilterControls"></div>
-                    <div class="faq-container" id="faqContainer"></div>
-                </div>
-            </section>
-
-            <section id="mods-section" class="content-section">
-                <div class="container">
-                    <div class="section-header reveal">
-                        <h2 class="section-title" data-i18n="mods.title">Explore All Glacier Mods</h2>
-	                        <p class="section-subtitle" data-i18n="mods.sub">Discover a wide range of modules to enhance your Minecraft Bedrock
-	                            Edition experience</p>
-	                    </div>
-	                    <div class="filter-controls">
-	                        <button class="filter-button active" data-category="all" data-i18n="mods.filter.all">All Mods</button>
-	                        <button class="filter-button" data-category="hud" data-i18n="mods.filter.hud">HUD</button>
-	                        <button class="filter-button" data-category="cosmetic" data-i18n="mods.filter.cosmetic">Cosmetic</button>
-	                        <button class="filter-button" data-category="pvp" data-i18n="mods.filter.pvp">PvP</button>
-	                        <button class="filter-button" data-category="utility" data-i18n="mods.filter.utility">Utility</button>
-	                        <button class="filter-button" data-category="visual" data-i18n="mods.filter.visual">Visual</button>
-	                        <button class="filter-button" data-category="favorites"><i class="fas fa-star"
-	                                aria-hidden="true"></i> <span data-i18n="mods.filter.favorites">Favorites</span></button>
-                    </div>
-                    <div class="search-bar">
-                        <input type="text" id="modSearch" placeholder="Search for a mod…" data-i18n-ph="search.mods" aria-label="Search mods" />
-                        <i class="fas fa-search" aria-hidden="true"></i>
-                    </div>
-                    <div class="mods-count" id="modsCount" aria-live="polite"></div>
-                    <div class="mods-grid" id="modsGrid"></div>
-	                    <div class="mods-empty" id="modsEmpty" style="display:none;">
-	                        <i class="far fa-star" aria-hidden="true"></i>
-	                        <p data-i18n="mods.empty">No mods match. Try another search, or star some favorites first.</p>
-	                    </div>
-                </div>
-            </section>
-
             <section id="docs-section" class="content-section">
                 <div class="container">
                     <div class="section-header reveal">
@@ -773,6 +770,15 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="container" id="docs-faq">
+                    <div class="section-header reveal">
+                        <h2 class="section-title" data-i18n="faq.title">Frequently Asked Questions</h2>
+	                        <p class="section-subtitle" data-i18n="faq.sub">Comprehensive answers to common inquiries about Glacier Client</p>
+                    </div>
+                    <div class="filter-controls" id="faqFilterControls"></div>
+                    <div class="faq-container" id="faqContainer"></div>
                 </div>
             </section>
 
@@ -1021,7 +1027,7 @@
                             <div class="mediakit-asset-block mediakit-asset-block--last">
                                 <h3>Background Texture</h3>
                                 <div class="mediakit-preview mediakit-preview--bg">
-                                    <img src="assets/BG.png" alt="Glacier Client site background texture" loading="lazy" decoding="async" />
+                                    <img src="assets/BG.webp" alt="Glacier Client site background texture" loading="lazy" decoding="async" />
                                 </div>
                                 <a href="assets/BG.png" download class="btn btn-secondary">
                                     <i class="fas fa-download" aria-hidden="true"></i> Download Background
@@ -1032,15 +1038,15 @@
                             <h3>Screenshots</h3>
                             <div class="mediakit-shot-grid">
                                 <a href="assets/mod_menu.png" download class="mediakit-shot">
-                                    <img src="assets/mod_menu.png" alt="Mod Menu screenshot" loading="lazy" decoding="async" />
+                                    <img src="assets/mod_menu.webp" alt="Mod Menu screenshot" loading="lazy" decoding="async" />
                                     <span><i class="fas fa-download" aria-hidden="true"></i> Mod Menu</span>
                                 </a>
                                 <a href="assets/start_screen.png" download class="mediakit-shot">
-                                    <img src="assets/start_screen.png" alt="Start Screen screenshot" loading="lazy" decoding="async" />
+                                    <img src="assets/start_screen.webp" alt="Start Screen screenshot" loading="lazy" decoding="async" />
                                     <span><i class="fas fa-download" aria-hidden="true"></i> Start Screen</span>
                                 </a>
                                 <a href="assets/pause_screen.png" download class="mediakit-shot">
-                                    <img src="assets/pause_screen.png" alt="Pause Screen screenshot" loading="lazy" decoding="async" />
+                                    <img src="assets/pause_screen.webp" alt="Pause Screen screenshot" loading="lazy" decoding="async" />
                                     <span><i class="fas fa-download" aria-hidden="true"></i> Pause Screen</span>
                                 </a>
                             </div>
@@ -1116,7 +1122,9 @@
                     </div>
                     <div class="mediakit-card reveal" style="max-width:900px;margin:0 auto;">
                         <div class="type-specimen">
-                            <h1 class="hero-title copy-css-item" data-copy-kind="type" style="font-size:2.6rem;">Next Generation</h1>
+                            <!-- Type specimen, not a document heading — kept as a div so the page
+                                 keeps exactly one <h1> (the hero). .hero-title styles it identically. -->
+                            <div class="hero-title copy-css-item" data-copy-kind="type" style="font-size:2.6rem;">Next Generation</div>
                             <p class="type-specimen-label">Roboto 700 &middot; display &middot; ls &minus;0.025em</p>
                         </div>
                         <div class="type-specimen">
@@ -1219,7 +1227,6 @@
                         </div>
                         <button class="search-trigger copy-css-item" data-copy-kind="component" type="button" aria-hidden="true" tabindex="-1">
                             <i class="fas fa-search" aria-hidden="true"></i>
-                            <span class="search-hint">Ctrl K</span>
                         </button>
                     </div>
                 </div>

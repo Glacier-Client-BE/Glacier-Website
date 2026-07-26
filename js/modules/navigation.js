@@ -1,10 +1,10 @@
 'use strict';
 
-import { state } from './state.js?v=20260709202401';
-import { $, markCopyableCode } from './utils.js?v=20260709202401';
-import { ALL, META, TITLES } from './config.js?v=20260709202401';
-import { observeReveals } from './reveal.js?v=20260709202401';
-import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js?v=20260709202401';
+import { state } from './state.js?v=20260726094126';
+import { $, markCopyableCode } from './utils.js?v=20260726094126';
+import { ALL, META, TITLES, MERGED } from './config.js?v=20260726094126';
+import { observeReveals } from './reveal.js?v=20260726094126';
+import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js?v=20260726094126';
 
 // Shows the custom 404 page for a path that doesn't match any known section.
 // Leaves the URL as-is (whatever the visitor actually landed on).
@@ -28,12 +28,17 @@ export function showSection(id, sub) {
     if (!ALL.has(id)) id = 'home';
     document.body.classList.remove('is-404');
 
-    const targetEl = $(id + '-section');
+    // A merged page (e.g. /mods) shows its parent section but keeps its own URL,
+    // title and meta — so the id below drives the DOM, while `id` drives SEO.
+    const merged = MERGED[id];
+    const sectionId = merged ? merged.into : id;
+
+    const targetEl = $(sectionId + '-section');
     for (const s of state.dom.sections) {
         s.classList.toggle('active', s === targetEl);
     }
     for (const l of state.dom.navLinks) {
-        l.classList.toggle('active', l.dataset.section === id);
+        l.classList.toggle('active', l.dataset.section === sectionId);
     }
 
     const hasDeepLink = id === 'downloads' && sub;
@@ -41,6 +46,16 @@ export function showSection(id, sub) {
     if (!hasDeepLink) {
         if (id === 'home') {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (merged) {
+            // Land on the block that absorbed this page rather than the top of
+            // the parent. Deferred a frame so the section is laid out first.
+            requestAnimationFrame(() => {
+                const anchor = document.getElementById(merged.anchor);
+                if (!anchor) return;
+                const top = anchor.getBoundingClientRect().top + window.scrollY
+                    - state.dom.headerEl.offsetHeight - 16;
+                window.scrollTo({ top, behavior: 'smooth' });
+            });
         } else {
             const cc = state.dom.contentContainer;
             if (cc) window.scrollTo({ top: cc.offsetTop - state.dom.headerEl.offsetHeight - 16, behavior: 'smooth' });

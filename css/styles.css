@@ -167,7 +167,6 @@ html {
 [data-theme="light"] .header-icon-btn,
 [data-theme="light"] .lang-dropdown-trigger,
 [data-theme="light"] .mobile-menu-btn,
-[data-theme="light"] .search-hint,
 [data-theme="light"] .nav-tab:not(.active) {
     color: #fff;
 }
@@ -258,7 +257,7 @@ body::before {
         radial-gradient(circle at 18% 22%, rgba(114, 137, 218, 0.18) 0%, transparent 48%),
         radial-gradient(circle at 82% 78%, rgba(67, 181, 129, 0.12) 0%, transparent 50%),
         linear-gradient(180deg, var(--overlay-top) 0%, var(--overlay-mid) 35%, var(--overlay-bot) 100%),
-        url('../assets/BG.png');
+        url('../assets/BG.webp');
     background-size: cover, cover, cover, cover;
     background-position: center, center, center, center;
     background-repeat: no-repeat;
@@ -987,18 +986,36 @@ header.scrolled::before {
 }
 
 /* ── Search trigger button ── */
+/* Text hidden from sight but kept for screen readers (and for JS that writes
+   into it, e.g. the active-language label). */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Search / language / theme are one set of circular icon controls — same
+   diameter, radius and surface treatment as .header-icon-btn. */
 .search-trigger {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
+    justify-content: center;
+    width: var(--ctl-h);
     height: var(--ctl-h);
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--pill);
-    padding: 0 15px;
+    border-radius: 50%;
+    padding: 0;
     color: var(--text-dim);
     font-family: inherit;
-    font-size: 12px;
+    font-size: 0.9rem;
     cursor: pointer;
     flex-shrink: 0;
     backdrop-filter: blur(var(--blur));
@@ -1017,17 +1034,7 @@ header.scrolled::before {
 }
 
 .search-trigger i {
-    font-size: 10px;
-}
-
-.search-hint {
-    font-size: 9px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 3px;
-    padding: 1px 5px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: var(--text-dim);
-    font-weight: 600;
+    font-size: 0.9rem;
 }
 
 /* ── Header icon button (theme toggle) ── */
@@ -1242,10 +1249,20 @@ main {
     margin-bottom: var(--header-gap);
 }
 
-/* Stacked headers — second section block within a page (Advanced Features,
-   Follow Us). Replaces scattered inline margin-top values for consistent rhythm. */
+/* Stacked headers — second section block within a page (Follow Us).
+   Replaces scattered inline margin-top values for consistent rhythm. */
 .section-header--stacked {
     margin-top: var(--block-gap);
+}
+
+/* Blocks absorbed into a parent page when the nav was condensed (Screenshots and
+   All Modules inside Features, FAQ inside Help). They were standalone pages, so
+   they need a full section's worth of air above them — otherwise the grid above
+   runs straight into the next heading. */
+#features-screenshots,
+#features-modules,
+#docs-faq {
+    margin-top: calc(var(--section-gap) * 1.5);
 }
 
 .section-title {
@@ -3944,19 +3961,6 @@ footer {
         color: var(--text);
     }
     .quick-dock { display: none; }
-    .search-hint { display: none; }
-
-    /* On mobile the search and menu buttons become round icon buttons that
-       match the theme toggle (.header-icon-btn). */
-    .search-trigger {
-        width: var(--ctl-h);
-        height: var(--ctl-h);
-        padding: 0;
-        gap: 0;
-        border-radius: 50%;
-        justify-content: center;
-    }
-    .search-trigger i { font-size: 0.9rem; }
 
     .mobile-menu-btn {
         display: flex;
@@ -4028,6 +4032,9 @@ footer {
         font-size: .82rem;
     }
     .search-trigger i, .mobile-menu-btn { font-size: .82rem; }
+    /* The matching rule for the language control lives with the rest of the
+       language-picker CSS further down — its base rules are declared after this
+       block, so an override here would lose on source order. */
 
     /* Announcement / donation popups span the bottom with even margins on phones */
     #toastBanner, #donateBanner { right: 12px; left: 12px; bottom: 12px; width: auto; }
@@ -4278,28 +4285,34 @@ footer {
     }
 }
 
-/* ── Cursor glow ───────────────────────────────────────────────────────── */
-#cursorGlow {
+/* ── Skip link ─────────────────────────────────────────────────────────────
+   Off-screen until focused, then slides into the top-left over the header.
+   Uses the same accent pill as the primary CTA so it reads as part of the UI. */
+.skip-link {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 2;
-    opacity: 0;
-    background: radial-gradient(circle, var(--accent-glow) 0%, rgba(114, 137, 218, 0) 70%);
-    mix-blend-mode: screen;
-    transition: opacity .4s var(--ease), transform .1s linear;
-    will-change: transform;
+    left: 50%;
+    transform: translate(-50%, -120%);
+    z-index: 10000;
+    padding: 12px 22px;
+    border-radius: 0 0 var(--r-sm) var(--r-sm);
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--t);
 }
 
-#cursorGlow.is-visible { opacity: 1; }
-#cursorGlow.is-pressed { opacity: .6; }
+.skip-link:focus {
+    transform: translate(-50%, 0);
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+}
 
-@media (max-width: 900px), (pointer: coarse) {
-    #cursorGlow { display: none; }
+/* The skip target must not draw a focus ring when moved to programmatically. */
+#main-content:focus {
+    outline: none;
 }
 
 /* ── Language picker (custom glassmorphic dropdown) ────────────────────── */
@@ -4313,10 +4326,11 @@ footer {
 .lang-dropdown-trigger {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
+    justify-content: center;
+    width: var(--ctl-h);
     height: 100%;
-    padding: 0 15px;
-    border-radius: var(--r-pill);
+    padding: 0;
+    border-radius: 50%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(var(--blur));
@@ -4343,12 +4357,6 @@ footer {
 }
 
 .lang-dropdown-trigger i.fa-globe { font-size: .9rem; }
-.lang-chevron {
-    font-size: .65rem;
-    opacity: .75;
-    transition: transform var(--normal) var(--ease);
-}
-.lang-custom-dropdown.is-open .lang-chevron { transform: rotate(180deg); }
 
 /* The floating, frosted menu. */
 .lang-dropdown-menu {
@@ -4421,17 +4429,23 @@ footer {
     transition: opacity var(--fast) var(--ease);
 }
 
-/* Compact on mobile — hide the label, show only the globe. */
 @media (max-width: 768px) {
-    .lang-dropdown-trigger { padding: 0 11px; }
-    #currentLangLabel { display: none; }
-    .lang-dropdown-trigger .lang-chevron { display: none; }
     .lang-dropdown-menu { min-width: 170px; }
+}
+
+/* Shrink in step with the other circular header controls (see the 480px block
+   above, which sets search/theme/menu to 34px). */
+@media (max-width: 480px) {
+    .lang-custom-dropdown,
+    .lang-dropdown-trigger {
+        width: 34px; height: 34px;
+        min-width: 34px; min-height: 34px;
+    }
+    .lang-dropdown-trigger i.fa-globe { font-size: .82rem; }
 }
 
 /* Respect reduced-motion: drop the slide/scale, keep the fade. */
 @media (prefers-reduced-motion: reduce) {
-    .lang-chevron,
     .lang-dropdown-menu,
     .lang-custom-dropdown.is-open .lang-dropdown-menu {
         transform: none;
