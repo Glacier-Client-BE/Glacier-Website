@@ -17,6 +17,11 @@ name: Update Download Counts
 # base + (live worker count − baseline), not base + live worker count,
 # otherwise every click already folded into the base here would also get
 # re-added client-side and the number would compound every 6 hours.
+#
+# Runs below MIN_DELTA are skipped entirely — neither file is written, so the
+# unfolded deltas simply roll into the next run. The two files must always move
+# together: advancing the baseline without folding the matching delta into
+# downloads.json would drop those downloads for good.
 
 on:
   schedule:
@@ -32,6 +37,13 @@ concurrency:
 
 env:
   COUNTER_API: https://glacier-downloads.pepeoncloudeflare.workers.dev
+  # Don't commit a fold worth fewer than this many new downloads across all
+  # releases. Skipped deltas are not lost: the baseline is only ever advanced
+  # in the same commit that folds them, so they keep accumulating and land in
+  # a later run. Visitors are unaffected either way — the client renders
+  # base + (worker − baseline), so the live number is already correct before
+  # the fold happens. Set to 0 to commit every run.
+  MIN_DELTA: '25'
 
 jobs:
   update:
@@ -67,20 +79,50 @@ jobs:
               return m ? m[0].toLowerCase() : null;
           };
 
-          let changed = false;
+          const MIN_DELTA = Number(process.env.MIN_DELTA) || 0;
+
+          // Work out every delta before mutating anything, so we can decide as a
+          // whole whether this run is worth a commit.
+          const pending = [];
+          let totalDelta = 0;
+          let needsResync = false;
+
           for (const item of [...downloads.clients.working, ...downloads.clients.legacy]) {
               const key = countKey(item.version);
               if (!key || !(key in counts)) continue;
               const worker = Number(counts[key]) || 0;
               const seen = Number(state[key]) || 0;
-              // The Worker's counter only ever grows. A drop would mean it was
-              // redeployed/cleared out-of-band — treat that as "no new
-              // increments yet" rather than subtracting from downloads.json.
+              // The Worker's counter only ever grows. A drop means it was
+              // redeployed/cleared out-of-band: fold nothing, but do rewrite the
+              // baseline down to the new value, otherwise every later run
+              // measures against a total that no longer exists and the client
+              // clamps its live delta to 0 until the counter catches back up.
+              if (worker < seen) needsResync = true;
               const delta = Math.max(0, worker - seen);
+              totalDelta += delta;
+              pending.push({ item, key, worker, delta });
+          }
+
+          // Below the threshold, write nothing at all. Leaving the baseline where
+          // it is is the whole point: advancing it without folding would discard
+          // those downloads permanently.
+          if (totalDelta < MIN_DELTA && !needsResync) {
+              console.log(
+                  totalDelta === 0
+                      ? 'No new counts to fold in.'
+                      : `Only ${totalDelta} new download(s) (< MIN_DELTA=${MIN_DELTA}); deferring to a later run.`
+              );
+              process.exit(0);
+          }
+
+          let changed = false;
+          for (const { item, key, worker, delta } of pending) {
               if (delta > 0) {
                   item.downloads = (Number(item.downloads) || 0) + delta;
                   changed = true;
               }
+              // Only ever advanced in the same run that folds the delta, keeping
+              // downloads.json and the baseline in lockstep.
               state[key] = worker;
           }
 
@@ -88,7 +130,17 @@ jobs:
               fs.writeFileSync(dlPath, JSON.stringify(downloads, null, 2) + '\n');
           }
           fs.writeFileSync(statePath, JSON.stringify(state, null, 4) + '\n');
-          console.log(changed ? 'Updated downloads.json' : 'No new counts to fold in.');
+          console.log(
+              changed
+                  ? `Folded ${totalDelta} new download(s) into downloads.json.`
+                  : 'Re-synced baseline after a Worker counter reset.'
+          );
+
+          // Surfaced in the commit subject so the log says how much each fold
+          // actually moved, instead of 68 identical lines.
+          if (process.env.GITHUB_ENV) {
+              fs.appendFileSync(process.env.GITHUB_ENV, `FOLDED_DELTA=${totalDelta}\n`);
+          }
           EOF
 
       - name: Commit and push
@@ -101,7 +153,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: fold live download counts into downloads.json"
+          git commit -m "chore: fold ${FOLDED_DELTA:-new} live download counts into downloads.json"
 
           # Rebase on top of anything pushed since checkout, then push (retry once).
           git push || {
