@@ -61,5 +61,4 @@ export const MERGED = {
     faq:     { into: 'docs',     anchor: 'docs-faq' }
 };
 
-export const MAIN = new Set(['home', 'features', 'gallery']);
 export const ALL = new Set(['home', 'features', 'gallery', 'community', 'downloads', 'faq', 'mods', 'license', 'tos', 'privacy', 'mediakit', 'donate', 'docs', 'best-bedrock-client']);

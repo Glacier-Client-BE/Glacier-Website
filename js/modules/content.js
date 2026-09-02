@@ -1,12 +1,12 @@
 'use strict';
 
-import { state } from './state.js?v=20260726113355';
-import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl, markCopyableCode } from './utils.js?v=20260726113355';
-import { COUNTER_API } from './config.js?v=20260726113355';
-import { applyDeepLink } from './navigation.js?v=20260726113355';
-import { observeReveals } from './reveal.js?v=20260726113355';
-import { setupTilt } from './tilt.js?v=20260726113355';
-import { t, currentLang } from './i18n.js?v=20260726113355';
+import { state } from './state.js?v=20260902120000';
+import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl, markCopyableCode, liveDelta } from './utils.js?v=20260902120000';
+import { COUNTER_API } from './config.js?v=20260902120000';
+import { applyDeepLink } from './navigation.js?v=20260902120000';
+import { observeReveals } from './reveal.js?v=20260902120000';
+import { setupTilt } from './tilt.js?v=20260902120000';
+import { t, currentLang } from './i18n.js?v=20260902120000';
 
 // ── Data loading ──────────────────────────────────────────────────────────
 export function loadData() {
@@ -396,7 +396,7 @@ function renderTotalDownloads(counts, baseline) {
         total += Number(item.downloads) || 0;
         const key = countKey(item.version);
         if (!key || !counts || counts[key] == null) continue;
-        total += Math.max(0, (Number(counts[key]) || 0) - (Number((baseline || {})[key]) || 0));
+        total += liveDelta(counts, baseline, key);
     }
     if (total > 0) el.textContent = formatCount(total) + '+';
 }
@@ -429,8 +429,7 @@ function initDownloadCounts() {
             for (const cell of cells) {
                 const key = cell.dataset.dlKey;
                 if (!key || counts[key] == null) continue;
-                const live = Math.max(0, (Number(counts[key]) || 0) - (Number(baseline[key]) || 0));
-                setCount(cell, live);
+                setCount(cell, liveDelta(counts, baseline, key));
             }
             renderTotalDownloads(counts, baseline);
         });
@@ -455,10 +454,7 @@ function initDownloadCounts() {
                 .then(r => r.ok ? r.json() : null)
                 .then(d => {
                     if (!d || d.count == null) return;
-                    return getBaseline().then(baseline => {
-                        const live = Math.max(0, (Number(d.count) || 0) - (Number(baseline[key]) || 0));
-                        setCount(cell, live);
-                    });
+                    return getBaseline().then(baseline => setCount(cell, liveDelta({ [key]: d.count }, baseline, key)));
                 })
                 .catch(() => {});
         }

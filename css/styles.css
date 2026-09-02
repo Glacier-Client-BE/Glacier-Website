@@ -290,6 +290,24 @@ img { display: block; max-width: 100%; }
    previously relied on it are accent-coloured instead. */
 a { color: inherit; text-decoration: none; }
 
+/* Shared keyboard-focus ring — same accent treatment already used on quick-dock
+   actions and the language dropdown, extended to every other interactive
+   control so keyboard users get one consistent indicator site-wide instead of
+   the browser default on most elements and a branded ring on a couple. */
+.btn:focus-visible,
+.nav-tab:focus-visible,
+.filter-button:focus-visible,
+.tab-button:focus-visible,
+.showcase-tick:focus-visible,
+.social-card:focus-visible,
+.mod-card:focus-visible,
+.mediakit-shot:focus-visible,
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
@@ -1463,7 +1481,7 @@ main {
 
 .card-base:hover {
     background: var(--glass-strong);
-    box-shadow: var(--glass-shadow), 0 0 24px var(--accent-glow);
+    box-shadow: var(--glass-shadow);
     border-color: var(--glass-border-hover);
     transform: translateY(-3px);
 }
@@ -1527,10 +1545,10 @@ main {
 }
 
 .feature-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-3px);
     background: var(--glass-strong);
     border-color: var(--glass-border-hover);
-    box-shadow: var(--shadow-lg), 0 0 0 1px var(--accent-bg);
+    box-shadow: var(--shadow-lg);
 }
 
 .feature-badge {
@@ -1867,6 +1885,24 @@ main {
     background: rgba(250, 166, 26, 0.12);
     border: 1px solid rgba(250, 166, 26, 0.35);
     border-radius: var(--pill);
+}
+
+/* Small pending-status dot on a tab button itself, so a "coming soon" panel
+   is signalled before the click, not only after landing on its empty state. */
+.tab-button {
+    position: relative;
+}
+
+.tab-badge-pending::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 0 0 2px var(--glass);
 }
 
 /* Standalone 404 page — hides the chrome (header, hero, footer, toasts, docks)
@@ -3669,7 +3705,6 @@ footer {
     overflow: hidden;
     /* Deep cinematic drop + an accent rim-light + inner top sheen. */
     box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6),
-                0 0 0 1px rgba(255, 255, 255, 0.06),
                 0 0 40px -8px var(--accent-glow);
     z-index: 1;
     transition: transform .5s var(--ease), box-shadow .5s var(--ease);
@@ -3679,7 +3714,6 @@ footer {
 .showcase-stage:hover {
     transform: translateY(-6px);
     box-shadow: 0 42px 96px rgba(0, 0, 0, 0.66),
-                0 0 0 1px rgba(255, 255, 255, 0.12),
                 0 0 60px -6px var(--accent-glow);
 }
 

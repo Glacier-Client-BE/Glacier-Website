@@ -1,6 +1,6 @@
 'use strict';
 
-import { USE_MONETIZATION, LINKVERTISE_USER_ID } from './config.js?v=20260726113355';
+import { USE_MONETIZATION, LINKVERTISE_USER_ID } from './config.js?v=20260902120000';
 
 // Small shared helpers — DOM lookup, string/number formatting, escaping.
 
@@ -31,6 +31,12 @@ export const formatCount = n => Number(n).toLocaleString('en-US');
 export function countKey(version) {
     const m = /v[\d.]+/i.exec(version || '');
     return m ? m[0].toLowerCase() : null;
+}
+
+// Live portion of a Worker counter total for one key: the running total minus
+// whatever's already been folded into the static base, never negative.
+export function liveDelta(counts, baseline, key) {
+    return Math.max(0, (Number(counts[key]) || 0) - (Number((baseline || {})[key]) || 0));
 }
 
 export function slugify(s) {

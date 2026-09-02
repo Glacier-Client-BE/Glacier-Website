@@ -5,7 +5,7 @@
 // in-place when the language changes; everything else (FAQ/mod data, legal
 // pages) intentionally stays English. Unknown keys fall back to English.
 
-import { FAQ_STRINGS } from './i18nFaq.js?v=20260726113355';
+import { FAQ_STRINGS } from './i18nFaq.js?v=20260902120000';
 
 export const LANGS = [
     ['en', 'English'],
@@ -72,6 +72,7 @@ const STRINGS = {
         // Downloads
         'downloads.title': 'Downloads',
         'downloads.desc': 'Get Glacier Client for your platform',
+        'downloads.sub': 'Grab the latest pack client for your platform — MCBE DLL and Java builds are on the way.',
         'downloads.stable': 'Stable Release',
         'downloads.beta': 'Beta Version',
         'downloads.coming': 'Coming Soon',
@@ -1959,30 +1960,6 @@ export function t(lang, key) {
     if (STRINGS[lang] && STRINGS[lang][key]) return STRINGS[lang][key];
     if (STRINGS.en && STRINGS.en[key]) return STRINGS.en[key];
     return '';
-}
-
-// Translate object/array data structures (for mods, FAQ, downloads, etc.)
-export function translateData(obj, lang) {
-    if (!obj) return obj;
-    if (Array.isArray(obj)) {
-        return obj.map(item => translateData(item, lang));
-    }
-    if (typeof obj === 'object') {
-        const result = {};
-        for (const key in obj) {
-            const val = obj[key];
-            // If value is a translation key (format: "section.id.field"), translate it
-            if (typeof val === 'string' && val.includes('.')) {
-                result[key] = t(lang, val) || val;
-            } else if (typeof val === 'object') {
-                result[key] = translateData(val, lang);
-            } else {
-                result[key] = val;
-            }
-        }
-        return result;
-    }
-    return obj;
 }
 
 export function currentLang() {

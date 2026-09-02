@@ -1,11 +1,11 @@
 'use strict';
 
-import { state } from './state.js?v=20260726113355';
-import { $, escAttr, slice, debounce } from './utils.js?v=20260726113355';
-import { NOTIFICATION } from './config.js?v=20260726113355';
-import { showSection, searchMods } from './navigation.js?v=20260726113355';
-import { latestVersionLabel, latestPackSize } from './content.js?v=20260726113355';
-import { t, currentLang } from './i18n.js?v=20260726113355';
+import { state } from './state.js?v=20260902120000';
+import { $, escAttr, slice, debounce } from './utils.js?v=20260902120000';
+import { NOTIFICATION } from './config.js?v=20260902120000';
+import { showSection, searchMods } from './navigation.js?v=20260902120000';
+import { latestVersionLabel, latestPackSize } from './content.js?v=20260902120000';
+import { t, currentLang } from './i18n.js?v=20260902120000';
 
 let toastKey = '';
 let toastVersion = null;
@@ -71,7 +71,22 @@ function setupDonateToast() {
     document.body.classList.add('has-toast');
     $('donateClose').addEventListener('click', dismissDonateToast);
     $('donateCta').addEventListener('click', dismissDonateToast);
-    setTimeout(() => banner.classList.add('visible'), 900);
+    // On narrow viewports the popup spans the bottom edge and would otherwise
+    // cover the hero stats before the user has even scrolled — wait for the
+    // first scroll (or a longer fallback delay) so the pitch lands first.
+    if (window.innerWidth <= 560) {
+        let shown = false;
+        const reveal = () => {
+            if (shown) return;
+            shown = true;
+            banner.classList.add('visible');
+            window.removeEventListener('scroll', reveal);
+        };
+        window.addEventListener('scroll', reveal, { passive: true });
+        setTimeout(reveal, 4000);
+    } else {
+        setTimeout(() => banner.classList.add('visible'), 900);
+    }
 }
 
 function dismissDonateToast() {

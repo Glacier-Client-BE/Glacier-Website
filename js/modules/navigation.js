@@ -1,10 +1,10 @@
 'use strict';
 
-import { state } from './state.js?v=20260726113355';
-import { $, markCopyableCode } from './utils.js?v=20260726113355';
-import { ALL, META, TITLES, MERGED } from './config.js?v=20260726113355';
-import { observeReveals } from './reveal.js?v=20260726113355';
-import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js?v=20260726113355';
+import { state } from './state.js?v=20260902120000';
+import { $, markCopyableCode } from './utils.js?v=20260902120000';
+import { ALL, META, TITLES, MERGED } from './config.js?v=20260902120000';
+import { observeReveals } from './reveal.js?v=20260902120000';
+import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js?v=20260902120000';
 
 // Shows the custom 404 page for a path that doesn't match any known section.
 // Leaves the URL as-is (whatever the visitor actually landed on).
@@ -191,10 +191,6 @@ export function searchMods(term) {
     refreshModsVisibility();
 }
 
-export function handleSectionClick(id) {
-    showSection(id);
-}
-
 // One delegated click handler for nav links, tabs and filters — so dynamically
 // injected content stays wired without per-node listeners.
 export function setupDelegation() {
@@ -202,7 +198,7 @@ export function setupDelegation() {
         const linked = e.target.closest('[data-section]');
         if (linked && !linked.hasAttribute('target')) {
             const id = linked.dataset.section;
-            if (id) { e.preventDefault(); handleSectionClick(id); return; }
+            if (id) { e.preventDefault(); showSection(id); return; }
         }
         const tab = e.target.closest('.tab-button');
         if (tab && tab.dataset.tab) { setActiveTab(tab.dataset.tab); return; }
