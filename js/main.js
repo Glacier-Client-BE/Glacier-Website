@@ -19,6 +19,8 @@ import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord, retransla
 import { setupDocsToc } from './modules/docs.js?v=20260902203329';
 import { setupI18n } from './modules/i18n.js?v=20260902203329';
 import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js?v=20260902203329';
+import { setupChangelog } from './modules/modmenu.js?v=20260902203329';
+import { setupSimulator } from './modules/simulator.js?v=20260902203329';
 
 function init() {
     state.dom = {
@@ -45,6 +47,8 @@ function init() {
     setupScroll();
     setupReveal();
     setupShowcase();
+    setupSimulator();
+    setupChangelog();
     setupParallax();
     setupTilt('.feature-card, .gallery-item, .donate-card, .social-card, .license-card, .hero-image, .showcase-video-card');
     setupDelegation();
