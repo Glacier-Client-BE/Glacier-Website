@@ -14,6 +14,7 @@
 // and compares the stamped build id against the one baked into this tab.
 
 import { t, currentLang } from './i18n.js?v=20260902203329';
+import { enqueueNotice, noticeDone } from './notices.js?v=20260902203329';
 
 const CHECK_INTERVAL = 5 * 60 * 1000; // 5 minutes
 let dismissed = false;
@@ -38,7 +39,7 @@ async function checkForUpdate() {
 
 function showBar() {
     const bar = document.getElementById('updateBar');
-    if (bar) bar.classList.add('visible');
+    if (bar) enqueueNotice('update', () => bar.classList.add('visible'));
 }
 
 // The message/CTA are also set programmatically here (rather than relying
@@ -61,6 +62,7 @@ export function setupUpdateCheck() {
     document.getElementById('updateBarDismiss').addEventListener('click', () => {
         dismissed = true;
         bar.classList.remove('visible');
+        noticeDone('update');
     });
 
     setInterval(checkForUpdate, CHECK_INTERVAL);

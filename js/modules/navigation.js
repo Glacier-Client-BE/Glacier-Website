@@ -5,6 +5,17 @@ import { $, markCopyableCode } from './utils.js?v=20260902203329';
 import { ALL, META, TITLES, MERGED } from './config.js?v=20260902203329';
 import { observeReveals } from './reveal.js?v=20260902203329';
 import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js?v=20260902203329';
+import { snapScroll } from './scroll.js?v=20260902203329';
+
+// Home and Features share one core-features block. Rather than render a hidden
+// clone in the inactive section, the single node is moved to the top of
+// whichever of the two is being shown.
+function placeCoreFeatures(sectionEl) {
+    const block = $('core-features');
+    if (!block || !sectionEl || block.parentNode === sectionEl) return;
+    if (sectionEl.id !== 'home-section' && sectionEl.id !== 'features-section') return;
+    sectionEl.insertBefore(block, sectionEl.firstChild);
+}
 
 // Shows the custom 404 page for a path that doesn't match any known section.
 // Leaves the URL as-is (whatever the visitor actually landed on).
@@ -34,6 +45,14 @@ export function showSection(id, sub) {
     const sectionId = merged ? merged.into : id;
 
     const targetEl = $(sectionId + '-section');
+    // Re-selecting the section already on screen keeps the gentle smooth
+    // scroll; a real route change jumps straight to its destination instead.
+    // Smooth-scrolling across a route change animated the shared hero (and its
+    // Free/Forever stat) under the still-transparent header for ~1s while the
+    // incoming section faded in.
+    const sameSection = !!targetEl && targetEl.classList.contains('active');
+    const behavior = sameSection ? 'smooth' : 'instant';
+    placeCoreFeatures(targetEl);
     for (const s of state.dom.sections) {
         s.classList.toggle('active', s === targetEl);
     }
@@ -45,21 +64,24 @@ export function showSection(id, sub) {
 
     if (!hasDeepLink) {
         if (id === 'home') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior });
         } else if (merged) {
             // Land on the block that absorbed this page rather than the top of
-            // the parent. Deferred a frame so the section is laid out first.
-            requestAnimationFrame(() => {
-                const anchor = document.getElementById(merged.anchor);
-                if (!anchor) return;
+            // the parent. Measured synchronously: the section was just made
+            // active, so reading layout here forces it before the next paint.
+            const anchor = document.getElementById(merged.anchor);
+            if (anchor) {
                 const top = anchor.getBoundingClientRect().top + window.scrollY
                     - state.dom.headerEl.offsetHeight - 16;
-                window.scrollTo({ top, behavior: 'smooth' });
-            });
+                window.scrollTo({ top, behavior });
+            }
         } else {
             const cc = state.dom.contentContainer;
-            if (cc) window.scrollTo({ top: cc.offsetTop - state.dom.headerEl.offsetHeight - 16, behavior: 'smooth' });
+            if (cc) window.scrollTo({ top: cc.offsetTop - state.dom.headerEl.offsetHeight - 16, behavior });
         }
+        // Sync the header/parallax to the new position before paint, so the
+        // eased scroll value doesn't trail the jump.
+        if (behavior === 'instant') snapScroll();
     }
 
     const path = id === 'home' ? '/' : '/' + id + (hasDeepLink ? '/' + sub : '');

@@ -1788,6 +1788,17 @@ main {
     flex-wrap: wrap;
 }
 
+/* The fixed quick-dock (right: 20px, ~62px wide) sits over the right end of
+   the tab row whenever the container's edge comes within ~94px of the
+   viewport edge (roughly 769–1340px wide). Reserve exactly that overlap as
+   right padding so the Launcher tab never slides under it. The dock is
+   hidden at ≤768px. */
+@media (min-width: 769px) {
+    .downloads-tabs {
+        padding-right: max(0px, calc(94px - max(0px, (100vw - 1200px) / 2) - var(--gutter)));
+    }
+}
+
 .tab-button {
     display: inline-flex;
     align-items: center;

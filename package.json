@@ -1,0 +1,11 @@
+{
+  "name": "glacier-website",
+  "private": true,
+  "description": "Build tooling for glacierclient.xyz. The site itself is static; this only bundles js/ into js/dist/.",
+  "scripts": {
+    "build": "esbuild js/bundle.js --bundle --minify --format=esm --target=es2020 --sourcemap --outfile=js/dist/app.min.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}

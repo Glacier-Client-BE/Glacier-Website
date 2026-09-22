@@ -6,13 +6,15 @@ import { NOTIFICATION } from './config.js?v=20260902203329';
 import { showSection, searchMods } from './navigation.js?v=20260902203329';
 import { latestVersionLabel, latestPackSize } from './content.js?v=20260902203329';
 import { t, currentLang } from './i18n.js?v=20260902203329';
+import { enqueueNotice, noticeDone } from './notices.js?v=20260902203329';
 
 let toastKey = '';
 let toastVersion = null;
 
 // Sync the header version pill + corner popups to the newest release. The two
 // corner popups share one slot: the version announcement takes priority; the
-// donation nudge fills in when there's no new release to show.
+// donation nudge fills in when there's no new release to show. Both go through
+// the notice queue, so neither can stack with the stale-build bar either.
 export function applyVersioning() {
     // Pack size comes from the same release entry as the version, but it's set
     // independently so a missing size never suppresses the version pill/toast.
@@ -34,10 +36,12 @@ function setupToast(version) {
     renderToastText();
     const cta = $('toastCta');
     cta.addEventListener('click', e => { e.preventDefault(); showSection(NOTIFICATION.section); dismissToast(); });
-    document.body.classList.add('has-toast');
     $('toastClose').addEventListener('click', dismissToast);
-    // Let the page settle, then spring the popup in from the corner.
-    setTimeout(() => $('toastBanner').classList.add('visible'), 700);
+    enqueueNotice('toast', () => {
+        document.body.classList.add('has-toast');
+        // Let the page settle, then spring the popup in from the corner.
+        setTimeout(() => $('toastBanner').classList.add('visible'), 700);
+    });
     return true;
 }
 
@@ -58,6 +62,7 @@ function dismissToast() {
     if (toastKey) sessionStorage.setItem(toastKey, '1');
     $('toastBanner').classList.remove('visible');
     document.body.classList.remove('has-toast');
+    noticeDone('toast');
 }
 
 // Donation prompt: same springy corner popup as the announcement, shown on
@@ -68,9 +73,13 @@ function dismissToast() {
 function setupDonateToast() {
     const banner = $('donateBanner');
     if (!banner) return;
-    document.body.classList.add('has-toast');
     $('donateClose').addEventListener('click', dismissDonateToast);
     $('donateCta').addEventListener('click', dismissDonateToast);
+    enqueueNotice('donate', () => showDonateToast(banner));
+}
+
+function showDonateToast(banner) {
+    document.body.classList.add('has-toast');
     // On narrow viewports the popup spans the bottom edge and would otherwise
     // cover the hero stats before the user has even scrolled — wait for the
     // first scroll (or a longer fallback delay) so the pitch lands first.
@@ -92,6 +101,7 @@ function setupDonateToast() {
 function dismissDonateToast() {
     $('donateBanner').classList.remove('visible');
     document.body.classList.remove('has-toast');
+    noticeDone('donate');
 }
 
 export function applyTheme(theme) {

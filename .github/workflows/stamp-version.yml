@@ -3,7 +3,8 @@ name: Stamp Asset Versions
 # Cache-busts every same-origin JS module import, the entry script/
 # stylesheet, and the <meta name="site-build"> marker on every push to
 # main — see .github/scripts/stamp-version.js for why this needs to cover
-# the whole module graph, not just js/main.js's own URL.
+# the whole module graph, not just js/main.js's own URL. Then rebuilds the
+# js/dist/app.min.js bundle that index.html actually loads.
 
 on:
   push:
@@ -27,6 +28,18 @@ jobs:
         run: |
           set -euo pipefail
           VERSION=$(date -u +%Y%m%d%H%M%S) node .github/scripts/stamp-version.js
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # index.html ships the single bundle in js/dist/, not the source modules,
+      # so rebuild it from the (just-stamped) sources on every push.
+      - name: Build the JS bundle
+        run: |
+          set -euo pipefail
+          npm ci --no-audit --no-fund
+          npm run build
 
       - name: Commit and push
         run: |

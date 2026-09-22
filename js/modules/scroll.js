@@ -9,12 +9,15 @@ import { syncScrollProgress } from './navigation.js?v=20260902203329';
 // reading-progress bar, and any registered scrollSubs (parallax). It keeps
 // running until smoothY catches the real scroll position, then parks itself so
 // an idle page costs nothing.
+let snap = () => {};
+
 export function setupScroll() {
     const header = state.dom.headerEl;
     const back = $('backToTop');
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let raf = 0;
     state.smoothY = window.scrollY;
+    snap = () => { state.smoothY = window.scrollY; frame(); };
 
     function frame() {
         const targetY = window.scrollY;
@@ -44,4 +47,10 @@ export function setupScroll() {
     frame();
 
     back.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
+// Jump the eased scroll value straight to the real position and redraw every
+// scroll-linked effect now — used on route changes, which scroll instantly.
+export function snapScroll() {
+    snap();
 }

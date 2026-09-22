@@ -53,6 +53,7 @@ for (const htmlFile of ['index.html', '404.html']) {
     let html = fs.readFileSync(htmlFile, 'utf8');
     html = html.replace(/(css\/styles\.css)(\?v=[^"']*)?/g, `$1?v=${VERSION}`);
     html = html.replace(/(js\/main\.js)(\?v=[^"']*)?/g, `$1?v=${VERSION}`);
+    html = html.replace(/(js\/dist\/app\.min\.js)(\?v=[^"']*)?/g, `$1?v=${VERSION}`);
     html = html.replace(/(name="site-build" content=")[^"]*(")/, `$1${VERSION}$2`);
     fs.writeFileSync(htmlFile, html);
 }

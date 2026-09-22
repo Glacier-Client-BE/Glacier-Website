@@ -43,23 +43,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     </noscript>
     <link rel="stylesheet" href="css/styles.css?v=20260902203329" />
-    <script type="module" src="js/main.js?v=20260902203329"></script>
-    <script src="js/kinetic.js?v=2026-06-20" defer></script>
-    <script src="https://publisher.linkvertise.com/cdn/linkvertise.js" defer></script>
-    <script>
-      // linkvertise.js is deferred so it can't block first paint. Deferred scripts
-      // run in order before DOMContentLoaded, so the global is ready by the time
-      // this fires. Ad blockers commonly block the script entirely
-      // (net::ERR_BLOCKED_BY_CLIENT), which would otherwise throw here.
-      document.addEventListener('DOMContentLoaded', function () {
-        if (typeof linkvertise === 'function') {
-          linkvertise(499358, {
-            whitelist: ["github.com"],
-            blacklist: []
-          });
-        }
-      });
-    </script>
+    <!-- Built by `npm run build` from js/bundle.js (main.js + its modules +
+         kinetic.js); rebuilt on every push to main by stamp-version.yml. -->
+    <script type="module" src="js/dist/app.min.js?v=20260902203329"></script>
 </head>
 
 <body>
@@ -83,7 +69,7 @@
         <div class="toast-body">
             <span class="toast-title" data-i18n="toast.announcement">Announcement</span>
             <span id="toastMsg" class="toast-text"></span>
-            <a id="toastCta" href="#" class="toast-cta"></a>
+            <a id="toastCta" href="/downloads" class="toast-cta"></a>
         </div>
         <button id="toastClose" data-i18n-aria="toast.dismiss" aria-label="Dismiss announcement"><i class="fas fa-times"
                 aria-hidden="true"></i></button>
@@ -246,7 +232,10 @@
         <div class="content-container">
 
             <section id="home-section" class="content-section active">
-                <div class="container">
+                <!-- The one and only core-features block. Home and Features both show
+                     it, so navigation.js moves this node into whichever of the two
+                     is active instead of the page carrying a hidden clone. -->
+                <div class="container" id="core-features">
                     <div class="section-header reveal">
                         <h2 class="section-title" data-i18n="core.title">Built to stay out of your way</h2>
                         <p class="section-subtitle" data-i18n="core.sub">Six reasons players keep Glacier installed</p>
@@ -265,7 +254,27 @@
                         <div class="feature-card card-base card-shine reveal">
                             <div class="feature-icon"><i class="fas fa-bolt" aria-hidden="true"></i></div>
                             <h3 class="feature-title" data-i18n="feat.lightweight.title">Never costs you frames</h3>
-                            <p class="feature-desc" data-i18n="feat.lightweight.desc">The whole pack is 2MB. It stays out of your frame budget, even on older phones.</p>
+                            <p class="feature-desc" data-i18n="feat.lightweight.desc">A tiny download that stays out of your frame budget, even on older phones.</p>
+                        </div>
+                        <div class="feature-card card-base card-shine reveal">
+                            <div class="feature-icon"><i class="fas fa-sliders-h" aria-hidden="true"></i></div>
+                            <h3 class="feature-title" data-i18n="adv.config.title">Config Editor</h3>
+                            <p class="feature-desc" data-i18n="adv.config.desc">Built-in configuration editor that allows you to customize every
+                                aspect of your client experience.</p>
+                        </div>
+                        <div class="feature-card card-base card-shine reveal">
+                            <span class="feature-badge"><i class="fas fa-rocket" aria-hidden="true"></i> <span data-i18n="badge.launcherOnly">Launcher only</span></span>
+                            <div class="feature-icon"><i class="fas fa-palette" aria-hidden="true"></i></div>
+                            <h3 class="feature-title" data-i18n="adv.themes.title">Custom Themes</h3>
+                            <p class="feature-desc" data-i18n="adv.themes.desc">Multiple theme options to personalize the look and feel of your
+                                client interface.</p>
+                        </div>
+                        <div class="feature-card card-base card-shine reveal">
+                            <span class="feature-badge"><i class="fas fa-rocket" aria-hidden="true"></i> <span data-i18n="badge.launcherOnly">Launcher only</span></span>
+                            <div class="feature-icon"><i class="fas fa-sync-alt" aria-hidden="true"></i></div>
+                            <h3 class="feature-title" data-i18n="adv.autoupdate.title">Auto-Updates</h3>
+                            <p class="feature-desc" data-i18n="adv.autoupdate.desc">Automatic update system that ensures you always have the latest
+                                features and bug fixes.</p>
                         </div>
                     </div>
                 </div>
@@ -385,50 +394,6 @@
             </section>
 
             <section id="features-section" class="content-section">
-                <div class="container">
-                    <div class="section-header reveal">
-                        <h2 class="section-title" data-i18n="core.title">Built to stay out of your way</h2>
-                        <p class="section-subtitle" data-i18n="core.sub">Six reasons players keep Glacier installed</p>
-                    </div>
-                    <div class="features-grid">
-                        <div class="feature-card card-base card-shine reveal">
-                            <div class="feature-icon"><i class="fas fa-cubes" aria-hidden="true"></i></div>
-                            <h3 class="feature-title" data-i18n="feat.modules.title">See what you were missing</h3>
-                            <p class="feature-desc" data-i18n="feat.modules.desc">Coordinates, FPS, armour, hitboxes, and 30+ more. Turn any module on mid-game and tune it live.</p>
-                        </div>
-                        <div class="feature-card card-base card-shine reveal">
-                            <div class="feature-icon"><i class="fas fa-arrows-alt" aria-hidden="true"></i></div>
-                            <h3 class="feature-title" data-i18n="feat.draggable.title">Your HUD, your layout</h3>
-                            <p class="feature-desc" data-i18n="feat.draggable.desc">Drag any module anywhere on screen. Build the exact heads-up display you play best with.</p>
-                        </div>
-                        <div class="feature-card card-base card-shine reveal">
-                            <div class="feature-icon"><i class="fas fa-bolt" aria-hidden="true"></i></div>
-                            <h3 class="feature-title" data-i18n="feat.lightweight.title">Never costs you frames</h3>
-                            <p class="feature-desc" data-i18n="feat.lightweight.desc">A tiny download that stays out of your frame budget, even on older phones.</p>
-                        </div>
-                        <div class="feature-card card-base card-shine reveal">
-                            <div class="feature-icon"><i class="fas fa-sliders-h" aria-hidden="true"></i></div>
-                            <h3 class="feature-title" data-i18n="adv.config.title">Config Editor</h3>
-                            <p class="feature-desc" data-i18n="adv.config.desc">Built-in configuration editor that allows you to customize every
-                                aspect of your client experience.</p>
-                        </div>
-                        <div class="feature-card card-base card-shine reveal">
-                            <span class="feature-badge"><i class="fas fa-rocket" aria-hidden="true"></i> <span data-i18n="badge.launcherOnly">Launcher only</span></span>
-                            <div class="feature-icon"><i class="fas fa-palette" aria-hidden="true"></i></div>
-                            <h3 class="feature-title" data-i18n="adv.themes.title">Custom Themes</h3>
-                            <p class="feature-desc" data-i18n="adv.themes.desc">Multiple theme options to personalize the look and feel of your
-                                client interface.</p>
-                        </div>
-                        <div class="feature-card card-base card-shine reveal">
-                            <span class="feature-badge"><i class="fas fa-rocket" aria-hidden="true"></i> <span data-i18n="badge.launcherOnly">Launcher only</span></span>
-                            <div class="feature-icon"><i class="fas fa-sync-alt" aria-hidden="true"></i></div>
-                            <h3 class="feature-title" data-i18n="adv.autoupdate.title">Auto-Updates</h3>
-                            <p class="feature-desc" data-i18n="adv.autoupdate.desc">Automatic update system that ensures you always have the latest
-                                features and bug fixes.</p>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="container" id="features-screenshots">
                     <div class="section-header subsection-header reveal">
                         <span class="subsection-eyebrow" data-i18n="sub.screenshots">See it in action</span>
