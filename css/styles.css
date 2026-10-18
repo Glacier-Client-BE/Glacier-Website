@@ -2464,6 +2464,8 @@ body.is-404 #donateBanner {
 .copyable-code {
     cursor: pointer;
     position: relative;
+    overflow-wrap: anywhere;
+    word-break: break-all;
     border-bottom: 1px dashed currentColor;
     transition: color var(--dur-fast) var(--ease-out);
 }
@@ -4274,7 +4276,7 @@ footer {
 
 .docs-layout {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 220px minmax(0, 1fr);
     gap: var(--gutter);
     align-items: start;
 }
@@ -4477,7 +4479,30 @@ footer {
 
 @media (max-width: 900px) {
     .docs-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .docs-layout > *,
+    .docs-card {
+        min-width: 0;
+    }
+    .docs-card :is(pre, table) {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    .docs-card :is(p, li, h3, code, a) {
+        overflow-wrap: anywhere;
+    }
+    .docs-card .copyable-code {
+        white-space: normal;
+        word-break: break-all;
+    }
+    .docs-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+    .docs-table :is(th, td) {
+        overflow-wrap: anywhere;
+        white-space: normal;
     }
     .docs-toc {
         position: static;
