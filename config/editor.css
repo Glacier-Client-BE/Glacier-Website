@@ -17,6 +17,33 @@
    is editing (offsets, raw JSON, keyboard hints) as machine data. */
 :root {
     --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    /* Nested radii: a container's radius minus its padding gives the radius of
+       whatever sits inside it. Change the outer value and the rest follow. */
+    --pad-group: 8px;                                                   /* inset of a group or chunk */
+    --radius-group: 18px;                                               /* outermost container       */
+    --radius-ctl: calc(var(--radius-group) - var(--pad-group));         /* 10px: group head / body   */
+    --pad-ctl-x: 12px;
+    --radius-row: max(6px, calc(var(--radius-ctl) - var(--pad-group))); /* rows inside a region      */
+    --radius-field: max(6px, calc(var(--radius-ctl) - var(--pad-ctl-x))); /* inputs inside a row     */
+
+    /* Icons: one size and one box for every glyph in the editor. */
+    --icon-size: 0.8rem;
+    --icon-box: 1.05rem;
+
+    /* Touch: minimum hit area for any control on a coarse pointer. */
+    --hit: 44px;
+
+    /* Motion: transform and opacity only. Reduced motion zeroes the durations. */
+    --dur-fast: 150ms;
+    --dur-base: 250ms;
+    --ease-out: cubic-bezier(.22, 1, .36, 1);
+    --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+    --stagger: 40ms;
+    --stagger-max: 12;
+
+    /* Focus: one ring, used everywhere, never removed. */
+    --focus-ring: var(--accent-hover);
 }
 
 /* The workspace is a tall, self-scrolling app surface, so this page holds a
@@ -186,7 +213,6 @@ main#main-content {
     width: 396px;
     flex-shrink: 0;
     min-height: 0;
-    border-right: 1px solid var(--glass-border);
     background: rgba(0, 0, 0, 0.12);
 }
 
@@ -198,15 +224,15 @@ main#main-content {
     display: flex;
     flex-direction: column;
     gap: 13px;
-    padding: 18px 18px 14px;
-    border-bottom: 1px solid var(--glass-border);
+    padding: 18px 18px 16px;
 }
 
 .ws-sidebar-foot {
     display: flex;
+    align-items: stretch;
     gap: 10px;
-    padding: 14px 18px;
-    border-top: 1px solid var(--glass-border);
+    padding: 16px 18px 18px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.18), transparent);
 }
 
 .ws-preview {
@@ -222,7 +248,6 @@ main#main-content {
     justify-content: space-between;
     gap: 12px;
     padding: 13px 18px;
-    border-bottom: 1px solid var(--glass-border);
 }
 
 .ws-preview-actions {
@@ -353,14 +378,15 @@ main#main-content {
     transform: scale(0.96);
 }
 
+/* Destructive: quiet until hovered, so it never competes with Export. */
 .chip-btn.danger {
-    background: rgba(240, 71, 71, 0.12);
+    background: transparent;
     color: var(--red);
-    border-color: rgba(240, 71, 71, 0.25);
+    border-color: transparent;
 }
 
 .chip-btn.danger:hover {
-    background: rgba(240, 71, 71, 0.22);
+    background: rgba(240, 71, 71, 0.12);
 }
 
 .chip-btn.accent {
@@ -456,29 +482,24 @@ main#main-content {
 }
 
 /* ── Config controls ── */
+/* Rows carry no card of their own: the region they sit in is the container,
+   so spacing does the separating. */
 .ctl {
-    background: var(--bg-item);
-    border: 1px solid var(--surface-border);
-    border-radius: var(--r-sm);
-    padding: 12px 14px;
-    transition: background var(--t);
+    position: relative;
+    background: transparent;
+    border-radius: var(--radius-row);
+    padding: 9px 10px;
+    transition: background var(--dur-fast) var(--ease-out);
 }
 
-.ctl:hover {
-    background: var(--bg-item-hover);
+@media (hover: hover) {
+    .ctl:hover {
+        background: var(--bg-item-hover);
+    }
 }
 
 .ctl.child {
-    background: transparent;
-    border: none;
-    border-left: 2px solid rgba(114, 137, 218, 0.25);
-    border-radius: 0;
-    padding: 9px 0 9px 13px;
-    margin-left: 2px;
-}
-
-.ctl.child:hover {
-    background: transparent;
+    padding: 7px 10px 7px 14px;
 }
 
 .ctl-row {
@@ -526,7 +547,7 @@ main#main-content {
     border-radius: var(--pill);
     background: var(--surface-hover);
     cursor: pointer;
-    transition: background var(--t), box-shadow var(--t);
+    transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
 
 [data-theme="light"] .toggle {
@@ -543,7 +564,7 @@ main#main-content {
     border-radius: 50%;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
-    transition: transform var(--t);
+    transition: transform var(--dur-base) var(--ease-spring);
 }
 
 .toggle.on {
@@ -676,11 +697,13 @@ main#main-content {
 
 /* ── Group cards ── */
 .group {
+    position: relative;
     background: var(--bg-item);
     border: 1px solid var(--surface-border);
-    border-radius: var(--r-sm);
+    border-radius: var(--radius-group);
+    padding: var(--pad-group);
     overflow: hidden;
-    transition: border-color var(--t);
+    transition: border-color var(--dur-base) var(--ease-out);
 }
 
 .group:hover {
@@ -692,8 +715,10 @@ main#main-content {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 14px 15px;
+    padding: 10px;
+    border-radius: var(--radius-ctl);
     cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-out);
 }
 
 .group-head-left {
@@ -771,8 +796,7 @@ main#main-content {
 
 .group-chevron {
     color: var(--text-dim);
-    font-size: 0.7rem;
-    transition: transform var(--normal) var(--ease);
+    transition: transform var(--dur-base) var(--ease-out);
 }
 
 .group.open .group-chevron {
@@ -780,8 +804,9 @@ main#main-content {
 }
 
 .group-body {
-    padding: 4px 13px 13px;
-    border-top: 1px solid var(--surface-border);
+    margin-top: 4px;
+    padding: 6px 8px 8px;
+    border-radius: var(--radius-ctl);
     background: rgba(0, 0, 0, 0.14);
 }
 
@@ -875,7 +900,7 @@ main#main-content {
     padding: 8px;
     background: var(--glass-strong);
     border: 1px solid var(--glass-border);
-    border-radius: var(--r-md);
+    border-radius: var(--radius-group);
     box-shadow: var(--shadow-lg);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
@@ -896,7 +921,7 @@ main#main-content {
     gap: 12px;
     padding: 11px;
     border: 1px solid transparent;
-    border-radius: 10px;
+    border-radius: var(--radius-ctl);
     background: transparent;
     font-family: inherit;
     cursor: pointer;
@@ -989,7 +1014,7 @@ main#main-content {
     color: var(--accent);
 }
 
-.view-tab.active::after {
+.view-tab::after {
     content: '';
     position: absolute;
     left: 0;
@@ -998,6 +1023,13 @@ main#main-content {
     height: 2px;
     border-radius: 2px;
     background: linear-gradient(90deg, var(--accent), var(--green));
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur-base) var(--ease-out);
+}
+
+.view-tab.active::after {
+    transform: scaleX(1);
 }
 
 /* ── HUD canvas ── */
@@ -1302,7 +1334,7 @@ main#main-content {
     display: flex;
     align-items: center;
     gap: 7px;
-    border-top: 1px solid var(--surface-border);
+    background: var(--bg-item);
 }
 
 .raw-status.ok {
@@ -1379,7 +1411,6 @@ main#main-content {
     align-items: center;
     justify-content: space-between;
     padding: 18px 22px;
-    border-bottom: 1px solid var(--glass-border);
     background: linear-gradient(120deg, var(--accent-bg), transparent 70%);
 }
 
@@ -1418,7 +1449,6 @@ main#main-content {
     display: flex;
     gap: 6px;
     padding: 12px 18px;
-    border-bottom: 1px solid var(--glass-border);
     overflow-x: auto;
 }
 
@@ -1488,7 +1518,6 @@ main#main-content {
     justify-content: space-between;
     gap: 12px;
     padding: 14px 22px;
-    border-top: 1px solid var(--glass-border);
     background: var(--bg-item);
 }
 
@@ -1589,9 +1618,9 @@ main#main-content {
     margin-bottom: 20px;
 }
 
+/* Blocks are separated by the margin above, not by a rule. */
 .tut-block + .tut-block {
-    border-top: 1px solid var(--glass-border);
-    padding-top: 18px;
+    padding-top: 0;
 }
 
 .tut-block ol {
@@ -1671,7 +1700,7 @@ main#main-content {
     opacity: 0;
     visibility: hidden;
     transform: translate(-50%, 12px) scale(0.96);
-    transition: opacity var(--normal) var(--ease), transform var(--normal) var(--ease), visibility var(--normal);
+    transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out), visibility var(--dur-base);
 }
 
 .editor-toast.show {
@@ -1682,6 +1711,14 @@ main#main-content {
 
 .editor-toast i {
     color: var(--green);
+}
+
+.editor-toast.is-error {
+    border-color: rgba(240, 71, 71, 0.45);
+}
+
+.editor-toast.is-error i {
+    color: var(--red);
 }
 
 /* ── Mobile config/preview switch ── */
@@ -1705,7 +1742,6 @@ main#main-content {
         height: calc(100dvh - 250px);
         min-height: 380px;
         border-right: none;
-        border-bottom: 1px solid var(--glass-border);
     }
 
     .ws-preview {
@@ -1830,5 +1866,503 @@ main#main-content {
 
     .search-clear:active {
         transform: translateY(-50%);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Interaction, feedback and motion layer
+   Every control defines default, hover (behind hover: hover), pressed
+   (scale .97), focus-visible and disabled. Motion uses transform and
+   opacity only, and collapses under prefers-reduced-motion at the end.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Icons: one size token, one box, centred ── */
+.chip-btn i, .tool-btn i, .icon-btn-sm i, .modal-tab i, .view-tab i,
+.mobile-switch i, .path-copy i, .group-chevron, .group-locked i,
+.editor-toast i, .raw-status i, .hud-inspector i, .btn i {
+    font-size: var(--icon-size);
+    width: var(--icon-box);
+    line-height: 1;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* ── Numbers: tabular figures, right-aligned in inputs ── */
+.field.num,
+.xy-cell input.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.range-val,
+.group-count,
+.chunk-count,
+.hud-inspector .sel-off {
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Focus: a visible accent ring, never removed ── */
+main :focus-visible,
+.modal :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+}
+
+.group-head:focus-visible {
+    outline-offset: -2px;
+}
+
+.field:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.ctl input[type="range"]:focus-visible {
+    outline-offset: 4px;
+}
+
+/* ── Shared transition set for interactive controls ── */
+.chip-btn, .tool-btn, .icon-btn-sm, .section-pill, .version-tab, .modal-tab,
+.path-copy, .export-opt, .mobile-switch button, .anchor-cell, .view-tab,
+.search-clear, .tut-card, .tut-vid a, .toggle, .field, .xy-cell, #exportBtn,
+.group-head {
+    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+    transition-duration: var(--dur-fast);
+    transition-timing-function: var(--ease-out);
+}
+
+/* ── Hover: only where a pointer can hover ── */
+@media (hover: hover) {
+    .toggle:not(.on):hover {
+        background: #3b4048;
+    }
+
+    [data-theme="light"] .toggle:not(.on):hover {
+        background: #c2c8d1;
+    }
+
+    .toggle.on:hover {
+        box-shadow: 0 0 12px rgba(114, 137, 218, 0.7);
+    }
+
+    .field:hover:not(:disabled):not(:focus) {
+        border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    [data-theme="light"] .field:hover:not(:disabled):not(:focus) {
+        border-color: rgba(0, 0, 0, 0.18);
+    }
+
+    .xy-cell:hover {
+        border-color: rgba(114, 137, 218, 0.3);
+    }
+
+    .group-head:hover {
+        background: var(--bg-item-hover);
+    }
+
+    .ctl input[type="range"]:hover::-webkit-slider-thumb {
+        transform: scale(1.2);
+    }
+
+    .ctl input[type="range"]:hover::-moz-range-thumb {
+        transform: scale(1.2);
+    }
+
+    .chip-btn.danger:hover:not(:disabled) {
+        color: #ff7b7b;
+    }
+
+    #exportBtn:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 26px var(--accent-glow);
+        filter: brightness(1.06);
+    }
+}
+
+/* ── Pressed: scale .97 on every control ── */
+.chip-btn:active:not(:disabled),
+.tool-btn:active,
+.icon-btn-sm:active:not(:disabled),
+.section-pill:active:not(:disabled),
+.version-tab:active:not(:disabled),
+.modal-tab:active,
+.path-copy:active,
+.export-opt:active,
+.mobile-switch button:active,
+.anchor-cell:active,
+.tut-card:active,
+.tut-vid a:active,
+.toggle:active:not(:disabled),
+.ws-sidebar-foot .btn:active:not(:disabled),
+.modal-foot .btn:active:not(:disabled),
+#exportBtn:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+.search-clear:active {
+    transform: translateY(-50%) scale(0.97);
+}
+
+.ctl input[type="range"]:active::-webkit-slider-thumb {
+    transform: scale(1.15);
+}
+
+.ctl input[type="range"]:active::-moz-range-thumb {
+    transform: scale(1.15);
+}
+
+/* ── Disabled ── */
+.chip-btn:disabled, .tool-btn:disabled, .section-pill:disabled, .version-tab:disabled,
+.modal-tab:disabled, .search-clear:disabled, .toggle:disabled, .ws-sidebar-foot .btn:disabled,
+.modal-foot .btn:disabled, #exportBtn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.field:disabled,
+.xy-cell:has(input:disabled),
+.ctl input[type="range"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.ctl input[type="range"]:disabled::-webkit-slider-thumb {
+    cursor: not-allowed;
+}
+
+/* ── Primary action: Export is the one solid, glowing control in the workspace ── */
+#exportBtn {
+    position: relative;
+    width: 100%;
+    min-height: 48px;
+    padding: 13px 18px;
+    font-size: 0.92rem;
+    letter-spacing: 0.01em;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    border: 1px solid transparent;
+    box-shadow: 0 8px 22px var(--accent-glow);
+}
+
+#exportBtn:active:not(:disabled) {
+    box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+/* Unexported edits: a dot on the button (Zeigarnik). */
+.unsaved-dot {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--pink);
+    box-shadow: 0 0 0 2px var(--bg);
+    transform: scale(0);
+    transition: transform var(--dur-base) var(--ease-spring);
+    pointer-events: none;
+}
+
+#exportBtn.has-unsaved .unsaved-dot {
+    transform: scale(1);
+}
+
+/* Busy: async export in progress. Shown as progress, not as disabled. */
+#exportBtn.is-busy,
+#exportBtn.is-busy:disabled {
+    opacity: 0.9;
+    cursor: progress;
+    transform: none;
+    box-shadow: 0 8px 22px var(--accent-glow);
+}
+
+/* ── Feedback: changed-value flash ── */
+.ctl-flash {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--accent-bg);
+    box-shadow: inset 0 0 0 1px var(--accent-glow);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ── Labelled chunks for flat settings (Miller's law) ── */
+.chunk {
+    background: var(--bg-item);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-group);
+    padding: var(--pad-group);
+}
+
+.chunk-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+}
+
+.chunk-label {
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-hover);
+}
+
+[data-theme="light"] .chunk-label {
+    color: var(--accent);
+}
+
+.chunk-count {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+
+.chunk-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 8px;
+    border-radius: var(--radius-ctl);
+    background: rgba(0, 0, 0, 0.14);
+}
+
+[data-theme="light"] .chunk-body {
+    background: rgba(0, 0, 0, 0.025);
+}
+
+/* ── Staggered row entrance on load and section change (--i set in JS) ── */
+.controls-list.stagger > * {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+    transition-delay: calc(min(var(--i, 0), var(--stagger-max)) * var(--stagger));
+}
+
+.controls-list.stagger.is-in > * {
+    opacity: 1;
+    transform: none;
+}
+
+/* ── Panel and view switches: fade and slide ── */
+@keyframes panel-in {
+    from { opacity: 0; transform: translateX(8px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.view-in {
+    animation: panel-in var(--dur-base) var(--ease-out) both;
+}
+
+@media (max-width: 900px) {
+    .ws-sidebar:not(.mobile-hidden),
+    .ws-preview:not(.mobile-hidden) {
+        animation: panel-in var(--dur-base) var(--ease-out) both;
+    }
+}
+
+/* ── Narrow phones: tighten padding, and the nested radii follow ── */
+@media (max-width: 360px) {
+    :root {
+        --pad-group: 6px;
+    }
+
+    .editor-toolbar {
+        gap: 8px;
+    }
+
+    .version-tab {
+        padding: 0 10px;
+    }
+
+    .section-pill {
+        padding: 6px 10px;
+    }
+
+    .ws-sidebar-head {
+        padding: 14px 12px 12px;
+    }
+
+    .scroll-body {
+        padding: 10px 12px;
+    }
+
+    .ws-sidebar-foot {
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .ws-preview-bar {
+        flex-wrap: wrap;
+        padding: 10px 12px;
+    }
+
+    .ws-preview-body {
+        padding: 10px;
+    }
+
+    .hud-inspector {
+        font-size: 0.62rem;
+    }
+}
+
+/* ── Touch: 44px hit areas without changing the visual size ── */
+@media (pointer: coarse) {
+    .version-tabs {
+        height: var(--hit);
+    }
+
+    .version-tab {
+        min-height: 38px;
+    }
+
+    .chip-btn {
+        min-height: var(--hit);
+        padding: 10px 14px;
+    }
+
+    .tool-btn {
+        position: relative;
+        width: 40px;
+        height: 40px;
+    }
+
+    .tool-btn::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+    }
+
+    .icon-btn-sm {
+        position: relative;
+    }
+
+    .icon-btn-sm::before {
+        content: '';
+        position: absolute;
+        inset: -8px;
+    }
+
+    .toggle::before {
+        content: '';
+        position: absolute;
+        inset: -11px -10px;
+    }
+
+    .search-clear::before {
+        content: '';
+        position: absolute;
+        inset: -10px;
+    }
+
+    .section-pill {
+        position: relative;
+        min-height: 36px;
+    }
+
+    .section-pill::before {
+        content: '';
+        position: absolute;
+        inset: -4px 0;
+    }
+
+    .modal-tab {
+        min-height: var(--hit);
+    }
+
+    .path-copy {
+        min-height: var(--hit);
+        padding: 10px 14px;
+    }
+
+    .export-opt {
+        min-height: 56px;
+    }
+
+    .mobile-switch button {
+        min-height: var(--hit);
+    }
+
+    .view-tab {
+        padding: 10px 0;
+    }
+
+    .group-head {
+        min-height: var(--hit);
+    }
+
+    .field {
+        min-height: var(--hit);
+    }
+
+    .ctl input[type="range"] {
+        height: 28px;
+        background: linear-gradient(var(--surface-hover), var(--surface-hover)) center / 100% 5px no-repeat;
+    }
+
+    [data-theme="light"] .ctl input[type="range"] {
+        background: linear-gradient(#d8dbe1, #d8dbe1) center / 100% 5px no-repeat;
+    }
+
+    .ctl input[type="range"]::-webkit-slider-thumb,
+    .ctl input[type="range"]::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* ── Reduced motion: keep colour and state changes, drop movement ── */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --dur-fast: 0ms;
+        --dur-base: 0ms;
+        --stagger: 0ms;
+    }
+
+    *, *::before, *::after {
+        animation-duration: 1ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 1ms !important;
+        transition-delay: 0ms !important;
+    }
+
+    .controls-list.stagger > * {
+        opacity: 1;
+        transform: none;
+    }
+
+    .chip-btn:active, .tool-btn:active, .icon-btn-sm:active, .section-pill:active,
+    .version-tab:active, .modal-tab:active, .path-copy:active, .export-opt:active,
+    .mobile-switch button:active, .anchor-cell:active, .tut-card:active, .tut-vid a:active,
+    .toggle:active, .ws-sidebar-foot .btn:active, .modal-foot .btn:active, #exportBtn:active,
+    #exportBtn:hover {
+        transform: none;
+    }
+
+    .ctl input[type="range"]:hover::-moz-range-thumb,
+    .ctl input[type="range"]:active::-moz-range-thumb {
+        transform: none;
+    }
+
+    .ctl input[type="range"]:hover::-webkit-slider-thumb,
+    .ctl input[type="range"]:active::-webkit-slider-thumb {
+        transform: none;
+    }
+
+    .search-clear:active {
+        transform: translateY(-50%);
+    }
+
+    .ctl-flash {
+        display: none;
     }
 }

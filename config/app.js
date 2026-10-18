@@ -76,6 +76,7 @@
   const clone = (o) => (typeof structuredClone === 'function' ? structuredClone(o) : JSON.parse(JSON.stringify(o)));
   const $ = (id) => document.getElementById(id);
   const coarse = () => window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  const reduceMotion = () => !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   function h(tag, attrs, children) {
     const e = document.createElement(tag);
@@ -109,6 +110,8 @@
   let expandedGroups = {};
   let selectedId = null;
   let showBackground = true;
+  let staggerNext = false;     // the next renderControls() staggers its rows in
+  let unexported = false;      // config has changed since the last export
   let theme = (() => { try { return localStorage.getItem('gc-theme') === 'light' ? 'light' : 'dark'; } catch (e) { return 'dark'; } })();
 
   /* ── Config mutation ────────────────────────────────────────── */
@@ -126,6 +129,7 @@
     cur[path[path.length - 1]] = value;
     if (!skipHistory) pushHistory(prev);
     config = next;
+    setUnexported(true);
     syncDerived();
     if (rerender === 'controls' || rerender === 'all') renderControls();
     if (rerender === 'all') renderView();
@@ -134,6 +138,7 @@
   function setConfig(next, withHistory) {
     if (withHistory) pushHistory(config);
     config = next;
+    setUnexported(true);
     syncDerived();
   }
 
@@ -206,40 +211,75 @@
   }
 
   /* ── Control renderers ──────────────────────────────────────── */
+  /* Tolerant value entry (Postel's law): whitespace is trimmed, a comma works
+     as a decimal point, and out-of-range values are clamped on commit rather
+     than rejected. The stored format is unchanged. */
+  function parseNum(raw) {
+    const s = String(raw == null ? '' : raw).trim().replace(',', '.');
+    if (s === '' || s === '-' || s === '.') return null;
+    const n = Number(s);
+    return Number.isFinite(n) ? n : null;
+  }
+  function clampFor(key, n) {
+    if (key.includes('opacity')) return Math.min(1, Math.max(0, n));
+    if (/size|scale/.test(key)) return Math.max(0, n);
+    return n;
+  }
+  // Runs on change (blur or Enter): clamps, normalises the shown value, flashes.
+  function commitNum(input, section, key, idx) {
+    const cur = config[section][key];
+    const curV = idx == null ? cur : cur[idx];
+    const n = parseNum(input.value);
+    if (n === null) { input.value = String(curV); return; }
+    const v = clampFor(key, n);
+    input.value = String(v);
+    if (v !== curV) {
+      if (idx == null) updateConfig([section, key], v, true, 'none');
+      else { const arr = cur.slice(); arr[idx] = v; updateConfig([section, key], arr, true, 'none'); }
+    }
+    flashControl(input.closest('.ctl'));
+  }
+
   function ctlToggle(section, key, value, isChild) {
-    const btn = h('button', { class: 'toggle' + (value ? ' on' : ''), 'aria-pressed': value, 'aria-label': 'Toggle ' + formatLabel(key) });
-    btn.addEventListener('click', () => updateConfig([section, key], !value, false, 'controls'));
-    return h('div', { class: 'ctl' + (isChild ? ' child' : '') }, [
+    const btn = h('button', { class: 'toggle' + (value ? ' on' : ''), 'aria-pressed': String(!!value), 'aria-label': 'Toggle ' + formatLabel(key) });
+    btn.addEventListener('click', () => { updateConfig([section, key], !value, false, 'controls'); flashKey(key); });
+    return h('div', { class: 'ctl' + (isChild ? ' child' : ''), 'data-key': key }, [
       h('div', { class: 'ctl-row' }, [h('label', { class: 'ctl-label', text: formatLabel(key) }), btn]),
     ]);
   }
 
   function ctlOpacity(section, key, value, isChild) {
     const valEl = h('span', { class: 'range-val', text: Math.round(value * 100) + '%' });
-    const input = h('input', { type: 'range', min: '0', max: '1', step: '0.01', value: String(value) });
+    const input = h('input', { type: 'range', min: '0', max: '1', step: '0.01', value: String(value), 'aria-label': formatLabel(key) });
     input.addEventListener('input', (e) => {
       const v = parseFloat(e.target.value);
       valEl.textContent = Math.round(v * 100) + '%';
       updateConfig([section, key], v, false, 'none');
     });
-    return h('div', { class: 'ctl' + (isChild ? ' child' : '') }, [
+    input.addEventListener('change', () => flashControl(input.closest('.ctl')));
+    return h('div', { class: 'ctl' + (isChild ? ' child' : ''), 'data-key': key }, [
       h('div', { class: 'range-head' }, [h('label', { class: 'ctl-label accent dim', text: formatLabel(key) }), valEl]),
       input,
     ]);
   }
 
   function ctlNumber(section, key, value, isChild) {
-    const input = h('input', { class: 'field', type: 'number', value: String(value) });
-    input.addEventListener('input', (e) => updateConfig([section, key], parseFloat(e.target.value) || 0, false, 'none'));
-    return h('div', { class: 'ctl' + (isChild ? ' child' : '') }, [
+    const input = h('input', { class: 'field num', type: 'text', inputmode: 'decimal', autocomplete: 'off', spellcheck: 'false', value: String(value) });
+    input.addEventListener('input', () => {
+      const n = parseNum(input.value);
+      if (n !== null) updateConfig([section, key], n, false, 'none');
+    });
+    input.addEventListener('change', () => commitNum(input, section, key, null));
+    return h('div', { class: 'ctl' + (isChild ? ' child' : ''), 'data-key': key }, [
       h('label', { class: 'ctl-label dim ctl-sub', text: formatLabel(key) }), input,
     ]);
   }
 
   function ctlString(section, key, value, isChild) {
-    const input = h('input', { class: 'field', type: 'text', value: String(value) });
+    const input = h('input', { class: 'field', type: 'text', autocomplete: 'off', spellcheck: 'false', value: String(value) });
     input.addEventListener('input', (e) => updateConfig([section, key], e.target.value, false, 'none'));
-    return h('div', { class: 'ctl' + (isChild ? ' child' : '') }, [
+    input.addEventListener('change', () => flashControl(input.closest('.ctl')));
+    return h('div', { class: 'ctl' + (isChild ? ' child' : ''), 'data-key': key }, [
       h('label', { class: 'ctl-label dim ctl-sub', text: formatLabel(key) }), input,
     ]);
   }
@@ -247,16 +287,18 @@
   function ctlArray(section, key, value, isChild) {
     const isSize = key.includes('size');
     const mk = (idx, lbl) => {
-      const inp = h('input', { type: 'number', value: String(value[idx]) });
-      inp.addEventListener('input', (e) => {
-        const v = parseFloat(e.target.value) || 0;
-        const arr = idx === 0 ? [v, value[1]] : [value[0], v];
-        value = arr;
+      const inp = h('input', { class: 'num', type: 'text', inputmode: 'decimal', autocomplete: 'off', spellcheck: 'false', value: String(value[idx]), 'aria-label': (isSize ? (idx ? 'Height' : 'Width') : (idx ? 'Y' : 'X')) + ' ' + formatLabel(key) });
+      inp.addEventListener('input', () => {
+        const n = parseNum(inp.value);
+        if (n === null) return;
+        const arr = config[section][key].slice();
+        arr[idx] = n;
         updateConfig([section, key], arr, false, 'none');
       });
+      inp.addEventListener('change', () => commitNum(inp, section, key, idx));
       return h('div', { class: 'xy-cell' }, [h('span', { text: lbl }), inp]);
     };
-    return h('div', { class: 'ctl' + (isChild ? ' child' : '') }, [
+    return h('div', { class: 'ctl' + (isChild ? ' child' : ''), 'data-key': key }, [
       h('label', { class: 'ctl-label dim ctl-sub', text: formatLabel(key) }),
       h('div', { class: 'xy-row' }, [mk(0, isSize ? 'W' : 'X'), mk(1, isSize ? 'H' : 'Y')]),
     ]);
@@ -276,13 +318,13 @@
     const enabled = data.root ? sec[data.root] === true : true;
     const open = !!expandedGroups[groupId];
 
-    const wrap = h('div', { class: 'group' + (open ? ' open' : '') });
-    const head = h('div', { class: 'group-head' });
+    const wrap = h('div', { class: 'group' + (open ? ' open' : ''), 'data-key': groupId });
+    const head = h('div', { class: 'group-head', tabindex: '0' });
     const left = h('div', { class: 'group-head-left' });
 
     if (data.root) {
       const tg = h('button', { class: 'toggle' + (enabled ? ' on' : ''), 'aria-label': 'Toggle ' + groupId.replace(/_/g, ' ') });
-      tg.addEventListener('click', (e) => { e.stopPropagation(); updateConfig([activeSection, data.root], !enabled, false, 'controls'); });
+      tg.addEventListener('click', (e) => { e.stopPropagation(); updateConfig([activeSection, data.root], !enabled, false, 'controls'); flashKey(groupId); });
       left.appendChild(tg);
     }
     left.appendChild(moduleIcon(groupId));
@@ -292,7 +334,14 @@
     ]));
     head.appendChild(left);
     head.appendChild(h('i', { class: 'fas fa-chevron-down group-chevron' }));
-    head.addEventListener('click', () => { expandedGroups[groupId] = !open; renderControls(); });
+    const toggleOpen = () => { expandedGroups[groupId] = !open; renderControls(); };
+    head.addEventListener('click', toggleOpen);
+    // The header is a div (it holds the enable switch), so it needs keyboard
+    // handling of its own. Only keys pressed on the header itself count.
+    head.addEventListener('keydown', (e) => {
+      if (e.target !== head) return;
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleOpen(); }
+    });
     wrap.appendChild(head);
 
     if (open) {
@@ -312,11 +361,44 @@
     return wrap;
   }
 
+  // Flat settings become labelled chunks (Miller's law). A shared prefix with
+  // three or more keys forms its own chunk; the rest go to "General", split
+  // into pieces of at most eight so no single region gets long.
+  const prefixOf = (k) => k.replace(/^\$/, '').split(/[_|]/)[0];
+  function chunkStandalones(keys) {
+    const counts = {};
+    keys.forEach((k) => { const p = prefixOf(k); counts[p] = (counts[p] || 0) + 1; });
+    const byPrefix = {};
+    const out = [];
+    const general = [];
+    keys.forEach((k) => {
+      const p = prefixOf(k);
+      if (counts[p] >= 3) {
+        if (!byPrefix[p]) {
+          byPrefix[p] = { label: p.charAt(0).toUpperCase() + p.slice(1), keys: [] };
+          out.push(byPrefix[p]);
+        }
+        byPrefix[p].keys.push(k);
+      } else {
+        general.push(k);
+      }
+    });
+    if (general.length) {
+      const pieces = Math.ceil(general.length / 8);
+      const size = Math.ceil(general.length / pieces);
+      for (let i = 0; i < pieces; i++) {
+        out.push({ label: pieces > 1 ? 'General ' + (i + 1) : 'General', keys: general.slice(i * size, (i + 1) * size) });
+      }
+    }
+    return out;
+  }
+
   function renderControls() {
     const scroll = $('controlsScroll');
     const keepTop = scroll ? scroll.scrollTop : 0;
     const list = $('controlsList');
     list.innerHTML = '';
+    list.classList.remove('stagger', 'is-in');
     const sec = config[activeSection];
     if (!sec) return;
 
@@ -331,13 +413,34 @@
     }
 
     groupEntries.forEach(([id, d]) => list.appendChild(renderGroup(id, d)));
-    standaloneKeys.forEach((k) => { const c = renderControl(activeSection, k, sec[k], false); if (c) list.appendChild(c); });
+    chunkStandalones(standaloneKeys).forEach((c) => {
+      const body = h('div', { class: 'chunk-body' });
+      c.keys.forEach((k) => { const ctl = renderControl(activeSection, k, sec[k], false); if (ctl) body.appendChild(ctl); });
+      list.appendChild(h('div', { class: 'chunk' }, [
+        h('div', { class: 'chunk-head' }, [
+          h('span', { class: 'chunk-label', text: c.label }),
+          h('span', { class: 'chunk-count', text: c.keys.length + ' ' + (c.keys.length === 1 ? 'setting' : 'settings') }),
+        ]),
+        body,
+      ]));
+    });
 
     if (groupEntries.length + standaloneKeys.length === 0) {
       list.appendChild(h('div', { class: 'empty-state' }, [
         h('i', { class: 'fas fa-magnifying-glass' }),
         h('p', { text: searchTerm ? 'No matches for "' + searchTerm + '"' : 'No settings in this section' }),
       ]));
+    }
+    // Staggered entrance after a section or version change. The CSS delay is
+    // calc(var(--i) * --stagger), capped; reduced motion skips it entirely.
+    if (staggerNext) {
+      staggerNext = false;
+      if (!reduceMotion() && list.children.length) {
+        Array.from(list.children).forEach((el, i) => el.style.setProperty('--i', String(i)));
+        list.classList.add('stagger');
+        requestAnimationFrame(() => requestAnimationFrame(() => list.classList.add('is-in')));
+        setTimeout(() => list.classList.remove('stagger', 'is-in'), 1400);
+      }
     }
     if (scroll) scroll.scrollTop = keepTop;
   }
@@ -351,8 +454,8 @@
     const wrap = $('sectionPills');
     wrap.innerHTML = '';
     availableSections().forEach((sec) => {
-      const b = h('button', { class: 'section-pill' + (sec === activeSection ? ' active' : ''), text: sectionLabel(sec) });
-      b.addEventListener('click', () => { activeSection = sec; selectedId = null; renderSectionPills(); renderControls(); });
+      const b = h('button', { class: 'section-pill' + (sec === activeSection ? ' active' : ''), 'aria-pressed': String(sec === activeSection), text: sectionLabel(sec) });
+      b.addEventListener('click', () => { activeSection = sec; selectedId = null; staggerNext = true; renderSectionPills(); renderControls(); });
       wrap.appendChild(b);
     });
   }
@@ -361,7 +464,7 @@
     const wrap = $('versionTabs');
     wrap.innerHTML = '';
     VERSIONS.forEach((v) => {
-      const b = h('button', { class: 'version-tab' + (v === version ? ' active' : ''), text: v.toUpperCase() });
+      const b = h('button', { class: 'version-tab' + (v === version ? ' active' : ''), 'aria-pressed': String(v === version), text: v.toUpperCase() });
       b.addEventListener('click', () => selectVersion(v));
       wrap.appendChild(b);
     });
@@ -376,6 +479,8 @@
     config = clone(DEFAULT_CONFIGS[v]);
     history = []; redoStack = [];
     selectedId = null; searchTerm = ''; expandedGroups = {};
+    staggerNext = true;
+    setUnexported(false);
     const secs = availableSections();
     activeSection = secs.length ? secs[0] : HUD_SECTION;
     $('searchInput').value = '';
@@ -391,6 +496,8 @@
   function renderView() {
     const wrap = $('viewBody');
     wrap.innerHTML = '';
+    // Restart the fade-and-slide entrance for each view switch.
+    wrap.classList.remove('view-in'); void wrap.offsetWidth; wrap.classList.add('view-in');
     const isRaw = activeView === 'raw';
     $('copyBtn').style.display = isRaw ? '' : 'none';
     $('bgToggle').style.display = isRaw ? 'none' : '';
@@ -687,6 +794,7 @@
         rawStatusEl.className = 'raw-status ok';
         rawStatusEl.innerHTML = '<i class="fas fa-check-circle"></i><span>Valid JSON · live synced</span>';
         config = parsed; // raw edits don't push history (mirrors React setConfig)
+        setUnexported(true);
       } catch (err) {
         rawArea.classList.add('invalid');
         rawStatusEl.className = 'raw-status err';
@@ -722,6 +830,7 @@
     afterBulkChange();
   }
   function afterBulkChange() {
+    setUnexported(true);
     if (!availableSections().includes(activeSection)) { const s = availableSections(); activeSection = s.length ? s[0] : HUD_SECTION; }
     renderSectionPills(); renderControls(); syncDerived(); renderView();
   }
@@ -739,7 +848,8 @@
     const url = URL.createObjectURL(blob);
     const a = h('a', { href: url, download: 'config.json' });
     a.click(); URL.revokeObjectURL(url);
-    toast('config.json exported');
+    setUnexported(false);
+    toast('Exported! config.json');
   }
   function importJSON(file) {
     const reader = new FileReader();
@@ -785,6 +895,8 @@
   }
   async function downloadPack() {
     if (typeof JSZip === 'undefined') { toast('Pack builder still loading…', true); return; }
+    const btn = $('exportBtn');
+    setBusy(btn, true);
     try {
       const zip = new JSZip();
       // All three files sit at the pack root, next to manifest.json.
@@ -796,8 +908,10 @@
       } catch (e) { /* icon optional */ }
       const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
       saveBlob(blob, 'Glacier-Config.mcpack');
-      toast('Config pack downloaded');
+      setUnexported(false);
+      toast('Exported! Config pack downloaded');
     } catch (e) { toast('Pack export failed', true); }
+    finally { setBusy(btn, false); }
   }
 
   /* ── Theme ──────────────────────────────────────────────────── */
@@ -813,12 +927,50 @@
   let toastTimer = null;
   function toast(msg, isErr) {
     const t = $('toast');
+    const icon = t.querySelector('i');
     $('toastMsg').textContent = msg;
-    t.querySelector('i').className = isErr ? 'fas fa-triangle-exclamation' : 'fas fa-check-circle';
-    t.querySelector('i').style.color = isErr ? 'var(--red)' : 'var(--green)';
+    t.classList.toggle('is-error', !!isErr);
+    icon.className = isErr ? 'fas fa-triangle-exclamation' : 'fas fa-check-circle';
+    // Restart the slide-in when a second message arrives while one is showing.
+    t.classList.remove('show');
+    void t.offsetWidth;
     t.classList.add('show');
     if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+    toastTimer = setTimeout(() => t.classList.remove('show'), isErr ? 3200 : 2200);
+  }
+
+  /* ── Feedback helpers ───────────────────────────────────────── */
+  // Export button: dot while there are unexported edits, title explains it.
+  function setUnexported(v) {
+    unexported = !!v;
+    const b = $('exportBtn');
+    if (!b) return;
+    b.classList.toggle('has-unsaved', unexported);
+    b.title = unexported ? 'Unexported changes: export to keep them' : '';
+  }
+  // Async work on a button: disabled, spinner in place of the leading icon.
+  function setBusy(btn, on) {
+    if (!btn) return;
+    btn.disabled = !!on;
+    btn.classList.toggle('is-busy', !!on);
+    btn.setAttribute('aria-busy', on ? 'true' : 'false');
+    const ic = btn.querySelector(':scope > i:first-child');
+    if (!ic) return;
+    if (on) { ic.dataset.idle = ic.className; ic.className = 'fas fa-spinner fa-spin'; }
+    else if (ic.dataset.idle) { ic.className = ic.dataset.idle; delete ic.dataset.idle; }
+  }
+  // Briefly highlight a control that just changed. Uses Web Animations on an
+  // overlay (opacity only); skipped entirely under reduced motion.
+  function flashControl(el) {
+    if (!el || reduceMotion() || typeof el.animate !== 'function') return;
+    const o = h('span', { class: 'ctl-flash', 'aria-hidden': 'true' });
+    el.appendChild(o);
+    const anim = o.animate([{ opacity: 0.9 }, { opacity: 0 }], { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' });
+    anim.onfinish = () => o.remove();
+  }
+  function flashKey(key) {
+    const k = window.CSS && CSS.escape ? CSS.escape(key) : key;
+    flashControl(document.querySelector('#controlsList [data-key="' + k + '"]'));
   }
 
   /* ── Mobile view switch ─────────────────────────────────────── */
@@ -939,6 +1091,7 @@
     var yr = $('currentYear'); if (yr) yr.textContent = new Date().getFullYear();
     renderVersionTabs();
     renderSectionPills();
+    staggerNext = true;
     renderControls();
     renderView();
     syncDerived();

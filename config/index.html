@@ -145,6 +145,7 @@
                             <button class="btn btn-primary" id="exportBtn" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-download" aria-hidden="true"></i> Export <i
                                     class="fas fa-chevron-up caret" aria-hidden="true"></i>
+                                <span class="unsaved-dot" aria-hidden="true"></span>
                             </button>
                             <div class="export-menu" id="exportMenu" role="menu">
                                 <button class="export-opt" id="optPack" role="menuitem">
@@ -308,7 +309,7 @@
         </div>
     </div>
 
-    <div class="editor-toast" id="toast"><i class="fas fa-check-circle" aria-hidden="true"></i><span
+    <div class="editor-toast" id="toast" role="status" aria-live="polite"><i class="fas fa-check-circle" aria-hidden="true"></i><span
             id="toastMsg"></span></div>
 
     <script src="config-data.js?v=20260902203329"></script>
