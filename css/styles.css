@@ -21,12 +21,56 @@
     --orange: #faa61a;
 
     /* Spacing & Sizing */
+    --r-xs: 8px;
     --r-sm: 12px;
     --r-md: 18px;
     --r-lg: 28px;
     --r-pill: 9999px;
+
+    /* Nested corners: an inner radius is the outer radius minus the inset the
+       nested panel sits at, so the two curves stay concentric. --pad-nest is that
+       inset; --r-inner is the result, floored at --r-xs so a tight inset never
+       collapses a panel to square corners. */
+    --pad-nest: 8px;
+    --r-inner: max(var(--r-xs), calc(var(--r-md) - var(--pad-nest)));
+
+    /* 4px base spacing scale. Prefer gap/margin from this scale over borders
+       when grouping content. */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-7: 32px;
+    --space-8: 40px;
+
+    /* Type scale. Body copy stays at 1rem; larger roles scale with the viewport. */
+    --fs-xs: 0.75rem;
+    --fs-sm: 0.875rem;
+    --fs-base: 1rem;
+    --fs-md: 1.125rem;
+    --fs-lg: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+    --fs-xl: clamp(1.45rem, 1.2rem + 1vw, 1.9rem);
+    --fs-2xl: clamp(2rem, 1.6rem + 1.8vw, 2.9rem);
+    --fs-3xl: clamp(2.2rem, 1.2rem + 3.6vw, 4rem);
+
+    /* Icon optical sizes. Glyphs that play the same role use the same step. */
+    --icon-sm: 0.85rem;
+    --icon-md: 1.1rem;
+    --icon-lg: 1.6rem;
+
+    /* Motion. Hover and press transitions finish within --dur-base (250ms).
+       Entrances may run to --dur-slow. */
+    --dur-fast: 150ms;
+    --dur-base: 250ms;
+    --dur-slow: 450ms;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --stagger-step: 60ms;
+
     /* Apple-style smooth deceleration curve, used for nearly all UI motion. */
-    --t: 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+    --t: 0.25s cubic-bezier(0.32, 0.72, 0, 1);
     --blur: 14px;
     --ctl-h: 40px;
 
@@ -68,7 +112,7 @@
     --text-muted: var(--text-dim);
     --ease: cubic-bezier(0.32, 0.72, 0, 1);
     --fast: 0.2s;
-    --normal: 0.32s;
+    --normal: 0.25s;
     --slow: 0.55s;
     --radius: 18px;
     --pill: 9999px;
@@ -121,10 +165,12 @@ html {
     border: 3px solid transparent;
     border-radius: var(--pill);
     transition: background-color var(--fast) var(--ease);
-}
+}@media (hover: hover) {
+
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--blurple);
+}
 }
 
 ::-webkit-scrollbar-corner {
@@ -196,10 +242,12 @@ html {
 
 [data-theme="light"] .search-modal-top {
     border-bottom-color: rgba(0, 0, 0, 0.08);
-}
+}@media (hover: hover) {
+
 
 [data-theme="light"] .search-result-item:hover {
     background: rgba(114, 137, 218, .1);
+}
 }
 
 [data-theme="light"] .skeleton::after {
@@ -358,10 +406,12 @@ header {
     font-size: .85rem;
     cursor: pointer;
     transition: background var(--t);
-}
+}@media (hover: hover) {
+
 
 .update-bar-refresh:hover {
     background: rgba(255, 255, 255, .3);
+}
 }
 
 .update-bar-dismiss {
@@ -373,10 +423,12 @@ header {
     font-size: 1rem;
     line-height: 1;
     padding: 4px;
-}
+}@media (hover: hover) {
+
 
 .update-bar-dismiss:hover {
     color: #fff;
+}
 }
 
 /* ── Announcement + donation popups (bottom-right) ──
@@ -428,10 +480,12 @@ header {
 
 #donateBanner .toast-cta {
     background: var(--pink);
-}
+}@media (hover: hover) {
+
 
 #donateBanner .toast-cta:hover {
     background: #f25cae;
+}
 }
 
 .toast-icon {
@@ -489,15 +543,19 @@ header {
 .toast-cta::after {
     content: '→';
     transition: transform var(--fast) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .toast-cta:hover {
     background: var(--accent-hover);
     transform: translateY(-1px);
 }
+}@media (hover: hover) {
+
 
 .toast-cta:hover::after {
     transform: translateX(3px);
+}
 }
 
 #toastClose,
@@ -514,12 +572,14 @@ header {
     line-height: 1;
     border-radius: 6px;
     transition: color var(--fast) var(--ease), background var(--fast) var(--ease);
-}
+}@media (hover: hover) {
+
 
 #toastClose:hover,
 #donateClose:hover {
     color: var(--text);
     background: var(--bg-item-hover);
+}
 }
 
 #searchModal {
@@ -609,10 +669,12 @@ header {
     padding: 4px 6px;
     transition: color var(--fast) var(--ease);
     flex-shrink: 0;
-}
+}@media (hover: hover) {
+
 
 #searchClose:hover {
     color: var(--text);
+}
 }
 
 .search-results {
@@ -642,10 +704,12 @@ header {
     border-radius: 8px;
     cursor: pointer;
     transition: background var(--fast) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .search-result-item:hover {
     background: rgba(114, 137, 218, .15);
+}
 }
 
 .search-result-icon-img {
@@ -751,11 +815,13 @@ body.has-toast #backToTop {
     opacity: 1;
     transform: translateY(0);
     pointer-events: all;
-}
+}@media (hover: hover) {
+
 
 #backToTop:hover {
     box-shadow: 0 0 28px var(--accent-glow);
     transform: translateY(-3px);
+}
 }
 
 /* ── Quick-actions dock (right rail) ──
@@ -793,14 +859,15 @@ body.has-toast #backToTop {
     color: var(--text-dim);
     background: var(--bg-item);
     border: 1px solid transparent;
-    font-size: 1rem;
+    font-size: var(--icon-md);
     text-decoration: none;
     cursor: pointer;
-    transition: transform 0.32s var(--ease),
-                background 0.28s var(--ease),
-                color 0.28s var(--ease),
-                box-shadow 0.28s var(--ease);
-}
+    transition: transform var(--dur-base) var(--ease-out),
+                background var(--dur-base) var(--ease-out),
+                color var(--dur-base) var(--ease-out),
+                box-shadow var(--dur-base) var(--ease-out);
+}@media (hover: hover) {
+
 
 .quick-action:hover {
     color: #fff;
@@ -808,11 +875,14 @@ body.has-toast #backToTop {
     transform: translateY(-2px) scale(1.06);
     box-shadow: 0 8px 20px var(--accent-glow);
 }
+}
 
-/* Discord wears its own brand colour on hover. */
+/* Discord wears its own brand colour on hover. */@media (hover: hover) {
+
 .quick-action--discord:hover {
     background: #5865F2;
     box-shadow: 0 8px 20px rgba(88, 101, 242, 0.5);
+}
 }
 
 /* Tactile press — eases in, snaps back via the resting transition. */
@@ -911,10 +981,12 @@ header.scrolled::before {
     border-radius: 8px;
     flex-shrink: 0;
     transition: transform var(--t);
-}
+}@media (hover: hover) {
+
 
 .branding:hover .logo-icon {
     transform: rotate(-8deg) scale(1.12);
+}
 }
 
 .branding-text {
@@ -987,18 +1059,28 @@ header.scrolled::before {
     border: none;
     cursor: pointer;
     font-family: inherit;
-    transition: color var(--t), background var(--t), box-shadow var(--t);
-}
+    transition: color var(--t), background var(--t), box-shadow var(--t), transform var(--dur-fast) var(--ease-out);
+}@media (hover: hover) {
+
 
 .nav-tab:hover:not(.active) {
     color: var(--text);
     background: rgba(255, 255, 255, 0.08);
 }
+}
 
+/* Active tab: solid accent pill with a glow. It settles in with a short pop
+   when it becomes active, so the change in location is felt, not just seen. */
 .nav-tab.active {
     background: var(--accent);
     color: #fff;
     box-shadow: 0 0 14px var(--accent-glow);
+    animation: navPill var(--dur-base) var(--ease-out);
+}
+
+@keyframes navPill {
+    from { transform: scale(0.92); }
+    to { transform: scale(1); }
 }
 
 .header-actions {
@@ -1047,13 +1129,15 @@ header.scrolled::before {
     transition: background var(--t), border-color var(--t), color var(--t), box-shadow var(--t);
     white-space: nowrap;
     font-weight: 500;
-}
+}@media (hover: hover) {
+
 
 .search-trigger:hover {
     background: rgba(255, 255, 255, 0.10);
     border-color: rgba(114, 137, 218, 0.35);
     color: var(--text);
     box-shadow: 0 0 10px var(--accent-glow);
+}
 }
 
 .search-trigger i {
@@ -1078,12 +1162,14 @@ header.scrolled::before {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     transition: color var(--t), background var(--t), box-shadow var(--t);
     flex-shrink: 0;
-}
+}@media (hover: hover) {
+
 
 .header-icon-btn:hover {
     color: var(--text);
     background: rgba(255, 255, 255, 0.12);
     box-shadow: 0 0 12px var(--accent-glow);
+}
 }
 
 .mobile-menu-btn {
@@ -1101,17 +1187,18 @@ header.scrolled::before {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-}
+}@media (hover: hover) {
+
 
 .mobile-menu-btn:hover {
 	    background: rgba(255, 255, 255, 0.08);
 	    color: var(--text);
 	}
+}
 
 main {
     margin-top: 72px;
     min-height: calc(100vh - 220px);
-    transition: margin-top var(--normal) var(--ease);
 }
 
 .hero {
@@ -1140,6 +1227,14 @@ main {
     inset: 0;
     background: radial-gradient(circle at 20% 50%, rgba(114, 137, 218, .15) 0%, transparent 55%), radial-gradient(circle at 80% 80%, rgba(87, 242, 135, .1) 0%, transparent 55%);
     pointer-events: none;
+    /* Slow drift of the ambient glow. Transform only, so it stays on the compositor. */
+    will-change: transform;
+    animation: heroGlow 16s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(2%, -3%, 0) scale(1.06); }
 }
 
 .hero-container {
@@ -1158,7 +1253,7 @@ main {
 }
 
 .hero-title {
-    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-size: var(--fs-3xl);
     font-weight: 700;
     line-height: 1.05;
     letter-spacing: -0.025em;
@@ -1192,16 +1287,12 @@ main {
     margin-top: 6px;
 }
 
+/* Stats group by proximity (gap), not by a divider line. */
 .hero-stats {
     display: flex;
-    gap: 24px;
+    gap: var(--space-6);
     flex-wrap: wrap;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, .07);
-}
-
-[data-theme="light"] .hero-stats {
-    border-top-color: rgba(0, 0, 0, .07);
+    margin-top: var(--space-2);
 }
 
 .hero-stat {
@@ -1228,12 +1319,14 @@ main {
     box-shadow: var(--shadow);
     border: 2px solid rgba(114, 137, 218, 0);
     transition: border-color var(--normal) var(--ease), box-shadow var(--normal) var(--ease), transform var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .hero-image:hover {
     border-color: rgba(114, 137, 218, .4);
     box-shadow: var(--shadow-lg);
-    transform: translateY(-4px);
+    transform: translateY(-2px);
+}
 }
 
 .hero-image img {
@@ -1241,10 +1334,12 @@ main {
     height: auto;
     object-fit: cover;
     transition: transform var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .hero-image:hover img {
     transform: scale(1.04);
+}
 }
 
 .content-container {
@@ -1252,11 +1347,13 @@ main {
     min-height: 400px;
 }
 
+/* Section switch: navigation.js toggles .active, which displays the section and
+   plays the entrance. Opacity and transform only, so nothing reflows. */
 .content-section {
     display: none;
     opacity: 0;
-    transform: translateY(16px);
-    animation: secIn var(--slow) var(--ease) forwards;
+    transform: translateY(12px);
+    animation: secIn var(--dur-slow) var(--ease-out) forwards;
 }
 
 .content-section.active {
@@ -1264,6 +1361,7 @@ main {
 }
 
 @keyframes secIn {
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -1400,17 +1498,21 @@ main {
     font-size: 0.95rem;
     border: none;
     cursor: pointer;
-    transition: transform var(--t), box-shadow var(--t), background var(--t);
+    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out),
+                background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out),
+                border-color var(--dur-base) var(--ease-out);
     position: relative;
     overflow: hidden;
     white-space: nowrap;
     min-height: 48px;
+    line-height: 1.2;
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* Tactile press — quick spring back in, like tapping an Apple control. */
+/* Press: a 0.97 squeeze that springs back on release through the resting transition. */
 .btn:active {
-    transform: scale(0.96);
-    transition: transform 0.1s ease;
+    transform: scale(0.97);
+    transition-duration: var(--dur-fast);
 }
 
 .btn::after {
@@ -1419,11 +1521,13 @@ main {
     inset: 0;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
     transform: translateX(-100%);
-    transition: transform 0.55s;
-}
+    transition: transform var(--dur-base) var(--ease-out);
+}@media (hover: hover) {
+
 
 .btn:hover::after {
     transform: translateX(100%);
+}
 }
 
 .btn-primary {
@@ -1433,40 +1537,47 @@ main {
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-}
+}@media (hover: hover) {
+
 
 .btn-primary:hover {
     background: rgba(142, 160, 224, 0.95);
     transform: translateY(-2px);
     box-shadow: 0 0 28px var(--accent-glow);
 }
-
-.btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-dim);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
 }
 
+/* Secondary: deliberately quieter than the primary, so each view has one clear CTA. */
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-dim);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}@media (hover: hover) {
+
+
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
     color: var(--text);
     transform: translateY(-1px);
     box-shadow: 0 0 16px var(--accent-glow);
     border-color: rgba(255, 255, 255, 0.25);
+}
 }
 
 [data-theme="light"] .btn-secondary {
     background: rgba(0, 0, 0, 0.04);
     color: var(--accent);
     border-color: rgba(0, 0, 0, 0.1);
-}
+}@media (hover: hover) {
+
 
 [data-theme="light"] .btn-secondary:hover {
     background: var(--accent-bg);
     color: var(--accent);
     border-color: rgba(114, 137, 218, 0.45);
+}
 }
 
 .card-base {
@@ -1477,13 +1588,15 @@ main {
     -webkit-backdrop-filter: blur(var(--blur));
     box-shadow: var(--glass-shadow);
     transition: transform var(--t), box-shadow var(--t), border-color var(--t), background var(--t);
-}
+}@media (hover: hover) {
+
 
 .card-base:hover {
     background: var(--glass-strong);
-    box-shadow: var(--glass-shadow);
+    box-shadow: var(--shadow-lg);
     border-color: var(--glass-border-hover);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
+}
 }
 
 .skeleton {
@@ -1498,8 +1611,8 @@ main {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .04), transparent);
-    animation: shimmer 1.5s infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .07), transparent);
+    animation: shimmer 1.6s var(--ease-out) infinite;
 }
 
 @keyframes shimmer {
@@ -1542,13 +1655,15 @@ main {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
     opacity: 0.6;
     pointer-events: none;
-}
+}@media (hover: hover) {
+
 
 .feature-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     background: var(--glass-strong);
     border-color: var(--glass-border-hover);
     box-shadow: var(--shadow-lg);
+}
 }
 
 .feature-badge {
@@ -1574,7 +1689,7 @@ main {
 }
 
 .feature-icon {
-    font-size: 1.6rem;
+    font-size: var(--icon-lg);
     color: var(--accent-hover);
     margin-bottom: 22px;
     width: 58px;
@@ -1587,24 +1702,28 @@ main {
     border: 1px solid var(--glass-border);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
     transition: transform var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .feature-card:hover .feature-icon {
     transform: translateY(-2px) scale(1.06);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 8px 22px var(--accent-glow);
 }
+}
 
 .feature-title {
-    font-size: 1.32rem;
+    font-size: var(--fs-lg);
     font-weight: 600;
     letter-spacing: -0.012em;
     margin-bottom: 12px;
     color: var(--text);
     transition: color var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .feature-card:hover .feature-title {
     color: var(--blurple);
+}
 }
 
 .feature-desc {
@@ -1632,12 +1751,14 @@ main {
     background: rgba(35, 39, 42, 0.3);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-}
+}@media (hover: hover) {
+
 
 .gallery-item:hover {
-    transform: translateY(-6px) scale(1.02);
+    transform: translateY(-2px) scale(1.01);
     box-shadow: var(--shadow-lg);
     border-color: var(--blurple);
+}
 }
 
 /* contain, not cover: a screenshot loses its meaning the moment the UI it is
@@ -1651,9 +1772,11 @@ main {
 }
 
 /* A gentle lift only — the old 1.08 pushed the edges of the screenshot out of
-   the tile, which read as "zoomed in and cut off". */
+   the tile, which read as "zoomed in and cut off". */@media (hover: hover) {
+
 .gallery-item:hover img {
     transform: scale(1.02);
+}
 }
 
 .gallery-overlay {
@@ -1667,11 +1790,13 @@ main {
     opacity: 0;
     transform: translateY(8px);
     transition: opacity var(--normal) var(--ease), transform var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .gallery-item:hover .gallery-overlay {
     opacity: 1;
     transform: translateY(0);
+}
 }
 
 .community-content {
@@ -1688,11 +1813,13 @@ main {
     border: none;
     box-shadow: var(--shadow);
     transition: box-shadow var(--normal) var(--ease), transform var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .community-widget iframe:hover {
     box-shadow: var(--shadow-lg);
-    transform: translateY(-4px);
+    transform: translateY(-2px);
+}
 }
 
 .community-text h2 {
@@ -1724,15 +1851,19 @@ main {
     left: 0;
     color: var(--green);
     font-weight: 700;
-}
+}@media (hover: hover) {
+
 
 .community-text li:hover {
     color: #fff;
     transform: translateX(4px);
 }
+}@media (hover: hover) {
+
 
 [data-theme="light"] .community-text li:hover {
     color: #1a1d20;
+}
 }
 
 .social-grid {
@@ -1754,10 +1885,12 @@ main {
     /* Name the exact properties rather than `all` — `all` also transitions
        layout/colour props that should snap, and costs needless style work. */
     transition: transform var(--t), background var(--t), border-color var(--t), box-shadow var(--t);
-}
+}@media (hover: hover) {
+
 
 .social-card:hover {
-    transform: translateY(-6px) scale(1.04);
+    transform: translateY(-2px) scale(1.02);
+}
 }
 
 .social-icon {
@@ -1765,20 +1898,24 @@ main {
     margin-bottom: 12px;
     display: block;
     transition: transform var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .social-card:hover .social-icon {
     transform: scale(1.2) rotate(5deg);
+}
 }
 
 .social-name {
     font-weight: 600;
     font-size: .88rem;
     transition: color var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .social-card:hover .social-name {
     color: var(--blurple);
+}
 }
 
 .downloads-tabs {
@@ -1807,16 +1944,20 @@ main {
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
     transition: background var(--t), color var(--t), border-color var(--t), box-shadow var(--t);
-}
+}@media (hover: hover) {
+
 
 .tab-button:hover {
     background: var(--glass-strong);
     color: var(--text);
     border-color: var(--glass-border-hover);
 }
+}@media (hover: hover) {
+
 
 [data-theme="light"] .tab-button:hover {
     color: var(--text);
+}
 }
 
 .tab-button i {
@@ -2015,7 +2156,6 @@ body.is-404 #donateBanner {
 /* ── Extension dropdown (under client cards) ── */
 .ext-dropdown {
     margin-top: 18px;
-    border-top: 1px solid var(--surface-border);
 }
 
 .ext-summary {
@@ -2036,10 +2176,12 @@ body.is-404 #donateBanner {
 
 .ext-summary::-webkit-details-marker {
     display: none;
-}
+}@media (hover: hover) {
+
 
 .ext-summary:hover {
     color: var(--text);
+}
 }
 
 .ext-summary-label {
@@ -2076,12 +2218,14 @@ body.is-404 #donateBanner {
     padding: 14px 16px;
     background: var(--surface-inset);
     border: 1px solid var(--surface-border);
-    border-radius: var(--r-sm);
+    border-radius: var(--r-inner);
     transition: border-color var(--t);
-}
+}@media (hover: hover) {
+
 
 .ext-row:hover {
     border-color: var(--glass-border-hover);
+}
 }
 
 .ext-row-info {
@@ -2119,7 +2263,7 @@ body.is-404 #donateBanner {
     padding: 14px 16px;
     background: var(--surface-inset);
     border: 1px solid var(--surface-border);
-    border-radius: var(--r-sm);
+    border-radius: var(--r-inner);
 }
 
 .changelog-entry-head {
@@ -2199,13 +2343,15 @@ body.is-404 #donateBanner {
     0% { box-shadow: 0 0 0 0 rgba(114, 137, 218, .55); }
     40% { box-shadow: 0 0 0 12px rgba(114, 137, 218, 0); }
     100% { box-shadow: 0 0 0 0 rgba(114, 137, 218, 0); }
-}
+}@media (hover: hover) {
+
 
 .download-card:hover {
     background: var(--surface-hover);
     border-color: var(--glass-border-hover);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow);
+}
 }
 
 .download-header {
@@ -2222,10 +2368,12 @@ body.is-404 #donateBanner {
     font-weight: 700;
     color: var(--text);
     transition: color var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .download-card:hover .download-title {
     color: var(--blurple);
+}
 }
 
 .download-tag {
@@ -2275,9 +2423,7 @@ body.is-404 #donateBanner {
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 1px solid var(--surface-border);
+    margin-top: 16px;
 }
 
 .download-mirrors-label {
@@ -2297,11 +2443,13 @@ body.is-404 #donateBanner {
     font-weight: 600;
     text-decoration: none;
     transition: background var(--t), color var(--t);
-}
+}@media (hover: hover) {
+
 
 .mirror-link:hover {
     background: var(--surface-hover);
     color: var(--text);
+}
 }
 
 .mirror-link--outdated {
@@ -2338,17 +2486,11 @@ body.is-404 #donateBanner {
     color: #fff;
     font-size: 1.1rem;
     margin-bottom: 16px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .faq-category-heading i {
     color: var(--blurple);
     font-size: 1rem;
-}
-
-[data-theme="light"] .faq-category-heading {
-    border-bottom-color: rgba(0, 0, 0, 0.08);
 }
 
 .faq-item {
@@ -2384,14 +2526,18 @@ body.is-404 #donateBanner {
 
 .faq-question::-webkit-details-marker {
     display: none;
-}
+}@media (hover: hover) {
+
 
 .faq-question:hover {
     background: var(--surface-hover);
 }
+}@media (hover: hover) {
+
 
 [data-theme="light"] .faq-question:hover {
     background: var(--surface-hover);
+}
 }
 
 .faq-question i {
@@ -2440,10 +2586,12 @@ body.is-404 #donateBanner {
     position: relative;
     border-bottom: 1px dashed currentColor;
     transition: color var(--fast) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .copyable-code:hover {
     color: var(--blurple);
+}
 }
 
 .copyable-code::after {
@@ -2465,11 +2613,13 @@ body.is-404 #donateBanner {
     pointer-events: none;
     transition: opacity var(--fast) var(--ease), transform var(--fast) var(--ease);
     z-index: 5;
-}
+}@media (hover: hover) {
+
 
 .copyable-code:hover::after {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+}
 }
 
 .copyable-code.code-copied::after {
@@ -2491,10 +2641,12 @@ body.is-404 #donateBanner {
     transition: outline-color var(--fast) var(--ease);
     outline: 1px dashed transparent;
     outline-offset: 3px;
-}
+}@media (hover: hover) {
+
 
 .copy-css-item:hover {
     outline-color: var(--blurple);
+}
 }
 
 .copy-css-item::after {
@@ -2515,11 +2667,13 @@ body.is-404 #donateBanner {
     pointer-events: none;
     transition: opacity var(--fast) var(--ease), transform var(--fast) var(--ease);
     z-index: 5;
-}
+}@media (hover: hover) {
+
 
 .copy-css-item:hover::after {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+}
 }
 
 .copy-css-item.code-copied::after {
@@ -2551,16 +2705,20 @@ body.is-404 #donateBanner {
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
     transition: background var(--t), color var(--t), border-color var(--t), box-shadow var(--t);
-}
+}@media (hover: hover) {
+
 
 .filter-button:hover {
     background: var(--glass-strong);
     color: var(--text);
     border-color: var(--glass-border-hover);
 }
+}@media (hover: hover) {
+
 
 [data-theme="light"] .filter-button:hover {
     color: var(--text);
+}
 }
 
 .filter-button.active {
@@ -2654,10 +2812,12 @@ body.is-404 #donateBanner {
 }
 
 /* Favorited mods float to the top of the grid. */
-.mod-card.is-fav { order: -1; }
+.mod-card.is-fav { order: -1; }@media (hover: hover) {
+
 
 .mod-card:hover {
-    transform: translateY(-4px) scale(1.015);
+    transform: translateY(-2px);
+}
 }
 
 .mod-fav {
@@ -2675,12 +2835,14 @@ body.is-404 #donateBanner {
     font-size: .95rem;
     cursor: pointer;
     transition: color var(--normal) var(--ease), background var(--normal) var(--ease), transform var(--fast) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .mod-fav:hover {
     color: var(--accent);
     background: var(--bg-item);
     transform: scale(1.12);
+}
 }
 
 .mod-card.is-fav .mod-fav { color: var(--accent); }
@@ -2690,15 +2852,17 @@ body.is-404 #donateBanner {
     place-items: center;
     width: 68px;
     height: 68px;
-    border-radius: var(--r-sm);
+    border-radius: var(--r-inner);
     background: var(--bg-item);
     border: 1px solid var(--glass-border);
     transition: background var(--normal) var(--ease), border-color var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .mod-card:hover .mod-icon-tile {
     background: var(--accent-bg);
     border-color: var(--accent-glow);
+}
 }
 
 .mod-image {
@@ -2706,10 +2870,12 @@ body.is-404 #donateBanner {
     width: 44px;
     object-fit: contain;
     transition: transform var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .mod-card:hover .mod-image {
     transform: scale(1.12) rotate(4deg);
+}
 }
 
 .mod-title {
@@ -2718,10 +2884,12 @@ body.is-404 #donateBanner {
     margin: 12px 0 6px;
     color: var(--text);
     transition: color var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .mod-card:hover .mod-title {
     color: var(--accent);
+}
 }
 
 .mod-description {
@@ -2751,11 +2919,13 @@ body.is-404 #donateBanner {
     font-size: .72rem;
     color: var(--text-muted);
     transition: background var(--normal) var(--ease), color var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .mod-card:hover .mod-tag {
     background: var(--accent-bg);
     color: var(--accent);
+}
 }
 
 .mods-empty {
@@ -2786,10 +2956,12 @@ body.is-404 #donateBanner {
     border-radius: var(--r-md);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-}
+}@media (hover: hover) {
+
 
 .license-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
+}
 }
 
 .license-card h3 {
@@ -2868,7 +3040,7 @@ body.is-404 #donateBanner {
     justify-content: center;
     padding: 20px;
     margin-bottom: 16px;
-    border-radius: var(--radius);
+    border-radius: var(--r-inner);
     background: rgba(0, 0, 0, 0.25);
 }
 
@@ -2919,11 +3091,13 @@ body.is-404 #donateBanner {
     font-size: .82rem;
     color: #fff;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
-}
+}@media (hover: hover) {
+
 
 .mediakit-shot:hover img {
     transform: scale(1.04);
     filter: brightness(0.8);
+}
 }
 
 /* ── Brand guide: shared subhead used by Colors, Typography, Cards, Nav,
@@ -2974,10 +3148,12 @@ body.is-404 #donateBanner {
     text-align: left;
     font-family: inherit;
     transition: transform var(--fast) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .color-swatch:hover {
     transform: translateY(-2px);
+}
 }
 
 .color-swatch b {
@@ -3020,7 +3196,6 @@ body.is-404 #donateBanner {
 /* ── Brand guide: typography specimens ── */
 .type-specimen {
     padding: 20px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .type-specimen--last,
@@ -3189,10 +3364,12 @@ body.is-404 #donateBanner {
     border-radius: var(--r-md);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-}
+}@media (hover: hover) {
+
 
 .donate-card:hover {
-    transform: translateY(-6px) scale(1.02);
+    transform: translateY(-2px);
+}
 }
 
 .donate-icon {
@@ -3200,12 +3377,14 @@ body.is-404 #donateBanner {
     height: 76px;
     object-fit: contain;
     margin-bottom: 18px;
-    border-radius: var(--radius);
+    border-radius: var(--r-sm);
     transition: transform var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .donate-card:hover .donate-icon {
     transform: scale(1.1) rotate(5deg);
+}
 }
 
 .donate-card h3 {
@@ -3240,10 +3419,12 @@ footer {
     align-items: center;
     gap: 11px;
     transition: transform var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .footer-brand:hover {
     transform: translateY(-2px);
+}
 }
 
 .footer-logo {
@@ -3254,12 +3435,14 @@ footer {
     border: 2px solid transparent;
     box-shadow: 0 0 10px rgba(114, 137, 218, .3);
     transition: transform var(--normal) var(--ease), box-shadow var(--normal) var(--ease), border-color var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .footer-brand:hover .footer-logo {
     transform: rotate(10deg) scale(1.1);
     box-shadow: 0 0 20px rgba(114, 137, 218, .6);
     border-color: var(--blurple);
+}
 }
 
 .brand-name {
@@ -3288,7 +3471,8 @@ footer {
     text-decoration: none;
     font-size: 1.15rem;
     transition: transform var(--normal) var(--ease), background var(--normal) var(--ease), color var(--normal) var(--ease), border-color var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .footer-social .social-link:hover {
     transform: translateY(-3px) scale(1.1);
@@ -3296,6 +3480,7 @@ footer {
     border-color: transparent;
     color: #fff;
     box-shadow: 0 5px 15px var(--accent-glow);
+}
 }
 
 .footer-legal {
@@ -3313,10 +3498,12 @@ footer {
     color: var(--text-muted);
     text-decoration: none;
     transition: color var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .footer-legal a:hover {
     color: var(--text);
+}
 }
 
 .copyright-text {
@@ -3339,12 +3526,14 @@ footer {
     inset: 0;
     background: linear-gradient(45deg, transparent, rgba(255, 255, 255, .04), transparent);
     transform: translateX(-100%);
-    transition: transform .65s;
+    transition: transform var(--dur-base) var(--ease-out);
     pointer-events: none;
-}
+}@media (hover: hover) {
+
 
 .card-shine:hover::after {
     transform: translateX(100%);
+}
 }
 
 .downloads-sub-title,
@@ -3421,10 +3610,12 @@ footer {
     border-radius: var(--r-md);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-}
+}@media (hover: hover) {
+
 
 .showcase-video-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
+}
 }
 
 .showcase-video-thumb {
@@ -3444,11 +3635,13 @@ footer {
     height: 100%;
     object-fit: cover;
     transition: transform var(--normal) var(--ease), filter var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .showcase-video-thumb:hover img {
     transform: scale(1.05);
     filter: brightness(0.75);
+}
 }
 
 .showcase-play-btn {
@@ -3470,11 +3663,13 @@ footer {
 
 .showcase-play-btn i {
     margin-left: 3px;
-}
+}@media (hover: hover) {
+
 
 .showcase-video-thumb:hover .showcase-play-btn {
     transform: translate(-50%, -50%) scale(1.12);
     background: rgb(255, 0, 0);
+}
 }
 
 .showcase-video-frame {
@@ -3558,34 +3753,33 @@ footer {
 
 .reveal { will-change: opacity, transform; }
 
-.js-reveal .reveal {
+/* Scroll reveal. Hidden state: 14px low, slightly blurred. reveal.js adds
+   .is-visible once, which plays the entrance as a keyframe animation and then
+   hands the element back to its normal rules.
+   Two deliberate choices:
+   - :where() gives these rules zero specificity, so hover lifts and the 3D tilt
+     (which set transform on the same elements) are not overridden by them.
+   - The entrance is an animation, not a transition, so no transition-delay is
+     left behind to slow down later hover transitions. */
+:where(.js-reveal .reveal) {
     opacity: 0;
-    transform: translateY(28px) scale(.975);
-    transition: opacity .7s var(--ease), transform .7s var(--ease);
+    transform: translate3d(0, 14px, 0);
+    filter: blur(4px);
 }
 
-.js-reveal .reveal.is-visible {
+:where(.js-reveal .reveal.is-visible) {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: none;
+    filter: none;
+    /* --stagger-i is set per element by reveal.js (capped at 8). Plain blocks get 0. */
+    animation: revealIn var(--dur-slow) var(--ease-out) backwards;
+    animation-delay: calc(var(--stagger-i, 0) * var(--stagger-step));
 }
 
-/* Staggered cascade — siblings in a grid reveal one after another rather than
-   snapping in together, for that composed, sequential Apple feel. */
-.js-reveal .features-grid .reveal:nth-child(2),
-.js-reveal .gallery-container .reveal:nth-child(2),
-.js-reveal .social-grid .reveal:nth-child(2),
-.js-reveal .donate-grid .reveal:nth-child(2),
-.js-reveal .license-content .reveal:nth-child(2) { transition-delay: .08s; }
-
-.js-reveal .features-grid .reveal:nth-child(3),
-.js-reveal .gallery-container .reveal:nth-child(3),
-.js-reveal .social-grid .reveal:nth-child(3),
-.js-reveal .donate-grid .reveal:nth-child(3),
-.js-reveal .license-content .reveal:nth-child(3) { transition-delay: .16s; }
-
-.js-reveal .social-grid .reveal:nth-child(4) { transition-delay: .24s; }
-.js-reveal .social-grid .reveal:nth-child(5) { transition-delay: .32s; }
-.js-reveal .social-grid .reveal:nth-child(6) { transition-delay: .40s; }
+@keyframes revealIn {
+    from { opacity: 0; transform: translate3d(0, 14px, 0); filter: blur(4px); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
 
 @keyframes revealUp {
     from { opacity: 0; transform: translateY(36px) scale(.975); }
@@ -3707,14 +3901,16 @@ footer {
     box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6),
                 0 0 40px -8px var(--accent-glow);
     z-index: 1;
-    transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
 }
 
-/* Hover lifts the device frame toward the viewer and intensifies the rim glow. */
+/* Hover lifts the device frame toward the viewer and intensifies the rim glow. */@media (hover: hover) {
+
 .showcase-stage:hover {
-    transform: translateY(-6px);
+    transform: translateY(-2px);
     box-shadow: 0 42px 96px rgba(0, 0, 0, 0.66),
                 0 0 60px -6px var(--accent-glow);
+}
 }
 
 /* Glass sheen across the top of the device frame. */
@@ -3871,15 +4067,17 @@ footer {
     cursor: pointer;
     -webkit-backdrop-filter: blur(var(--blur));
     backdrop-filter: blur(var(--blur));
-    transition: transform .3s var(--ease), background .3s var(--ease),
-                border-color .3s var(--ease), box-shadow .3s var(--ease), opacity .3s var(--ease);
-}
+    transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out),
+                border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+}@media (hover: hover) {
+
 
 .showcase-arrow:hover:not(:disabled) {
     transform: scale(1.08);
     background: var(--accent-bg);
     border-color: var(--glass-border-hover);
     box-shadow: 0 6px 18px var(--accent-glow);
+}
 }
 
 .showcase-arrow:active:not(:disabled) {
@@ -3888,7 +4086,7 @@ footer {
 
 .showcase-arrow:disabled {
     opacity: 0.32;
-    cursor: default;
+    cursor: not-allowed;
 }
 
 .showcase-progress {
@@ -3900,55 +4098,75 @@ footer {
 /* Progress ticks: the active chapter's tick widens; every passed tick fills.
    Both transition on the same eased curve as the panel, so the indicator glides
    in lockstep with the chapter change. */
+/* The tick is a 48px hit box. Its track and fill are drawn inside it and scaled
+   with transform, never resized, so the active chapter widens without reflowing
+   the controls row. The track is 30px (scaleX .625) until its chapter is active. */
 .showcase-tick {
     position: relative;
-    width: 30px;
-    height: 4px;
+    width: 48px;
+    height: 22px;
     padding: 0;
     border: none;
-    border-radius: 3px;
-    background: rgba(255, 255, 255, .15);
+    background: none;
     cursor: pointer;
     appearance: none;
     -webkit-appearance: none;
-    transition: width .6s var(--ease), background .3s var(--ease);
 }
 
-/* Invisible vertical padding so the slim 4px bar is comfortably clickable. */
 .showcase-tick::before {
     content: '';
     position: absolute;
-    inset: -11px 0;
-}
+    left: 0;
+    right: 0;
+    top: 9px;
+    height: 4px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, .15);
+    transform-origin: left center;
+    transform: scaleX(.625);
+    transition: transform .6s var(--ease), background var(--dur-base) var(--ease-out);
+}@media (hover: hover) {
 
-.showcase-tick:hover {
+
+.showcase-tick:hover::before {
     background: rgba(255, 255, 255, .35);
 }
+}@media (hover: hover) {
 
-[data-theme="light"] .showcase-tick:hover {
+
+[data-theme="light"] .showcase-tick:hover::before {
     background: rgba(0, 0, 0, .3);
 }
+}
 
-.showcase-tick.is-active {
-    width: 48px;
+.showcase-tick.is-active::before {
+    transform: scaleX(1);
 }
 
 .showcase-tick::after {
     content: '';
     position: absolute;
-    inset: 0;
-    border-radius: inherit;
+    left: 0;
+    right: 0;
+    top: 9px;
+    height: 4px;
+    border-radius: 3px;
     background: linear-gradient(90deg, var(--accent), var(--accent-hover));
     transform-origin: left center;
     transform: scaleX(0);
     transition: transform .6s var(--ease);
 }
 
+/* Passed chapters fill to the track width; the active one fills to its wider track. */
 .showcase-tick.is-filled::after {
+    transform: scaleX(.625);
+}
+
+.showcase-tick.is-filled.is-active::after {
     transform: scaleX(1);
 }
 
-[data-theme="light"] .showcase-tick {
+[data-theme="light"] .showcase-tick::before {
     background: rgba(0, 0, 0, .14);
 }
 
@@ -4004,7 +4222,7 @@ footer {
     .showcase-img.is-active, .showcase-text.is-active { opacity: 1 !important; }
     .showcase-img:not(.is-active), .showcase-text:not(.is-active) { opacity: 0 !important; }
 
-    .showcase-tick { transition: width .45s ease, background .3s ease !important; }
+    .showcase-tick::before { transition: transform .45s ease, background .3s ease !important; }
     .showcase-tick::after { transition: transform .45s ease !important; }
     .showcase-arrow { transition: background .25s ease, border-color .25s ease, opacity .25s ease !important; }
     .showcase-stage { transition: box-shadow .4s ease !important; }
@@ -4067,13 +4285,15 @@ footer {
         width: 100%;
         padding: 13px 16px;
         font-size: 0.95rem;
-        border-radius: var(--r-sm);
+        border-radius: var(--r-inner);
         color: var(--text);
-    }
+    }@media (hover: hover) {
+
 
     .nav-tab:hover:not(.active) {
         background: var(--surface-hover);
     }
+}
 
     /* Mobile dropdown is a solid panel — keep its text themed, not the
        light-on-image colour the desktop header uses. */
@@ -4098,12 +4318,14 @@ footer {
         -webkit-backdrop-filter: blur(var(--blur));
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
         transition: color var(--t), background var(--t), box-shadow var(--t);
-    }
+    }@media (hover: hover) {
+
     .mobile-menu-btn:hover {
         color: var(--text);
         background: rgba(255, 255, 255, 0.12);
         box-shadow: 0 0 12px var(--accent-glow);
     }
+}
     .hero { padding: 40px 24px; margin: 0 12px 40px; }
     .hero-container { grid-template-columns: 1fr; gap: 32px; }
 
@@ -4368,7 +4590,7 @@ footer {
 #themeToggle {
     transform: rotate(var(--gc-spin, 0deg));
     transition: color var(--t), background var(--t), box-shadow var(--t),
-                transform 0.6s var(--ease);
+                transform var(--dur-base) var(--ease-out);
 }
 
 #themeToggle:active {
@@ -4377,7 +4599,7 @@ footer {
 }
 
 #themeToggle i {
-    transition: transform 0.45s var(--ease);
+    transition: transform var(--dur-base) var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -4473,7 +4695,6 @@ footer {
     border-color: rgba(114, 137, 218, 0.35);
     color: var(--text);
     box-shadow: 0 0 10px var(--accent-glow);
-    outline: none;
 }
 
 .lang-dropdown-trigger i.fa-globe { font-size: .9rem; }
@@ -4534,7 +4755,6 @@ footer {
 .lang-dropdown-option:focus-visible {
     background: rgba(114, 137, 218, 0.14);
     color: var(--text);
-    outline: none;
 }
 .lang-dropdown-option.is-active {
     background: rgba(114, 137, 218, 0.20);
@@ -4605,9 +4825,11 @@ footer {
     border-radius: var(--r-sm);
     border-left: 2px solid transparent;
     transition: color var(--normal) var(--ease), background var(--normal) var(--ease), border-color var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .docs-toc-link:hover { color: var(--text); background: var(--bg-item); }
+}
 
 .docs-toc-link.active {
     color: var(--accent);
@@ -4618,11 +4840,13 @@ footer {
 /* The TOC floats directly on the background image → keep it light & readable
    in light mode, like the header chrome and section titles. */
 [data-theme="light"] .docs-toc-label { color: rgba(255, 255, 255, .72); }
-[data-theme="light"] .docs-toc-link { color: rgba(255, 255, 255, .82); }
+[data-theme="light"] .docs-toc-link { color: rgba(255, 255, 255, .82); }@media (hover: hover) {
+
 
 [data-theme="light"] .docs-toc-link:hover {
     color: #fff;
     background: rgba(255, 255, 255, .12);
+}
 }
 
 [data-theme="light"] .docs-toc-link.active {
@@ -4678,16 +4902,20 @@ footer {
 }
 
 /* Brightening to --accent-hover is the whole hover affordance here; the rule
-   used to also draw a border-bottom, which read as an underline. */
+   used to also draw a border-bottom, which read as an underline. */@media (hover: hover) {
+
 .docs-card a:not(.btn):hover {
     color: var(--accent-hover);
+}
 }
 
 .docs-table-wrap { overflow-x: auto; }
 
+/* Rows are grouped by tinted bands and small gaps, not ruled lines. */
 .docs-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 var(--space-1);
     font-size: .92rem;
 }
 
@@ -4695,11 +4923,18 @@ footer {
 .docs-table td {
     text-align: left;
     padding: 10px 14px;
-    border-bottom: 1px solid var(--glass-border);
     color: var(--text-muted);
 }
 
+.docs-table td { background: var(--bg-item); }
+.docs-table td:first-child { border-radius: var(--r-inner) 0 0 var(--r-inner); }
+.docs-table td:last-child { border-radius: 0 var(--r-inner) var(--r-inner) 0; }
+
 .docs-table th { color: var(--text); font-weight: 600; }
+
+/* Numeric columns: right-aligned, tabular digits, so figures line up down the column. */
+.docs-table .num,
+.docs-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
 
 .docs-status {
     display: inline-block;
@@ -4746,9 +4981,11 @@ footer {
     font-size: .92rem;
     transition: color var(--normal) var(--ease);
     width: fit-content;
-}
+}@media (hover: hover) {
+
 
 .footer-col a:hover { color: var(--text); }
+}
 
 .footer-col-title {
     font-size: .8rem;
@@ -4777,9 +5014,11 @@ footer {
     font-size: .85rem;
     text-decoration: none;
     transition: color var(--normal) var(--ease);
-}
+}@media (hover: hover) {
+
 
 .footer-discord-live:hover { color: var(--text); }
+}
 
 .footer-discord-live span[data-discord-online] {
     color: var(--green);
@@ -4813,4 +5052,250 @@ footer {
 @media (max-width: 640px) {
     .footer-grid { grid-template-columns: 1fr 1fr; text-align: left; }
     .footer-col--brand { grid-column: 1 / -1; align-items: flex-start; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Interaction states
+   One order for every control: default, then :hover (fine pointers only; the
+   hover gate below wraps every :hover rule), then :active (press), then
+   :focus-visible (accent ring, never removed), then disabled.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Controls that had no transition, or whose timing sat outside the 250ms cap. */
+.mod-card,
+.license-card {
+    transition: transform var(--t), background var(--t), border-color var(--t), box-shadow var(--t);
+}
+
+.tab-button i,
+.btn > i {
+    transition: transform var(--dur-base) var(--ease-out);
+}
+
+/* Icon micro-nudges: small and directional, on the same 250ms clock. */@media (hover: hover) {
+
+.btn:hover > i.fa-download { transform: translateY(2px); }
+}@media (hover: hover) {
+
+.btn:hover > i:not(.fa-download) { transform: scale(1.08); }
+}@media (hover: hover) {
+
+.tab-button:hover i { transform: translateY(-1px) scale(1.08); }
+}@media (hover: hover) {
+
+.quick-action:hover i { transform: scale(1.08); }
+}
+
+/* Press: 0.97 on every pill and tab control, springing back on release. */
+.filter-button:active,
+.tab-button:active,
+.nav-tab:active {
+    transform: scale(0.97);
+}
+
+/* Focus: the rings below are the single source of truth for non-button and
+   non-link controls. Buttons and links already get the global ring above. */
+.faq-question:focus-visible,
+.ext-summary:focus-visible,
+.search-result-item:focus-visible,
+.copy-css-item:focus-visible,
+.search-bar input:focus-visible,
+#globalSearchInput:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+#globalSearchInput:focus-visible {
+    outline-offset: 2px;
+}
+
+/* Disabled: dimmed, not-allowed cursor, and no hover or press response. */
+.btn[aria-disabled="true"],
+.btn:disabled,
+.filter-button[aria-disabled="true"],
+.filter-button:disabled,
+.tab-button[aria-disabled="true"],
+.tab-button:disabled,
+.nav-tab[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn[aria-disabled="true"]:hover,
+.btn[aria-disabled="true"]:active,
+.btn:disabled:hover,
+.btn:disabled:active,
+.filter-button[aria-disabled="true"]:hover,
+.tab-button[aria-disabled="true"]:hover {
+    transform: none;
+}
+
+/* The hero's primary download is the largest, most saturated target on screen
+   (Fitts's Law, and the single primary CTA of the view). */
+.hero .btn-primary {
+    min-height: 56px;
+    padding: 16px 34px;
+    font-size: 1.02rem;
+}
+
+@media (max-width: 480px) {
+    .hero .btn-primary { min-height: 52px; }
+}
+
+/* Touch targets: at phone width the small round header controls keep their
+   visual size but get an invisible 44px target around them. */
+@media (max-width: 480px) {
+    .header-icon-btn,
+    .search-trigger,
+    .mobile-menu-btn,
+    .lang-dropdown-trigger {
+        position: relative;
+    }
+
+    .header-icon-btn::before,
+    .search-trigger::before,
+    .mobile-menu-btn::before,
+    .lang-dropdown-trigger::before {
+        content: '';
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+    }
+}
+
+#toastClose::before,
+#donateClose::before,
+.mod-fav::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+}
+
+@media (max-width: 768px) {
+    .filter-button { min-height: 44px; }
+}
+
+.showcase-arrow {
+    width: 44px;
+    height: 44px;
+}
+
+/* Toast and popup icons share the icon scale. */
+.toast-icon { font-size: var(--icon-md); }
+
+/* Numbers: tabular digits so counts, versions and sizes align when they change. */
+.hero-stat-num,
+.dl-count,
+.dl-count-num,
+.download-meta,
+.version-pill,
+.mods-count,
+.showcase-video-meta,
+.changelog-entry-date,
+.footer-discord-live span[data-discord-online] {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Hero stat numbers: with the "Free" stat as text, keep the stat row's baseline. */
+.hero-stat-num { line-height: 1.2; }
+
+/* Keyboard-visible focus on the header search field and language trigger. */
+#globalSearchInput:focus-visible,
+.lang-dropdown-trigger:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Reduced motion
+   Movement, scale and parallax are disabled; transitions and animations are
+   shortened to near-instant so content still lands in its final state.
+   Entrances keep their end state (opacity 1, no transform), so nothing is hidden.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        animation-delay: 0s !important;
+        transition-duration: .01ms !important;
+        transition-delay: 0s !important;
+        scroll-behavior: auto !important;
+    }
+
+    .reveal,
+    :where(.js-reveal .reveal),
+    :where(.js-reveal .reveal.is-visible),
+    .content-section,
+    .hero,
+    .notfound-card {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
+    .hero::before { transform: none !important; }
+
+    .btn:hover,
+    .btn:active,
+    .card-base:hover,
+    .feature-card:hover,
+    .download-card:hover,
+    .mod-card:hover,
+    .gallery-item:hover,
+    .social-card:hover,
+    .donate-card:hover,
+    .license-card:hover,
+    .showcase-video-card:hover,
+    .hero-image:hover,
+    .showcase-stage:hover,
+    .quick-action:hover,
+    .quick-action:active,
+    .nav-tab:active,
+    .tab-button:active,
+    .filter-button:active,
+    .header-icon-btn:active,
+    .search-trigger:active,
+    .mobile-menu-btn:active,
+    .color-swatch:hover,
+    .community-text li:hover {
+        transform: none !important;
+    }
+
+    .skeleton::after { animation: none !important; }
+}
+
+/* ── Interaction feedback (js/modules/feedback.js) ──
+   Clip only while a ripple is live so tooltips and dropdowns on these
+   controls aren't cut off the rest of the time. */
+:where(.btn, button, .nav-tab):has(> .ripple) {
+    overflow: hidden;
+}
+
+.ripple {
+    opacity: 0.22;
+    transform: scale(0);
+}
+
+.btn.is-loading {
+    cursor: progress;
+    opacity: 0.85;
+}
+
+.copied-toast {
+    padding: var(--space-2, 8px) var(--space-4, 16px);
+    border-radius: var(--r-pill);
+    background: var(--green);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: var(--glass-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn.is-loading .fa-spin {
+        animation: none;
+    }
 }
