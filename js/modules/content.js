@@ -1,7 +1,7 @@
 'use strict';
 
 import { state } from './state.js?v=20260902203329';
-import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl, markCopyableCode, liveDelta } from './utils.js?v=20260902203329';
+import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl, markCopyableCode, liveDelta, emptyStateHtml } from './utils.js?v=20260902203329';
 import { COUNTER_API } from './config.js?v=20260902203329';
 import { applyDeepLink } from './navigation.js?v=20260902203329';
 import { observeReveals } from './reveal.js?v=20260902203329';
@@ -185,7 +185,12 @@ export function filterFAQCategory(cat) {
 // ── Downloads ─────────────────────────────────────────────────────────────
 // Only the latest version's main Download is primary, so each view has one
 // primary CTA. Every other button is secondary.
-const btnClass = (name, primary) => (primary && name === 'Download') ? 'btn-primary' : 'btn-secondary';
+// One clear call to action per card: the plain Download is the main button, and
+// ad-gated providers beside it are demoted to ghost buttons.
+const btnClass = (name, primary, hasDownload) => {
+    if (name === 'Download') return primary ? 'btn-primary' : 'btn-secondary';
+    return hasDownload ? 'btn-ghost' : 'btn-secondary';
+};
 
 function buttonsHtml(opts, primary = false) {
     let s = '';
@@ -195,10 +200,11 @@ function buttonsHtml(opts, primary = false) {
     // launcher releases. Pre-made Linkvertise links are used as-is. Provider
     // names (Linkvertise, LootLabs) are proper nouns and stay untranslated;
     // only the generic "Download" label is localized.
+    const hasDownload = opts.some(o => o.name === 'Download');
     for (const o of opts) {
         const href = o.monetize ? getMonetizedUrl(o.url) : o.url;
         const label = o.name === 'Download' ? t(lang, 'btn.download') : o.name;
-        s += '<a href="' + href + '" class="btn ' + btnClass(o.name, primary) + '" target="_blank" rel="noopener">' + label + '</a>';
+        s += '<a href="' + href + '" class="btn ' + btnClass(o.name, primary, hasDownload) + '" target="_blank" rel="noopener">' + label + '</a>';
     }
     return s;
 }
@@ -461,6 +467,21 @@ function initDownloadCounts() {
     });
 }
 
+// The data files could not be fetched: say so once, in the places that depend
+// on them, with a single Retry action. Nothing else on the page is affected.
+export function showDataError() {
+    const lang = currentLang();
+    const html = emptyStateHtml('fa-plug', t(lang, 'err.load'),
+        '<button type="button" class="btn btn-secondary" id="dataRetry">' + t(lang, 'empty.retry') + '</button>');
+    if (state.dom.modsGrid) state.dom.modsGrid.innerHTML = html;
+    for (const id of ['working-clients', 'legacy-clients']) {
+        const el = $(id);
+        if (el) el.innerHTML = html;
+    }
+    const retry = $('dataRetry');
+    if (retry) retry.addEventListener('click', () => location.reload());
+}
+
 export function initLauncher() {
     if (!state.dom.launcherGrid) return;
     const lang = currentLang();
@@ -468,7 +489,8 @@ export function initLauncher() {
         .then(r => r.json())
         .then(rels => {
             if (!Array.isArray(rels) || !rels.length) {
-                state.dom.launcherGrid.innerHTML = '<p class="launcher-empty">' + t(lang, 'dl.noLauncherReleases') + '</p>';
+                state.dom.launcherGrid.innerHTML = emptyStateHtml('fa-box-open', t(lang, 'dl.noLauncherReleases'),
+                    '<a class="btn btn-secondary" href="https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/" target="_blank" rel="noopener">' + t(lang, 'dl.viewOnGithub') + '</a>');
                 return;
             }
             let html = '';
@@ -478,7 +500,7 @@ export function initLauncher() {
                 const date = new Date(rel.published_at).toISOString().slice(0, 10);
                 const assets = rel.assets || [];
                 let btns = '';
-                for (let j = 0; j < assets.length; j++) { const a = assets[j]; btns += '<a href="' + getMonetizedUrl(a.browser_download_url) + '" class="btn ' + (i === 0 && j === 0 ? 'btn-primary' : 'btn-secondary') + '" target="_blank" rel="noopener"><i class="fas fa-download" aria-hidden="true"></i> ' + a.name + '</a>'; }
+                for (let j = 0; j < assets.length; j++) { const a = assets[j]; btns += '<a href="' + getMonetizedUrl(a.browser_download_url) + '" class="btn ' + (i === 0 && j === 0 ? 'btn-primary' : (j === 0 ? 'btn-secondary' : 'btn-ghost')) + '" target="_blank" rel="noopener"><i class="fas fa-download" aria-hidden="true"></i> ' + a.name + '</a>'; }
                 const size = assets.length ? formatBytes(assets[0].size) : '';
                 const tagSlug = slugify(rel.tag_name);
                 html += '<div id="dl-launcher-' + tagSlug + '" class="download-card reveal">'
@@ -503,7 +525,10 @@ export function initLauncher() {
             observeReveals();
         })
         .catch(() => {
-            state.dom.launcherGrid.innerHTML = '<p class="launcher-error">' + t(lang, 'dl.failedLoadLauncher') + ' <a href="https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/" target="_blank" rel="noopener">' + t(lang, 'dl.viewOnGithub') + '</a></p>';
+            state.dom.launcherGrid.innerHTML = emptyStateHtml('fa-plug', t(lang, 'dl.failedLoadLauncher'),
+                '<button type="button" class="btn btn-secondary" id="launcherRetry">' + t(lang, 'empty.retry') + '</button>');
+            const retry = $('launcherRetry');
+            if (retry) retry.addEventListener('click', initLauncher);
         });
 }
 

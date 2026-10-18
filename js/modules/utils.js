@@ -68,3 +68,11 @@ export function getMonetizedUrl(targetUrl) {
         return targetUrl;
     }
 }
+
+// Friendly empty or failed state: an icon in a soft disc, one short line and
+// at most one next action. `action` is trusted markup built by the caller.
+export function emptyStateHtml(icon, text, action = '') {
+    return '<div class="empty-state" role="status">'
+        + '<span class="empty-state-ico" aria-hidden="true"><i class="fas ' + icon + '"></i></span>'
+        + '<p>' + text + '</p>' + action + '</div>';
+}

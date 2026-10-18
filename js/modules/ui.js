@@ -1,7 +1,7 @@
 'use strict';
 
 import { state } from './state.js?v=20260902203329';
-import { $, escAttr, slice, debounce } from './utils.js?v=20260902203329';
+import { $, escAttr, slice, debounce, emptyStateHtml } from './utils.js?v=20260902203329';
 import { NOTIFICATION } from './config.js?v=20260902203329';
 import { showSection, searchMods } from './navigation.js?v=20260902203329';
 import { latestVersionLabel, latestPackSize } from './content.js?v=20260902203329';
@@ -63,11 +63,13 @@ function dismissToast() {
 // Donation prompt: same springy corner popup as the announcement, shown on
 // every load (when the version announcement isn't taking the slot). The CTA
 // carries data-section="donate" so the global delegation handles navigation;
-// here we just hide it. Dismissing only hides it for the current view — a
-// reload brings it back.
+// here we just hide it. Dismissing hides it for the rest of the tab session.
 function setupDonateToast() {
     const banner = $('donateBanner');
     if (!banner) return;
+    // A dismissal is remembered for this tab session, so the prompt never
+    // reappears on every navigation or reload after someone has said no.
+    try { if (sessionStorage.getItem('gc-donate-dismissed')) return; } catch (e) { }
     document.body.classList.add('has-toast');
     $('donateClose').addEventListener('click', dismissDonateToast);
     $('donateCta').addEventListener('click', dismissDonateToast);
@@ -92,6 +94,7 @@ function setupDonateToast() {
 function dismissDonateToast() {
     $('donateBanner').classList.remove('visible');
     document.body.classList.remove('has-toast');
+    try { sessionStorage.setItem('gc-donate-dismissed', '1'); } catch (e) { }
 }
 
 export function applyTheme(theme) {
@@ -210,10 +213,15 @@ export function setupGlobalSearch() {
         const term = input.value.toLowerCase().trim();
         if (!term) { results.innerHTML = SEARCH_HINT; items = []; active = -1; return; }
 
+        // Mods carry translation keys (titleKey / descKey), not plain text, so the
+        // match runs against the strings for the current language.
+        const lang = currentLang();
         const mods = [];
         for (const m of state.modsData) {
             if (mods.length >= 5) break;
-            if (m.title.toLowerCase().includes(term) || m.description.toLowerCase().includes(term)) mods.push(m);
+            const title = t(lang, m.titleKey) || '';
+            const desc = t(lang, m.descKey) || '';
+            if (title.toLowerCase().includes(term) || desc.toLowerCase().includes(term)) mods.push({ ...m, title });
         }
 
         const faqs = [];
@@ -235,7 +243,8 @@ export function setupGlobalSearch() {
         const pages = SEARCH_PAGES.filter(p => p[1].toLowerCase().includes(term)).slice(0, 4);
 
         if (!mods.length && !faqs.length && !dl.length && !pages.length) {
-            results.innerHTML = '<div class="search-no-results"><i class="fas fa-search search-no-results-icon" aria-hidden="true"></i>No results for "' + escAttr(input.value) + '"</div>';
+            results.innerHTML = emptyStateHtml('fa-magnifying-glass', t(currentLang(), 'empty.search'),
+                '<button type="button" class="btn btn-secondary" data-search-clear>' + t(currentLang(), 'empty.clearSearch') + '</button>');
             items = []; active = -1;
             return;
         }
@@ -243,7 +252,7 @@ export function setupGlobalSearch() {
         let html = '';
         if (mods.length) {
             html += '<div class="search-result-group"><div class="search-result-label">Mods</div>';
-            for (const m of mods) html += '<div class="search-result-item" data-section="mods" data-mod="' + escAttr(m.title) + '"><img src="' + m.icon + '" alt="' + escAttr(m.title) + '" class="search-result-icon-img" /><div><div class="search-result-title">' + highlight(m.title, term) + '</div><div class="search-result-desc">' + slice(m.description, 60) + '</div></div></div>';
+            for (const m of mods) html += '<div class="search-result-item" data-section="mods" data-mod="' + escAttr(m.title) + '"><img src="' + m.icon + '" alt="' + escAttr(m.title) + '" class="search-result-icon-img" width="48" height="48" loading="lazy" decoding="async" /><div><div class="search-result-title">' + highlight(m.title, term) + '</div><div class="search-result-desc">' + slice(m.description, 60) + '</div></div></div>';
             html += '</div>';
         }
         if (faqs.length) {
@@ -272,6 +281,7 @@ export function setupGlobalSearch() {
 
     input.addEventListener('input', run);
     results.addEventListener('click', e => {
+        if (e.target.closest('[data-search-clear]')) { input.value = ''; run(); input.focus(); return; }
         const item = e.target.closest('.search-result-item');
         if (item) activate(item);
     });

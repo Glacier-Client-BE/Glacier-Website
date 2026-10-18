@@ -427,10 +427,13 @@
     });
 
     if (groupEntries.length + standaloneKeys.length === 0) {
-      list.appendChild(h('div', { class: 'empty-state' }, [
-        h('i', { class: 'fas fa-magnifying-glass' }),
-        h('p', { text: searchTerm ? 'No matches for "' + searchTerm + '"' : 'No settings in this section' }),
-      ]));
+      const empty = h('div', { class: 'empty-state', role: 'status' }, [
+        h('span', { class: 'empty-state-ico', 'aria-hidden': 'true' }, [h('i', { class: 'fas fa-magnifying-glass' })]),
+        h('p', { text: searchTerm ? 'No settings match "' + searchTerm + '".' : 'No settings in this section.' }),
+        searchTerm ? h('button', { class: 'btn btn-secondary', type: 'button', text: 'Clear search',
+          onclick: () => $('searchClear').click() }) : null,
+      ].filter(Boolean));
+      list.appendChild(empty);
     }
     // Staggered entrance after a section or version change. The CSS delay is
     // calc(var(--i) * --stagger), capped; reduced motion skips it entirely.
@@ -784,7 +787,8 @@
     rawArea = h('textarea', { class: 'raw-area', spellcheck: 'false', wrap: 'off' });
     rawArea.value = JSON.stringify(config, null, 2);
     box.appendChild(rawArea);
-    rawStatusEl = h('div', { class: 'raw-status ok' }, [h('i', { class: 'fas fa-check-circle' }), h('span', { text: 'Valid JSON' })]);
+    rawStatusEl = h('div', { class: 'raw-status ok', id: 'rawStatus', role: 'status' }, [h('i', { class: 'fas fa-check-circle' }), h('span', { text: 'Valid JSON' })]);
+    rawArea.setAttribute('aria-describedby', 'rawStatus');
 
     rawArea.addEventListener('focus', () => { rawFocused = true; });
     rawArea.addEventListener('blur', () => { rawFocused = false; });
@@ -792,12 +796,14 @@
       try {
         const parsed = JSON.parse(rawArea.value);
         rawArea.classList.remove('invalid');
+        rawArea.setAttribute('aria-invalid', 'false');
         rawStatusEl.className = 'raw-status ok';
         rawStatusEl.innerHTML = '<i class="fas fa-check-circle"></i><span>Valid JSON · live synced</span>';
         config = parsed; // raw edits don't push history (mirrors React setConfig)
         setUnexported(true);
       } catch (err) {
         rawArea.classList.add('invalid');
+        rawArea.setAttribute('aria-invalid', 'true');
         rawStatusEl.className = 'raw-status err';
         rawStatusEl.innerHTML = '<i class="fas fa-triangle-exclamation"></i><span>' + (err.message || 'Invalid JSON') + '</span>';
       }
@@ -852,15 +858,25 @@
     setUnexported(false);
     toast('Exported! config.json');
   }
+  // Each failure names the file and the exact problem, so the fix is obvious.
   function importJSON(file) {
     const reader = new FileReader();
+    reader.onerror = () => toast('"' + file.name + '" could not be read. Check the file and try again.', true);
     reader.onload = (ev) => {
+      let json;
       try {
-        const json = JSON.parse(ev.target.result);
-        setConfig(json, true);
-        afterBulkChange();
-        toast('Config imported');
-      } catch (e) { toast('Invalid JSON file', true); }
+        json = JSON.parse(ev.target.result);
+      } catch (e) {
+        toast('"' + file.name + '" is not valid JSON: ' + (e.message || 'syntax error') + '.', true);
+        return;
+      }
+      if (!json || typeof json !== 'object' || Array.isArray(json)) {
+        toast('"' + file.name + '" must contain a JSON object at the top level, like { "modules": { … } }.', true);
+        return;
+      }
+      setConfig(json, true);
+      afterBulkChange();
+      toast('Imported ' + file.name);
     };
     reader.readAsText(file);
   }
@@ -897,6 +913,7 @@
   async function downloadPack() {
     if (typeof JSZip === 'undefined') { toast('Pack builder still loading…', true); return; }
     const btn = $('exportBtn');
+    const progress = btn.querySelector('.export-progress');
     setBusy(btn, true);
     try {
       const zip = new JSZip();
@@ -907,12 +924,15 @@
         const res = await fetch('img/pack_icon.png', { cache: 'no-cache' });
         if (res.ok) zip.file('pack_icon.png', await res.arrayBuffer());
       } catch (e) { /* icon optional */ }
-      const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
+      // Visible progress while packing: the button shows the percentage in place of its label.
+      const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' }, (meta) => {
+        if (progress) progress.textContent = 'Packing ' + Math.round(meta.percent) + '%';
+      });
       saveBlob(blob, 'Glacier-Config.mcpack');
       setUnexported(false);
       toast('Exported! Config pack downloaded');
     } catch (e) { toast('Pack export failed', true); }
-    finally { setBusy(btn, false); }
+    finally { if (progress) progress.textContent = ''; setBusy(btn, false); }
   }
 
   /* ── Theme ──────────────────────────────────────────────────── */

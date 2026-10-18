@@ -212,6 +212,14 @@ export function setupDelegation() {
             const id = linked.dataset.section;
             if (id) { e.preventDefault(); showSection(id); return; }
         }
+        const clearMods = e.target.closest('[data-clear-mods]');
+        if (clearMods) {
+            const ms = $('modSearch');
+            if (ms) ms.value = '';
+            setActiveCategory('all');
+            searchMods('');
+            return;
+        }
         const tab = e.target.closest('.tab-button');
         if (tab && tab.dataset.tab) { setActiveTab(tab.dataset.tab); return; }
         const faqFilter = e.target.closest('[data-faq-category]');

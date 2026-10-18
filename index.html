@@ -93,7 +93,7 @@
         <div class="toast-icon toast-icon--donate" aria-hidden="true"><i class="fas fa-heart"></i></div>
         <div class="toast-body">
             <span class="toast-title toast-title--donate" data-i18n="donate.toastTitle">Support Glacier</span>
-            <span class="toast-text" data-i18n="donate.toastText">Glacier is free forever. A small donation keeps it that way.</span>
+            <span class="toast-text" data-i18n="donate.toastText">Glacier stays free. Donations are optional and help fund development.</span>
             <a id="donateCta" href="/donate" class="toast-cta toast-cta--donate" data-section="donate" data-i18n="nav.donate">Donate</a>
         </div>
         <button id="donateClose" data-i18n-aria="donate.dismiss" aria-label="Dismiss donation prompt"><i class="fas fa-times"
@@ -127,18 +127,6 @@
     <button id="backToTop" aria-label="Back to top">
         <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
-
-    <aside class="quick-dock" id="quickDock" aria-label="Quick actions">
-        <a class="quick-action" href="/downloads" data-section="downloads" data-tooltip="Download" aria-label="Go to downloads">
-            <i class="fas fa-download" aria-hidden="true"></i>
-        </a>
-        <a class="quick-action quick-action--discord" href="https://discord.glacierclient.xyz/" target="_blank" rel="noopener" data-tooltip="Join Discord" aria-label="Join our Discord">
-            <i class="fab fa-discord" aria-hidden="true"></i>
-        </a>
-        <a class="quick-action" href="https://config.glacierclient.xyz/" target="_blank" rel="noopener" data-tooltip="Config Editor" aria-label="Open the config editor">
-            <i class="fas fa-sliders-h" aria-hidden="true"></i>
-        </a>
-    </aside>
 
     <header id="mainHeader">
         <div class="top-bar">
@@ -212,25 +200,25 @@
                             <!-- Summed from every client release in downloads.json plus live
                                  Worker clicks (see renderTotalDownloads in content.js). -->
                             <span class="hero-stat-num" id="heroDownloads">&mdash;</span>
-                            <span class="hero-stat-label" data-i18n="hero.downloads">Downloads</span>
+                            <span class="hero-stat-label"><i class="fas fa-download hero-stat-ico" aria-hidden="true"></i><span data-i18n="hero.downloads">Downloads</span></span>
                         </div>
                         <div class="hero-stat">
                             <span class="hero-stat-num" id="discordOnline" data-discord-online>&mdash;</span>
-                            <span class="hero-stat-label" data-i18n="hero.online">Online on Discord</span>
+                            <span class="hero-stat-label"><i class="fab fa-discord hero-stat-ico" aria-hidden="true"></i><span data-i18n="hero.online">Online on Discord</span></span>
                         </div>
                         <div class="hero-stat">
                             <span class="hero-stat-num">37+</span>
-                            <span class="hero-stat-label" data-i18n="hero.modules">Modules</span>
+                            <span class="hero-stat-label"><i class="fas fa-cube hero-stat-ico" aria-hidden="true"></i><span data-i18n="hero.modules">Modules</span></span>
                         </div>
                         <div class="hero-stat">
                             <!-- Replaced at runtime with the latest release's size from
                                  downloads.json (see applyVersioning). -->
                             <span class="hero-stat-num" id="heroPackSize">2 MB</span>
-                            <span class="hero-stat-label" data-i18n="hero.packSize">Pack Size</span>
+                            <span class="hero-stat-label"><i class="fas fa-file-zipper hero-stat-ico" aria-hidden="true"></i><span data-i18n="hero.packSize">Pack Size</span></span>
                         </div>
                         <div class="hero-stat">
                             <span class="hero-stat-num" data-i18n="hero.free">Free</span>
-                            <span class="hero-stat-label" data-i18n="hero.forever">Forever</span>
+                            <span class="hero-stat-label"><i class="fas fa-infinity hero-stat-ico" aria-hidden="true"></i><span data-i18n="hero.forever">Forever</span></span>
                         </div>
                     </div>
                 </div>
@@ -296,8 +284,8 @@
                             </button>
                         </div>
                         <button class="sc-toggle" type="button" aria-label="Pause autoplay">
-                            <svg class="sc-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
-                            <svg class="sc-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                            <i class="fas fa-pause sc-icon-pause" aria-hidden="true"></i>
+                            <i class="fas fa-play sc-icon-play" aria-hidden="true"></i>
                         </button>
                     </div>
                     <div class="sc-captions">
@@ -328,7 +316,7 @@
                     <div class="showcase-video-grid">
                         <div class="showcase-video-card card-base reveal" data-video-id="ocWqAqCTILY">
                             <button class="showcase-video-thumb" aria-label="Play video: The NEW King of Minecraft Bedrock Clients? by PatarHD">
-                                <img src="https://i.ytimg.com/vi/ocWqAqCTILY/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
+                                <img width="480" height="360" src="https://i.ytimg.com/vi/ocWqAqCTILY/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
                                 <span class="showcase-play-btn" aria-hidden="true"><i class="fas fa-play"></i></span>
                             </button>
                             <div class="showcase-video-info">
@@ -344,7 +332,7 @@
                         </div>
                         <div class="showcase-video-card card-base reveal" data-video-id="aHUHPdzQ6-Y">
                             <button class="showcase-video-thumb" aria-label="Play video: The BEST Minecraft Bedrock Client! [MOBILE TOO] by Apup">
-                                <img src="https://i.ytimg.com/vi/aHUHPdzQ6-Y/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
+                                <img width="480" height="360" src="https://i.ytimg.com/vi/aHUHPdzQ6-Y/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
                                 <span class="showcase-play-btn" aria-hidden="true"><i class="fas fa-play"></i></span>
                             </button>
                             <div class="showcase-video-info">
@@ -360,7 +348,7 @@
                         </div>
                         <div class="showcase-video-card card-base reveal" data-video-id="3McOOk1c7xI">
                             <button class="showcase-video-thumb" aria-label="Play video: Glacier Client || Best Client For Minecraft Pocket Edition (26.0+) MCPE by FlareRite">
-                                <img src="https://i.ytimg.com/vi/3McOOk1c7xI/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
+                                <img width="480" height="360" src="https://i.ytimg.com/vi/3McOOk1c7xI/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
                                 <span class="showcase-play-btn" aria-hidden="true"><i class="fas fa-play"></i></span>
                             </button>
                             <div class="showcase-video-info">
@@ -437,21 +425,21 @@
                     </div>
                     <div class="gallery-container">
                         <div class="gallery-item reveal">
-                            <img src="assets/mod_menu.webp" alt="Glacier Client Mod Menu" loading="lazy" decoding="async" />
+                            <img width="1110" height="659" src="assets/mod_menu.webp" alt="Glacier Client Mod Menu" loading="lazy" decoding="async" />
                             <div class="gallery-overlay">
                                 <h3 data-i18n="gallery.modMenu.title">Mod Menu</h3>
                                 <p data-i18n="gallery.modMenu.desc">Easy-to-use interface for managing all your mods</p>
                             </div>
                         </div>
                         <div class="gallery-item reveal">
-                            <img src="assets/start_screen.webp" alt="Glacier Client Start Screen" loading="lazy" decoding="async" />
+                            <img width="1915" height="1077" src="assets/start_screen.webp" alt="Glacier Client Start Screen" loading="lazy" decoding="async" />
                             <div class="gallery-overlay">
                                 <h3 data-i18n="gallery.startScreen.title">Start Screen</h3>
                                 <p data-i18n="gallery.startScreen.desc">Custom main menu with a unique design</p>
                             </div>
                         </div>
                         <div class="gallery-item reveal">
-                            <img src="assets/pause_screen.webp" alt="Glacier Client Pause Screen" loading="lazy" decoding="async" />
+                            <img width="1920" height="1080" src="assets/pause_screen.webp" alt="Glacier Client Pause Screen" loading="lazy" decoding="async" />
                             <div class="gallery-overlay">
                                 <h3 data-i18n="gallery.pauseScreen.title">Pause Screen</h3>
                                 <p data-i18n="gallery.pauseScreen.desc">Custom pause menu with QOL features</p>
@@ -484,8 +472,11 @@
                     <div class="mods-count" id="modsCount" aria-live="polite"></div>
                     <div class="mods-grid" id="modsGrid"></div>
                     <div class="mods-empty" id="modsEmpty" style="display:none;">
-                        <i class="far fa-star" aria-hidden="true"></i>
-                        <p data-i18n="mods.empty">No mods match. Try another search, or star some favorites first.</p>
+                        <div class="empty-state" role="status">
+                            <span class="empty-state-ico" aria-hidden="true"><i class="fas fa-magnifying-glass"></i></span>
+                            <p data-i18n="empty.mods">No modules match these filters.</p>
+                            <button type="button" class="btn btn-secondary" data-clear-mods data-i18n="empty.clear">Clear filters</button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -528,7 +519,7 @@
                     <div class="showcase-video-grid">
                         <div class="showcase-video-card card-base reveal" data-video-id="ocWqAqCTILY">
                             <button class="showcase-video-thumb" aria-label="Play video: The NEW King of Minecraft Bedrock Clients? by PatarHD">
-                                <img src="https://i.ytimg.com/vi/ocWqAqCTILY/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
+                                <img width="480" height="360" src="https://i.ytimg.com/vi/ocWqAqCTILY/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
                                 <span class="showcase-play-btn" aria-hidden="true"><i class="fas fa-play"></i></span>
                             </button>
                             <div class="showcase-video-info">
@@ -544,7 +535,7 @@
                         </div>
                         <div class="showcase-video-card card-base reveal" data-video-id="aHUHPdzQ6-Y">
                             <button class="showcase-video-thumb" aria-label="Play video: The BEST Minecraft Bedrock Client! [MOBILE TOO] by Apup">
-                                <img src="https://i.ytimg.com/vi/aHUHPdzQ6-Y/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
+                                <img width="480" height="360" src="https://i.ytimg.com/vi/aHUHPdzQ6-Y/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
                                 <span class="showcase-play-btn" aria-hidden="true"><i class="fas fa-play"></i></span>
                             </button>
                             <div class="showcase-video-info">
@@ -560,7 +551,7 @@
                         </div>
                         <div class="showcase-video-card card-base reveal" data-video-id="3McOOk1c7xI">
                             <button class="showcase-video-thumb" aria-label="Play video: Glacier Client || Best Client For Minecraft Pocket Edition (26.0+) MCPE by FlareRite">
-                                <img src="https://i.ytimg.com/vi/3McOOk1c7xI/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
+                                <img width="480" height="360" src="https://i.ytimg.com/vi/3McOOk1c7xI/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
                                 <span class="showcase-play-btn" aria-hidden="true"><i class="fas fa-play"></i></span>
                             </button>
                             <div class="showcase-video-info">
@@ -577,7 +568,7 @@
                         </div>
                         <div class="showcase-video-card card-base reveal" data-video-id="9AONoKL11YE">
                             <button class="showcase-video-thumb" aria-label="Play video: Glacier Client V5 For MCPE 1.21+ ( Mod Menu, FPS Boost) No lag by BRAVE SHAHEEN YT">
-                                <img src="https://i.ytimg.com/vi/9AONoKL11YE/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
+                                <img width="480" height="360" src="https://i.ytimg.com/vi/9AONoKL11YE/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
                                 <span class="showcase-play-btn" aria-hidden="true"><i class="fas fa-play"></i></span>
                             </button>
                             <div class="showcase-video-info">
@@ -997,7 +988,7 @@
                             <div class="mediakit-asset-block">
                                 <h3>Logo</h3>
                                 <div class="mediakit-preview mediakit-preview--logo">
-                                    <img src="assets/logo.png" alt="Glacier Client Logo" loading="lazy" decoding="async" />
+                                    <img width="500" height="500" src="assets/logo.png" alt="Glacier Client Logo" loading="lazy" decoding="async" />
                                 </div>
                                 <a href="assets/logo.png" download class="btn btn-secondary">
                                     <i class="fas fa-download" aria-hidden="true"></i> Download Logo
@@ -1006,7 +997,7 @@
                             <div class="mediakit-asset-block mediakit-asset-block--last">
                                 <h3>Background Texture</h3>
                                 <div class="mediakit-preview mediakit-preview--bg">
-                                    <img src="assets/BG.webp" alt="Glacier Client site background texture" loading="lazy" decoding="async" />
+                                    <img width="1280" height="720" src="assets/BG.webp" alt="Glacier Client site background texture" loading="lazy" decoding="async" />
                                 </div>
                                 <a href="assets/BG.png" download class="btn btn-secondary">
                                     <i class="fas fa-download" aria-hidden="true"></i> Download Background
@@ -1017,15 +1008,15 @@
                             <h3>Screenshots</h3>
                             <div class="mediakit-shot-grid">
                                 <a href="assets/mod_menu.png" download class="mediakit-shot">
-                                    <img src="assets/mod_menu.webp" alt="Mod Menu screenshot" loading="lazy" decoding="async" />
+                                    <img width="1110" height="659" src="assets/mod_menu.webp" alt="Mod Menu screenshot" loading="lazy" decoding="async" />
                                     <span><i class="fas fa-download" aria-hidden="true"></i> Mod Menu</span>
                                 </a>
                                 <a href="assets/start_screen.png" download class="mediakit-shot">
-                                    <img src="assets/start_screen.webp" alt="Start Screen screenshot" loading="lazy" decoding="async" />
+                                    <img width="1915" height="1077" src="assets/start_screen.webp" alt="Start Screen screenshot" loading="lazy" decoding="async" />
                                     <span><i class="fas fa-download" aria-hidden="true"></i> Start Screen</span>
                                 </a>
                                 <a href="assets/pause_screen.png" download class="mediakit-shot">
-                                    <img src="assets/pause_screen.webp" alt="Pause Screen screenshot" loading="lazy" decoding="async" />
+                                    <img width="1920" height="1080" src="assets/pause_screen.webp" alt="Pause Screen screenshot" loading="lazy" decoding="async" />
                                     <span><i class="fas fa-download" aria-hidden="true"></i> Pause Screen</span>
                                 </a>
                             </div>
@@ -1269,7 +1260,7 @@
                     </div>
                     <div class="donate-grid">
                         <div class="donate-card card-base card-shine reveal">
-                            <img src="assets/icons/paypal.png" alt="PayPal" class="donate-icon" loading="lazy" decoding="async" />
+                            <img width="512" height="512" src="assets/icons/paypal.png" alt="PayPal" class="donate-icon" loading="lazy" decoding="async" />
                             <h3 data-i18n="donate.paypal.title">PayPal</h3>
                             <p data-i18n="donate.paypal.desc">Support us directly through PayPal with a one-time or recurring donation.</p>
                             <a href="https://paypal.me/PepeOnPayPal" class="btn btn-primary" target="_blank" rel="noopener">
@@ -1277,7 +1268,7 @@
                             </a>
                         </div>
                         <div class="donate-card card-base card-shine reveal">
-                            <img src="assets/icons/kofi.png" alt="Ko-fi" class="donate-icon" loading="lazy" decoding="async" />
+                            <img width="1024" height="1024" src="assets/icons/kofi.png" alt="Ko-fi" class="donate-icon" loading="lazy" decoding="async" />
                             <h3 data-i18n="donate.kofi.title">Ko-fi</h3>
                             <p data-i18n="donate.kofi.desc">Buy us a coffee to show your appreciation and support our work.</p>
                             <a href="https://ko-fi.com/pepeonkofi" class="btn btn-secondary" target="_blank" rel="noopener">
@@ -1285,10 +1276,9 @@
                             </a>
                         </div>
                         <div class="donate-card card-base card-shine reveal">
-                            <img src="assets/icons/community.png" alt="Community" class="donate-icon" loading="lazy" decoding="async" />
+                            <img width="590" height="590" src="assets/icons/community.png" alt="Community" class="donate-icon" loading="lazy" decoding="async" />
                             <h3 data-i18n="donate.community.title">Community Support</h3>
-                            <p data-i18n="donate.community.desc">Join our Discord, share your experience, and help other users. Community support is
-                                invaluable!</p>
+                            <p data-i18n="donate.community.desc">Join our Discord, share your experience, and help other users.</p>
                             <a href="https://discord.glacierclient.xyz/" class="btn btn-secondary" target="_blank" rel="noopener">
                                 <i class="fab fa-discord" aria-hidden="true"></i> <span data-i18n="btn.joinDiscord">Join Our Discord</span>
                             </a>

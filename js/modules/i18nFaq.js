@@ -29,7 +29,7 @@ export const FAQ_STRINGS = {
         'toast.available': 'Glacier {version} is now available!',
         'toast.dismiss': 'Dismiss announcement',
         'donate.toastTitle': 'Support Glacier',
-        'donate.toastText': 'Glacier is free forever. A small donation keeps it that way.',
+        'donate.toastText': 'Glacier stays free. Donations are optional and help fund development.',
         'donate.dismiss': 'Dismiss donation prompt',
 
         'changelog.v6.2.title': 'HUD Hotfix and more: Restores compatibility with Minecraft Bedrock v26.30.',
@@ -194,7 +194,7 @@ export const FAQ_STRINGS = {
         'toast.available': 'Glacier {version} ist jetzt verfügbar!',
         'toast.dismiss': 'Ankündigung schließen',
         'donate.toastTitle': 'Glacier unterstützen',
-        'donate.toastText': 'Glacier ist für immer kostenlos. Eine kleine Spende hält es so.',
+        'donate.toastText': 'Glacier bleibt kostenlos. Spenden sind freiwillig und helfen bei der Entwicklung.',
         'donate.dismiss': 'Spendenhinweis schließen',
 
         'changelog.v6.2.title': 'HUD-Hotfix und mehr: Stellt die Kompatibilität mit Minecraft Bedrock v26.30 wieder her.',
@@ -359,7 +359,7 @@ export const FAQ_STRINGS = {
         'toast.available': '¡Glacier {version} ya está disponible!',
         'toast.dismiss': 'Descartar anuncio',
         'donate.toastTitle': 'Apoya a Glacier',
-        'donate.toastText': 'Glacier es gratis para siempre. Una pequeña donación ayuda a que siga siéndolo.',
+        'donate.toastText': 'Glacier es gratis. Las donaciones son opcionales y ayudan al desarrollo.',
         'donate.dismiss': 'Descartar aviso de donación',
 
         'changelog.v6.2.title': 'Corrección del HUD y más: Restaura la compatibilidad con Minecraft Bedrock v26.30.',
@@ -524,7 +524,7 @@ export const FAQ_STRINGS = {
         'toast.available': 'Glacier {version} est maintenant disponible !',
         'toast.dismiss': 'Ignorer l\'annonce',
         'donate.toastTitle': 'Soutenir Glacier',
-        'donate.toastText': 'Glacier est gratuit pour toujours. Un petit don aide à le maintenir ainsi.',
+        'donate.toastText': 'Glacier reste gratuit. Les dons sont facultatifs et aident au développement.',
         'donate.dismiss': 'Ignorer l\'invite de don',
 
         'changelog.v6.2.title': 'Correctif HUD et plus : Restaure la compatibilité avec Minecraft Bedrock v26.30.',
@@ -689,7 +689,7 @@ export const FAQ_STRINGS = {
         'toast.available': 'Glacier {version} è ora disponibile!',
         'toast.dismiss': 'Ignora annuncio',
         'donate.toastTitle': 'Sostieni Glacier',
-        'donate.toastText': 'Glacier è gratuito per sempre. Una piccola donazione aiuta a mantenerlo così.',
+        'donate.toastText': 'Glacier resta gratuito. Le donazioni sono facoltative e aiutano lo sviluppo.',
         'donate.dismiss': 'Ignora avviso di donazione',
 
         'changelog.v6.2.title': 'Hotfix HUD e altro: Ripristina la compatibilità con Minecraft Bedrock v26.30.',
@@ -854,7 +854,7 @@ export const FAQ_STRINGS = {
         'toast.available': 'O Glacier {version} já está disponível!',
         'toast.dismiss': 'Dispensar anúncio',
         'donate.toastTitle': 'Apoia o Glacier',
-        'donate.toastText': 'O Glacier é gratuito para sempre. Um pequeno donativo ajuda a mantê-lo assim.',
+        'donate.toastText': 'O Glacier continua gratuito. Os donativos são opcionais e ajudam no desenvolvimento.',
         'donate.dismiss': 'Dispensar aviso de doação',
 
         'changelog.v6.2.title': 'Correção do HUD e mais: Restaura a compatibilidade com o Minecraft Bedrock v26.30.',
@@ -1019,7 +1019,7 @@ export const FAQ_STRINGS = {
         'toast.available': 'O Glacier {version} já está disponível!',
         'toast.dismiss': 'Dispensar anúncio',
         'donate.toastTitle': 'Apoie o Glacier',
-        'donate.toastText': 'O Glacier é gratuito para sempre. Uma pequena doação ajuda a mantê-lo assim.',
+        'donate.toastText': 'O Glacier continua gratuito. Doações são opcionais e ajudam no desenvolvimento.',
         'donate.dismiss': 'Dispensar aviso de doação',
 
         'changelog.v6.2.title': 'Correção do HUD e mais: Restaura a compatibilidade com o Minecraft Bedrock v26.30.',

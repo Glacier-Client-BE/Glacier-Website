@@ -101,7 +101,7 @@ main#main-content {
     border-radius: var(--pill);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-md);
     overflow-x: auto;
     scrollbar-width: none;
 }
@@ -160,7 +160,7 @@ main#main-content {
     border-radius: var(--pill);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-md);
     flex-shrink: 0;
 }
 
@@ -563,7 +563,7 @@ main#main-content {
     height: 17px;
     border-radius: 50%;
     background: #fff;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+    box-shadow: var(--shadow-sm);
     transition: transform var(--dur-base) var(--ease-spring);
 }
 
@@ -658,9 +658,11 @@ main#main-content {
 
 .xy-cell {
     flex: 1;
+    min-width: 0;
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3px;
     background: var(--surface-inset);
     border: 1px solid var(--surface-border);
     border-radius: var(--r-sm);
@@ -676,8 +678,9 @@ main#main-content {
 .xy-cell span {
     font-size: 0.62rem;
     font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--accent-hover);
-    width: 11px;
 }
 
 [data-theme="light"] .xy-cell span {
@@ -840,23 +843,6 @@ main#main-content {
     margin-top: 8px;
 }
 
-.empty-state {
-    text-align: center;
-    padding: 50px 16px;
-}
-
-.empty-state i {
-    font-size: 1.6rem;
-    color: var(--text-dim);
-    opacity: 0.4;
-}
-
-.empty-state p {
-    margin-top: 12px;
-    font-size: 0.76rem;
-    font-weight: 700;
-    color: var(--text-dim);
-}
 
 /* ── Export split-button + menu ── */
 .export-wrap {
@@ -1310,7 +1296,7 @@ main#main-content {
     outline: none;
     resize: none;
     background: transparent;
-    color: #d6dae0;
+    color: #d8dcea;
     font-family: var(--mono);
     font-size: 0.74rem;
     line-height: 1.65;
@@ -1319,7 +1305,7 @@ main#main-content {
 }
 
 [data-theme="light"] .raw-area {
-    color: #1a1d20;
+    color: #14182e;
 }
 
 .raw-area.invalid {
@@ -1935,11 +1921,11 @@ main :focus-visible,
 /* ── Hover: only where a pointer can hover ── */
 @media (hover: hover) {
     .toggle:not(.on):hover {
-        background: #3b4048;
+        background: #3a3f56;
     }
 
     [data-theme="light"] .toggle:not(.on):hover {
-        background: #c2c8d1;
+        background: #c3c8da;
     }
 
     .toggle.on:hover {
@@ -2388,5 +2374,28 @@ main :focus-visible,
         content: '';
         position: absolute;
         inset: -11px -2px;
+    }
+}
+
+/* Export progress: the label gives way to a percentage while the pack is built. */
+.export-progress {
+    display: none;
+    font-variant-numeric: tabular-nums;
+}
+
+#exportBtn.is-busy .export-label {
+    display: none;
+}
+
+#exportBtn.is-busy .export-progress {
+    display: inline;
+}
+
+/* Touch: a toggle keeps its 42px look but gets a 44px+ hit area on touch and phone widths. */
+@media (pointer: coarse), (max-width: 640px) {
+    .toggle::before {
+        content: '';
+        position: absolute;
+        inset: -11px -10px;
     }
 }

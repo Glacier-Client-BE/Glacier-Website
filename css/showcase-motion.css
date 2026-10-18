@@ -46,7 +46,7 @@
     border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: var(--sc-r);
     background: var(--bg-panel);
-    box-shadow: 0 40px 100px -40px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 2px 4px rgb(5 6 20 / .2), 0 40px 90px -30px rgb(5 6 20 / .65);
 }
 
 .sc-panel {
@@ -54,7 +54,7 @@
     aspect-ratio: 16 / 9;
     overflow: hidden;
     border-radius: var(--sc-r-in);
-    background: #0b0c0f;
+    background: #0a0b14;
     touch-action: pan-y;
     -webkit-user-select: none;
     user-select: none;
@@ -230,14 +230,14 @@
     background: rgba(255, 255, 255, 0.06);
 }
 
-.sc-toggle svg {
+.sc-toggle .fa-solid {
     grid-area: 1 / 1;
-    width: 16px;
-    height: 16px;
-    fill: currentColor;
+    font-size: var(--icon-md);
+    line-height: 1;
 }
 
-.sc-icon-play { display: none; }
+/* Optical centring: a play triangle's visual mass sits left of its box, so nudge it right. */
+.sc-icon-play { display: none; transform: translateX(0.09em); }
 .sc.is-paused .sc-icon-play { display: block; }
 .sc.is-paused .sc-icon-pause { display: none; }
 
@@ -334,6 +334,6 @@
     .sc-long { display: none; }
     .sc-short { display: inline; }
     .sc-tab { font-size: 13px; padding: 10px 4px 13px; }
-    .sc-toggle { width: 40px; height: 40px; }
+    .sc-toggle { width: 44px; height: 44px; }
     .sc-nav { gap: 6px; }
 }

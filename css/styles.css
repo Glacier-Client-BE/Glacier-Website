@@ -5,12 +5,12 @@
     --accent-glow: rgba(114, 137, 218, 0.22);
     --accent-bg: rgba(114, 137, 218, 0.10);
     /* Dark Backgrounds */
-    --bg: #0b0c0f;
+    --bg: #0a0b14;
     --bg-item: rgba(255, 255, 255, 0.03);
     --bg-item-hover: rgba(255, 255, 255, 0.06);
     /* Text Colors */
-    --text: #ffffff;
-    --text-dim: #9aa1ad;
+    --text: #eaecf6;
+    --text-dim: #9aa1b8;
     /* Semantic Colors */
     --green: #43b581;
     --red: #f04747;
@@ -66,27 +66,33 @@
     --glass-strong: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.07);
     --glass-border-hover: rgba(255, 255, 255, 0.14);
-    --glass-shadow: none;
     /* Solid surfaces */
-    --surface: #121419;
-    --surface-hover: #181b22;
+    --surface: #121526;
+    --surface-hover: #1a1d2f;
     --surface-border: rgba(255, 255, 255, 0.07);
-    --surface-inset: #0d0e12;
+    --surface-inset: #0c0d18;
     --pink: #eb459e;
     --text-muted: var(--text-dim);
     --radius: 18px;
     --pill: 9999px;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
+    /* Soft, layered elevation. Low opacity, high blur, positive Y, tinted to the
+       brand hue so shadows read as depth rather than black smudges. */
+    --shadow-sm: inset 0 1px 0 rgb(255 255 255 / .04), 0 1px 2px rgb(5 6 20 / .25), 0 2px 8px -2px rgb(5 6 20 / .30);
+    --shadow-md: inset 0 1px 0 rgb(255 255 255 / .04), 0 1px 2px rgb(5 6 20 / .25), 0 12px 32px -8px rgb(5 6 20 / .45);
+    --shadow-lg: inset 0 1px 0 rgb(255 255 255 / .04), 0 2px 4px rgb(5 6 20 / .20), 0 24px 56px -12px rgb(5 6 20 / .55);
+    --glass-shadow: inset 0 1px 0 rgb(255 255 255 / .04);
+    --shadow: var(--shadow-sm);
+    /* Icon optical sizes: small (inline meta), medium (controls), large (feature glyphs). */
+    --icon-sm: 0.875rem;
 }
 
 [data-theme="light"] {
-    --bg: #f7f8fa;
+    --bg: #f6f7fb;
     --bg-item: rgba(0, 0, 0, 0.03);
     --bg-item-hover: rgba(0, 0, 0, 0.06);
-    --text: #0e1116;
-    --text-dim: #5b6470;
-    --text-muted: #5b6470;
+    --text: #0f1226;
+    --text-dim: #545b72;
+    --text-muted: #545b72;
     --glass: rgba(0, 0, 0, 0.02);
     --glass-strong: rgba(0, 0, 0, 0.04);
     --glass-border: rgba(0, 0, 0, 0.08);
@@ -95,6 +101,10 @@
     --surface-hover: #f2f3f6;
     --surface-border: rgba(0, 0, 0, 0.08);
     --surface-inset: #eceef1;
+    --shadow-sm: 0 1px 2px rgb(20 24 60 / .06), 0 2px 8px -2px rgb(20 24 60 / .08);
+    --shadow-md: 0 1px 2px rgb(20 24 60 / .06), 0 12px 32px -8px rgb(20 24 60 / .16);
+    --shadow-lg: 0 2px 4px rgb(20 24 60 / .06), 0 24px 56px -12px rgb(20 24 60 / .22);
+    --glass-shadow: none;
 }
 
 /* ── Custom scrollbar ── */
@@ -133,20 +143,6 @@ html {
 
 [data-theme="light"] body {
     background: transparent;
-}
-
-/* Panels → light & opaque enough for dark text */
-
-[data-theme="light"] .card-base,
-[data-theme="light"] .hero,
-[data-theme="light"] .quick-dock {
-    background: rgba(255, 255, 255, 0.86);
-    border-color: rgba(0, 0, 0, 0.08);
-}
-
-[data-theme="light"] .quick-action {
-    background: rgba(0, 0, 0, 0.05);
-    color: #1a1d20;
 }
 
 [data-theme="light"] footer {
@@ -234,6 +230,13 @@ body {
 
 h1,
 h2,
+h3 {
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+h1,
+h2,
 h3,
 .hero-title,
 .section-title,
@@ -270,7 +273,7 @@ a {
     text-decoration: none;
 }
 
-/* Shared keyboard-focus ring — same accent treatment already used on quick-dock
+/* Shared keyboard-focus ring — same accent treatment used across controls
  actions and the language dropdown, extended to every other interactive
  control so keyboard users get one consistent indicator site-wide instead of
  the browser default on most elements and a branded ring on a couple. */
@@ -441,8 +444,8 @@ header {
 
 .toast-title {
     font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--accent);
 }
@@ -542,7 +545,7 @@ header {
     border: 1px solid rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-lg);
     overflow: hidden;
     transform: translateY(-12px) scale(.96);
     transition: transform var(--dur-fast) ease-in;
@@ -756,114 +759,12 @@ body.has-toast #backToTop {
     }
 }
 
-/* ── Quick-actions dock (right rail) ──
- A persistent glass dock of the site's primary CTAs — download, Discord and the
- config editor — pinned to the right edge. Replaces the old section-dot rail,
- which only duplicated the top nav. Each action reveals its label on hover/focus
- and lifts toward the cursor. */
-
-.quick-dock {
-    position: fixed;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    z-index: 900;
-    padding: 8px;
-    background: var(--glass-strong);
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
-    border: 1px solid var(--glass-border);
-    border-radius: var(--pill);
-    box-shadow: var(--glass-shadow);
-}
-
-.quick-action {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    color: var(--text-dim);
-    background: var(--bg-item);
-    border: 1px solid transparent;
-    font-size: var(--icon-md);
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform var(--dur-base) var(--ease-out),
-                background var(--dur-base) var(--ease-out),
-                color var(--dur-base) var(--ease-out),
-                box-shadow var(--dur-base) var(--ease-out);
-}
-
 @media (hover: hover) {
-    .quick-action:hover {
-        color: #fff;
-        background: var(--accent);
-        transform: translateY(-2px) scale(1.06);
-        box-shadow: 0 8px 20px var(--accent-glow);
-    }
 }
 
 /* Discord wears its own brand colour on hover. */
 
 @media (hover: hover) {
-    .quick-action--discord:hover {
-        background: #5865F2;
-        box-shadow: 0 8px 20px rgba(88, 101, 242, 0.5);
-    }
-}
-
-/* Tactile press — eases in, snaps back via the resting transition. */
-
-.quick-action:active {
-    transform: scale(0.9);
-    transition: transform 0.1s ease;
-}
-
-.quick-action:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-}
-
-/* Hover/focus label, sitting just left of the dock. */
-
-.quick-action::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    right: 56px;
-    top: 50%;
-    transform: translateY(-50%) translateX(6px);
-    background: var(--glass-strong);
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
-    color: var(--text);
-    padding: 5px 12px;
-    border-radius: var(--pill);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.32);
-    transition: opacity 0.26s var(--ease-out),
-                transform 0.4s cubic-bezier(0.34, 1.45, 0.5, 1),
-                visibility 0.26s var(--ease-out);
-}
-
-.quick-action:hover::after,
-.quick-action:focus-visible::after {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(-50%) translateX(0);
 }
 
 header {
@@ -986,7 +887,7 @@ a.branding {
     padding: 3px;
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-md);
 }
 
 .nav-tab {
@@ -1071,7 +972,7 @@ a.branding {
     flex-shrink: 0;
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-md);
     transition: background var(--t), border-color var(--t), color var(--t), box-shadow var(--t);
     white-space: nowrap;
     font-weight: 500;
@@ -1106,7 +1007,7 @@ a.branding {
     font-size: 0.9rem;
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-md);
     transition: color var(--t), background var(--t), box-shadow var(--t);
     flex-shrink: 0;
 }
@@ -1193,7 +1094,7 @@ main {
 
 .hero-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 56px;
     align-items: center;
     position: relative;
@@ -1221,7 +1122,7 @@ main {
 }
 
 [data-theme="light"] .hero-title {
-    background: linear-gradient(180deg, #0e1116 0%, #1b2430 40%, var(--accent) 135%);
+    background: linear-gradient(180deg, #0f1226 0%, #1d2440 40%, var(--accent) 135%);
     -webkit-background-clip: text;
     background-clip: text;
 }
@@ -1292,8 +1193,8 @@ main {
 }
 
 @media (hover: hover) {
-    .hero-image:hover img {
-        transform: scale(1.04);
+    .hero-image:hover {
+        box-shadow: var(--shadow-lg);
     }
 }
 
@@ -1627,7 +1528,8 @@ main {
     padding: 4px 11px;
     font-size: 0.66rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
+    font-weight: 600;
     text-transform: uppercase;
     color: var(--accent-hover);
     background: var(--accent-bg);
@@ -1697,7 +1599,7 @@ main {
     border-radius: var(--r-md);
     overflow: hidden;
     aspect-ratio: 16 / 9;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-lg);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform var(--t), box-shadow var(--t), border-color var(--t);
     background: rgba(35, 39, 42, 0.3);
@@ -1813,7 +1715,7 @@ main {
         transform: translateX(4px);
     }
     [data-theme="light"] .community-text li:hover {
-        color: #1a1d20;
+        color: #14182e;
     }
 }
 
@@ -1969,7 +1871,7 @@ main {
     padding: 6px 16px;
     font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--orange);
     background: rgba(250, 166, 26, 0.12);
@@ -2370,6 +2272,23 @@ body.is-404 #donateBanner {
     white-space: nowrap;
 }
 
+/* Release facts as compact chips: version, date, size and downloads at a glance. */
+.download-meta > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--r-pill);
+    background: var(--bg-item);
+    border: 1px solid var(--glass-border);
+    line-height: 1.3;
+}
+
+.download-meta .download-meta-icon {
+    margin-right: 0;
+    font-size: var(--icon-sm);
+}
+
 .dl-count-num {
     color: var(--text);
     font-weight: 600;
@@ -2561,7 +2480,7 @@ body.is-404 #donateBanner {
     left: 50%;
     bottom: calc(100% + 8px);
     transform: translateX(-50%) translateY(4px);
-    background: var(--surface-inset, #1f2227);
+    background: var(--surface-inset, #1c1f2f);
     color: var(--text);
     font-family: inherit;
     font-size: .72rem;
@@ -2617,7 +2536,7 @@ body.is-404 #donateBanner {
     left: 50%;
     bottom: calc(100% + 8px);
     transform: translateX(-50%) translateY(4px);
-    background: var(--surface-inset, #1f2227);
+    background: var(--surface-inset, #1c1f2f);
     color: var(--text);
     font-size: .72rem;
     font-weight: 500;
@@ -3148,7 +3067,7 @@ body.is-404 #donateBanner {
     line-height: 1;
     padding: 4px 9px;
     border-radius: var(--pill);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    box-shadow: var(--shadow-sm);
 }
 
 .color-swatch--tint {
@@ -3207,7 +3126,7 @@ body.is-404 #donateBanner {
     margin-bottom: 14px;
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-md);
 }
 
 .guide-nav-tabs .nav-tab {
@@ -3494,7 +3413,7 @@ footer {
     color: var(--text-dim);
     font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
@@ -3821,9 +3740,6 @@ footer {
     .community-widget iframe {
         max-height: 340px;
     }
-    .quick-dock {
-        right: 12px;
-    }
 }
 
 @media (max-width: 768px) {
@@ -3859,7 +3775,7 @@ footer {
         padding: 8px;
         border-radius: var(--r-md);
         border: 1px solid var(--glass-border);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        box-shadow: var(--shadow-lg);
         z-index: 999;
         max-height: calc(100vh - 80px);
         overflow-y: auto;
@@ -3891,9 +3807,6 @@ footer {
     [data-theme="light"] .nav-tab:not(.active) {
         color: var(--text);
     }
-    .quick-dock {
-        display: none;
-    }
     .mobile-menu-btn {
         display: flex;
         width: var(--ctl-h);
@@ -3908,7 +3821,7 @@ footer {
         font-size: 0.9rem;
         backdrop-filter: blur(var(--blur));
         -webkit-backdrop-filter: blur(var(--blur));
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        box-shadow: var(--shadow-md);
         transition: color var(--t), background var(--t), box-shadow var(--t);
     }
     @media (hover: hover) {
@@ -3923,17 +3836,22 @@ footer {
         margin: 0 12px 40px;
     }
     .hero-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 32px;
     }
+    .hero-content {
+        align-items: center;
+        text-align: center;
+    }
+    .hero-subtitle {
+        margin-inline: auto;
+    }
     .hero-image {
-        order: -1;
-        max-height: 240px;
-        overflow: hidden;
+        order: 0;
+        width: 100%;
     }
     .hero-image img {
-        max-height: 240px;
-        object-fit: cover;
+        height: auto;
         width: 100%;
     }
     .hero-buttons {
@@ -3987,6 +3905,7 @@ footer {
     }
     .hero-stats {
         gap: 16px;
+        justify-content: center;
     }
 }
 
@@ -3994,9 +3913,6 @@ footer {
     .hero {
         padding: 30px 18px;
         margin: 0 8px 32px;
-    }
-    .hero-image {
-        display: none;
     }
     .section-title {
         font-size: 1.6rem;
@@ -4228,7 +4144,7 @@ footer {
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-md);
     color: var(--text-dim);
     font-family: inherit;
     font-size: .85rem;
@@ -4374,7 +4290,8 @@ footer {
 .docs-toc-label {
     font-size: .78rem;
     text-transform: uppercase;
-    letter-spacing: .06em;
+    letter-spacing: .08em;
+    font-weight: 600;
     color: var(--text-muted);
     margin-bottom: 6px;
 }
@@ -4724,9 +4641,6 @@ footer {
     .tab-button:hover i {
         transform: translateY(-1px) scale(1.08);
     }
-    .quick-action:hover i {
-        transform: scale(1.08);
-    }
 }
 
 /* Press: 0.97 on every pill and tab control, springing back on release. */
@@ -4879,16 +4793,6 @@ footer {
     opacity: 0.85;
 }
 
-.copied-toast {
-    padding: var(--space-2, 8px) var(--space-4, 16px);
-    border-radius: var(--r-pill);
-    background: var(--green);
-    color: #fff;
-    font-weight: 600;
-    font-size: 0.9rem;
-    box-shadow: var(--glass-shadow);
-}
-
 /* Hero: one soft glow, no panel, no drift. */
 
 .hero {
@@ -4948,12 +4852,44 @@ footer {
 
 .hero-stat-label {
     color: var(--text-dim);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.hero-stat-ico {
+    font-size: var(--icon-sm);
+    color: var(--accent-hover);
+    width: 1em;
+    text-align: center;
 }
 
 .hero-image {
-    box-shadow: none;
-    border: 1px solid var(--glass-border);
+    position: relative;
+    overflow: visible;
+    isolation: isolate;
+    padding: var(--pad-nest);
+    background: var(--surface);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--surface-border);
     border-radius: var(--r-md);
+    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+
+/* Inner curve: outer radius minus the frame inset, so the corners stay concentric. */
+.hero-image img {
+    border-radius: var(--r-inner);
+}
+
+/* A faint brand glow behind the frame. Low contrast, CSS only, sits under the frame. */
+.hero-image::before {
+    content: '';
+    position: absolute;
+    inset: -14% -10% -6%;
+    z-index: -1;
+    background: radial-gradient(closest-side, rgba(114, 137, 218, .20), transparent 72%);
+    filter: blur(28px);
+    pointer-events: none;
 }
 
 @media (hover: hover) {
@@ -5005,7 +4941,7 @@ footer {
 .subsection-eyebrow {
     font-size: var(--fs-xs);
     font-weight: 600;
-    letter-spacing: .14em;
+    letter-spacing: .08em;
     color: var(--accent-hover);
     margin-bottom: var(--space-3);
 }
@@ -5283,36 +5219,7 @@ header.scrolled::before {
     background: rgba(247, 248, 250, .8);
 }
 
-/* Quick dock and popups: flat, hairline, no glow. */
-
-.quick-dock {
-    background: var(--surface);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    box-shadow: none;
-}
-
-.quick-action {
-    background: var(--bg-item);
-}
-
 @media (hover: hover) {
-    .quick-action:hover {
-        background: var(--bg-item-hover);
-        color: var(--text);
-        box-shadow: none;
-    }
-    .quick-action--discord:hover {
-        background: #5865F2;
-        box-shadow: none;
-    }
-}
-
-.quick-action::after {
-    background: var(--surface);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    box-shadow: none;
 }
 
 #toastBanner,
@@ -5563,7 +5470,7 @@ textarea {
     .nav-tabs {
         background: var(--surface);
         border: 1px solid var(--glass-border);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        box-shadow: var(--shadow-lg);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
         padding: 8px;
@@ -5664,30 +5571,6 @@ textarea {
         filter: none !important;
     }
     .hero::before {
-        transform: none !important;
-    }
-    .btn:hover,
-    .btn:active,
-    .card-base:hover,
-    .feature-card:hover,
-    .download-card:hover,
-    .mod-card:hover,
-    .gallery-item:hover,
-    .social-card:hover,
-    .donate-card:hover,
-    .license-card:hover,
-    .showcase-video-card:hover,
-    .hero-image:hover,
-    .quick-action:hover,
-    .quick-action:active,
-    .nav-tab:active,
-    .tab-button:active,
-    .filter-button:active,
-    .header-icon-btn:active,
-    .search-trigger:active,
-    .mobile-menu-btn:active,
-    .color-swatch:hover,
-    .community-text li:hover {
         transform: none !important;
     }
     .skeleton::after {
@@ -5806,4 +5689,213 @@ textarea {
     bottom: 0;
     width: 2px;
     background: var(--glass-border);
+}
+
+/* ── Polish pass: next steps, empty states, install progress, touch ──────── */
+
+/* Download next-steps panel. Neutral, dismissible, and it leaves on its own. */
+.dl-next {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    z-index: 1100;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    width: min(440px, calc(100vw - 32px));
+    padding: var(--space-4);
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+
+.dl-next.is-shown {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+}
+
+.dl-next-ico {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--accent-bg);
+    color: var(--green);
+    font-size: var(--icon-md);
+}
+
+.dl-next-text {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: .92rem;
+    line-height: 1.5;
+    color: var(--text-dim);
+}
+
+.dl-next-text strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.dl-next-link {
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--accent-hover);
+}
+
+.dl-next-link:hover {
+    text-decoration: underline;
+}
+
+.dl-next-close {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    margin: -12px -8px -12px 0;
+    display: grid;
+    place-items: center;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.dl-next-close:hover {
+    color: var(--text);
+    background: var(--bg-item-hover);
+}
+
+.dl-next-close:focus-visible,
+.dl-next-link:focus-visible {
+    outline: 2px solid var(--accent-hover);
+    outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+    .dl-next {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
+    }
+    body.has-toast .dl-next {
+        bottom: 148px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dl-next {
+        transition: none;
+    }
+}
+
+/* Empty states: a soft icon disc, one short line, one next action. */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-3);
+    padding: var(--space-7) var(--space-4);
+    color: var(--text-dim);
+}
+
+.empty-state-ico {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--accent-bg);
+    color: var(--accent-hover);
+    font-size: var(--icon-md);
+}
+
+.empty-state p {
+    margin: 0;
+    max-width: 40ch;
+}
+
+/* Quiet inline notice for a failed background load: no alarm, just a line. */
+.inline-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .85rem;
+    color: var(--text-muted);
+}
+
+.inline-note i {
+    color: var(--orange);
+}
+
+/* Ghost button: a demoted action beside a primary one. */
+.btn-ghost {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid transparent;
+}
+
+.btn-ghost:hover {
+    color: var(--text);
+    background: var(--glass-strong);
+}
+
+/* Install steps: completed steps are filled, the connector follows the progress. */
+.install-steps li::before {
+    background: var(--accent-bg);
+    border: 1px solid rgba(114, 137, 218, .45);
+}
+
+.install-steps li:last-child::before {
+    background: var(--accent);
+    border-color: transparent;
+    color: #fff;
+}
+
+.install-steps li:not(:last-child)::after {
+    background: linear-gradient(var(--accent), var(--glass-border));
+    opacity: .6;
+}
+
+/* Touch: extension-row buttons had a 38px override that outranked the 44px rule. */
+@media (max-width: 640px) {
+    .ext-row-actions .btn {
+        min-height: 44px;
+    }
+}
+
+/* Optical alignment: round icon buttons centre their glyph, and pill buttons
+   that lead with an icon get a slightly smaller icon-side inset. */
+.header-icon-btn,
+.sc-toggle,
+.dl-next-close,
+.mod-fav {
+    line-height: 1;
+}
+
+.btn:has(> i:first-child) {
+    padding-left: 18px;
+}
+
+/* Phone hit areas that do not move anything: padding is cancelled by a negative
+   margin, so the box grows to 44px but the layout keeps its original spacing. */
+@media (max-width: 640px) {
+    .branding {
+        padding-block: 5px;
+        margin-block: -5px;
+    }
+    .footer-col a {
+        min-width: 44px;
+    }
 }
