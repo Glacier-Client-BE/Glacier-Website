@@ -11,7 +11,7 @@ import { ALL } from './modules/config.js?v=20260902203329';
 import { setupScroll } from './modules/scroll.js?v=20260902203329';
 import { setupReveal, observeReveals } from './modules/reveal.js?v=20260902203329';
 import { setupShowcase } from './modules/showcase.js?v=20260902203329';
-import { showSection, showNotFound, parsePath, setupDelegation, toggleMobileMenu, searchMods } from './modules/navigation.js?v=20260902203329';
+import { showSection, showNotFound, parsePath, setupDelegation, setupHeaderUtilities, toggleMobileMenu, searchMods } from './modules/navigation.js?v=20260902203329';
 import { loadData, initSkeletons, initFAQ, initMods, initDownloads, initLauncher, showDataError } from './modules/content.js?v=20260902203329';
 import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord, retranslateToast } from './modules/ui.js?v=20260902203329';
 import { setupDocsToc } from './modules/docs.js?v=20260902203329';
@@ -46,6 +46,7 @@ function init() {
     setupReveal();
     setupShowcase();
     setupDelegation();
+    setupHeaderUtilities();
     setupFeedback();
     markCopyableCode(document);
     setupDocsToc();

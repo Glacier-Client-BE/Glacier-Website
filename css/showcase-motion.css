@@ -337,3 +337,73 @@
     .sc-toggle { width: 44px; height: 44px; }
     .sc-nav { gap: 6px; }
 }
+
+/* ── 7. Caption chip: a small label over the bottom-left of the frame ───── */
+/* The three labels stack in one grid cell. The active one fades in and the
+   outgoing one fades out (classes set by swap() in showcase.js). Opacity only,
+   so it stays calm under reduced motion. Hidden below 360px so it never covers
+   the screenshot's HUD on the narrowest phones. */
+
+.sc-chip {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    z-index: 3;
+    display: grid;
+    pointer-events: none;
+}
+
+.sc-chip-item {
+    grid-area: 1 / 1;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px 5px 9px;
+    border-radius: var(--pill);
+    background: rgb(12 13 26 / .55);
+    border: 1px solid rgb(255 255 255 / .12);
+    backdrop-filter: blur(10px) saturate(1.2);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
+    box-shadow: var(--shadow-sm);
+    color: #eef0ff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity var(--dur-base, 250ms) var(--ease-out, ease);
+}
+
+.sc-chip-item.is-on,
+.sc-chip-item.is-in {
+    opacity: 1;
+}
+
+.sc-chip-ico {
+    font-size: 11px;
+    color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sc .sc-chip-item {
+        transition: opacity 120ms linear;
+    }
+}
+
+@media (max-width: 480px) {
+    .sc-chip {
+        left: 8px;
+        bottom: 8px;
+    }
+    .sc-chip-item {
+        font-size: 11px;
+        padding: 4px 9px 4px 8px;
+    }
+}
+
+@media (max-width: 359px) {
+    .sc-chip {
+        display: none;
+    }
+}

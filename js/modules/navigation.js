@@ -133,6 +133,30 @@ export function closeMobileMenu() {
     state.dom.mobileMenuBtn.setAttribute('aria-expanded', 'false');
 }
 
+// Below 480px the language and theme controls move into the mobile menu panel
+// (#navUtils), so the header bar keeps only the logo, search and menu button.
+// The existing elements are moved, not copied, so their ids and listeners stay.
+const phoneHeaderQuery = window.matchMedia('(max-width: 480px)');
+
+export function placeHeaderUtilities() {
+    const lang = $('langDropdown');
+    const theme = $('themeToggle');
+    const utils = $('navUtils');
+    const menuBtn = $('mobileMenuBtn');
+    if (!lang || !theme || !utils || !menuBtn) return;
+    if (phoneHeaderQuery.matches) {
+        utils.append(lang, theme);
+    } else if (utils.contains(lang)) {
+        menuBtn.parentNode.insertBefore(lang, menuBtn);
+        menuBtn.parentNode.insertBefore(theme, menuBtn);
+    }
+}
+
+export function setupHeaderUtilities() {
+    placeHeaderUtilities();
+    phoneHeaderQuery.addEventListener('change', placeHeaderUtilities);
+}
+
 export function toggleMobileMenu() {
     const open = state.dom.navMenu.classList.toggle('active');
     state.dom.mobileMenuBtn.innerHTML = open
@@ -207,6 +231,9 @@ export function searchMods(term) {
 // injected content stays wired without per-node listeners.
 export function setupDelegation() {
     document.addEventListener('click', e => {
+        // Captured before any handler runs: a control may replace its own icon
+        // (theme toggle) and detach e.target, which would fool contains() below.
+        const path = e.composedPath();
         const linked = e.target.closest('[data-section]');
         if (linked && !linked.hasAttribute('target')) {
             const id = linked.dataset.section;
@@ -236,6 +263,6 @@ export function setupDelegation() {
         if (filter && filter.dataset.category) { setActiveCategory(filter.dataset.category); return; }
         const cssItem = e.target.closest('.copy-css-item');
         if (cssItem) { copyText(cssItem, cssSnippetFor(cssItem)); return; }
-        if (!state.dom.navMenu.contains(e.target) && !state.dom.mobileMenuBtn.contains(e.target)) closeMobileMenu();
+        if (!path.includes(state.dom.navMenu) && !path.includes(state.dom.mobileMenuBtn)) closeMobileMenu();
     });
 }

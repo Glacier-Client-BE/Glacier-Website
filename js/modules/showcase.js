@@ -18,6 +18,7 @@ export function setupShowcase() {
     const tabs = [...root.querySelectorAll('.sc-tab')];
     const frames = [...root.querySelectorAll('.sc-img')];
     const caps = [...root.querySelectorAll('.sc-cap')];
+    const chips = [...root.querySelectorAll('.sc-chip-item')];
     const toggle = root.querySelector('.sc-toggle');
     const n = tabs.length;
     if (!n || frames.length !== n || caps.length !== n) return;
@@ -60,6 +61,7 @@ export function setupShowcase() {
         panel.dataset.dir = step > 0 ? 'next' : 'prev';
         swap(frames, prev, i);
         swap(caps, prev, i);
+        swap(chips, prev, i);
         tabs.forEach((tab, k) => {
             tab.setAttribute('aria-selected', String(k === i));
             tab.tabIndex = k === i ? 0 : -1;

@@ -152,6 +152,9 @@
                 <a href="/community" class="nav-tab" data-section="community" data-i18n="nav.community">Community</a>
                 <a href="/docs" class="nav-tab" data-section="docs" data-i18n="nav.help">Help</a>
                 <a href="/donate" class="nav-tab" data-section="donate" data-i18n="nav.donate">Donate</a>
+                <!-- Phone only: navigation.js moves the language and theme controls
+                     here below 480px so the bar keeps just search and the menu button. -->
+                <div class="nav-utils" id="navUtils"></div>
             </nav>
 
             <button id="searchTrigger" class="search-trigger" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">
@@ -265,6 +268,11 @@
                             <img src="assets/mod_menu.webp" alt="Glacier Client Mod Menu" class="sc-img is-on" width="1110" height="659" loading="lazy" decoding="async" />
                             <img src="assets/start_screen.webp" alt="Glacier Client Start Screen" class="sc-img" width="1915" height="1077" loading="lazy" decoding="async" aria-hidden="true" />
                             <img src="assets/pause_screen.webp" alt="Glacier Client Pause Screen" class="sc-img" width="1920" height="1080" loading="lazy" decoding="async" aria-hidden="true" />
+                            <div class="sc-chip" aria-hidden="true">
+                                <span class="sc-chip-item is-on"><i class="fas fa-sliders-h sc-chip-ico"></i><span data-i18n="showcase.tabs.modMenuShort">Menu</span></span>
+                                <span class="sc-chip-item"><i class="fas fa-house sc-chip-ico"></i><span data-i18n="showcase.tabs.startScreenShort">Start</span></span>
+                                <span class="sc-chip-item"><i class="fas fa-pause sc-chip-ico"></i><span data-i18n="showcase.tabs.pauseScreenShort">Pause</span></span>
+                            </div>
                         </div>
                     </div>
                     <div class="sc-nav">

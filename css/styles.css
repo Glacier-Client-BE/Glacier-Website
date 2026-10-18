@@ -5899,3 +5899,62 @@ textarea {
         min-width: 44px;
     }
 }
+
+/* ── Phone header ──────────────────────────────────────────────────────────
+   Below 480px the bar keeps the logo, search and menu button. The theme and
+   language controls live in the mobile menu panel (#navUtils), where
+   navigation.js moves them. Each control is a 44px tap target. */
+
+.nav-utils {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .nav-utils {
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 6px;
+        padding-top: 10px;
+        border-top: 1px solid var(--glass-border);
+    }
+    .nav-utils .lang-custom-dropdown {
+        position: static;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+    .nav-utils .lang-dropdown-trigger,
+    .nav-utils .header-icon-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+    .nav-utils {
+        flex-wrap: wrap;
+    }
+    /* Closed, the language list floats over the panel. Open, it expands in
+       flow so the whole list sits inside the scrolling menu panel. */
+    .nav-utils .lang-dropdown-menu {
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        min-width: 0;
+        transform-origin: top center;
+    }
+    .nav-utils .lang-custom-dropdown.is-open {
+        flex: 1 0 100%;
+        flex-direction: column;
+        height: auto;
+        gap: 8px;
+    }
+    .nav-utils .lang-custom-dropdown.is-open .lang-dropdown-menu {
+        position: static;
+        width: 100%;
+        max-height: 220px;
+    }
+}
