@@ -1,157 +1,134 @@
 'use strict';
 
-// Pinned, chapter-stepped showcase. Rather than scrubbing transforms 1:1 with
-// the scrollbar (which reads as jittery and never settles), it advances in clean
-// discrete steps: an IntersectionObserver watches a centre line of the viewport,
-// and whichever trigger spacer crosses it becomes the active chapter. All the
-// motion is then CSS transitions driven by classes:
-//   - directional frame swap: outgoing gets .is-leaving, incoming .is-active,
-//     with data-dir="next|prev" on the stage choosing the side it travels from;
-//   - per-frame accent hue: --sc-accent on the panel, eased via @property;
-//   - one-shot "skeleton" → colour reveal the first time the stage is seen;
-//   - text swap: outgoing .is-leaving fades up, incoming rises in with a stagger.
-// Reduced motion skips the class choreography entirely (plain instant swap, the
-// CSS fades the rest), and every will-change hint is held only while moving.
-const PALETTE = ['#7289da', '#43b581', '#faa61a'];
-const FRAME_MS = 900;
-const TEXT_MS = 400;
-const SKELETON_MS = 350;
-const REVEAL_MS = 900;
+// Screenshot showcase: three frames behind ARIA tabs, with autoplay, keyboard
+// and swipe control. This module only moves state. It sets classes and
+// attributes, and the CSS does the motion (css/showcase-motion.css).
+// Autoplay runs on the active tab's CSS progress bar: its animationend advances
+// the cycle. CSS pauses that bar on hover, focus, or while the section is
+// offscreen or the tab is hidden. Reduced motion starts paused.
+const SWIPE_PX = 40;
+const STEP = { ArrowRight: 1, ArrowLeft: -1, Home: -1, End: 1 };
 
 export function setupShowcase() {
-    const showcase = document.querySelector('.showcase');
-    if (!showcase) return;
+    const root = document.querySelector('.sc');
+    if (!root) return;
+    const stage = root.querySelector('.sc-stage');
+    const panel = root.querySelector('.sc-panel');
+    const tablist = root.querySelector('.sc-tablist');
+    const tabs = [...root.querySelectorAll('.sc-tab')];
+    const frames = [...root.querySelectorAll('.sc-img')];
+    const caps = [...root.querySelectorAll('.sc-cap')];
+    const toggle = root.querySelector('.sc-toggle');
+    const n = tabs.length;
+    if (!n || frames.length !== n || caps.length !== n) return;
 
-    const pin = showcase.querySelector('.showcase-pin');
-    const stage = showcase.querySelector('.showcase-stage');
-    const countNum = showcase.querySelector('.showcase-count-num');
-    const imgs = [...showcase.querySelectorAll('.showcase-img')];
-    const texts = [...showcase.querySelectorAll('.showcase-text')];
-    const ticks = [...showcase.querySelectorAll('.showcase-tick')];
-    const arrows = [...showcase.querySelectorAll('.showcase-arrow')];
-    const triggers = [...showcase.querySelectorAll('.showcase-trigger')];
-    const n = imgs.length;
-    if (!n) return;
-    const span = Math.max(n - 1, 1);
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let index = 0;
+    let playing = !motion.matches;
 
-    const mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
-    let reduce = !!(mq && mq.matches);
-    if (mq && mq.addEventListener) mq.addEventListener('change', e => { reduce = e.matches; });
-
-    // Per-element class timers. Leaving classes and will-change hints are held
-    // for a fallback window, then dropped, so nothing lingers after its move.
-    const timers = new Map();
-    function hold(el, classes, ms) {
-        clearTimeout(timers.get(el));
-        el.classList.add(...classes);
-        timers.set(el, setTimeout(() => {
-            el.classList.remove(...classes);
-            timers.delete(el);
-        }, ms));
-    }
-    function release(el) {
-        clearTimeout(timers.get(el));
-        timers.delete(el);
-        el.classList.remove('is-leaving');
+    // Only the first frame can be the LCP image, and only if it starts in view.
+    if (root.getBoundingClientRect().top < window.innerHeight) {
+        frames[0].loading = 'eager';
+        frames[0].setAttribute('fetchpriority', 'high');
     }
 
-    let current = -1;
-    function setActive(i) {
-        if (i === current || i < 0 || i >= n) return;
-        const prev = current;
-        current = i;
-        // Glow position glides 0→1 across the panel as chapters advance; the
-        // registered @property --gp lets the gradient transition smoothly.
-        if (pin) {
-            pin.style.setProperty('--gp', (i / span).toFixed(3));
-            pin.style.setProperty('--sc-accent', PALETTE[i % PALETTE.length]);
-        }
-        if (countNum) countNum.textContent = String(i + 1).padStart(2, '0');
-        if (stage) {
-            stage.dataset.dir = i > prev ? 'next' : 'prev';
-            // Commit the new direction's start positions before the class flip,
-            // so the incoming frame travels from the correct side. Once per chapter.
-            if (!reduce) void stage.offsetWidth;
-        }
-        for (let k = 0; k < n; k++) {
-            const img = imgs[k];
-            const text = texts[k];
-            const tick = ticks[k];
-            if (k === i) {
-                release(img);
-                img.classList.add('is-active');
-                if (!reduce) hold(img, ['is-moving'], FRAME_MS);
-                if (text) { release(text); text.classList.add('is-active'); }
+    // Sets the incoming item's enter class and the outgoing one's exit class.
+    function swap(items, prev, next) {
+        items.forEach((el, k) => {
+            if (k === next) {
+                el.classList.remove('is-out', 'is-on');
+                el.classList.add('is-in');
+                el.removeAttribute('aria-hidden');
             } else {
-                if (img.classList.contains('is-active')) {
-                    img.classList.remove('is-active');
-                    if (!reduce) hold(img, ['is-leaving', 'is-moving'], FRAME_MS);
+                if (k === prev) {
+                    el.classList.remove('is-in', 'is-on');
+                    el.classList.add('is-out');
                 }
-                if (text && text.classList.contains('is-active')) {
-                    text.classList.remove('is-active');
-                    if (!reduce) hold(text, ['is-leaving'], TEXT_MS);
-                }
+                el.setAttribute('aria-hidden', 'true');
             }
-            if (tick) {
-                tick.classList.toggle('is-active', k === i);  // current → wide
-                tick.classList.toggle('is-filled', k <= i);   // passed → filled
-                tick.setAttribute('aria-selected', k === i ? 'true' : 'false');
-            }
-        }
-        // Arrows can't go past the ends.
-        for (const a of arrows) {
-            const dir = Number(a.dataset.dir);
-            a.disabled = (dir < 0 && i === 0) || (dir > 0 && i === n - 1);
-        }
-    }
-    setActive(0);
-
-    // Jump to a chapter. When the section has scroll triggers (the normal case)
-    // we scroll the page so its trigger sits at the viewport centre — the
-    // IntersectionObserver then activates it, keeping scroll position and the
-    // displayed frame perfectly in sync. Without triggers we just switch frame.
-    function goTo(i) {
-        i = i < 0 ? 0 : i > n - 1 ? n - 1 : i;
-        const tr = triggers[i];
-        if (!tr) { setActive(i); return; }
-        const y = tr.getBoundingClientRect().top + window.scrollY - window.innerHeight / 2 + tr.offsetHeight / 2;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+        });
     }
 
-    // Cycler controls: prev/next arrows + clickable progress dots.
-    for (const a of arrows) {
-        a.addEventListener('click', () => goTo(current + Number(a.dataset.dir)));
-    }
-    ticks.forEach((tick, i) => tick.addEventListener('click', () => goTo(i)));
-
-    // One-shot wireframe → colour reveal. The stage starts as a blurred, greyed
-    // skeleton (set now, so there is no colour flash before it scrolls in), then
-    // dissolves into the real screenshot the first time it is on screen.
-    if (stage && !reduce && 'IntersectionObserver' in window) {
-        stage.classList.add('is-skeleton');
-        const skeletonIO = new IntersectionObserver(entries => {
-            if (!entries.some(e => e.isIntersecting)) return;
-            skeletonIO.disconnect();
-            setTimeout(() => {
-                stage.classList.remove('is-skeleton');
-                stage.classList.add('is-revealing');
-                setTimeout(() => stage.classList.remove('is-revealing'), REVEAL_MS);
-            }, SKELETON_MS);
-        }, { threshold: 0.35 });
-        skeletonIO.observe(showcase);
+    function preloadNext() {
+        new Image().src = frames[(index + 1) % n].src;
     }
 
-    // A 0px-tall root at the vertical centre of the viewport: exactly one trigger
-    // straddles it at any moment, and that one wins.
-    if (!('IntersectionObserver' in window) || !triggers.length) {
-        // No observer (or no spacers): leave chapter 0 composed as a static fallback
-        // (the cycler buttons above still flip frames directly via setActive).
-        return;
+    function select(i, step = 1) {
+        if (i === index) return;
+        const prev = index;
+        index = i;
+        panel.dataset.dir = step > 0 ? 'next' : 'prev';
+        swap(frames, prev, i);
+        swap(caps, prev, i);
+        tabs.forEach((tab, k) => {
+            tab.setAttribute('aria-selected', String(k === i));
+            tab.tabIndex = k === i ? 0 : -1;
+        });
+        panel.setAttribute('aria-labelledby', tabs[i].id);
+        tablist.style.setProperty('--sc-i', i);
+        preloadNext();
     }
-    const io = new IntersectionObserver(entries => {
-        for (const e of entries) {
-            if (e.isIntersecting) setActive(triggers.indexOf(e.target));
-        }
-    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
-    for (const t of triggers) io.observe(t);
+
+    function paint() {
+        root.classList.toggle('is-paused', !playing);
+        toggle.setAttribute('aria-label', playing ? 'Pause autoplay' : 'Play autoplay');
+    }
+
+    tabs.forEach((tab, i) => tab.addEventListener('click', () => select(i, i > index ? 1 : -1)));
+
+    tablist.addEventListener('keydown', e => {
+        const step = STEP[e.key];
+        if (!step) return;
+        e.preventDefault();
+        let i = index + step;
+        if (e.key === 'Home') i = 0;
+        else if (e.key === 'End') i = n - 1;
+        else i = (i + n) % n;
+        select(i, step);
+        tabs[i].focus();
+    });
+
+    // Swipe: horizontal only, and only for touch and pen so mouse drags are ignored.
+    let startX = null;
+    let startY = 0;
+    stage.addEventListener('pointerdown', e => {
+        if (e.pointerType === 'mouse') return;
+        startX = e.clientX;
+        startY = e.clientY;
+    });
+    stage.addEventListener('pointerup', e => {
+        if (startX === null) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        startX = null;
+        if (Math.abs(dx) < SWIPE_PX || Math.abs(dx) < Math.abs(dy)) return;
+        const step = dx < 0 ? 1 : -1;
+        select((index + step + n) % n, step);
+    });
+    stage.addEventListener('pointercancel', () => { startX = null; });
+
+    root.addEventListener('animationend', e => {
+        if (e.animationName === 'sc-fill' && playing) select((index + 1) % n, 1);
+    });
+
+    toggle.addEventListener('click', () => {
+        playing = !playing;
+        paint();
+    });
+    motion.addEventListener?.('change', e => {
+        playing = !e.matches;
+        paint();
+    });
+
+    // Pause while the section is offscreen or the tab is hidden.
+    new IntersectionObserver(([entry]) => {
+        root.classList.toggle('is-away', !entry.isIntersecting);
+    }).observe(root);
+    document.addEventListener('visibilitychange', () => {
+        root.classList.toggle('is-hidden', document.hidden);
+    });
+
+    tablist.style.setProperty('--sc-i', 0);
+    paint();
+    preloadNext();
 }

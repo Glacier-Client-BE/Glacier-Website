@@ -6,7 +6,7 @@ import { syncScrollProgress } from './navigation.js?v=20260902203329';
 
 // Single eased-scroll loop. One rAF drives every scroll-linked effect from one
 // value (state.smoothY): the sticky header, the back-to-top button, the top
-// reading-progress bar, and any registered scrollSubs (parallax). It keeps
+// reading-progress bar. It keeps
 // running until smoothY catches the real scroll position, then parks itself so
 // an idle page costs nothing.
 export function setupScroll() {
@@ -28,7 +28,6 @@ export function setupScroll() {
         header.classList.toggle('scrolled', state.smoothY > 50);
         back.classList.toggle('visible', state.smoothY > 320);
         syncScrollProgress();
-        for (const fn of state.scrollSubs) fn(state.smoothY);
 
         if (!reduce && Math.abs(window.scrollY - state.smoothY) >= 0.4) {
             raf = requestAnimationFrame(frame);

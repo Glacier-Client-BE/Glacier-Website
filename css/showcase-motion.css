@@ -1,211 +1,339 @@
 /* ──────────────────────────────────────────────────────────────────────────
-   Showcase motion
-   Layered on top of the .showcase rules in styles.css (loaded after it).
-   - Directional frame swap: the outgoing frame lifts away (or drops, under
-     data-dir="prev") with blur; the incoming frame rises in with a slight
-     rotation and a spring settle.
-   - Per-frame accent: --sc-accent is set by the showcase JS and eased here
-     (registered via @property) to tint the panel, glow, ticks and counter.
-   - One-shot skeleton → colour reveal on first view (.is-skeleton/.is-revealing).
-   - Text swap: outgoing copy fades up; incoming copy rises in, heading then body.
-   Reduced motion strips all of it to a short opacity change.
+   Screenshot showcase (.sc)
+   Self-contained: layout, look, motion and reduced motion for the homepage
+   showcase. Uses :root tokens from styles.css. Every class is prefixed sc-.
    ────────────────────────────────────────────────────────────────────────── */
 
-@property --sc-accent {
-    syntax: '<color>';
-    inherits: true;
-    initial-value: #7289da;
+/* ── 1. Section and frame ────────────────────────────────────────────────── */
+
+.sc {
+    --sc-r: 28px;                                  /* outer radius */
+    --sc-pad: 8px;                                 /* frame inset */
+    --sc-r-in: calc(var(--sc-r) - var(--sc-pad));  /* nested inner radius */
+    --sc-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --sc-dur-in: 500ms;
+    --sc-dur-out: 400ms;
+    --sc-delay-in: 320ms;                          /* 80ms overlap with the exit */
+    --sc-dx: 24px;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 96px 16px;
+    text-align: center;
+    color: var(--text);
 }
 
-/* ── Accent-driven panel ─────────────────────────────────────────────────── */
-
-.showcase .showcase-pin {
-    --sc-accent: #7289da;
-    background-image: linear-gradient(color-mix(in srgb, var(--sc-accent) 18%, transparent),
-                                      color-mix(in srgb, var(--sc-accent) 18%, transparent));
-    transition: box-shadow var(--t), --gp .9s var(--ease), --sc-accent .7s ease;
+.sc-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 24px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
 }
 
-/* Glow sits behind the product: --gp moves its centre, --sc-accent tints it.
-   Replaces the fixed blurple/green pair from styles.css. */
-.showcase .showcase-pin::before {
-    background: radial-gradient(60% 60% at calc(8% + var(--gp, 0) * 78%) 22%,
-                                color-mix(in srgb, var(--sc-accent) 26%, transparent) 0%, transparent 60%),
-                radial-gradient(55% 55% at calc(92% - var(--gp, 0) * 70%) 82%,
-                                color-mix(in srgb, var(--sc-accent) 14%, transparent) 0%, transparent 60%);
+.sc-eyebrow::before {
+    content: "";
+    width: 16px;
+    height: 1px;
+    background: var(--accent);
 }
 
-.showcase .showcase-stage {
-    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6),
-                0 0 60px -8px color-mix(in srgb, var(--sc-accent) 45%, transparent);
+.sc-stage {
+    padding: var(--sc-pad);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--sc-r);
+    background: var(--bg-panel);
+    box-shadow: 0 40px 100px -40px rgba(0, 0, 0, 0.8);
 }
 
-@media (hover: hover) {
-    .showcase .showcase-stage:hover {
-        box-shadow: 0 42px 96px rgba(0, 0, 0, 0.66),
-                    0 0 72px -6px color-mix(in srgb, var(--sc-accent) 60%, transparent);
-    }
+.sc-panel {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--sc-r-in);
+    background: #0b0c0f;
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-.showcase .showcase-count-num {
-    color: var(--sc-accent);
-    transition: color .7s ease;
-}
+.sc-panel[data-dir="next"] { --sc-dx: 24px; }
+.sc-panel[data-dir="prev"] { --sc-dx: -24px; }
 
-.showcase .showcase-tick::after {
-    background: linear-gradient(90deg, var(--sc-accent),
-                                color-mix(in srgb, var(--sc-accent) 55%, #fff));
-}
+/* ── 2. Frames ───────────────────────────────────────────────────────────── */
 
-.showcase .showcase-tick.is-active::after {
-    box-shadow: 0 0 10px color-mix(in srgb, var(--sc-accent) 70%, transparent);
-}
-
-/* ── Directional frame swap ──────────────────────────────────────────────── */
-
-/* Hidden frames wait below (next) or above (prev), rotated and blurred. */
-.showcase .showcase-img {
+.sc-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     opacity: 0;
-    transform: translate3d(0, 22%, 0) rotate(-4deg) scale(.94);
-    filter: blur(14px);
-    transition: opacity .6s ease, transform .75s cubic-bezier(.34, 1.56, .64, 1), filter .75s cubic-bezier(.22, 1, .36, 1);
-    will-change: auto;
+    visibility: hidden;
+    pointer-events: none;
 }
 
-.showcase .showcase-stage[data-dir="prev"] .showcase-img:not(.is-active):not(.is-leaving) {
-    transform: translate3d(0, -22%, 0) rotate(4deg) scale(.94);
-}
-
-/* Incoming frame settles with the spring overshoot. */
-.showcase .showcase-stage .showcase-img.is-active {
+.sc-img.is-on {
     opacity: 1;
-    transform: none;
-    filter: none;
-    transition: opacity .8s ease, transform .75s cubic-bezier(.34, 1.56, .64, 1), filter .75s cubic-bezier(.22, 1, .36, 1);
+    visibility: visible;
 }
 
-/* Outgoing frame lifts up and dissolves into blur (mirrored under prev). */
-.showcase .showcase-stage .showcase-img.is-leaving {
+/* Incoming: fades in from a slight scale, blur and side offset. */
+.sc-img.is-in {
+    visibility: visible;
+    z-index: 2;
+    animation: sc-in var(--sc-dur-in) var(--sc-ease) var(--sc-delay-in) both;
+}
+
+/* Outgoing: fades out, scales down a touch, blurs. */
+.sc-img.is-out {
+    visibility: visible;
+    z-index: 1;
+    animation: sc-out var(--sc-dur-out) ease-in both;
+}
+
+@keyframes sc-in {
+    from { opacity: 0; transform: translate3d(var(--sc-dx), 0, 0) scale(1.03); filter: blur(8px); }
+    to   { opacity: 1; transform: none; filter: none; }
+}
+
+@keyframes sc-out {
+    from { opacity: 1; transform: none; filter: none; }
+    to   { opacity: 0; transform: scale(0.98); filter: blur(6px); }
+}
+
+/* ── 3. Tabs ─────────────────────────────────────────────────────────────── */
+
+.sc-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.sc-tablist {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--r-pill);
+    background: rgba(255, 255, 255, 0.02);
+    --sc-i: 0;
+}
+
+/* One sliding indicator, moved by transform. Width is one tab. */
+.sc-indicator {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc((100% - 8px) / 3);
+    border-radius: var(--r-pill);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    transform: translateX(calc(var(--sc-i) * 100%));
+    transition: transform 480ms var(--sc-ease);
+    pointer-events: none;
+}
+
+.sc-tab {
+    position: relative;
+    z-index: 1;
+    appearance: none;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--text-dim);
+    padding: 11px 8px 14px;
+    border-radius: var(--r-pill);
+    cursor: pointer;
+    transition: color 300ms ease;
+}
+
+.sc-tab:hover,
+.sc-tab[aria-selected="true"] { color: var(--text); }
+
+.sc-tab:focus-visible,
+.sc-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.sc-short { display: none; }
+
+/* Autoplay progress: a thin bar that fills over the active tab's dwell time. */
+.sc-bar {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 6px;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.sc-fill {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+.sc-tab[aria-selected="true"] .sc-fill {
+    animation: sc-fill 6s linear forwards;
+}
+
+@keyframes sc-fill {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+/* Pause the bar on hover, focus, offscreen, hidden tab, or user pause. */
+.sc:hover .sc-fill,
+.sc:focus-within .sc-fill,
+.sc.is-away .sc-fill,
+.sc.is-hidden .sc-fill,
+.sc.is-paused .sc-fill {
+    animation-play-state: paused;
+}
+
+.sc-toggle {
+    flex: none;
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: color 200ms ease, background 200ms ease;
+}
+
+.sc-toggle:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.sc-toggle svg {
+    grid-area: 1 / 1;
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+.sc-icon-play { display: none; }
+.sc.is-paused .sc-icon-play { display: block; }
+.sc.is-paused .sc-icon-pause { display: none; }
+
+/* ── 4. Captions ─────────────────────────────────────────────────────────── */
+
+.sc-captions {
+    display: grid;
+    max-width: 620px;
+    margin: 32px auto 0;
+}
+
+/* All captions share one grid cell, so the block is as tall as the tallest. */
+.sc-cap {
+    grid-area: 1 / 1;
     opacity: 0;
-    transform: translate3d(0, -18%, 0) scale(.92);
-    filter: blur(12px);
-    transition: opacity .6s ease, transform .7s cubic-bezier(.22, 1, .36, 1), filter .7s ease-in;
+    visibility: hidden;
 }
 
-.showcase .showcase-stage[data-dir="prev"] .showcase-img.is-leaving {
-    transform: translate3d(0, 18%, 0) scale(.92);
-}
-
-/* GPU hint only while a frame is actually moving. */
-.showcase .showcase-stage .showcase-img.is-moving {
-    will-change: transform, filter, opacity;
-}
-
-/* ── Wireframe → colour reveal ───────────────────────────────────────────── */
-
-.showcase .showcase-stage.is-skeleton .showcase-img.is-active {
-    filter: grayscale(1) blur(18px) brightness(1.6);
-    opacity: .6;
-}
-
-@keyframes sc-shimmer {
-    from { background-position: 150% 0, 0 0; }
-    to   { background-position: -50% 0, 0 0; }
-}
-
-/* Shimmer rides on the existing glass-sheen ::after while skeletal, then fades. */
-.showcase .showcase-stage.is-skeleton::after,
-.showcase .showcase-stage.is-revealing::after {
-    background-image: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .18) 50%, transparent 65%),
-                      linear-gradient(160deg, rgba(255, 255, 255, .16) 0%, transparent 28%);
-    background-size: 250% 100%, 100% 100%;
-    background-repeat: no-repeat;
-    mix-blend-mode: normal;
-    animation: sc-shimmer 1.6s linear infinite;
-}
-
-.showcase .showcase-stage.is-revealing::after {
-    opacity: 0;
-    transition: opacity .9s ease;
-}
-
-.showcase .showcase-stage::after {
-    transition: opacity .9s ease;
-}
-
-/* ── Text swap ───────────────────────────────────────────────────────────── */
-
-/* Outgoing copy fades up and away. */
-.showcase .showcase-text {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity .3s ease, transform .35s ease;
-}
-
-.showcase .showcase-text.is-active {
+.sc-cap.is-on {
     opacity: 1;
-    transform: none;
-    transition: none;
+    visibility: visible;
 }
 
-.showcase .showcase-text.is-leaving {
-    opacity: 0;
-    transform: translateY(-8px);
-    transition: opacity .3s ease, transform .35s ease;
+.sc-cap.is-in {
+    opacity: 1;
+    visibility: visible;
 }
 
-/* Incoming copy rises in after the frame starts, heading first, body 60ms later. */
-@keyframes sc-text-in {
-    from { opacity: 0; transform: translateY(10px); }
+.sc-cap.is-in .sc-heading {
+    animation: sc-rise 420ms var(--sc-ease) both;
+}
+
+.sc-cap.is-in .sc-body {
+    animation: sc-rise 420ms var(--sc-ease) 60ms both;
+}
+
+.sc-cap.is-out {
+    visibility: visible;
+    animation: sc-fall 200ms ease-in both;
+}
+
+@keyframes sc-rise {
+    from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: none; }
 }
 
-.showcase .showcase-text.is-active .showcase-heading {
-    animation: sc-text-in .6s cubic-bezier(.22, 1, .36, 1) .12s both;
+@keyframes sc-fall {
+    from { opacity: 1; }
+    to   { opacity: 0; }
 }
 
-.showcase .showcase-text.is-active .showcase-body {
-    animation: sc-text-in .6s cubic-bezier(.22, 1, .36, 1) .18s both;
+.sc-heading {
+    margin: 0;
+    font-size: clamp(28px, 4.2vw, 44px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--text);
 }
 
-/* ── Reduced motion: no blur, transforms or skeleton; plain short fades ──── */
+.sc-body {
+    margin: 14px 0 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-dim);
+}
+
+/* ── 5. Reduced motion: opacity only, no autoplay (set in showcase.js) ──── */
 
 @media (prefers-reduced-motion: reduce) {
-    .showcase .showcase-img,
-    .showcase .showcase-stage .showcase-img.is-active,
-    .showcase .showcase-stage .showcase-img.is-leaving,
-    .showcase .showcase-stage[data-dir] .showcase-img:not(.is-active):not(.is-leaving) {
-        transform: none !important;
-        filter: none !important;
-        transition: opacity .15s ease !important;
-        will-change: auto !important;
-    }
+    .sc .sc-img.is-in  { animation: sc-fade 120ms linear both; }
+    .sc .sc-img.is-out { animation: sc-fade-out 120ms linear both; }
+    .sc .sc-cap.is-in .sc-heading,
+    .sc .sc-cap.is-in .sc-body { animation: sc-fade 120ms linear both; }
+    .sc .sc-cap.is-out { animation: sc-fade-out 120ms linear both; }
+    .sc-indicator { transition: none; }
+}
 
-    .showcase .showcase-stage .showcase-img.is-active { opacity: 1 !important; }
-    .showcase .showcase-stage .showcase-img:not(.is-active) { opacity: 0 !important; }
+@keyframes sc-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
 
-    .showcase .showcase-stage.is-skeleton .showcase-img.is-active {
-        filter: none !important;
-        opacity: 1 !important;
-    }
+@keyframes sc-fade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
 
-    .showcase .showcase-stage.is-skeleton::after,
-    .showcase .showcase-stage.is-revealing::after {
-        animation: none !important;
-    }
+/* ── 6. Small screens: 320px and up ──────────────────────────────────────── */
 
-    .showcase .showcase-pin,
-    .showcase .showcase-count-num { transition: none !important; }
-
-    .showcase .showcase-text,
-    .showcase .showcase-text.is-active,
-    .showcase .showcase-text.is-leaving {
-        transform: none !important;
-        transition: opacity .15s ease !important;
-    }
-
-    .showcase .showcase-text .showcase-heading,
-    .showcase .showcase-text .showcase-body {
-        animation: none !important;
-    }
+@media (max-width: 480px) {
+    .sc { padding: 72px 16px; }
+    .sc-stage { --sc-pad: 6px; }
+    .sc-long { display: none; }
+    .sc-short { display: inline; }
+    .sc-tab { font-size: 13px; padding: 10px 4px 13px; }
+    .sc-toggle { width: 40px; height: 40px; }
+    .sc-nav { gap: 6px; }
 }

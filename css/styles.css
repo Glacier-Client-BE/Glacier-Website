@@ -4,36 +4,29 @@
     --accent-hover: #8ea0e0;
     --accent-glow: rgba(114, 137, 218, 0.22);
     --accent-bg: rgba(114, 137, 218, 0.10);
-
     /* Dark Backgrounds */
     --bg: #0b0c0f;
-    --bg-panel: #111318;
     --bg-item: rgba(255, 255, 255, 0.03);
     --bg-item-hover: rgba(255, 255, 255, 0.06);
-
     /* Text Colors */
     --text: #ffffff;
     --text-dim: #9aa1ad;
-
     /* Semantic Colors */
     --green: #43b581;
     --red: #f04747;
     --orange: #faa61a;
-
     /* Spacing & Sizing */
     --r-xs: 8px;
     --r-sm: 12px;
     --r-md: 18px;
     --r-lg: 28px;
     --r-pill: 9999px;
-
     /* Nested corners: an inner radius is the outer radius minus the inset the
        nested panel sits at, so the two curves stay concentric. --pad-nest is that
        inset; --r-inner is the result, floored at --r-xs so a tight inset never
        collapses a panel to square corners. */
     --pad-nest: 8px;
     --r-inner: max(var(--r-xs), calc(var(--r-md) - var(--pad-nest)));
-
     /* 4px base spacing scale. Prefer gap/margin from this scale over borders
        when grouping content. */
     --space-1: 4px;
@@ -43,48 +36,30 @@
     --space-5: 20px;
     --space-6: 24px;
     --space-7: 32px;
-    --space-8: 40px;
-
     /* Type scale. Body copy stays at 1rem; larger roles scale with the viewport. */
     --fs-xs: 0.75rem;
     --fs-sm: 0.875rem;
-    --fs-base: 1rem;
-    --fs-md: 1.125rem;
     --fs-lg: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
-    --fs-xl: clamp(1.45rem, 1.2rem + 1vw, 1.9rem);
-    --fs-2xl: clamp(2rem, 1.6rem + 1.8vw, 2.9rem);
     --fs-3xl: clamp(2.2rem, 1.2rem + 3.6vw, 4rem);
-
     /* Icon optical sizes. Glyphs that play the same role use the same step. */
-    --icon-sm: 0.85rem;
     --icon-md: 1.1rem;
     --icon-lg: 1.6rem;
-
-    /* Motion. Hover and press transitions finish within --dur-base (250ms).
-       Entrances may run to --dur-slow. */
+    /* Motion. Hover and press finish within --dur-base; entrances may run to
+       --dur-slow. Only transform and opacity are animated. */
     --dur-fast: 150ms;
     --dur-base: 250ms;
     --dur-slow: 450ms;
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     --stagger-step: 60ms;
-
-    /* Apple-style smooth deceleration curve, used for nearly all UI motion. */
-    --t: 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+    --t: var(--dur-base) var(--ease-out);
     --blur: 6px;
     --ctl-h: 44px;
-
     /* Responsive spacing scale — fluid gutters & vertical rhythm */
     --gutter: clamp(16px, 4vw, 24px);
     --section-gap: clamp(64px, 10vw, 128px);
     --block-gap: clamp(48px, 7vw, 88px);
     --header-gap: clamp(32px, 4.5vw, 52px);
-
-    /* Background overlay (over BG.png) */
-    --overlay-top: rgba(11, 12, 15, 0.00);
-    --overlay-mid: rgba(11, 12, 15, 0.00);
-    --overlay-bot: rgba(11, 12, 15, 0.00);
-
     /* Glass surfaces. Kept as names for existing rules, but now flat: a faint
        tint over the page with a hairline edge, no shadow, almost no blur. */
     --glass: rgba(255, 255, 255, 0.03);
@@ -92,29 +67,13 @@
     --glass-border: rgba(255, 255, 255, 0.07);
     --glass-border-hover: rgba(255, 255, 255, 0.14);
     --glass-shadow: none;
-
     /* Solid surfaces */
     --surface: #121419;
     --surface-hover: #181b22;
     --surface-border: rgba(255, 255, 255, 0.07);
     --surface-inset: #0d0e12;
-
-    /* Legacy compatibility */
-    --blurple: var(--accent);
-    --blurple-dark: var(--accent-hover);
-    --blurple-glow: var(--accent-glow);
-    --blurple-faint: var(--accent-bg);
-    --dark: var(--bg-panel);
-    --darker: var(--bg-panel);
-    --darkest: var(--bg);
-    --black: var(--bg);
-    --yellow: #fee75c;
     --pink: #eb459e;
     --text-muted: var(--text-dim);
-    --ease: cubic-bezier(0.32, 0.72, 0, 1);
-    --fast: 0.2s;
-    --normal: 0.25s;
-    --slow: 0.55s;
     --radius: 18px;
     --pill: 9999px;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -123,14 +82,11 @@
 
 [data-theme="light"] {
     --bg: #f7f8fa;
-    --bg-panel: #ffffff;
     --bg-item: rgba(0, 0, 0, 0.03);
     --bg-item-hover: rgba(0, 0, 0, 0.06);
     --text: #0e1116;
     --text-dim: #5b6470;
     --text-muted: #5b6470;
-    --darker: #ffffff;
-    --darkest: #f7f8fa;
     --glass: rgba(0, 0, 0, 0.02);
     --glass-strong: rgba(0, 0, 0, 0.04);
     --glass-border: rgba(0, 0, 0, 0.08);
@@ -142,9 +98,10 @@
 }
 
 /* ── Custom scrollbar ── */
+
 html {
     scrollbar-width: thin;
-    scrollbar-color: var(--blurple-dark) transparent;
+    scrollbar-color: var(--accent-hover) transparent;
 }
 
 ::-webkit-scrollbar {
@@ -157,36 +114,31 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--blurple-dark);
+    background-color: var(--accent-hover);
     background-clip: padding-box;
     border: 3px solid transparent;
     border-radius: var(--pill);
-    transition: background-color var(--fast) var(--ease);
-}@media (hover: hover) {
-
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: var(--blurple);
+    transition: background-color var(--dur-fast) var(--ease-out);
 }
+
+@media (hover: hover) {
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--accent);
+    }
 }
 
 ::-webkit-scrollbar-corner {
     background: transparent;
 }
 
-/* ── Light theme ──
-   BG.png stays fully visible (the global body::before applies). Content
-   sits on light/white panels with dark text; text that floats directly
-   on the image (header chrome, section headers, community copy) stays
-   light so it remains readable over the photo. */
 [data-theme="light"] body {
     background: transparent;
 }
 
 /* Panels → light & opaque enough for dark text */
+
 [data-theme="light"] .card-base,
 [data-theme="light"] .hero,
-[data-theme="light"] .showcase-pin,
 [data-theme="light"] .quick-dock {
     background: rgba(255, 255, 255, 0.86);
     border-color: rgba(0, 0, 0, 0.08);
@@ -203,6 +155,7 @@ html {
 }
 
 /* Header chrome + text floating on the image → light & readable */
+
 [data-theme="light"] .branding-title,
 [data-theme="light"] .section-title,
 [data-theme="light"] .community-text h2,
@@ -228,6 +181,7 @@ html {
 }
 
 /* Panel text → dark */
+
 [data-theme="light"] .hero-title {
     color: var(--accent);
 }
@@ -239,12 +193,12 @@ html {
 
 [data-theme="light"] .search-modal-top {
     border-bottom-color: rgba(0, 0, 0, 0.08);
-}@media (hover: hover) {
-
-
-[data-theme="light"] .search-result-item:hover {
-    background: rgba(114, 137, 218, .1);
 }
+
+@media (hover: hover) {
+    [data-theme="light"] .search-result-item:hover {
+        background: rgba(114, 137, 218, .1);
+    }
 }
 
 [data-theme="light"] .skeleton::after {
@@ -277,63 +231,54 @@ body {
 }
 
 /* Larger / heading text uses Roboto bold; body text uses Plus Jakarta Sans. */
-h1, h2, h3,
+
+h1,
+h2,
+h3,
 .hero-title,
 .section-title,
 .branding-title,
 .feature-title,
 .download-title,
-.stat-number,
 .downloads-sub-title,
 .downloads-sub-title-spaced {
     font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
     font-weight: 700;
 }
 
-/* ── Fixed blurred launcher background ──
-   Combined into ONE static layer (image + overlay + accent glow).
-   No animation and a forced composite layer so it never re-rasterizes
-   behind the backdrop-filter glass this is what stops the flicker. */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
     background: radial-gradient(ellipse 70% 45% at 50% -8%, rgba(114, 137, 218, 0.10) 0%, transparent 70%);
     z-index: -2;
-    transform: translate3d(0, var(--bg-parallax, 0px), 0);
     pointer-events: none;
 }
 
-/* ── Kinetic particle field ──
-   Sandboxed full-viewport canvas painted between BG.png (z-index -2) and all
-   page content (z-index >= 0). Fixed + pointer-events:none, so it never blocks
-   clicks and contributes zero layout — no CLS during load or resize.
-   Disabled entirely when the user prefers reduced motion (see js/kinetic.js). */
-.kinetic-canvas {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
+img {
     display: block;
+    max-width: 100%;
 }
-
-img { display: block; max-width: 100%; }
 
 /* Links never underline anywhere on the site — every link either sits in a
-   styled control (nav tab, button, card) or is set apart by the accent colour,
-   so the underline only added visual noise. Inline links in body copy that
-   previously relied on it are accent-coloured instead. */
-a { color: inherit; text-decoration: none; }
+ styled control (nav tab, button, card) or is set apart by the accent colour,
+ so the underline only added visual noise. Inline links in body copy that
+ previously relied on it are accent-coloured instead. */
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
 /* Shared keyboard-focus ring — same accent treatment already used on quick-dock
-   actions and the language dropdown, extended to every other interactive
-   control so keyboard users get one consistent indicator site-wide instead of
-   the browser default on most elements and a branded ring on a couple. */
+ actions and the language dropdown, extended to every other interactive
+ control so keyboard users get one consistent indicator site-wide instead of
+ the browser default on most elements and a branded ring on a couple. */
+
 .btn:focus-visible,
 .nav-tab:focus-visible,
 .filter-button:focus-visible,
 .tab-button:focus-visible,
-.showcase-tick:focus-visible,
 .social-card:focus-visible,
 .mod-card:focus-visible,
 .mediakit-shot:focus-visible,
@@ -351,12 +296,13 @@ button:focus-visible {
 }
 
 header {
-    transition: background var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
+    transition: background var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
 }
 
 /* ── Stale-build banner (top) ──────────────────────────────────────────────
-   Shown by js/modules/updateCheck.js when it detects the currently loaded
-   page is running an older build than what's now deployed. */
+ Shown by js/modules/updateCheck.js when it detects the currently loaded
+ page is running an older build than what's now deployed. */
+
 #updateBar {
     position: fixed;
     top: 0;
@@ -368,13 +314,13 @@ header {
     justify-content: center;
     gap: 14px;
     padding: 10px 20px;
-    background: var(--blurple);
+    background: var(--accent);
     color: #fff;
     font-size: .88rem;
     font-weight: 600;
     text-align: center;
     transform: translateY(-100%);
-    transition: transform var(--normal) var(--ease);
+    transition: transform var(--dur-base) var(--ease-out);
 }
 
 #updateBar.visible {
@@ -393,12 +339,12 @@ header {
     font-size: .85rem;
     cursor: pointer;
     transition: background var(--t);
-}@media (hover: hover) {
-
-
-.update-bar-refresh:hover {
-    background: rgba(255, 255, 255, .3);
 }
+
+@media (hover: hover) {
+    .update-bar-refresh:hover {
+        background: rgba(255, 255, 255, .3);
+    }
 }
 
 .update-bar-dismiss {
@@ -410,17 +356,18 @@ header {
     font-size: 1rem;
     line-height: 1;
     padding: 4px;
-}@media (hover: hover) {
-
-
-.update-bar-dismiss:hover {
-    color: #fff;
 }
+
+@media (hover: hover) {
+    .update-bar-dismiss:hover {
+        color: #fff;
+    }
 }
 
 /* ── Announcement + donation popups (bottom-right) ──
-   Glass card that springs in from the corner and animates back out on dismiss.
-   Only one is ever shown at a time (see setupToast / setupDonateToast). */
+ Glass card that springs in from the corner and animates back out on dismiss.
+ Only one is ever shown at a time (see setupToast / setupDonateToast). */
+
 #toastBanner,
 #donateBanner {
     position: fixed;
@@ -443,7 +390,7 @@ header {
     transform: translateY(24px) scale(0.96);
     transform-origin: bottom right;
     pointer-events: none;
-    transition: opacity 0.45s var(--ease), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: opacity 0.45s var(--ease-out), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 #toastBanner.visible,
@@ -453,9 +400,6 @@ header {
     pointer-events: auto;
 }
 
-/* Donation popup → warm pink accent on the icon, title and CTA to set it apart
-   from the blurple news popup while keeping the same card. Scoped to #donateBanner
-   so they outrank the shared .toast-* base rules regardless of source order. */
 #donateBanner .toast-icon {
     background: rgba(235, 69, 158, 0.14);
     color: var(--pink);
@@ -467,12 +411,12 @@ header {
 
 #donateBanner .toast-cta {
     background: var(--pink);
-}@media (hover: hover) {
-
-
-#donateBanner .toast-cta:hover {
-    background: #f25cae;
 }
+
+@media (hover: hover) {
+    #donateBanner .toast-cta:hover {
+        background: #f25cae;
+    }
 }
 
 .toast-icon {
@@ -523,26 +467,23 @@ header {
     border-radius: var(--r-sm);
     font-size: 0.82rem;
     font-weight: 600;
-    transition: background var(--fast) var(--ease), transform var(--fast) var(--ease);
+    transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
     white-space: nowrap;
 }
 
 .toast-cta::after {
     content: '→';
-    transition: transform var(--fast) var(--ease);
-}@media (hover: hover) {
-
-
-.toast-cta:hover {
-    background: var(--accent-hover);
-    transform: translateY(-1px);
+    transition: transform var(--dur-fast) var(--ease-out);
 }
-}@media (hover: hover) {
 
-
-.toast-cta:hover::after {
-    transform: translateX(3px);
-}
+@media (hover: hover) {
+    .toast-cta:hover {
+        background: var(--accent-hover);
+        transform: translateY(-1px);
+    }
+    .toast-cta:hover::after {
+        transform: translateX(3px);
+    }
 }
 
 #toastClose,
@@ -558,15 +499,15 @@ header {
     font-size: 0.82rem;
     line-height: 1;
     border-radius: 6px;
-    transition: color var(--fast) var(--ease), background var(--fast) var(--ease);
-}@media (hover: hover) {
-
-
-#toastClose:hover,
-#donateClose:hover {
-    color: var(--text);
-    background: var(--bg-item-hover);
+    transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
 }
+
+@media (hover: hover) {
+    #toastClose:hover,
+    #donateClose:hover {
+        color: var(--text);
+        background: var(--bg-item-hover);
+    }
 }
 
 #searchModal {
@@ -584,12 +525,13 @@ header {
     padding-right: 20px;
     opacity: 0;
     visibility: hidden;
-    transition: opacity var(--normal) var(--ease), visibility var(--normal) var(--ease);
+    transition: opacity var(--dur-fast) ease-in, visibility 0s linear var(--dur-fast);
 }
 
 #searchModal.open {
     opacity: 1;
     visibility: visible;
+    transition: opacity var(--dur-base) var(--ease-out), visibility 0s;
 }
 
 .search-modal-box {
@@ -602,12 +544,13 @@ header {
     -webkit-backdrop-filter: blur(var(--blur));
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-    transform: translateY(-12px);
-    transition: transform var(--t);
+    transform: translateY(-12px) scale(.96);
+    transition: transform var(--dur-fast) ease-in;
 }
 
 #searchModal.open .search-modal-box {
-    transform: translateY(0);
+    transform: none;
+    transition: transform var(--dur-base) var(--ease-out);
 }
 
 .search-modal-top {
@@ -654,14 +597,14 @@ header {
     cursor: pointer;
     font-size: 1rem;
     padding: 4px 6px;
-    transition: color var(--fast) var(--ease);
+    transition: color var(--dur-fast) var(--ease-out);
     flex-shrink: 0;
-}@media (hover: hover) {
-
-
-#searchClose:hover {
-    color: var(--text);
 }
+
+@media (hover: hover) {
+    #searchClose:hover {
+        color: var(--text);
+    }
 }
 
 .search-results {
@@ -690,13 +633,13 @@ header {
     padding: 9px 12px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background var(--fast) var(--ease);
-}@media (hover: hover) {
-
-
-.search-result-item:hover {
-    background: rgba(114, 137, 218, .15);
+    transition: background var(--dur-fast) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .search-result-item:hover {
+        background: rgba(114, 137, 218, .15);
+    }
 }
 
 .search-result-icon-img {
@@ -755,6 +698,7 @@ header {
 }
 
 /* Top reading-progress bar — fills left→right with page scroll */
+
 #scrollProgress {
     position: fixed;
     top: 0;
@@ -771,6 +715,7 @@ header {
 }
 
 /* Lift the back-to-top button above the announcement popup while it is shown */
+
 body.has-toast #backToTop {
     bottom: 152px;
 }
@@ -802,20 +747,21 @@ body.has-toast #backToTop {
     opacity: 1;
     transform: translateY(0);
     pointer-events: all;
-}@media (hover: hover) {
-
-
-#backToTop:hover {
-    box-shadow: 0 0 28px var(--accent-glow);
-    transform: translateY(-3px);
 }
+
+@media (hover: hover) {
+    #backToTop:hover {
+        box-shadow: 0 0 28px var(--accent-glow);
+        transform: translateY(-3px);
+    }
 }
 
 /* ── Quick-actions dock (right rail) ──
-   A persistent glass dock of the site's primary CTAs — download, Discord and the
-   config editor — pinned to the right edge. Replaces the old section-dot rail,
-   which only duplicated the top nav. Each action reveals its label on hover/focus
-   and lifts toward the cursor. */
+ A persistent glass dock of the site's primary CTAs — download, Discord and the
+ config editor — pinned to the right edge. Replaces the old section-dot rail,
+ which only duplicated the top nav. Each action reveals its label on hover/focus
+ and lifts toward the cursor. */
+
 .quick-dock {
     position: fixed;
     right: 20px;
@@ -853,26 +799,28 @@ body.has-toast #backToTop {
                 background var(--dur-base) var(--ease-out),
                 color var(--dur-base) var(--ease-out),
                 box-shadow var(--dur-base) var(--ease-out);
-}@media (hover: hover) {
-
-
-.quick-action:hover {
-    color: #fff;
-    background: var(--accent);
-    transform: translateY(-2px) scale(1.06);
-    box-shadow: 0 8px 20px var(--accent-glow);
-}
 }
 
-/* Discord wears its own brand colour on hover. */@media (hover: hover) {
-
-.quick-action--discord:hover {
-    background: #5865F2;
-    box-shadow: 0 8px 20px rgba(88, 101, 242, 0.5);
+@media (hover: hover) {
+    .quick-action:hover {
+        color: #fff;
+        background: var(--accent);
+        transform: translateY(-2px) scale(1.06);
+        box-shadow: 0 8px 20px var(--accent-glow);
+    }
 }
+
+/* Discord wears its own brand colour on hover. */
+
+@media (hover: hover) {
+    .quick-action--discord:hover {
+        background: #5865F2;
+        box-shadow: 0 8px 20px rgba(88, 101, 242, 0.5);
+    }
 }
 
 /* Tactile press — eases in, snaps back via the resting transition. */
+
 .quick-action:active {
     transform: scale(0.9);
     transition: transform 0.1s ease;
@@ -884,6 +832,7 @@ body.has-toast #backToTop {
 }
 
 /* Hover/focus label, sitting just left of the dock. */
+
 .quick-action::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -905,9 +854,9 @@ body.has-toast #backToTop {
     pointer-events: none;
     border: 1px solid var(--glass-border);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.32);
-    transition: opacity 0.26s var(--ease),
+    transition: opacity 0.26s var(--ease-out),
                 transform 0.4s cubic-bezier(0.34, 1.45, 0.5, 1),
-                visibility 0.26s var(--ease);
+                visibility 0.26s var(--ease-out);
 }
 
 .quick-action:hover::after,
@@ -927,16 +876,16 @@ header {
 }
 
 /* Top scrim fades scrolling content smoothly under the floating header */
+
 header::before {
     content: '';
     position: absolute;
     inset: -10px 0 auto 0;
     height: 96px;
-    background: linear-gradient(180deg, var(--overlay-bot) 0%, rgba(16, 18, 22, 0.55) 45%, transparent 100%);
     pointer-events: none;
     z-index: -1;
     opacity: 0;
-    transition: opacity var(--normal) var(--ease);
+    transition: opacity var(--dur-base) var(--ease-out);
 }
 
 header.scrolled::before {
@@ -944,6 +893,7 @@ header.scrolled::before {
 }
 
 /* ── Top bar container ── */
+
 .top-bar {
     display: flex;
     align-items: center;
@@ -954,6 +904,7 @@ header.scrolled::before {
 }
 
 /* ── Branding (logo + title) ── */
+
 .branding {
     display: flex;
     align-items: center;
@@ -968,12 +919,12 @@ header.scrolled::before {
     border-radius: 8px;
     flex-shrink: 0;
     transition: transform var(--t);
-}@media (hover: hover) {
-
-
-.branding:hover .logo-icon {
-    transform: rotate(-8deg) scale(1.12);
 }
+
+@media (hover: hover) {
+    .branding:hover .logo-icon {
+        transform: rotate(-8deg) scale(1.12);
+    }
 }
 
 .branding-text {
@@ -1010,12 +961,14 @@ header.scrolled::before {
 }
 
 /* ── Spacer (push right content to right) ── */
+
 .top-bar-spacer {
     flex: 1;
     min-width: 8px;
 }
 
 /* ── Navigation tabs (glassy pill container) ── */
+
 .nav-tabs {
     display: flex;
     align-items: stretch;
@@ -1047,17 +1000,18 @@ header.scrolled::before {
     cursor: pointer;
     font-family: inherit;
     transition: color var(--t), background var(--t), box-shadow var(--t), transform var(--dur-fast) var(--ease-out);
-}@media (hover: hover) {
-
-
-.nav-tab:hover:not(.active) {
-    color: var(--text);
-    background: rgba(255, 255, 255, 0.08);
 }
+
+@media (hover: hover) {
+    .nav-tab:hover:not(.active) {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.08);
+    }
 }
 
 /* Active tab: solid accent pill with a glow. It settles in with a short pop
-   when it becomes active, so the change in location is felt, not just seen. */
+ when it becomes active, so the change in location is felt, not just seen. */
+
 .nav-tab.active {
     background: var(--accent);
     color: #fff;
@@ -1066,20 +1020,19 @@ header.scrolled::before {
 }
 
 @keyframes navPill {
-    from { transform: scale(0.92); }
-    to { transform: scale(1); }
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
+    from {
+        transform: scale(0.92);
+    }
+    to {
+        transform: scale(1);
+    }
 }
 
 /* ── Search trigger button ── */
+
 /* Text hidden from sight but kept for screen readers (and for JS that writes
-   into it, e.g. the active-language label). */
+ into it, e.g. the active-language label). */
+
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -1094,7 +1047,8 @@ header.scrolled::before {
 }
 
 /* Search / language / theme are one set of circular icon controls — same
-   diameter, radius and surface treatment as .header-icon-btn. */
+ diameter, radius and surface treatment as .header-icon-btn. */
+
 .search-trigger {
     display: inline-flex;
     align-items: center;
@@ -1116,15 +1070,15 @@ header.scrolled::before {
     transition: background var(--t), border-color var(--t), color var(--t), box-shadow var(--t);
     white-space: nowrap;
     font-weight: 500;
-}@media (hover: hover) {
-
-
-.search-trigger:hover {
-    background: rgba(255, 255, 255, 0.10);
-    border-color: rgba(114, 137, 218, 0.35);
-    color: var(--text);
-    box-shadow: 0 0 10px var(--accent-glow);
 }
+
+@media (hover: hover) {
+    .search-trigger:hover {
+        background: rgba(255, 255, 255, 0.10);
+        border-color: rgba(114, 137, 218, 0.35);
+        color: var(--text);
+        box-shadow: 0 0 10px var(--accent-glow);
+    }
 }
 
 .search-trigger i {
@@ -1132,6 +1086,7 @@ header.scrolled::before {
 }
 
 /* ── Header icon button (theme toggle) ── */
+
 .header-icon-btn {
     display: flex;
     align-items: center;
@@ -1149,14 +1104,14 @@ header.scrolled::before {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     transition: color var(--t), background var(--t), box-shadow var(--t);
     flex-shrink: 0;
-}@media (hover: hover) {
-
-
-.header-icon-btn:hover {
-    color: var(--text);
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 0 12px var(--accent-glow);
 }
+
+@media (hover: hover) {
+    .header-icon-btn:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 0 12px var(--accent-glow);
+    }
 }
 
 .mobile-menu-btn {
@@ -1174,13 +1129,13 @@ header.scrolled::before {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-}@media (hover: hover) {
+}
 
-
-.mobile-menu-btn:hover {
-	    background: rgba(255, 255, 255, 0.08);
-	    color: var(--text);
-	}
+@media (hover: hover) {
+    .mobile-menu-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+    }
 }
 
 main {
@@ -1201,11 +1156,14 @@ main {
     box-shadow: var(--glass-shadow);
     opacity: 0;
     transform: translateY(24px);
-    animation: heroIn 0.7s var(--ease) forwards;
+    animation: heroIn 0.7s var(--ease-out) forwards;
 }
 
 @keyframes heroIn {
-    to { opacity: 1; transform: translateY(0); }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero::before {
@@ -1220,8 +1178,12 @@ main {
 }
 
 @keyframes heroGlow {
-    from { transform: translate3d(0, 0, 0) scale(1); }
-    to { transform: translate3d(2%, -3%, 0) scale(1.06); }
+    from {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+        transform: translate3d(2%, -3%, 0) scale(1.06);
+    }
 }
 
 .hero-container {
@@ -1275,6 +1237,7 @@ main {
 }
 
 /* Stats group by proximity (gap), not by a divider line. */
+
 .hero-stats {
     display: flex;
     gap: var(--space-6);
@@ -1291,7 +1254,7 @@ main {
 .hero-stat-num {
     font-size: 1.25rem;
     font-weight: 800;
-    color: var(--blurple);
+    color: var(--accent);
 }
 
 .hero-stat-label {
@@ -1305,28 +1268,28 @@ main {
     overflow: hidden;
     box-shadow: var(--shadow);
     border: 2px solid rgba(114, 137, 218, 0);
-    transition: border-color var(--normal) var(--ease), box-shadow var(--normal) var(--ease), transform var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.hero-image:hover {
-    border-color: rgba(114, 137, 218, .4);
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
+    transition: border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .hero-image:hover {
+        border-color: rgba(114, 137, 218, .4);
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-2px);
+    }
 }
 
 .hero-image img {
     width: 100%;
     height: auto;
     object-fit: cover;
-    transition: transform var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.hero-image:hover img {
-    transform: scale(1.04);
+    transition: transform var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .hero-image:hover img {
+        transform: scale(1.04);
+    }
 }
 
 .content-container {
@@ -1335,7 +1298,8 @@ main {
 }
 
 /* Section switch: navigation.js toggles .active, which displays the section and
-   plays the entrance. Opacity and transform only, so nothing reflows. */
+ plays the entrance. Opacity and transform only, so nothing reflows. */
+
 .content-section {
     display: none;
     opacity: 0;
@@ -1348,8 +1312,14 @@ main {
 }
 
 @keyframes secIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .section-header {
@@ -1358,32 +1328,27 @@ main {
 }
 
 /* Stacked headers — second section block within a page (Follow Us).
-   Replaces scattered inline margin-top values for consistent rhythm. */
+ Replaces scattered inline margin-top values for consistent rhythm. */
+
 .section-header--stacked {
     margin-top: var(--block-gap);
 }
 
 /* Blocks absorbed into a parent page when the nav was condensed (Screenshots and
-   All Modules inside Features, FAQ inside Help). They were standalone pages, so
-   they need a full section's worth of air above them — otherwise the grid above
-   runs straight into the next heading. */
+ All Modules inside Features, FAQ inside Help). They were standalone pages, so
+ they need a full section's worth of air above them — otherwise the grid above
+ runs straight into the next heading. */
+
 #features-screenshots,
 #features-modules,
 #docs-faq {
     margin-top: var(--section-gap);
 }
 
-/* ── Sub-section header (a chapter within a page) ──────────────────────────
-   Condensing ten tabs into six left several pages holding content that used to
-   be a page of its own. Rendered with the full-size centred .section-header,
-   they read as separate pages bolted together. This is deliberately quieter —
-   left-aligned, smaller, introduced by the same accent-rule eyebrow the
-   showcase uses — so each page keeps one page-level title and everything after
-   it reads as a chapter of that page. Applied consistently across Features,
-   Help and Community so the three pages share one rhythm. */
 /* The hairline above each chapter is what makes a page read as one continuous
-   document rather than stacked blocks — it carries the eye from the end of one
-   chapter into the start of the next. */
+ document rather than stacked blocks — it carries the eye from the end of one
+ chapter into the start of the next. */
+
 .subsection-header {
     text-align: left;
     margin-bottom: var(--header-gap);
@@ -1392,9 +1357,10 @@ main {
 }
 
 /* Block-level, not inline-flex: .section-title is display:inline-block (it
-   anchors its own underline), so an inline eyebrow would sit on the same line
-   as the heading instead of above it. width:fit-content keeps the accent rule
-   tight to the label. */
+ anchors its own underline), so an inline eyebrow would sit on the same line
+ as the heading instead of above it. width:fit-content keeps the accent rule
+ tight to the label. */
+
 .subsection-eyebrow {
     display: flex;
     width: fit-content;
@@ -1408,7 +1374,6 @@ main {
     color: var(--accent-hover);
 }
 
-/* Same leading accent line as .showcase-eyebrow. */
 .subsection-eyebrow::before {
     content: '';
     width: 26px;
@@ -1422,7 +1387,8 @@ main {
 }
 
 /* The page-level underline is centred under the title; on a left-aligned
-   chapter heading that reads as floating loose, so anchor it to the start. */
+ chapter heading that reads as floating loose, so anchor it to the start. */
+
 .subsection-header .section-title::after {
     left: 0;
     transform: none;
@@ -1434,7 +1400,8 @@ main {
 }
 
 /* Community stacks its chapters inside one container rather than absorbing
-   separate ones, so it needs the same air the absorbed containers get above. */
+ separate ones, so it needs the same air the absorbed containers get above. */
+
 .section-header--stacked.subsection-header {
     margin-top: var(--section-gap);
 }
@@ -1450,7 +1417,8 @@ main {
 }
 
 /* Refined accent — a short, soft gradient rule with a faint glow rather than a
-   hard template-style bar. Sits centred just beneath the title. */
+ hard template-style bar. Sits centred just beneath the title. */
+
 .section-title::after {
     content: '';
     position: absolute;
@@ -1497,24 +1465,10 @@ main {
 }
 
 /* Press: a 0.97 squeeze that springs back on release through the resting transition. */
+
 .btn:active {
     transform: scale(0.97);
     transition-duration: var(--dur-fast);
-}
-
-.btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
-    transform: translateX(-100%);
-    transition: transform var(--dur-base) var(--ease-out);
-}@media (hover: hover) {
-
-
-.btn:hover::after {
-    transform: translateX(100%);
-}
 }
 
 .btn-primary {
@@ -1524,47 +1478,48 @@ main {
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-}@media (hover: hover) {
-
-
-.btn-primary:hover {
-    background: rgba(142, 160, 224, 0.95);
-    transform: translateY(-2px);
-    box-shadow: 0 0 28px var(--accent-glow);
 }
+
+@media (hover: hover) {
+    .btn-primary:hover {
+        background: rgba(142, 160, 224, 0.95);
+        transform: translateY(-2px);
+        box-shadow: 0 0 28px var(--accent-glow);
+    }
 }
 
 /* Secondary: deliberately quieter than the primary, so each view has one clear CTA. */
+
 .btn-secondary {
     background: rgba(255, 255, 255, 0.06);
     color: var(--text-dim);
     border: 1px solid rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-}@media (hover: hover) {
-
-
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.12);
-    color: var(--text);
-    transform: translateY(-1px);
-    box-shadow: 0 0 16px var(--accent-glow);
-    border-color: rgba(255, 255, 255, 0.25);
 }
+
+@media (hover: hover) {
+    .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: var(--text);
+        transform: translateY(-1px);
+        box-shadow: 0 0 16px var(--accent-glow);
+        border-color: rgba(255, 255, 255, 0.25);
+    }
 }
 
 [data-theme="light"] .btn-secondary {
     background: rgba(0, 0, 0, 0.04);
     color: var(--accent);
     border-color: rgba(0, 0, 0, 0.1);
-}@media (hover: hover) {
-
-
-[data-theme="light"] .btn-secondary:hover {
-    background: var(--accent-bg);
-    color: var(--accent);
-    border-color: rgba(114, 137, 218, 0.45);
 }
+
+@media (hover: hover) {
+    [data-theme="light"] .btn-secondary:hover {
+        background: var(--accent-bg);
+        color: var(--accent);
+        border-color: rgba(114, 137, 218, 0.45);
+    }
 }
 
 .card-base {
@@ -1575,15 +1530,14 @@ main {
     -webkit-backdrop-filter: blur(var(--blur));
     box-shadow: var(--glass-shadow);
     transition: transform var(--t), box-shadow var(--t), border-color var(--t), background var(--t);
-}@media (hover: hover) {
-
-
-.card-base:hover {
-    background: var(--glass-strong);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--glass-border-hover);
-    transform: translateY(-2px);
 }
+
+@media (hover: hover) {
+    .card-base:hover {
+        background: var(--glass-strong);
+        border-color: var(--glass-border-hover);
+        transform: translateY(-2px);
+    }
 }
 
 .skeleton {
@@ -1603,8 +1557,12 @@ main {
 }
 
 @keyframes shimmer {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(100%); }
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(100%);
+    }
 }
 
 .skeleton-mod {
@@ -1634,6 +1592,7 @@ main {
 }
 
 /* Frosted top highlight — the thin bright edge Apple's panels catch from above. */
+
 .feature-card::before {
     content: '';
     position: absolute;
@@ -1642,15 +1601,15 @@ main {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
     opacity: 0.6;
     pointer-events: none;
-}@media (hover: hover) {
-
-
-.feature-card:hover {
-    transform: translateY(-2px);
-    background: var(--glass-strong);
-    border-color: var(--glass-border-hover);
-    box-shadow: var(--shadow-lg);
 }
+
+@media (hover: hover) {
+    .feature-card:hover {
+        transform: translateY(-2px);
+        background: var(--glass-strong);
+        border-color: var(--glass-border-hover);
+        box-shadow: var(--shadow-lg);
+    }
 }
 
 .feature-badge {
@@ -1688,14 +1647,14 @@ main {
     background: linear-gradient(150deg, var(--accent-bg), rgba(114, 137, 218, 0.04));
     border: 1px solid var(--glass-border);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    transition: transform var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.feature-card:hover .feature-icon {
-    transform: translateY(-2px) scale(1.06);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 8px 22px var(--accent-glow);
+    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .feature-card:hover .feature-icon {
+        transform: translateY(-2px) scale(1.06);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 8px 22px var(--accent-glow);
+    }
 }
 
 .feature-title {
@@ -1704,13 +1663,13 @@ main {
     letter-spacing: -0.012em;
     margin-bottom: 12px;
     color: var(--text);
-    transition: color var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.feature-card:hover .feature-title {
-    color: var(--blurple);
+    transition: color var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .feature-card:hover .feature-title {
+        color: var(--accent);
+    }
 }
 
 .feature-desc {
@@ -1725,8 +1684,9 @@ main {
 }
 
 /* Sized by aspect ratio, not a fixed 240px height: these are 16:9 screenshots,
-   and forcing them into a short box cropped most of the UI out of frame —
-   badly on phones, where the column narrows but the height did not. */
+ and forcing them into a short box cropped most of the UI out of frame —
+ badly on phones, where the column narrows but the height did not. */
+
 .gallery-item {
     position: relative;
     border-radius: var(--r-md);
@@ -1738,32 +1698,34 @@ main {
     background: rgba(35, 39, 42, 0.3);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-}@media (hover: hover) {
-
-
-.gallery-item:hover {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--blurple);
 }
+
+@media (hover: hover) {
+    .gallery-item:hover {
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--accent);
+    }
 }
 
 /* contain, not cover: a screenshot loses its meaning the moment the UI it is
-   showing is cropped out. The tile matches the source ratio, so the letterbox
-   is negligible. */
+ showing is cropped out. The tile matches the source ratio, so the letterbox
+ is negligible. */
+
 .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transition: transform var(--normal) var(--ease);
+    transition: transform var(--dur-base) var(--ease-out);
 }
 
 /* A gentle lift only — the old 1.08 pushed the edges of the screenshot out of
-   the tile, which read as "zoomed in and cut off". */@media (hover: hover) {
+ the tile, which read as "zoomed in and cut off". */
 
-.gallery-item:hover img {
-    transform: scale(1.02);
-}
+@media (hover: hover) {
+    .gallery-item:hover img {
+        transform: scale(1.02);
+    }
 }
 
 .gallery-overlay {
@@ -1776,14 +1738,14 @@ main {
     color: #fff;
     opacity: 0;
     transform: translateY(8px);
-    transition: opacity var(--normal) var(--ease), transform var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.gallery-item:hover .gallery-overlay {
-    opacity: 1;
-    transform: translateY(0);
+    transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .community-content {
@@ -1799,14 +1761,14 @@ main {
     border-radius: var(--radius);
     border: none;
     box-shadow: var(--shadow);
-    transition: box-shadow var(--normal) var(--ease), transform var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.community-widget iframe:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
+    transition: box-shadow var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .community-widget iframe:hover {
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-2px);
+    }
 }
 
 .community-text h2 {
@@ -1829,7 +1791,7 @@ main {
     padding: 7px 0 7px 24px;
     color: var(--text-muted);
     position: relative;
-    transition: color var(--fast) var(--ease), transform var(--fast) var(--ease);
+    transition: color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
 
 .community-text li::before {
@@ -1838,19 +1800,16 @@ main {
     left: 0;
     color: var(--green);
     font-weight: 700;
-}@media (hover: hover) {
-
-
-.community-text li:hover {
-    color: #fff;
-    transform: translateX(4px);
 }
-}@media (hover: hover) {
 
-
-[data-theme="light"] .community-text li:hover {
-    color: #1a1d20;
-}
+@media (hover: hover) {
+    .community-text li:hover {
+        color: #fff;
+        transform: translateX(4px);
+    }
+    [data-theme="light"] .community-text li:hover {
+        color: #1a1d20;
+    }
 }
 
 .social-grid {
@@ -1872,37 +1831,37 @@ main {
     /* Name the exact properties rather than `all` — `all` also transitions
        layout/colour props that should snap, and costs needless style work. */
     transition: transform var(--t), background var(--t), border-color var(--t), box-shadow var(--t);
-}@media (hover: hover) {
-
-
-.social-card:hover {
-    transform: translateY(-2px) scale(1.02);
 }
+
+@media (hover: hover) {
+    .social-card:hover {
+        transform: translateY(-2px) scale(1.02);
+    }
 }
 
 .social-icon {
     font-size: 1.9rem;
     margin-bottom: 12px;
     display: block;
-    transition: transform var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.social-card:hover .social-icon {
-    transform: scale(1.2) rotate(5deg);
+    transition: transform var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .social-card:hover .social-icon {
+        transform: scale(1.2) rotate(5deg);
+    }
 }
 
 .social-name {
     font-weight: 600;
     font-size: .88rem;
-    transition: color var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.social-card:hover .social-name {
-    color: var(--blurple);
+    transition: color var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .social-card:hover .social-name {
+        color: var(--accent);
+    }
 }
 
 .downloads-tabs {
@@ -1931,20 +1890,17 @@ main {
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
     transition: background var(--t), color var(--t), border-color var(--t), box-shadow var(--t);
-}@media (hover: hover) {
-
-
-.tab-button:hover {
-    background: var(--glass-strong);
-    color: var(--text);
-    border-color: var(--glass-border-hover);
 }
-}@media (hover: hover) {
 
-
-[data-theme="light"] .tab-button:hover {
-    color: var(--text);
-}
+@media (hover: hover) {
+    .tab-button:hover {
+        background: var(--glass-strong);
+        color: var(--text);
+        border-color: var(--glass-border-hover);
+    }
+    [data-theme="light"] .tab-button:hover {
+        color: var(--text);
+    }
 }
 
 .tab-button i {
@@ -1968,6 +1924,7 @@ main {
 }
 
 /* ── Coming soon panel (DLL / Java tabs) ── */
+
 .coming-soon {
     display: flex;
     flex-direction: column;
@@ -2016,7 +1973,8 @@ main {
 }
 
 /* Small pending-status dot on a tab button itself, so a "coming soon" panel
-   is signalled before the click, not only after landing on its empty state. */
+ is signalled before the click, not only after landing on its empty state. */
+
 .tab-button {
     position: relative;
 }
@@ -2034,7 +1992,8 @@ main {
 }
 
 /* Standalone 404 page — hides the chrome (header, hero, footer, toasts, docks)
-   so only the logo + message + back-home button remain on screen. */
+ so only the logo + message + back-home button remain on screen. */
+
 body.is-404 #mainHeader,
 body.is-404 #hero-section,
 body.is-404 footer,
@@ -2075,7 +2034,7 @@ body.is-404 #donateBanner {
     overflow: hidden;
     opacity: 0;
     transform: translateY(24px);
-    animation: heroIn 0.7s var(--ease) forwards;
+    animation: heroIn 0.7s var(--ease-out) forwards;
 }
 
 .notfound-card::before {
@@ -2104,12 +2063,13 @@ body.is-404 #donateBanner {
 }
 
 @keyframes notfoundFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .notfound-logo { animation: none; }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .notfound-code {
@@ -2117,7 +2077,7 @@ body.is-404 #donateBanner {
     font-weight: 900;
     font-size: clamp(72px, 10vw, 112px);
     line-height: 1;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2, var(--accent)));
+    background: linear-gradient(135deg, var(--accent), var(--accent));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -2141,6 +2101,7 @@ body.is-404 #donateBanner {
 }
 
 /* ── Extension dropdown (under client cards) ── */
+
 .ext-dropdown {
     margin-top: 18px;
 }
@@ -2163,12 +2124,12 @@ body.is-404 #donateBanner {
 
 .ext-summary::-webkit-details-marker {
     display: none;
-}@media (hover: hover) {
-
-
-.ext-summary:hover {
-    color: var(--text);
 }
+
+@media (hover: hover) {
+    .ext-summary:hover {
+        color: var(--text);
+    }
 }
 
 .ext-summary-label {
@@ -2207,12 +2168,12 @@ body.is-404 #donateBanner {
     border: 1px solid var(--surface-border);
     border-radius: var(--r-inner);
     transition: border-color var(--t);
-}@media (hover: hover) {
-
-
-.ext-row:hover {
-    border-color: var(--glass-border-hover);
 }
+
+@media (hover: hover) {
+    .ext-row:hover {
+        border-color: var(--glass-border-hover);
+    }
 }
 
 .ext-row-info {
@@ -2298,12 +2259,16 @@ body.is-404 #donateBanner {
 
 .tab-content.active {
     display: block;
-    animation: fadeIn .35s var(--ease);
+    animation: fadeIn .35s var(--ease-out);
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .downloads-grid {
@@ -2323,22 +2288,28 @@ body.is-404 #donateBanner {
 }
 
 .download-card.dl-highlight {
-    animation: dl-pulse 2.4s var(--ease);
+    animation: dl-pulse 2.4s var(--ease-out);
 }
 
 @keyframes dl-pulse {
-    0% { box-shadow: 0 0 0 0 rgba(114, 137, 218, .55); }
-    40% { box-shadow: 0 0 0 12px rgba(114, 137, 218, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(114, 137, 218, 0); }
-}@media (hover: hover) {
-
-
-.download-card:hover {
-    background: var(--surface-hover);
-    border-color: var(--glass-border-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+    0% {
+        box-shadow: 0 0 0 0 rgba(114, 137, 218, .55);
+    }
+    40% {
+        box-shadow: 0 0 0 12px rgba(114, 137, 218, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(114, 137, 218, 0);
+    }
 }
+
+@media (hover: hover) {
+    .download-card:hover {
+        background: var(--surface-hover);
+        border-color: var(--glass-border-hover);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+    }
 }
 
 .download-header {
@@ -2354,13 +2325,13 @@ body.is-404 #donateBanner {
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--text);
-    transition: color var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.download-card:hover .download-title {
-    color: var(--blurple);
+    transition: color var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .download-card:hover .download-title {
+        color: var(--accent);
+    }
 }
 
 .download-tag {
@@ -2373,11 +2344,11 @@ body.is-404 #donateBanner {
 
 .tag-latest {
     background: var(--green);
-    color: var(--black);
+    color: var(--bg);
 }
 
 .tag-archived {
-    background: var(--darkest);
+    background: var(--bg);
     color: var(--text-muted);
 }
 
@@ -2424,19 +2395,19 @@ body.is-404 #donateBanner {
     align-items: center;
     padding: 4px 12px;
     border-radius: var(--pill);
-    background: var(--darkest);
+    background: var(--bg);
     color: var(--text-muted);
     font-size: .8rem;
     font-weight: 600;
     text-decoration: none;
     transition: background var(--t), color var(--t);
-}@media (hover: hover) {
-
-
-.mirror-link:hover {
-    background: var(--surface-hover);
-    color: var(--text);
 }
+
+@media (hover: hover) {
+    .mirror-link:hover {
+        background: var(--surface-hover);
+        color: var(--text);
+    }
 }
 
 .mirror-link--outdated {
@@ -2476,7 +2447,7 @@ body.is-404 #donateBanner {
 }
 
 .faq-category-heading i {
-    color: var(--blurple);
+    color: var(--accent);
     font-size: 1rem;
 }
 
@@ -2513,18 +2484,15 @@ body.is-404 #donateBanner {
 
 .faq-question::-webkit-details-marker {
     display: none;
-}@media (hover: hover) {
-
-
-.faq-question:hover {
-    background: var(--surface-hover);
 }
-}@media (hover: hover) {
 
-
-[data-theme="light"] .faq-question:hover {
-    background: var(--surface-hover);
-}
+@media (hover: hover) {
+    .faq-question:hover {
+        background: var(--surface-hover);
+    }
+    [data-theme="light"] .faq-question:hover {
+        background: var(--surface-hover);
+    }
 }
 
 .faq-question i {
@@ -2538,18 +2506,19 @@ body.is-404 #donateBanner {
 }
 
 .faq-answer {
-    padding: 0 22px 22px;
+    padding: 0 22px;
     color: var(--text-muted);
     line-height: 1.65;
 }
 
 /* Links inside body copy carry the accent colour. With underlines gone
-   site-wide, colour is the only thing left marking a link mid-sentence, so
-   every prose context that can contain one has to opt in. */
+ site-wide, colour is the only thing left marking a link mid-sentence, so
+ every prose context that can contain one has to opt in. */
+
 .faq-answer a,
 .license-card a,
 .section-subtitle a {
-    color: var(--blurple);
+    color: var(--accent);
 }
 
 .faq-answer ul,
@@ -2572,13 +2541,13 @@ body.is-404 #donateBanner {
     cursor: pointer;
     position: relative;
     border-bottom: 1px dashed currentColor;
-    transition: color var(--fast) var(--ease);
-}@media (hover: hover) {
-
-
-.copyable-code:hover {
-    color: var(--blurple);
+    transition: color var(--dur-fast) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .copyable-code:hover {
+        color: var(--accent);
+    }
 }
 
 .copyable-code::after {
@@ -2589,7 +2558,7 @@ body.is-404 #donateBanner {
     transform: translateX(-50%) translateY(4px);
     background: var(--surface-inset, #1f2227);
     color: var(--text);
-    font-family: var(--font-body, inherit);
+    font-family: inherit;
     font-size: .72rem;
     font-weight: 500;
     white-space: nowrap;
@@ -2598,15 +2567,15 @@ body.is-404 #donateBanner {
     border: 1px solid var(--surface-border);
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--fast) var(--ease), transform var(--fast) var(--ease);
+    transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
     z-index: 5;
-}@media (hover: hover) {
-
-
-.copyable-code:hover::after {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
 }
+
+@media (hover: hover) {
+    .copyable-code:hover::after {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
 .copyable-code.code-copied::after {
@@ -2619,21 +2588,22 @@ body.is-404 #donateBanner {
 }
 
 /* ── Brand guide: click-to-copy CSS on any specimen ──
-   The clicked element's own computed styles are read at click time (see
-   copyCssSnippet in navigation.js), so the copied CSS can never drift out
-   of sync with what's actually rendered. */
+ The clicked element's own computed styles are read at click time (see
+ copyCssSnippet in navigation.js), so the copied CSS can never drift out
+ of sync with what's actually rendered. */
+
 .copy-css-item {
     cursor: pointer;
     position: relative;
-    transition: outline-color var(--fast) var(--ease);
+    transition: outline-color var(--dur-fast) var(--ease-out);
     outline: 1px dashed transparent;
     outline-offset: 3px;
-}@media (hover: hover) {
-
-
-.copy-css-item:hover {
-    outline-color: var(--blurple);
 }
+
+@media (hover: hover) {
+    .copy-css-item:hover {
+        outline-color: var(--accent);
+    }
 }
 
 .copy-css-item::after {
@@ -2652,15 +2622,15 @@ body.is-404 #donateBanner {
     border: 1px solid var(--surface-border);
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--fast) var(--ease), transform var(--fast) var(--ease);
+    transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
     z-index: 5;
-}@media (hover: hover) {
-
-
-.copy-css-item:hover::after {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
 }
+
+@media (hover: hover) {
+    .copy-css-item:hover::after {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
 .copy-css-item.code-copied::after {
@@ -2692,20 +2662,17 @@ body.is-404 #donateBanner {
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
     transition: background var(--t), color var(--t), border-color var(--t), box-shadow var(--t);
-}@media (hover: hover) {
-
-
-.filter-button:hover {
-    background: var(--glass-strong);
-    color: var(--text);
-    border-color: var(--glass-border-hover);
 }
-}@media (hover: hover) {
 
-
-[data-theme="light"] .filter-button:hover {
-    color: var(--text);
-}
+@media (hover: hover) {
+    .filter-button:hover {
+        background: var(--glass-strong);
+        color: var(--text);
+        border-color: var(--glass-border-hover);
+    }
+    [data-theme="light"] .filter-button:hover {
+        color: var(--text);
+    }
 }
 
 .filter-button.active {
@@ -2774,7 +2741,9 @@ body.is-404 #donateBanner {
     margin: -8px 0 18px;
 }
 
-[data-theme="light"] .mods-count { color: rgba(255, 255, 255, .78); }
+[data-theme="light"] .mods-count {
+    color: rgba(255, 255, 255, .78);
+}
 
 .mods-grid {
     display: grid;
@@ -2799,12 +2768,15 @@ body.is-404 #donateBanner {
 }
 
 /* Favorited mods float to the top of the grid. */
-.mod-card.is-fav { order: -1; }@media (hover: hover) {
 
-
-.mod-card:hover {
-    transform: translateY(-2px);
+.mod-card.is-fav {
+    order: -1;
 }
+
+@media (hover: hover) {
+    .mod-card:hover {
+        transform: translateY(-2px);
+    }
 }
 
 .mod-fav {
@@ -2821,18 +2793,20 @@ body.is-404 #donateBanner {
     color: var(--text-muted);
     font-size: .95rem;
     cursor: pointer;
-    transition: color var(--normal) var(--ease), background var(--normal) var(--ease), transform var(--fast) var(--ease);
-}@media (hover: hover) {
+    transition: color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
 
+@media (hover: hover) {
+    .mod-fav:hover {
+        color: var(--accent);
+        background: var(--bg-item);
+        transform: scale(1.12);
+    }
+}
 
-.mod-fav:hover {
+.mod-card.is-fav .mod-fav {
     color: var(--accent);
-    background: var(--bg-item);
-    transform: scale(1.12);
 }
-}
-
-.mod-card.is-fav .mod-fav { color: var(--accent); }
 
 .mod-icon-tile {
     display: grid;
@@ -2842,27 +2816,27 @@ body.is-404 #donateBanner {
     border-radius: var(--r-inner);
     background: var(--bg-item);
     border: 1px solid var(--glass-border);
-    transition: background var(--normal) var(--ease), border-color var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.mod-card:hover .mod-icon-tile {
-    background: var(--accent-bg);
-    border-color: var(--accent-glow);
+    transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .mod-card:hover .mod-icon-tile {
+        background: var(--accent-bg);
+        border-color: var(--accent-glow);
+    }
 }
 
 .mod-image {
     height: 44px;
     width: 44px;
     object-fit: contain;
-    transition: transform var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.mod-card:hover .mod-image {
-    transform: scale(1.12) rotate(4deg);
+    transition: transform var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .mod-card:hover .mod-image {
+        transform: scale(1.12) rotate(4deg);
+    }
 }
 
 .mod-title {
@@ -2870,13 +2844,13 @@ body.is-404 #donateBanner {
     font-weight: 600;
     margin: 12px 0 6px;
     color: var(--text);
-    transition: color var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.mod-card:hover .mod-title {
-    color: var(--accent);
+    transition: color var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .mod-card:hover .mod-title {
+        color: var(--accent);
+    }
 }
 
 .mod-description {
@@ -2905,14 +2879,14 @@ body.is-404 #donateBanner {
     border-radius: var(--pill);
     font-size: .72rem;
     color: var(--text-muted);
-    transition: background var(--normal) var(--ease), color var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.mod-card:hover .mod-tag {
-    background: var(--accent-bg);
-    color: var(--accent);
+    transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .mod-card:hover .mod-tag {
+        background: var(--accent-bg);
+        color: var(--accent);
+    }
 }
 
 .mods-empty {
@@ -2921,7 +2895,9 @@ body.is-404 #donateBanner {
     color: var(--text-muted);
 }
 
-[data-theme="light"] .mods-empty { color: rgba(255, 255, 255, .78); }
+[data-theme="light"] .mods-empty {
+    color: rgba(255, 255, 255, .78);
+}
 
 .mods-empty i {
     font-size: 2rem;
@@ -2943,12 +2919,12 @@ body.is-404 #donateBanner {
     border-radius: var(--r-md);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-}@media (hover: hover) {
-
-
-.license-card:hover {
-    transform: translateY(-2px);
 }
+
+@media (hover: hover) {
+    .license-card:hover {
+        transform: translateY(-2px);
+    }
 }
 
 .license-card h3 {
@@ -2966,7 +2942,7 @@ body.is-404 #donateBanner {
     left: 0;
     width: 44px;
     height: 3px;
-    background: var(--blurple);
+    background: var(--accent);
     border-radius: 2px;
 }
 
@@ -3068,7 +3044,7 @@ body.is-404 #donateBanner {
     width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: cover;
-    transition: transform var(--normal) var(--ease), filter var(--normal) var(--ease);
+    transition: transform var(--dur-base) var(--ease-out), filter var(--dur-base) var(--ease-out);
 }
 
 .mediakit-shot span {
@@ -3078,17 +3054,18 @@ body.is-404 #donateBanner {
     font-size: .82rem;
     color: #fff;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
-}@media (hover: hover) {
-
-
-.mediakit-shot:hover img {
-    transform: scale(1.04);
-    filter: brightness(0.8);
 }
+
+@media (hover: hover) {
+    .mediakit-shot:hover img {
+        transform: scale(1.04);
+        filter: brightness(0.8);
+    }
 }
 
 /* ── Brand guide: shared subhead used by Colors, Typography, Cards, Nav,
-   Buttons & Layout specimen groups — label + hairline rule, like the Figma doc. */
+ Buttons & Layout specimen groups — label + hairline rule, like the Figma doc. */
+
 .guide-subhead {
     display: flex;
     align-items: center;
@@ -3134,13 +3111,13 @@ body.is-404 #donateBanner {
     cursor: pointer;
     text-align: left;
     font-family: inherit;
-    transition: transform var(--fast) var(--ease);
-}@media (hover: hover) {
-
-
-.color-swatch:hover {
-    transform: translateY(-2px);
+    transition: transform var(--dur-fast) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .color-swatch:hover {
+        transform: translateY(-2px);
+    }
 }
 
 .color-swatch b {
@@ -3170,8 +3147,8 @@ body.is-404 #donateBanner {
 }
 
 .color-swatch--tint {
-    background: var(--blurple-faint);
-    box-shadow: 0 0 22px var(--blurple-glow);
+    background: var(--accent-bg);
+    box-shadow: 0 0 22px var(--accent-glow);
     color: #fff;
     cursor: default;
 }
@@ -3181,6 +3158,7 @@ body.is-404 #donateBanner {
 }
 
 /* ── Brand guide: typography specimens ── */
+
 .type-specimen {
     padding: 20px 0;
 }
@@ -3203,13 +3181,14 @@ body.is-404 #donateBanner {
 }
 
 /* ── Brand guide: inert component specimens ──
-   Real classes reused for visual fidelity so hover/press states stay
-   authentic; clicks are safely inert because the demo markup omits the
-   data-section/data-category/data-tab attributes the delegated handler
-   keys off (see the dataset guards in navigation.js). */
+ Real classes reused for visual fidelity so hover/press states stay
+ authentic; clicks are safely inert because the demo markup omits the
+ data-section/data-category/data-tab attributes the delegated handler
+ keys off (see the dataset guards in navigation.js). */
 
 /* Pill nav, reproduced standalone so it stays visible (and wraps) at every
-   viewport instead of inheriting #navMenu's mobile dropdown behaviour. */
+ viewport instead of inheriting #navMenu's mobile dropdown behaviour. */
+
 .guide-nav-tabs {
     display: flex;
     flex-wrap: wrap;
@@ -3267,6 +3246,7 @@ body.is-404 #donateBanner {
 }
 
 /* ── Brand guide: radii, spacing & effects specimens ── */
+
 .radii-row,
 .spacing-row,
 .effect-row {
@@ -3300,7 +3280,7 @@ body.is-404 #donateBanner {
 
 .spacing-bar {
     width: 28px;
-    background: var(--blurple);
+    background: var(--accent);
     border-radius: 4px 4px 0 0;
 }
 
@@ -3330,7 +3310,7 @@ body.is-404 #donateBanner {
 
 .effect-specimen--glow {
     background: var(--surface);
-    box-shadow: 0 0 32px var(--blurple-glow);
+    box-shadow: 0 0 32px var(--accent-glow);
     border: 1px solid var(--glass-border);
 }
 
@@ -3351,12 +3331,12 @@ body.is-404 #donateBanner {
     border-radius: var(--r-md);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-}@media (hover: hover) {
-
-
-.donate-card:hover {
-    transform: translateY(-2px);
 }
+
+@media (hover: hover) {
+    .donate-card:hover {
+        transform: translateY(-2px);
+    }
 }
 
 .donate-icon {
@@ -3365,13 +3345,13 @@ body.is-404 #donateBanner {
     object-fit: contain;
     margin-bottom: 18px;
     border-radius: var(--r-sm);
-    transition: transform var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.donate-card:hover .donate-icon {
-    transform: scale(1.1) rotate(5deg);
+    transition: transform var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .donate-card:hover .donate-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
 }
 
 .donate-card h3 {
@@ -3405,13 +3385,13 @@ footer {
     display: flex;
     align-items: center;
     gap: 11px;
-    transition: transform var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.footer-brand:hover {
-    transform: translateY(-2px);
+    transition: transform var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .footer-brand:hover {
+        transform: translateY(-2px);
+    }
 }
 
 .footer-logo {
@@ -3421,15 +3401,15 @@ footer {
     object-fit: cover;
     border: 2px solid transparent;
     box-shadow: 0 0 10px rgba(114, 137, 218, .3);
-    transition: transform var(--normal) var(--ease), box-shadow var(--normal) var(--ease), border-color var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.footer-brand:hover .footer-logo {
-    transform: rotate(10deg) scale(1.1);
-    box-shadow: 0 0 20px rgba(114, 137, 218, .6);
-    border-color: var(--blurple);
+    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .footer-brand:hover .footer-logo {
+        transform: rotate(10deg) scale(1.1);
+        box-shadow: 0 0 20px rgba(114, 137, 218, .6);
+        border-color: var(--accent);
+    }
 }
 
 .brand-name {
@@ -3457,40 +3437,17 @@ footer {
     color: var(--text);
     text-decoration: none;
     font-size: 1.15rem;
-    transition: transform var(--normal) var(--ease), background var(--normal) var(--ease), color var(--normal) var(--ease), border-color var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.footer-social .social-link:hover {
-    transform: translateY(-3px) scale(1.1);
-    background: var(--accent);
-    border-color: transparent;
-    color: #fff;
-    box-shadow: 0 5px 15px var(--accent-glow);
-}
+    transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
 }
 
-.footer-legal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    width: 100%;
-    font-size: .85rem;
-    color: var(--text-muted);
-}
-
-.footer-legal a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.footer-legal a:hover {
-    color: var(--text);
-}
+@media (hover: hover) {
+    .footer-social .social-link:hover {
+        transform: translateY(-3px) scale(1.1);
+        background: var(--accent);
+        border-color: transparent;
+        color: #fff;
+        box-shadow: 0 5px 15px var(--accent-glow);
+    }
 }
 
 .copyright-text {
@@ -3515,12 +3472,12 @@ footer {
     transform: translateX(-100%);
     transition: transform var(--dur-base) var(--ease-out);
     pointer-events: none;
-}@media (hover: hover) {
-
-
-.card-shine:hover::after {
-    transform: translateX(100%);
 }
+
+@media (hover: hover) {
+    .card-shine:hover::after {
+        transform: translateX(100%);
+    }
 }
 
 .downloads-sub-title,
@@ -3562,12 +3519,7 @@ footer {
 
 .download-meta-icon {
     margin-right: 6px;
-    color: var(--blurple);
-}
-
-.download-desc {
-    color: var(--text-muted);
-    margin-bottom: 18px;
+    color: var(--accent);
 }
 
 .faq-video {
@@ -3597,12 +3549,12 @@ footer {
     border-radius: var(--r-md);
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
-}@media (hover: hover) {
-
-
-.showcase-video-card:hover {
-    transform: translateY(-2px);
 }
+
+@media (hover: hover) {
+    .showcase-video-card:hover {
+        transform: translateY(-2px);
+    }
 }
 
 .showcase-video-thumb {
@@ -3621,14 +3573,14 @@ footer {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--normal) var(--ease), filter var(--normal) var(--ease);
-}@media (hover: hover) {
-
-
-.showcase-video-thumb:hover img {
-    transform: scale(1.05);
-    filter: brightness(0.75);
+    transition: transform var(--dur-base) var(--ease-out), filter var(--dur-base) var(--ease-out);
 }
+
+@media (hover: hover) {
+    .showcase-video-thumb:hover img {
+        transform: scale(1.05);
+        filter: brightness(0.75);
+    }
 }
 
 .showcase-play-btn {
@@ -3645,18 +3597,18 @@ footer {
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    transition: transform var(--normal) var(--ease), background var(--normal) var(--ease);
+    transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
 }
 
 .showcase-play-btn i {
     margin-left: 3px;
-}@media (hover: hover) {
-
-
-.showcase-video-thumb:hover .showcase-play-btn {
-    transform: translate(-50%, -50%) scale(1.12);
-    background: rgb(255, 0, 0);
 }
+
+@media (hover: hover) {
+    .showcase-video-thumb:hover .showcase-play-btn {
+        transform: translate(-50%, -50%) scale(1.12);
+        background: rgb(255, 0, 0);
+    }
 }
 
 .showcase-video-frame {
@@ -3686,7 +3638,7 @@ footer {
 }
 
 .showcase-video-channel {
-    color: var(--blurple);
+    color: var(--accent);
     font-weight: 600;
 }
 
@@ -3699,7 +3651,7 @@ footer {
 }
 
 .icon-box-faq i {
-    color: var(--blurple);
+    color: var(--accent);
     font-size: .8rem;
 }
 
@@ -3731,23 +3683,26 @@ footer {
 }
 
 .launcher-error a {
-    color: var(--blurple);
+    color: var(--accent);
 }
 
-.content-section { content-visibility: auto; contain-intrinsic-size: 1px 600px; }
-#mods-section.content-section { contain-intrinsic-size: 1px 1200px; }
-#downloads-section.content-section { contain-intrinsic-size: 1px 900px; }
+.content-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 600px;
+}
 
-.reveal { will-change: opacity, transform; }
+#mods-section.content-section {
+    contain-intrinsic-size: 1px 1200px;
+}
 
-/* Scroll reveal. Hidden state: 14px low, slightly blurred. reveal.js adds
-   .is-visible once, which plays the entrance as a keyframe animation and then
-   hands the element back to its normal rules.
-   Two deliberate choices:
-   - :where() gives these rules zero specificity, so hover lifts and the 3D tilt
-     (which set transform on the same elements) are not overridden by them.
-   - The entrance is an animation, not a transition, so no transition-delay is
-     left behind to slow down later hover transitions. */
+#downloads-section.content-section {
+    contain-intrinsic-size: 1px 900px;
+}
+
+.reveal {
+    will-change: opacity, transform;
+}
+
 :where(.js-reveal .reveal) {
     opacity: 0;
     transform: translate3d(0, 14px, 0);
@@ -3764,23 +3719,47 @@ footer {
 }
 
 @keyframes revealIn {
-    from { opacity: 0; transform: translate3d(0, 14px, 0); filter: blur(4px); }
-    to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+    from {
+        opacity: 0;
+        transform: translate3d(0, 14px, 0);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        filter: blur(0);
+    }
 }
 
 @keyframes revealUp {
-    from { opacity: 0; transform: translateY(36px) scale(.975); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+        opacity: 0;
+        transform: translateY(36px) scale(.975);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 @keyframes heroFloat {
-    from { transform: translateY(0) scale(1); }
-    to { transform: translateY(-30px) scale(.97); }
+    from {
+        transform: translateY(0) scale(1);
+    }
+    to {
+        transform: translateY(-30px) scale(.97);
+    }
 }
 
 @keyframes heroTitleRise {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @supports (animation-timeline: view()) {
@@ -3797,7 +3776,6 @@ footer {
         animation-timeline: view();
         animation-range: entry 5% entry 90%;
     }
-
     .css-timeline .hero-image {
         animation: heroFloat linear both;
         animation-timeline: view();
@@ -3805,422 +3783,42 @@ footer {
     }
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
-   Parallax depth
-   Scroll-linked layers that drift at different rates to fake 3D depth — the
-   foreground content trails the far BG.png layer as you scroll. JS sets
-   --parallax-y per element (and --bg-parallax on <html>) from the same eased
-   scroll value the showcase reads, so the motion shares that buttery,
-   slightly-trailing feel. Add data-parallax="<factor>" to any non-reveal,
-   non-transitioned element to enrol it. Off entirely for reduced motion.
-   ────────────────────────────────────────────────────────────────────────── */
-[data-parallax] {
-    transform: translate3d(0, var(--parallax-y, 0px), 0);
-    will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    [data-parallax] { transform: none !important; }
-}
-
-.showcase {
-    position: relative;
-    /* No bottom margin: the content-container's padding + footer's top margin
-       already supply the rhythm before the footer. An extra bottom margin here
-       only stacked onto those, leaving home looser than every other tab. */
-    margin: clamp(64px, 9vw, 120px) auto 0;
-    max-width: 1240px;
-    padding: 0 var(--gutter);
-    contain: layout;
-}
-
-.showcase-pin {
-    position: sticky;
-    top: 88px;
-    height: calc(100vh - 108px);
-    min-height: 500px;
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: clamp(32px, 4vw, 64px);
-    align-items: center;
-    padding: clamp(28px, 3.5vw, 52px);
-    background: var(--glass-strong);
-    border: 1px solid var(--glass-border);
-    border-radius: 28px;
-    backdrop-filter: blur(calc(var(--blur) + 6px));
-    -webkit-backdrop-filter: blur(calc(var(--blur) + 6px));
-    /* Layered depth shadow + a frosted top highlight (the bright edge Apple's
-       panels catch from above). */
-    box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.14);
-    overflow: hidden;
-    z-index: 1;
-    /* --gp (set per chapter by the showcase JS) is registered as an animatable
-       number below, so the ambient glow eases between positions on each step. */
-    transition: box-shadow var(--t), --gp .9s var(--ease);
-}
-
-@property --gp {
-    syntax: '<number>';
-    inherits: true;
-    initial-value: 0;
-}
-
-/* Ambient light that sweeps across the panel as you scroll the sequence:
-   --gp (0..1, set per-frame by the showcase JS) glides the glow centres. */
-.showcase-pin::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(60% 60% at calc(8% + var(--gp, 0) * 78%) 22%, rgba(114, 137, 218, .22) 0%, transparent 60%),
-                radial-gradient(55% 55% at calc(92% - var(--gp, 0) * 70%) 82%, rgba(87, 242, 135, .14) 0%, transparent 60%);
-    pointer-events: none;
-    transition: none;
-}
-
-.showcase-stage {
-    position: relative;
-    /* Matches the source screenshots (1920x1080). At 16/10 the object-fit:cover
-       below had to crop them to fill the frame. */
-    aspect-ratio: 16 / 9;
-    border-radius: var(--r-md);
-    overflow: hidden;
-    /* Deep cinematic drop + an accent rim-light + inner top sheen. */
-    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6),
-                0 0 40px -8px var(--accent-glow);
-    z-index: 1;
-    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
-}
-
-/* Hover lifts the device frame toward the viewer and intensifies the rim glow. */@media (hover: hover) {
-
-.showcase-stage:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 42px 96px rgba(0, 0, 0, 0.66),
-                0 0 60px -6px var(--accent-glow);
-}
-}
+/* Hover lifts the device frame toward the viewer and intensifies the rim glow. */
 
 /* Glass sheen across the top of the device frame. */
-.showcase-stage::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, transparent 28%);
-    pointer-events: none;
-    z-index: 3;
-    mix-blend-mode: overlay;
-}
-
-.showcase-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    /* Rests slightly enlarged & nudged down; eases into a crisp, settled frame
-       when its chapter becomes active. Pure CSS transition (driven by the
-       .is-active class from the IntersectionObserver) → identical, clean motion
-       at any scroll speed. The longer transform timing trails the fade for depth. */
-    transform: scale(1.06) translateY(1.6%);
-    transition: opacity .8s var(--ease), transform 1.15s var(--ease);
-    will-change: opacity, transform;
-}
-
-.showcase-img.is-active {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-}
-
-.showcase-info {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-}
-
-.showcase-topline {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-}
-
-.showcase-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    text-transform: uppercase;
-    letter-spacing: 2.4px;
-    font-size: .72rem;
-    font-weight: 800;
-    color: var(--accent-hover);
-}
 
 /* Leading accent line before the eyebrow label — an editorial flourish. */
-.showcase-eyebrow::before {
-    content: '';
-    width: 26px;
-    height: 2px;
-    border-radius: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent));
-}
 
 /* Monospace-feel frame counter (01 / 03) — the current index is set by JS. */
-.showcase-count {
-    font-variant-numeric: tabular-nums;
-    font-weight: 700;
-    font-size: .82rem;
-    letter-spacing: 1px;
-    color: var(--text-muted);
-}
-
-.showcase-count-num {
-    color: var(--accent-hover);
-}
-
-.showcase-count-sep {
-    margin: 0 4px;
-    opacity: .5;
-}
-
-.showcase-count-total {
-    opacity: .65;
-}
-
-.showcase-textstack {
-    position: relative;
-    min-height: 200px;
-}
-
-.showcase-text {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    transform: translateY(22px);
-    /* Eased crossfade + rise, slightly delayed so the copy settles just after
-       the image — a clean, staggered reveal rather than everything at once. */
-    transition: opacity .6s var(--ease), transform .7s var(--ease);
-    pointer-events: none;
-}
-
-.showcase-text.is-active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    transition-delay: .12s;
-}
-
-.showcase-heading {
-    font-size: clamp(1.75rem, 3.2vw, 2.7rem);
-    font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: -0.022em;
-    margin-bottom: 16px;
-    color: var(--accent);
-}
-
-.showcase-body {
-    color: var(--text-muted);
-    font-size: clamp(1rem, 1.3vw, 1.1rem);
-    line-height: 1.62;
-    max-width: 42ch;
-    letter-spacing: -0.003em;
-}
 
 /* Cycler controls — prev/next arrows flanking the clickable progress dots. */
-.showcase-controls {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 10px;
-}
-
-.showcase-arrow {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    flex: 0 0 auto;
-    border-radius: 50%;
-    border: 1px solid var(--glass-border);
-    background: var(--glass);
-    color: var(--accent-hover);
-    font-size: .85rem;
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(var(--blur));
-    backdrop-filter: blur(var(--blur));
-    transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out),
-                border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
-}@media (hover: hover) {
-
-
-.showcase-arrow:hover:not(:disabled) {
-    transform: scale(1.08);
-    background: var(--accent-bg);
-    border-color: var(--glass-border-hover);
-    box-shadow: 0 6px 18px var(--accent-glow);
-}
-}
-
-.showcase-arrow:active:not(:disabled) {
-    transform: scale(0.94);
-}
-
-.showcase-arrow:disabled {
-    opacity: 0.32;
-    cursor: not-allowed;
-}
-
-.showcase-progress {
-    display: flex;
-    gap: 10px;
-    margin: 0;
-}
 
 /* Progress ticks: the active chapter's tick widens; every passed tick fills.
-   Both transition on the same eased curve as the panel, so the indicator glides
-   in lockstep with the chapter change. */
+ Both transition on the same eased curve as the panel, so the indicator glides
+ in lockstep with the chapter change. */
+
 /* The tick is a 48px hit box. Its track and fill are drawn inside it and scaled
-   with transform, never resized, so the active chapter widens without reflowing
-   the controls row. The track is 30px (scaleX .625) until its chapter is active. */
-.showcase-tick {
-    position: relative;
-    width: 48px;
-    height: 22px;
-    padding: 0;
-    border: none;
-    background: none;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-}
-
-.showcase-tick::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 9px;
-    height: 4px;
-    border-radius: 3px;
-    background: rgba(255, 255, 255, .15);
-    transform-origin: left center;
-    transform: scaleX(.625);
-    transition: transform .6s var(--ease), background var(--dur-base) var(--ease-out);
-}@media (hover: hover) {
-
-
-.showcase-tick:hover::before {
-    background: rgba(255, 255, 255, .35);
-}
-}@media (hover: hover) {
-
-
-[data-theme="light"] .showcase-tick:hover::before {
-    background: rgba(0, 0, 0, .3);
-}
-}
-
-.showcase-tick.is-active::before {
-    transform: scaleX(1);
-}
-
-.showcase-tick::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 9px;
-    height: 4px;
-    border-radius: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-hover));
-    transform-origin: left center;
-    transform: scaleX(0);
-    transition: transform .6s var(--ease);
-}
+ with transform, never resized, so the active chapter widens without reflowing
+ the controls row. The track is 30px (scaleX .625) until its chapter is active. */
 
 /* Passed chapters fill to the track width; the active one fills to its wider track. */
-.showcase-tick.is-filled::after {
-    transform: scaleX(.625);
-}
-
-.showcase-tick.is-filled.is-active::after {
-    transform: scaleX(1);
-}
-
-[data-theme="light"] .showcase-tick::before {
-    background: rgba(0, 0, 0, .14);
-}
-
-.showcase-tick.is-active::after {
-    box-shadow: 0 0 10px var(--accent-glow);
-}
-
-.showcase-trigger {
-    height: 55vh;
-    pointer-events: none;
-}
-
-@media (max-width: 900px) {
-    .showcase { margin: 60px auto 0; }
-    .showcase-pin {
-        grid-template-columns: 1fr;
-        gap: 22px;
-        padding: 22px;
-        height: auto;
-        min-height: auto;
-        position: sticky;
-        top: 80px;
-    }
-    .showcase-stage { aspect-ratio: 16 / 10; }
-    .showcase-textstack { min-height: 160px; }
-    .showcase-trigger { height: 60vh; }
-}
-
-@media (max-width: 480px) {
-    .showcase-pin { padding: 16px; }
-    .showcase-textstack { min-height: 180px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-    }
-    body::before { animation: none; }
-    .reveal { opacity: 1 !important; transform: none !important; }
-
-    /* The showcase is an opt-in, interactive component, so it keeps a gentle
-       motion budget even here — but only the vestibular-safe kind: a plain
-       opacity crossfade for the frames/copy and soft fades on the controls,
-       with NO movement, scale or parallax. This is why the slideshow still
-       dissolves (rather than hard-cutting) and the controls still respond when
-       the OS "reduce motion" / Windows "animation effects off" setting is on. */
-    .showcase-img,
-    .showcase-text {
-        transition: opacity .55s ease !important;
-        transform: none !important;
-    }
-    .showcase-img.is-active, .showcase-text.is-active { opacity: 1 !important; }
-    .showcase-img:not(.is-active), .showcase-text:not(.is-active) { opacity: 0 !important; }
-
-    .showcase-tick::before { transition: transform .45s ease, background .3s ease !important; }
-    .showcase-tick::after { transition: transform .45s ease !important; }
-    .showcase-arrow { transition: background .25s ease, border-color .25s ease, opacity .25s ease !important; }
-    .showcase-stage { transition: box-shadow .4s ease !important; }
-}
 
 @media (max-width: 1024px) {
-    .hero { padding: 52px 36px; }
-    .hero-container { gap: 36px; }
-    .community-content { grid-template-columns: 1fr; }
-    .community-widget iframe { max-height: 340px; }
-    .quick-dock { right: 12px; }
+    .hero {
+        padding: 52px 36px;
+    }
+    .hero-container {
+        gap: 36px;
+    }
+    .community-content {
+        grid-template-columns: 1fr;
+    }
+    .community-widget iframe {
+        max-height: 340px;
+    }
+    .quick-dock {
+        right: 12px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -4228,18 +3826,22 @@ footer {
         padding: 10px 12px;
         gap: 8px;
     }
-
     .branding {
         gap: 8px;
     }
-
     .branding-sub {
         display: none;
     }
-
     .nav-tabs {
-        display: none;
+        display: flex;
         position: absolute;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-6px) scale(.96);
+        transform-origin: top right;
+        transition: opacity var(--dur-fast) ease-in, transform var(--dur-fast) ease-in,
+            visibility 0s linear var(--dur-fast);
         top: calc(100% + 6px);
         left: 12px;
         right: 12px;
@@ -4256,17 +3858,16 @@ footer {
         z-index: 999;
         max-height: calc(100vh - 80px);
         overflow-y: auto;
-        animation: slideDown 0.2s var(--ease);
         gap: 4px;
     }
-
-    .nav-tabs.active { display: flex; }
-
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-8px); }
-        to { opacity: 1; transform: translateY(0); }
+    .nav-tabs.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+        transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out),
+            visibility 0s;
     }
-
     .nav-tab {
         justify-content: flex-start;
         width: 100%;
@@ -4274,21 +3875,20 @@ footer {
         font-size: 0.95rem;
         border-radius: var(--r-inner);
         color: var(--text);
-    }@media (hover: hover) {
-
-
-    .nav-tab:hover:not(.active) {
-        background: var(--surface-hover);
     }
-}
-
+    @media (hover: hover) {
+        .nav-tab:hover:not(.active) {
+            background: var(--surface-hover);
+        }
+    }
     /* Mobile dropdown is a solid panel — keep its text themed, not the
-       light-on-image colour the desktop header uses. */
+     light-on-image colour the desktop header uses. */
     [data-theme="light"] .nav-tab:not(.active) {
         color: var(--text);
     }
-    .quick-dock { display: none; }
-
+    .quick-dock {
+        display: none;
+    }
     .mobile-menu-btn {
         display: flex;
         width: var(--ctl-h);
@@ -4305,80 +3905,142 @@ footer {
         -webkit-backdrop-filter: blur(var(--blur));
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
         transition: color var(--t), background var(--t), box-shadow var(--t);
-    }@media (hover: hover) {
-
-    .mobile-menu-btn:hover {
-        color: var(--text);
-        background: rgba(255, 255, 255, 0.12);
-        box-shadow: 0 0 12px var(--accent-glow);
     }
-}
-    .hero { padding: 40px 24px; margin: 0 12px 40px; }
-    .hero-container { grid-template-columns: 1fr; gap: 32px; }
-
+    @media (hover: hover) {
+        .mobile-menu-btn:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+    }
+    .hero {
+        padding: 40px 24px;
+        margin: 0 12px 40px;
+    }
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
     .hero-image {
         order: -1;
         max-height: 240px;
         overflow: hidden;
     }
-
-    .hero-image img { max-height: 240px; object-fit: cover; width: 100%; }
-
-    .hero-buttons { flex-direction: column; align-items: stretch; }
-    .hero-buttons .btn { width: 100%; text-align: center; justify-content: center; }
-    .features-grid { grid-template-columns: 1fr; }
-    .gallery-container { grid-template-columns: 1fr; }
-
-    .footer-social { justify-content: center; }
-    .filter-controls { gap: 8px; }
-    .filter-button { font-size: .82rem; padding: 8px 14px; }
-    .search-bar { max-width: 100%; }
-    .download-header { flex-direction: column; align-items: flex-start; }
-    .download-buttons { width: 100%; }
-    .download-buttons .btn { flex: 1; min-width: 120px; }
-
-    #searchModal { padding-top: 80px; }
-    .search-modal-hint { display: none; }
-
-    #backToTop { bottom: 18px; right: 14px; }
-
-    .hero-stats { gap: 16px; }
+    .hero-image img {
+        max-height: 240px;
+        object-fit: cover;
+        width: 100%;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .hero-buttons .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    .gallery-container {
+        grid-template-columns: 1fr;
+    }
+    .footer-social {
+        justify-content: center;
+    }
+    .filter-controls {
+        gap: 8px;
+    }
+    .filter-button {
+        font-size: .82rem;
+        padding: 8px 14px;
+    }
+    .search-bar {
+        max-width: 100%;
+    }
+    .download-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .download-buttons {
+        width: 100%;
+    }
+    .download-buttons .btn {
+        flex: 1;
+        min-width: 120px;
+    }
+    #searchModal {
+        padding-top: 80px;
+    }
+    .search-modal-hint {
+        display: none;
+    }
+    #backToTop {
+        bottom: 18px;
+        right: 14px;
+    }
+    .hero-stats {
+        gap: 16px;
+    }
 }
 
 @media (max-width: 480px) {
-    .hero { padding: 30px 18px; margin: 0 8px 32px; }
-    .hero-image { display: none; }
-    .section-title { font-size: 1.6rem; }
-    .social-grid { grid-template-columns: repeat(3, 1fr); }
-    .tab-button { padding: 10px 16px; font-size: .85rem; }
-    .donate-grid { grid-template-columns: 1fr; }
-    .download-meta { flex-direction: column; gap: 4px; }
+    .hero {
+        padding: 30px 18px;
+        margin: 0 8px 32px;
+    }
+    .hero-image {
+        display: none;
+    }
+    .section-title {
+        font-size: 1.6rem;
+    }
+    .social-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .tab-button {
+        padding: 10px 16px;
+        font-size: .85rem;
+    }
+    .donate-grid {
+        grid-template-columns: 1fr;
+    }
+    .download-meta {
+        flex-direction: column;
+        gap: 4px;
+    }
     .header-icon-btn,
     .search-trigger,
     .mobile-menu-btn {
-        width: 34px; height: 34px;
-        min-width: 34px; min-height: 34px;
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        min-height: 34px;
         font-size: .82rem;
     }
-    .search-trigger i, .mobile-menu-btn { font-size: .82rem; }
+    .search-trigger i,
+    .mobile-menu-btn {
+        font-size: .82rem;
+    }
     /* The matching rule for the language control lives with the rest of the
-       language-picker CSS further down — its base rules are declared after this
-       block, so an override here would lose on source order. */
-
+     language-picker CSS further down — its base rules are declared after this
+     block, so an override here would lose on source order. */
     /* Announcement / donation popups span the bottom with even margins on phones */
-    #toastBanner, #donateBanner { right: 12px; left: 12px; bottom: 12px; width: auto; }
-    body.has-toast #backToTop { bottom: 140px; }
+    #toastBanner,
+    #donateBanner {
+        right: 12px;
+        left: 12px;
+        bottom: 12px;
+        width: auto;
+    }
+    body.has-toast #backToTop {
+        bottom: 140px;
+    }
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
-   Interactive 3D tilt
-   Pointer-driven perspective rotation with a moving glare highlight, applied
-   to cards and the hero image. JS sets --tilt-rx / --tilt-ry / the glare
-   position and toggles .is-tilting; everything else is declarative here so the
-   resting/hover state still composes. Gated off for touch + reduced-motion.
-   ────────────────────────────────────────────────────────────────────────── */
-
 /* Containers get perspective so children rotate in shared 3D space. */
+
 .features-grid,
 .gallery-container,
 .donate-grid,
@@ -4389,93 +4051,29 @@ footer {
     perspective: 1100px;
 }
 
-.tilt-3d {
-    --tilt-rx: 0deg;
-    --tilt-ry: 0deg;
-    --tilt-lift: 0px;
-    transform-style: preserve-3d;
-    will-change: transform;
-}
-
-/* While the pointer is over a tilt element, JS-driven rotation takes over from
-   the default hover transform. The faster, snappier transition is used only on
-   release so the lift settles smoothly back to rest. */
-.tilt-3d.is-tilting {
-    transform:
-        perspective(1100px)
-        rotateX(var(--tilt-rx))
-        rotateY(var(--tilt-ry))
-        translateY(var(--tilt-lift))
-        translateZ(0);
-    transition: transform 0.08s linear;
-}
-
 /* Moving glare — a soft radial highlight tracking the pointer. */
-.tilt-glare {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0;
-    z-index: 2;
-    background: radial-gradient(
-        circle at var(--glare-x, 50%) var(--glare-y, 50%),
-        rgba(255, 255, 255, 0.28),
-        rgba(255, 255, 255, 0) 45%);
-    transition: opacity var(--normal) var(--ease);
-    mix-blend-mode: soft-light;
-}
-
-.tilt-3d.is-tilting .tilt-glare {
-    opacity: 1;
-}
-
-/* Lift inner media a touch toward the viewer for parallax depth. */
-.tilt-3d.is-tilting .feature-icon,
-.tilt-3d.is-tilting img {
-    transform: translateZ(40px);
-}
-
-[data-theme="light"] .tilt-glare {
-    background: radial-gradient(
-        circle at var(--glare-x, 50%) var(--glare-y, 50%),
-        rgba(255, 255, 255, 0.55),
-        rgba(255, 255, 255, 0) 45%);
-}
-
-/* No tilt where it can't help: coarse pointers (touch) and reduced motion. */
-@media (hover: none), (pointer: coarse) {
-    .tilt-glare { display: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .tilt-3d.is-tilting {
-        transform: none;
-        transition: none;
-    }
-    .tilt-glare { display: none; }
-}
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Tactile press feedback
-   Every pressable control should acknowledge the press — the interface
-   "listening" to the user. The scale eases IN on press (deliberate) and the
-   element snaps back on release via its resting transition (Emil's asymmetric
-   press/release). Kept subtle on large targets, snappier on small ones.
-   ────────────────────────────────────────────────────────────────────────── */
+ Tactile press feedback
+ Every pressable control should acknowledge the press — the interface
+ "listening" to the user. The scale eases IN on press (deliberate) and the
+ element snaps back on release via its resting transition (Emil's asymmetric
+ press/release). Kept subtle on large targets, snappier on small ones.
+ ────────────────────────────────────────────────────────────────────────── */
 
 /* Round header controls + back-to-top — frequently tapped, so they get a clear
-   but small push. */
+ but small push. */
+
 .header-icon-btn:active,
 .search-trigger:active,
 .mobile-menu-btn:active,
-#backToTop:active,
-.showcase-arrow:active:not(:disabled) {
+#backToTop:active {
     transform: scale(0.93);
     transition: transform 0.12s ease;
 }
 
 /* Pill / tab controls — nav tabs, download tabs, mod filters. */
+
 .nav-tab:active,
 .tab-button:active,
 .filter-button:active,
@@ -4485,14 +4083,12 @@ footer {
 }
 
 /* Footer social glyphs are small round targets → a satisfying deeper press. */
+
 .footer-social .social-link:active {
     transform: scale(0.9);
     transition: transform 0.1s ease;
 }
 
-/* Cards lack any press feel on touch, where the 3D tilt and :hover lift are
-   both disabled. Restore it there only, so this never competes with the
-   pointer-driven tilt transform on desktop. */
 @media (hover: none), (pointer: coarse) {
     .feature-card:active,
     .gallery-item:active,
@@ -4506,11 +4102,12 @@ footer {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Search — keyboard navigation, match highlight, shortcut footer
-   ────────────────────────────────────────────────────────────────────────── */
+ Search — keyboard navigation, match highlight, shortcut footer
+ ────────────────────────────────────────────────────────────────────────── */
 
 /* The row under the keyboard cursor (or the pointer) — same wash as :hover so
-   mouse and keyboard share one highlight. */
+ mouse and keyboard share one highlight. */
+
 .search-result-item.is-active {
     background: rgba(114, 137, 218, .18);
 }
@@ -4520,6 +4117,7 @@ footer {
 }
 
 /* Matched substring inside a result title. */
+
 .search-hl {
     background: transparent;
     color: var(--accent-hover);
@@ -4531,6 +4129,7 @@ footer {
 }
 
 /* Shortcut legend along the bottom of the search box. */
+
 .search-modal-foot {
     display: flex;
     gap: 18px;
@@ -4565,58 +4164,16 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .search-modal-foot { display: none; }
-}
-
-/* ──────────────────────────────────────────────────────────────────────────
-   Theme toggle — a bit of fun
-   The sun spins while you hover it (dark mode), the moon gives a gentle tilt
-   (light mode), and the whole button does a full turn on every toggle (the
-   --gc-spin angle is bumped by JS). All motion collapses under reduced motion.
-   ────────────────────────────────────────────────────────────────────────── */
-#themeToggle {
-    transform: rotate(var(--gc-spin, 0deg));
-    transition: color var(--t), background var(--t), box-shadow var(--t),
-                transform var(--dur-base) var(--ease-out);
-}
-
-#themeToggle:active {
-    transform: rotate(var(--gc-spin, 0deg)) scale(0.92);
-    transition: transform 0.1s ease;
-}
-
-#themeToggle i {
-    transition: transform var(--dur-base) var(--ease-out);
-}
-
-@media (hover: hover) and (pointer: fine) {
-    [data-theme="dark"] #themeToggle:hover i {
-        animation: gc-sun-spin 4s linear infinite;
-    }
-    [data-theme="light"] #themeToggle:hover i {
-        transform: rotate(-22deg) scale(1.12);
+    .search-modal-foot {
+        display: none;
     }
 }
 
-@keyframes gc-sun-spin {
-    to { transform: rotate(360deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    #themeToggle {
-        transform: none;
-        transition: color var(--t), background var(--t), box-shadow var(--t);
-    }
-    #themeToggle i,
-    [data-theme="dark"] #themeToggle:hover i {
-        animation: none;
-        transform: none;
-    }
-}
 
 /* ── Skip link ─────────────────────────────────────────────────────────────
-   Off-screen until focused, then slides into the top-left over the header.
-   Uses the same accent pill as the primary CTA so it reads as part of the UI. */
+ Off-screen until focused, then slides into the top-left over the header.
+ Uses the same accent pill as the primary CTA so it reads as part of the UI. */
+
 .skip-link {
     position: fixed;
     top: 0;
@@ -4640,11 +4197,13 @@ footer {
 }
 
 /* The skip target must not draw a focus ring when moved to programmatically. */
+
 #main-content:focus {
     outline: none;
 }
 
 /* ── Language picker (custom glassmorphic dropdown) ────────────────────── */
+
 .lang-custom-dropdown {
     position: relative;
     display: inline-flex;
@@ -4671,8 +4230,8 @@ footer {
     font-weight: 500;
     cursor: pointer;
     white-space: nowrap;
-    transition: border-color var(--normal) var(--ease), color var(--normal) var(--ease),
-        background var(--normal) var(--ease), box-shadow var(--normal) var(--ease);
+    transition: border-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out),
+        background var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
 }
 
 .lang-dropdown-trigger:hover,
@@ -4684,9 +4243,12 @@ footer {
     box-shadow: 0 0 10px var(--accent-glow);
 }
 
-.lang-dropdown-trigger i.fa-globe { font-size: .9rem; }
+.lang-dropdown-trigger i.fa-globe {
+    font-size: .9rem;
+}
 
 /* The floating, frosted menu. */
+
 .lang-dropdown-menu {
     position: absolute;
     top: calc(100% + 10px);
@@ -4706,20 +4268,22 @@ footer {
     /* Hidden by default; toggled with .is-open on the dropdown root. */
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-6px) scale(.98);
+    transform: translateY(-6px) scale(.96);
     transform-origin: top right;
-    transition: opacity var(--normal) var(--ease), transform var(--normal) var(--ease),
-        visibility 0s linear var(--normal);
+    transition: opacity var(--dur-fast) ease-in, transform var(--dur-fast) ease-in,
+        visibility 0s linear var(--dur-fast);
 }
+
 .lang-custom-dropdown.is-open .lang-dropdown-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0) scale(1);
-    transition: opacity var(--normal) var(--ease), transform var(--normal) var(--ease),
-        visibility 0s linear 0s;
+    transform: none;
+    transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out),
+        visibility 0s;
 }
 
 /* Each language row. */
+
 .lang-dropdown-option {
     display: flex;
     align-items: center;
@@ -4736,51 +4300,57 @@ footer {
     font-weight: 500;
     text-align: left;
     cursor: pointer;
-    transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
+    transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
+
 .lang-dropdown-option:hover,
 .lang-dropdown-option:focus-visible {
     background: rgba(114, 137, 218, 0.14);
     color: var(--text);
 }
+
 .lang-dropdown-option.is-active {
     background: rgba(114, 137, 218, 0.20);
     color: var(--text);
 }
-.lang-dropdown-option.is-active .lang-dropdown-check { opacity: 1; }
+
+.lang-dropdown-option.is-active .lang-dropdown-check {
+    opacity: 1;
+}
 
 .lang-dropdown-check {
     font-size: .7rem;
     color: var(--accent);
     opacity: 0;
-    transition: opacity var(--fast) var(--ease);
+    transition: opacity var(--dur-fast) var(--ease-out);
 }
 
 @media (max-width: 768px) {
-    .lang-dropdown-menu { min-width: 170px; }
+    .lang-dropdown-menu {
+        min-width: 170px;
+    }
 }
 
 /* Shrink in step with the other circular header controls (see the 480px block
-   above, which sets search/theme/menu to 34px). */
+ above, which sets search/theme/menu to 34px). */
+
 @media (max-width: 480px) {
     .lang-custom-dropdown,
     .lang-dropdown-trigger {
-        width: 34px; height: 34px;
-        min-width: 34px; min-height: 34px;
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        min-height: 34px;
     }
-    .lang-dropdown-trigger i.fa-globe { font-size: .82rem; }
+    .lang-dropdown-trigger i.fa-globe {
+        font-size: .82rem;
+    }
 }
 
 /* Respect reduced-motion: drop the slide/scale, keep the fade. */
-@media (prefers-reduced-motion: reduce) {
-    .lang-dropdown-menu,
-    .lang-custom-dropdown.is-open .lang-dropdown-menu {
-        transform: none;
-        transition-duration: .01ms;
-    }
-}
 
 /* ── Docs page ─────────────────────────────────────────────────────────── */
+
 .docs-layout {
     display: grid;
     grid-template-columns: 220px 1fr;
@@ -4811,11 +4381,14 @@ footer {
     padding: 7px 10px;
     border-radius: var(--r-sm);
     border-left: 2px solid transparent;
-    transition: color var(--normal) var(--ease), background var(--normal) var(--ease), border-color var(--normal) var(--ease);
-}@media (hover: hover) {
+    transition: color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
 
-
-.docs-toc-link:hover { color: var(--text); background: var(--bg-item); }
+@media (hover: hover) {
+    .docs-toc-link:hover {
+        color: var(--text);
+        background: var(--bg-item);
+    }
 }
 
 .docs-toc-link.active {
@@ -4825,15 +4398,21 @@ footer {
 }
 
 /* The TOC floats directly on the background image → keep it light & readable
-   in light mode, like the header chrome and section titles. */
-[data-theme="light"] .docs-toc-label { color: rgba(255, 255, 255, .72); }
-[data-theme="light"] .docs-toc-link { color: rgba(255, 255, 255, .82); }@media (hover: hover) {
+ in light mode, like the header chrome and section titles. */
 
-
-[data-theme="light"] .docs-toc-link:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, .12);
+[data-theme="light"] .docs-toc-label {
+    color: rgba(255, 255, 255, .72);
 }
+
+[data-theme="light"] .docs-toc-link {
+    color: rgba(255, 255, 255, .82);
+}
+
+@media (hover: hover) {
+    [data-theme="light"] .docs-toc-link:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, .12);
+    }
 }
 
 [data-theme="light"] .docs-toc-link.active {
@@ -4866,8 +4445,15 @@ footer {
     font-size: 1.1rem;
 }
 
-.docs-card p { color: var(--text-muted); line-height: 1.65; margin-bottom: 10px; }
-.docs-card p:last-child { margin-bottom: 0; }
+.docs-card p {
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 10px;
+}
+
+.docs-card p:last-child {
+    margin-bottom: 0;
+}
 
 .docs-card code {
     display: inline-block;
@@ -4881,24 +4467,30 @@ footer {
     color: var(--accent-hover);
 }
 
-[data-theme="light"] .docs-card code { color: #5b6eb8; }
+[data-theme="light"] .docs-card code {
+    color: #5b6eb8;
+}
 
 .docs-card a:not(.btn) {
     color: var(--accent);
-    transition: color var(--normal) var(--ease);
+    transition: color var(--dur-base) var(--ease-out);
 }
 
 /* Brightening to --accent-hover is the whole hover affordance here; the rule
-   used to also draw a border-bottom, which read as an underline. */@media (hover: hover) {
+ used to also draw a border-bottom, which read as an underline. */
 
-.docs-card a:not(.btn):hover {
-    color: var(--accent-hover);
-}
+@media (hover: hover) {
+    .docs-card a:not(.btn):hover {
+        color: var(--accent-hover);
+    }
 }
 
-.docs-table-wrap { overflow-x: auto; }
+.docs-table-wrap {
+    overflow-x: auto;
+}
 
 /* Rows are grouped by tinted bands and small gaps, not ruled lines. */
+
 .docs-table {
     width: 100%;
     border-collapse: separate;
@@ -4913,15 +4505,30 @@ footer {
     color: var(--text-muted);
 }
 
-.docs-table td { background: var(--bg-item); }
-.docs-table td:first-child { border-radius: var(--r-inner) 0 0 var(--r-inner); }
-.docs-table td:last-child { border-radius: 0 var(--r-inner) var(--r-inner) 0; }
+.docs-table td {
+    background: var(--bg-item);
+}
 
-.docs-table th { color: var(--text); font-weight: 600; }
+.docs-table td:first-child {
+    border-radius: var(--r-inner) 0 0 var(--r-inner);
+}
+
+.docs-table td:last-child {
+    border-radius: 0 var(--r-inner) var(--r-inner) 0;
+}
+
+.docs-table th {
+    color: var(--text);
+    font-weight: 600;
+}
 
 /* Numeric columns: right-aligned, tabular digits, so figures line up down the column. */
+
 .docs-table .num,
-.docs-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.docs-table th.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
 
 .docs-status {
     display: inline-block;
@@ -4931,24 +4538,46 @@ footer {
     font-weight: 600;
 }
 
-.docs-status--ok { background: rgba(67, 181, 129, .15); color: var(--green); }
-.docs-status--partial { background: rgba(250, 166, 26, .15); color: var(--orange); }
-.docs-status--soon { background: var(--accent-bg); color: var(--accent); }
+.docs-status--ok {
+    background: rgba(67, 181, 129, .15);
+    color: var(--green);
+}
+
+.docs-status--partial {
+    background: rgba(250, 166, 26, .15);
+    color: var(--orange);
+}
+
+.docs-status--soon {
+    background: var(--accent-bg);
+    color: var(--accent);
+}
 
 @media (max-width: 900px) {
-    .docs-layout { grid-template-columns: 1fr; }
+    .docs-layout {
+        grid-template-columns: 1fr;
+    }
     .docs-toc {
         position: static;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 8px;
     }
-    .docs-toc-label { display: none; }
-    .docs-toc-link { border-left: none; border-bottom: 2px solid transparent; }
-    .docs-toc-link.active { border-left-color: transparent; border-bottom-color: var(--accent); }
+    .docs-toc-label {
+        display: none;
+    }
+    .docs-toc-link {
+        border-left: none;
+        border-bottom: 2px solid transparent;
+    }
+    .docs-toc-link.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--accent);
+    }
 }
 
 /* ── Footer ────────────────────────────────────────────────────────────── */
+
 .footer-grid {
     display: grid;
     grid-template-columns: 1.6fr repeat(4, 1fr);
@@ -4966,12 +4595,14 @@ footer {
     color: var(--text-muted);
     text-decoration: none;
     font-size: .92rem;
-    transition: color var(--normal) var(--ease);
+    transition: color var(--dur-base) var(--ease-out);
     width: fit-content;
-}@media (hover: hover) {
+}
 
-
-.footer-col a:hover { color: var(--text); }
+@media (hover: hover) {
+    .footer-col a:hover {
+        color: var(--text);
+    }
 }
 
 .footer-col-title {
@@ -4983,7 +4614,9 @@ footer {
     margin-bottom: 4px;
 }
 
-.footer-col--brand { gap: 14px; }
+.footer-col--brand {
+    gap: 14px;
+}
 
 .footer-blurb {
     color: var(--text-muted);
@@ -5000,11 +4633,13 @@ footer {
     color: var(--text-muted);
     font-size: .85rem;
     text-decoration: none;
-    transition: color var(--normal) var(--ease);
-}@media (hover: hover) {
+    transition: color var(--dur-base) var(--ease-out);
+}
 
-
-.footer-discord-live:hover { color: var(--text); }
+@media (hover: hover) {
+    .footer-discord-live:hover {
+        color: var(--text);
+    }
 }
 
 .footer-discord-live span[data-discord-online] {
@@ -5022,33 +4657,46 @@ footer {
 }
 
 @keyframes gc-discord-pulse {
-    0% { box-shadow: 0 0 0 0 rgba(67, 181, 129, .5); }
-    70% { box-shadow: 0 0 0 7px rgba(67, 181, 129, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(67, 181, 129, 0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .footer-discord-dot { animation: none; }
+    0% {
+        box-shadow: 0 0 0 0 rgba(67, 181, 129, .5);
+    }
+    70% {
+        box-shadow: 0 0 0 7px rgba(67, 181, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(67, 181, 129, 0);
+    }
 }
 
 @media (max-width: 1080px) {
-    .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
-    .footer-col--brand { grid-column: 1 / -1; }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .footer-col--brand {
+        grid-column: 1 / -1;
+    }
 }
 
 @media (max-width: 640px) {
-    .footer-grid { grid-template-columns: 1fr 1fr; text-align: left; }
-    .footer-col--brand { grid-column: 1 / -1; align-items: flex-start; }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        text-align: left;
+    }
+    .footer-col--brand {
+        grid-column: 1 / -1;
+        align-items: flex-start;
+    }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   Interaction states
-   One order for every control: default, then :hover (fine pointers only; the
-   hover gate below wraps every :hover rule), then :active (press), then
-   :focus-visible (accent ring, never removed), then disabled.
-   ══════════════════════════════════════════════════════════════════════════ */
+ Interaction states
+ One order for every control: default, then :hover (fine pointers only; the
+ hover gate below wraps every :hover rule), then :active (press), then
+ :focus-visible (accent ring, never removed), then disabled.
+ ══════════════════════════════════════════════════════════════════════════ */
 
 /* Controls that had no transition, or whose timing sat outside the 250ms cap. */
+
 .mod-card,
 .license-card {
     transition: transform var(--t), background var(--t), border-color var(--t), box-shadow var(--t);
@@ -5059,21 +4707,25 @@ footer {
     transition: transform var(--dur-base) var(--ease-out);
 }
 
-/* Icon micro-nudges: small and directional, on the same 250ms clock. */@media (hover: hover) {
+/* Icon micro-nudges: small and directional, on the same 250ms clock. */
 
-.btn:hover > i.fa-download { transform: translateY(2px); }
-}@media (hover: hover) {
-
-.btn:hover > i:not(.fa-download) { transform: scale(1.08); }
-}@media (hover: hover) {
-
-.tab-button:hover i { transform: translateY(-1px) scale(1.08); }
-}@media (hover: hover) {
-
-.quick-action:hover i { transform: scale(1.08); }
+@media (hover: hover) {
+    .btn:hover > i.fa-download {
+        transform: translateY(2px);
+    }
+    .btn:hover > i:not(.fa-download) {
+        transform: translateX(2px);
+    }
+    .tab-button:hover i {
+        transform: translateY(-1px) scale(1.08);
+    }
+    .quick-action:hover i {
+        transform: scale(1.08);
+    }
 }
 
 /* Press: 0.97 on every pill and tab control, springing back on release. */
+
 .filter-button:active,
 .tab-button:active,
 .nav-tab:active {
@@ -5081,7 +4733,8 @@ footer {
 }
 
 /* Focus: the rings below are the single source of truth for non-button and
-   non-link controls. Buttons and links already get the global ring above. */
+ non-link controls. Buttons and links already get the global ring above. */
+
 .faq-question:focus-visible,
 .ext-summary:focus-visible,
 .search-result-item:focus-visible,
@@ -5097,6 +4750,7 @@ footer {
 }
 
 /* Disabled: dimmed, not-allowed cursor, and no hover or press response. */
+
 .btn[aria-disabled="true"],
 .btn:disabled,
 .filter-button[aria-disabled="true"],
@@ -5119,7 +4773,8 @@ footer {
 }
 
 /* The hero's primary download is the largest, most saturated target on screen
-   (Fitts's Law, and the single primary CTA of the view). */
+ (Fitts's Law, and the single primary CTA of the view). */
+
 .hero .btn-primary {
     min-height: 56px;
     padding: 16px 34px;
@@ -5127,11 +4782,14 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .hero .btn-primary { min-height: 52px; }
+    .hero .btn-primary {
+        min-height: 52px;
+    }
 }
 
 /* Touch targets: at phone width the small round header controls keep their
-   visual size but get an invisible 44px target around them. */
+ visual size but get an invisible 44px target around them. */
+
 @media (max-width: 480px) {
     .header-icon-btn,
     .search-trigger,
@@ -5139,7 +4797,6 @@ footer {
     .lang-dropdown-trigger {
         position: relative;
     }
-
     .header-icon-btn::before,
     .search-trigger::before,
     .mobile-menu-btn::before,
@@ -5160,18 +4817,19 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .filter-button { min-height: 44px; }
-}
-
-.showcase-arrow {
-    width: 44px;
-    height: 44px;
+    .filter-button {
+        min-height: 44px;
+    }
 }
 
 /* Toast and popup icons share the icon scale. */
-.toast-icon { font-size: var(--icon-md); }
+
+.toast-icon {
+    font-size: var(--icon-md);
+}
 
 /* Numbers: tabular digits so counts, versions and sizes align when they change. */
+
 .hero-stat-num,
 .dl-count,
 .dl-count-num,
@@ -5185,78 +4843,23 @@ footer {
 }
 
 /* Hero stat numbers: with the "Free" stat as text, keep the stat row's baseline. */
-.hero-stat-num { line-height: 1.2; }
+
+.hero-stat-num {
+    line-height: 1.2;
+}
 
 /* Keyboard-visible focus on the header search field and language trigger. */
+
 #globalSearchInput:focus-visible,
 .lang-dropdown-trigger:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
 }
 
-/* ══════════════════════════════════════════════════════════════════════════
-   Reduced motion
-   Movement, scale and parallax are disabled; transitions and animations are
-   shortened to near-instant so content still lands in its final state.
-   Entrances keep their end state (opacity 1, no transform), so nothing is hidden.
-   ══════════════════════════════════════════════════════════════════════════ */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        animation-delay: 0s !important;
-        transition-duration: .01ms !important;
-        transition-delay: 0s !important;
-        scroll-behavior: auto !important;
-    }
-
-    .reveal,
-    :where(.js-reveal .reveal),
-    :where(.js-reveal .reveal.is-visible),
-    .content-section,
-    .hero,
-    .notfound-card {
-        opacity: 1 !important;
-        transform: none !important;
-        filter: none !important;
-    }
-
-    .hero::before { transform: none !important; }
-
-    .btn:hover,
-    .btn:active,
-    .card-base:hover,
-    .feature-card:hover,
-    .download-card:hover,
-    .mod-card:hover,
-    .gallery-item:hover,
-    .social-card:hover,
-    .donate-card:hover,
-    .license-card:hover,
-    .showcase-video-card:hover,
-    .hero-image:hover,
-    .showcase-stage:hover,
-    .quick-action:hover,
-    .quick-action:active,
-    .nav-tab:active,
-    .tab-button:active,
-    .filter-button:active,
-    .header-icon-btn:active,
-    .search-trigger:active,
-    .mobile-menu-btn:active,
-    .color-swatch:hover,
-    .community-text li:hover {
-        transform: none !important;
-    }
-
-    .skeleton::after { animation: none !important; }
-}
-
 /* ── Interaction feedback (js/modules/feedback.js) ──
-   Clip only while a ripple is live so tooltips and dropdowns on these
-   controls aren't cut off the rest of the time. */
+ Clip only while a ripple is live so tooltips and dropdowns on these
+ controls aren't cut off the rest of the time. */
+
 :where(.btn, button, .nav-tab):has(> .ripple) {
     overflow: hidden;
 }
@@ -5281,20 +4884,8 @@ footer {
     box-shadow: var(--glass-shadow);
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .btn.is-loading .fa-spin {
-        animation: none;
-    }
-}
-
-/* ══ Clean pass: quiet, flat surfaces ═══════════════════════════════════════
-   Final layer. Replaces the glass, glow and gradient treatments above with
-   near-black flat surfaces, hairline borders and one accent used sparingly.
-   The .showcase* rules are intentionally not restyled here. */
-
-.kinetic-canvas { opacity: .35; }
-
 /* Hero: one soft glow, no panel, no drift. */
+
 .hero {
     background: none;
     border: none;
@@ -5305,12 +4896,20 @@ footer {
     padding: clamp(56px, 8vw, 112px) 0 0;
     margin: 0;
 }
+
 .hero::before {
     animation: none;
     background: radial-gradient(ellipse 60% 50% at 30% 0%, rgba(114, 137, 218, .12) 0%, transparent 70%);
 }
-.hero-container { gap: clamp(40px, 6vw, 80px); }
-.hero-content { gap: var(--space-5); }
+
+.hero-container {
+    gap: clamp(40px, 6vw, 80px);
+}
+
+.hero-content {
+    gap: var(--space-5);
+}
+
 .hero-title {
     font-size: clamp(2.6rem, 1.4rem + 4.8vw, 5rem);
     font-weight: 700;
@@ -5322,27 +4921,53 @@ footer {
     -webkit-background-clip: border-box;
     background-clip: border-box;
 }
-[data-theme="light"] .hero-title { background: none; color: var(--text); -webkit-text-fill-color: currentColor; }
+
+[data-theme="light"] .hero-title {
+    background: none;
+    color: var(--text);
+    -webkit-text-fill-color: currentColor;
+}
+
 .hero-subtitle {
     max-width: 56ch;
     color: var(--text-dim);
     font-size: clamp(1rem, 1.25vw, 1.125rem);
     line-height: 1.6;
 }
-.hero-stat-num { color: var(--text); font-weight: 700; font-size: 1.125rem; }
-.hero-stat-label { color: var(--text-dim); }
+
+.hero-stat-num {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.hero-stat-label {
+    color: var(--text-dim);
+}
+
 .hero-image {
     box-shadow: none;
     border: 1px solid var(--glass-border);
     border-radius: var(--r-md);
 }
+
 @media (hover: hover) {
-    .hero-image:hover { transform: none; box-shadow: none; border-color: var(--glass-border-hover); }
-    .hero-image:hover img { transform: none; }
+    .hero-image:hover {
+        transform: none;
+        box-shadow: none;
+        border-color: var(--glass-border-hover);
+    }
+    .hero-image:hover img {
+        transform: none;
+    }
 }
 
 /* Section headers: centred page titles, left-aligned chapter titles. */
-.section-header { text-align: center; }
+
+.section-header {
+    text-align: center;
+}
+
 .section-title {
     font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.75rem);
     font-weight: 700;
@@ -5350,7 +4975,11 @@ footer {
     letter-spacing: -0.025em;
     color: var(--text);
 }
-.section-title::after { display: none; }
+
+.section-title::after {
+    display: none;
+}
+
 .section-subtitle {
     color: var(--text-dim);
     font-size: clamp(1rem, 1.2vw, 1.0625rem);
@@ -5358,8 +4987,16 @@ footer {
     margin: var(--space-4) auto 0;
     line-height: 1.6;
 }
-.subsection-header .section-title { font-size: clamp(1.6rem, 2.2vw, 2.1rem); }
-.subsection-header .section-subtitle { margin: var(--space-4) 0 0; max-width: 56ch; }
+
+.subsection-header .section-title {
+    font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+}
+
+.subsection-header .section-subtitle {
+    margin: var(--space-4) 0 0;
+    max-width: 56ch;
+}
+
 .subsection-eyebrow {
     font-size: var(--fs-xs);
     font-weight: 600;
@@ -5367,9 +5004,14 @@ footer {
     color: var(--accent-hover);
     margin-bottom: var(--space-3);
 }
-.subsection-eyebrow::before { width: 20px; background: var(--accent); }
+
+.subsection-eyebrow::before {
+    width: 20px;
+    background: var(--accent);
+}
 
 /* Buttons: one primary, one secondary, one ghost. */
+
 .btn {
     min-height: 44px;
     padding: 12px 22px;
@@ -5378,7 +5020,11 @@ footer {
     letter-spacing: -0.005em;
     box-shadow: none;
 }
-.btn::after { display: none; }
+
+.btn::after {
+    display: none;
+}
+
 .btn-primary {
     background: var(--accent);
     color: #fff;
@@ -5387,9 +5033,15 @@ footer {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
+
 @media (hover: hover) {
-    .btn-primary:hover { background: var(--accent-hover); box-shadow: none; transform: none; }
+    .btn-primary:hover {
+        background: var(--accent-hover);
+        box-shadow: none;
+        transform: none;
+    }
 }
+
 .btn-secondary {
     background: transparent;
     color: var(--text);
@@ -5398,24 +5050,33 @@ footer {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
+
 @media (hover: hover) {
-    .btn-secondary:hover { background: var(--glass-strong); color: var(--text); border-color: rgba(255, 255, 255, .22); box-shadow: none; transform: none; }
+    .btn-secondary:hover {
+        background: var(--glass-strong);
+        color: var(--text);
+        border-color: rgba(255, 255, 255, .22);
+        box-shadow: none;
+        transform: none;
+    }
 }
-.btn-ghost {
+
+[data-theme="light"] .btn-secondary {
     background: transparent;
-    color: var(--text-dim);
-    border: 1px solid transparent;
-    box-shadow: none;
+    color: var(--text);
+    border-color: rgba(0, 0, 0, .16);
 }
+
 @media (hover: hover) {
-    .btn-ghost:hover { background: var(--bg-item-hover); color: var(--text); box-shadow: none; transform: none; }
-}
-[data-theme="light"] .btn-secondary { background: transparent; color: var(--text); border-color: rgba(0, 0, 0, .16); }
-@media (hover: hover) {
-    [data-theme="light"] .btn-secondary:hover { background: rgba(0, 0, 0, .04); color: var(--text); border-color: rgba(0, 0, 0, .24); }
+    [data-theme="light"] .btn-secondary:hover {
+        background: rgba(0, 0, 0, .04);
+        color: var(--text);
+        border-color: rgba(0, 0, 0, .24);
+    }
 }
 
 /* Cards: flat tint, hairline edge, no shadow. Hover brightens and lifts 2px. */
+
 .card-base,
 .feature-card,
 .license-card,
@@ -5431,6 +5092,7 @@ footer {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
+
 @media (hover: hover) {
     .card-base:hover,
     .feature-card:hover,
@@ -5445,8 +5107,15 @@ footer {
         transform: translateY(-2px);
     }
 }
-.feature-card { padding: var(--space-7) var(--space-6); }
-.feature-card::before { display: none; }
+
+.feature-card {
+    padding: var(--space-7) var(--space-6);
+}
+
+.feature-card::before {
+    display: none;
+}
+
 .feature-icon {
     width: 48px;
     height: 48px;
@@ -5456,17 +5125,30 @@ footer {
     box-shadow: none;
     margin-bottom: var(--space-5);
 }
+
 @media (hover: hover) {
-    .feature-card:hover .feature-icon { transform: none; box-shadow: none; }
-    .feature-card:hover .feature-title { color: var(--text); }
+    .feature-card:hover .feature-icon {
+        transform: none;
+        box-shadow: none;
+    }
+    .feature-card:hover .feature-title {
+        color: var(--text);
+    }
 }
+
 .feature-badge {
     background: var(--bg-item);
     border: 1px solid var(--glass-border);
     color: var(--text-dim);
 }
-.features-grid { gap: var(--space-6); }
-.features-grid > .feature-card { height: 100%; }
+
+.features-grid {
+    gap: var(--space-6);
+}
+
+.features-grid > .feature-card {
+    height: 100%;
+}
 
 .gallery-item {
     background: var(--glass);
@@ -5475,13 +5157,24 @@ footer {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
+
 @media (hover: hover) {
-    .gallery-item:hover { transform: translateY(-2px); box-shadow: none; border-color: var(--glass-border-hover); }
-    .gallery-item:hover img { transform: none; }
+    .gallery-item:hover {
+        transform: translateY(-2px);
+        box-shadow: none;
+        border-color: var(--glass-border-hover);
+    }
+    .gallery-item:hover img {
+        transform: none;
+    }
 }
-.gallery-container { gap: var(--space-5); }
+
+.gallery-container {
+    gap: var(--space-5);
+}
 
 /* Nav: plain text links, one active underline, circular icon controls. */
+
 .top-bar {
     max-width: 1200px;
     margin: 0 auto;
@@ -5489,6 +5182,7 @@ footer {
     min-height: 68px;
     gap: var(--space-4);
 }
+
 .nav-tabs {
     background: none;
     border: none;
@@ -5498,6 +5192,7 @@ footer {
     padding: 0;
     gap: var(--space-1);
 }
+
 .nav-tab {
     position: relative;
     padding: 0 var(--space-3);
@@ -5507,10 +5202,21 @@ footer {
     background: transparent;
     box-shadow: none;
 }
+
 @media (hover: hover) {
-    .nav-tab:hover:not(.active) { background: transparent; color: var(--text); }
+    .nav-tab:hover:not(.active) {
+        background: transparent;
+        color: var(--text);
+    }
 }
-.nav-tab.active { background: transparent; color: var(--text); box-shadow: none; animation: none; }
+
+.nav-tab.active {
+    background: transparent;
+    color: var(--text);
+    box-shadow: none;
+    animation: none;
+}
+
 .nav-tab.active::after {
     content: '';
     position: absolute;
@@ -5521,6 +5227,7 @@ footer {
     border-radius: 2px;
     background: var(--accent);
 }
+
 .search-trigger,
 .header-icon-btn,
 .lang-dropdown-trigger {
@@ -5531,6 +5238,7 @@ footer {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
+
 @media (hover: hover) {
     .search-trigger:hover,
     .header-icon-btn:hover {
@@ -5540,6 +5248,7 @@ footer {
         box-shadow: none;
     }
 }
+
 .version-pill {
     background: var(--bg-item);
     color: var(--text-dim);
@@ -5548,32 +5257,59 @@ footer {
 }
 
 /* Scrolled header: a subtle blurred, translucent bar with a hairline edge.
-   scroll.js toggles .scrolled on the header once the page passes 50px. */
+ scroll.js toggles .scrolled on the header once the page passes 50px. */
+
 header {
-    transition: background var(--normal) var(--ease), border-color var(--normal) var(--ease);
+    transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
 }
+
 header.scrolled {
     background: rgba(11, 12, 15, .72);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--glass-border);
 }
-header.scrolled::before { opacity: 0; }
-[data-theme="light"] header.scrolled { background: rgba(247, 248, 250, .8); }
+
+header.scrolled::before {
+    opacity: 0;
+}
+
+[data-theme="light"] header.scrolled {
+    background: rgba(247, 248, 250, .8);
+}
 
 /* Quick dock and popups: flat, hairline, no glow. */
+
 .quick-dock {
     background: var(--surface);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     box-shadow: none;
 }
-.quick-action { background: var(--bg-item); }
-@media (hover: hover) {
-    .quick-action:hover { background: var(--bg-item-hover); color: var(--text); box-shadow: none; }
-    .quick-action--discord:hover { background: #5865F2; box-shadow: none; }
+
+.quick-action {
+    background: var(--bg-item);
 }
-.quick-action::after { background: var(--surface); backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; }
+
+@media (hover: hover) {
+    .quick-action:hover {
+        background: var(--bg-item-hover);
+        color: var(--text);
+        box-shadow: none;
+    }
+    .quick-action--discord:hover {
+        background: #5865F2;
+        box-shadow: none;
+    }
+}
+
+.quick-action::after {
+    background: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+}
+
 #toastBanner,
 #donateBanner {
     background: var(--surface);
@@ -5581,15 +5317,23 @@ header.scrolled::before { opacity: 0; }
     -webkit-backdrop-filter: none;
     box-shadow: var(--shadow-lg);
 }
-#backToTop { box-shadow: none; }
-@media (hover: hover) {
-    #backToTop:hover { box-shadow: none; }
+
+#backToTop {
+    box-shadow: none;
 }
+
+@media (hover: hover) {
+    #backToTop:hover {
+        box-shadow: none;
+    }
+}
+
 #searchModal {
     background: rgba(5, 6, 8, .8);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
 }
+
 .search-modal-box {
     background: var(--surface);
     border: 1px solid var(--glass-border);
@@ -5600,6 +5344,7 @@ header.scrolled::before { opacity: 0; }
 }
 
 /* Footer: simple columns, dim text, hairline top border. */
+
 footer {
     background: none;
     backdrop-filter: none;
@@ -5608,24 +5353,63 @@ footer {
     margin-top: 0;
     padding: clamp(56px, 7vw, 88px) 0 var(--space-6);
 }
-[data-theme="light"] footer { background: none; }
-.footer-container { gap: var(--space-7); }
-.footer-grid { gap: var(--space-7) var(--space-6); }
-.footer-blurb,
-.copyright-text { color: var(--text-dim); font-size: var(--fs-sm); }
-.footer-col { gap: var(--space-2); }
-.footer-col a { color: var(--text-dim); font-size: var(--fs-sm); }
-@media (hover: hover) {
-    .footer-col a:hover { color: var(--text); }
-}
-.footer-col-title { font-size: var(--fs-xs); font-weight: 600; letter-spacing: .08em; color: var(--text); margin-bottom: var(--space-1); }
-.footer-social .social-link { background: transparent; border: 1px solid var(--glass-border); }
-.footer-logo { box-shadow: none; }
-@media (hover: hover) {
-    .footer-brand:hover .footer-logo { box-shadow: none; }
+
+[data-theme="light"] footer {
+    background: none;
 }
 
-/* Light theme: text floated over the old photo, so it has to be dark here. */
+.footer-container {
+    gap: var(--space-7);
+}
+
+.footer-grid {
+    gap: var(--space-7) var(--space-6);
+}
+
+.footer-blurb,
+.copyright-text {
+    color: var(--text-dim);
+    font-size: var(--fs-sm);
+}
+
+.footer-col {
+    gap: var(--space-2);
+}
+
+.footer-col a {
+    color: var(--text-dim);
+    font-size: var(--fs-sm);
+}
+
+@media (hover: hover) {
+    .footer-col a:hover {
+        color: var(--text);
+    }
+}
+
+.footer-col-title {
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: .08em;
+    color: var(--text);
+    margin-bottom: var(--space-1);
+}
+
+.footer-social .social-link {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+}
+
+.footer-logo {
+    box-shadow: none;
+}
+
+@media (hover: hover) {
+    .footer-brand:hover .footer-logo {
+        box-shadow: none;
+    }
+}
+
 [data-theme="light"] .branding-title,
 [data-theme="light"] .section-title,
 [data-theme="light"] .community-text h2,
@@ -5633,34 +5417,285 @@ footer {
 [data-theme="light"] .search-trigger,
 [data-theme="light"] .header-icon-btn,
 [data-theme="light"] .lang-dropdown-trigger,
-[data-theme="light"] .mobile-menu-btn { color: var(--text); }
+[data-theme="light"] .mobile-menu-btn {
+    color: var(--text);
+}
+
 [data-theme="light"] .branding-sub,
 [data-theme="light"] .section-subtitle,
 [data-theme="light"] .community-text p,
-[data-theme="light"] .community-text li { color: var(--text-dim); }
-[data-theme="light"] .section-title,
-[data-theme="light"] .community-text h2,
-[data-theme="light"] .section-subtitle { text-shadow: none; }
-[data-theme="light"] .hero { background: none; border-color: transparent; }
-[data-theme="light"] .hero-stat-num { color: var(--text); }
-[data-theme="light"] .nav-tab.active { color: var(--text); }
-
-/* Reveal: a plain fade and rise, no blur. */
-:where(.js-reveal .reveal) { filter: none; }
-:where(.js-reveal .reveal.is-visible) { filter: none; }
-@keyframes revealIn {
-    from { opacity: 0; transform: translate3d(0, 14px, 0); }
-    to { opacity: 1; transform: translate3d(0, 0, 0); }
+[data-theme="light"] .community-text li {
+    color: var(--text-dim);
 }
 
-.notfound-code { font-weight: 700; }
+[data-theme="light"] .section-title,
+[data-theme="light"] .community-text h2,
+[data-theme="light"] .section-subtitle {
+    text-shadow: none;
+}
+
+[data-theme="light"] .hero {
+    background: none;
+    border-color: transparent;
+}
+
+[data-theme="light"] .hero-stat-num {
+    color: var(--text);
+}
+
+[data-theme="light"] .nav-tab.active {
+    color: var(--text);
+}
+
+/* Reveal: a plain fade and rise, no blur. */
+
+:where(.js-reveal .reveal) {
+    filter: none;
+}
+
+:where(.js-reveal .reveal.is-visible) {
+    filter: none;
+}
+
+@keyframes revealIn {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 14px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.notfound-code {
+    font-weight: 700;
+}
 
 /* Layout rhythm: one page gutter, consistent vertical padding. */
-.content-container { padding: var(--section-gap) 0; }
-.container { max-width: 1200px; }
+
+.content-container {
+    padding: var(--section-gap) 0;
+}
+
+.container {
+    max-width: 1200px;
+}
 
 /* Native buttons and inputs take the page font unless a rule sets one. */
+
 button,
 input,
 select,
-textarea { font-family: inherit; }
+textarea {
+    font-family: inherit;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Motion
+   Every interaction animation lives here. Only transform and opacity move;
+   durations and curves come from the :root motion tokens. Exits are quicker
+   than entrances. Reduced motion is handled once, at the end of the file.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Theme toggle: press squish, then the icon JS swaps in (sun or moon) turns in. */
+#themeToggle {
+    transition: color var(--t), background var(--t), box-shadow var(--t), transform var(--dur-fast) var(--ease-out);
+}
+
+#themeToggle:active {
+    transform: scale(0.92);
+}
+
+#themeToggle > i {
+    animation: iconSwapIn var(--dur-slow) var(--ease-spring) both;
+}
+
+@keyframes iconSwapIn {
+    from { opacity: 0; transform: rotate(-90deg) scale(0.4); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* FAQ accordion: the native <details> body animates its grid row from 0fr to
+   1fr, so the height is driven by CSS, not by JS measurements. */
+.faq-card::details-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    transition: grid-template-rows var(--dur-base) var(--ease-out),
+        content-visibility var(--dur-base) allow-discrete;
+}
+
+.faq-card[open]::details-content {
+    grid-template-rows: 1fr;
+}
+
+.faq-answer {
+    min-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out),
+        padding-bottom var(--dur-base) var(--ease-out);
+}
+
+/* The bottom padding only applies once open: a padded row would keep a minimum
+   height in the closed 0fr track. */
+.faq-card[open] .faq-answer {
+    opacity: 1;
+    transform: none;
+    padding-bottom: 22px;
+}
+
+.faq-question i {
+    transition: transform var(--dur-base) var(--ease-out);
+}
+
+/* Mobile nav: the panel scales in from its corner; its links stagger in. The
+   desktop header resets .nav-tabs to transparent, so the phone panel gets its
+   surface back here, at the end of the cascade. */
+@media (max-width: 768px) {
+    .nav-tabs {
+        background: var(--surface);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        padding: 8px;
+    }
+    .nav-tabs.active .nav-tab {
+        animation: navItemIn var(--dur-base) var(--ease-out) both;
+    }
+    .nav-tabs.active .nav-tab:nth-child(2) { animation-delay: 40ms; }
+    .nav-tabs.active .nav-tab:nth-child(3) { animation-delay: 80ms; }
+    .nav-tabs.active .nav-tab:nth-child(4) { animation-delay: 120ms; }
+    .nav-tabs.active .nav-tab:nth-child(5) { animation-delay: 160ms; }
+    .nav-tabs.active .nav-tab:nth-child(6) { animation-delay: 200ms; }
+    .nav-tabs.active .nav-tab:nth-child(7) { animation-delay: 240ms; }
+    .nav-tabs.active .nav-tab:nth-child(8) { animation-delay: 280ms; }
+    .nav-tabs.active .nav-tab:nth-child(n+9) { animation-delay: 320ms; }
+}
+
+@keyframes navItemIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* Favourite heart: springs when a mod is favourited. */
+.mod-card.is-fav .mod-fav i {
+    animation: favPop var(--dur-base) var(--ease-spring);
+}
+
+@keyframes favPop {
+    from { transform: scale(0.6); }
+    to   { transform: none; }
+}
+
+.mod-fav:active {
+    transform: scale(0.88);
+}
+
+/* Buttons: the press squeeze is on .btn:active, the icon nudge on .btn:hover. */
+
+/* Cards: the 2px lift and brighter hairline are on .card-base:hover. */
+
+/* ══════════════════════════════════════════════════════════════════════════
+ Reduced motion
+ Single consolidated block: movement, scale and parallax off; transitions and
+ animations near-instant so content still lands in its final state. */
+
+@media (prefers-reduced-motion: reduce) {
+    .notfound-logo {
+        animation: none;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+    body::before {
+        animation: none;
+    }
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    #themeToggle {
+        transform: none;
+        transition: color var(--t), background var(--t), box-shadow var(--t);
+    }
+    #themeToggle i,
+    [data-theme="dark"] #themeToggle:hover i {
+        animation: none;
+        transform: none;
+    }
+    .lang-dropdown-menu,
+    .lang-custom-dropdown.is-open .lang-dropdown-menu {
+        transform: none;
+        transition-duration: .01ms;
+    }
+    .footer-discord-dot {
+        animation: none;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        animation-delay: 0s !important;
+        transition-duration: .01ms !important;
+        transition-delay: 0s !important;
+        scroll-behavior: auto !important;
+    }
+    .reveal,
+    :where(.js-reveal .reveal),
+    :where(.js-reveal .reveal.is-visible),
+    .content-section,
+    .hero,
+    .notfound-card {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+    }
+    .hero::before {
+        transform: none !important;
+    }
+    .btn:hover,
+    .btn:active,
+    .card-base:hover,
+    .feature-card:hover,
+    .download-card:hover,
+    .mod-card:hover,
+    .gallery-item:hover,
+    .social-card:hover,
+    .donate-card:hover,
+    .license-card:hover,
+    .showcase-video-card:hover,
+    .hero-image:hover,
+    .quick-action:hover,
+    .quick-action:active,
+    .nav-tab:active,
+    .tab-button:active,
+    .filter-button:active,
+    .header-icon-btn:active,
+    .search-trigger:active,
+    .mobile-menu-btn:active,
+    .color-swatch:hover,
+    .community-text li:hover {
+        transform: none !important;
+    }
+    .skeleton::after {
+        animation: none !important;
+    }
+    .btn.is-loading .fa-spin {
+        animation: none;
+    }
+}@media (max-width: 480px) {
+    /* Keeps the branding and the four header controls on one row at phone width. */
+    .version-pill {
+        display: none;
+    }
+}
+
+

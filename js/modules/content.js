@@ -5,7 +5,6 @@ import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUr
 import { COUNTER_API } from './config.js?v=20260902203329';
 import { applyDeepLink } from './navigation.js?v=20260902203329';
 import { observeReveals } from './reveal.js?v=20260902203329';
-import { setupTilt } from './tilt.js?v=20260902203329';
 import { t, currentLang } from './i18n.js?v=20260902203329';
 
 // ── Data loading ──────────────────────────────────────────────────────────
@@ -77,7 +76,6 @@ export function initMods() {
             desc: el.querySelector('.mod-description').textContent.toLowerCase()
         });
     }
-    setupTilt('.mod-card');
     refreshModsVisibility();
 }
 

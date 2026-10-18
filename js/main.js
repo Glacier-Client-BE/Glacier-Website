@@ -11,8 +11,6 @@ import { ALL } from './modules/config.js?v=20260902203329';
 import { setupScroll } from './modules/scroll.js?v=20260902203329';
 import { setupReveal, observeReveals } from './modules/reveal.js?v=20260902203329';
 import { setupShowcase } from './modules/showcase.js?v=20260902203329';
-import { setupParallax } from './modules/parallax.js?v=20260902203329';
-import { setupTilt } from './modules/tilt.js?v=20260902203329';
 import { showSection, showNotFound, parsePath, setupDelegation, toggleMobileMenu, searchMods } from './modules/navigation.js?v=20260902203329';
 import { loadData, initSkeletons, initFAQ, initMods, initDownloads, initLauncher } from './modules/content.js?v=20260902203329';
 import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord, retranslateToast } from './modules/ui.js?v=20260902203329';
@@ -47,8 +45,6 @@ function init() {
     setupScroll();
     setupReveal();
     setupShowcase();
-    setupParallax();
-    setupTilt('.feature-card, .gallery-item, .donate-card, .social-card, .license-card, .hero-image, .showcase-video-card');
     setupDelegation();
     setupFeedback();
     markCopyableCode(document);
@@ -60,13 +56,8 @@ function init() {
 
     const themeToggle = $('themeToggle');
     applyTheme(localStorage.getItem('gc-theme') || 'dark');
-    let themeSpins = 0;
     themeToggle.addEventListener('click', () => {
         applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-        // Each toggle spins the button a further full turn — a small reward for
-        // flipping the lights. (Disabled under reduced motion via CSS.)
-        themeSpins++;
-        themeToggle.style.setProperty('--gc-spin', (themeSpins * 360) + 'deg');
     });
 
     const modSearch = $('modSearch');

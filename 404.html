@@ -43,8 +43,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     </noscript>
     <link rel="stylesheet" href="css/styles.css?v=20260902203329" />
+    <link rel="stylesheet" href="css/showcase-motion.css?v=20260902203329" />
     <script type="module" src="js/main.js?v=20260902203329"></script>
-    <script src="js/kinetic.js?v=2026-06-20" defer></script>
     <script src="https://publisher.linkvertise.com/cdn/linkvertise.js" defer></script>
     <script>
       // linkvertise.js is deferred so it can't block first paint. Deferred scripts
@@ -194,7 +194,7 @@
     <main id="main-content" tabindex="-1">
         <section class="hero" id="hero-section">
             <div class="hero-container container">
-                <div class="hero-content" data-parallax="0.05">
+                <div class="hero-content">
                     <h1 class="hero-title" data-i18n="hero.title">A full mod menu that installs like a texture pack.</h1>
                     <p class="hero-subtitle" data-i18n="hero.subtitle">Drag, drop, and tune 37+ modules without leaving your game. Glacier never
                         touches game logic &mdash; so it installs like any resource pack, runs on Mobile, PC, and
@@ -270,53 +270,53 @@
                     </div>
                 </div>
 
-                <section class="showcase" aria-label="Glacier Client interface showcase">
-                    <div class="showcase-pin">
-                        <div class="showcase-stage">
-                            <img src="assets/mod_menu.webp" alt="Glacier Client Mod Menu" class="showcase-img is-active" data-frame="0" loading="lazy" decoding="async" />
-                            <img src="assets/start_screen.webp" alt="Glacier Client Start Screen" class="showcase-img" data-frame="1" loading="lazy" decoding="async" />
-                            <img src="assets/pause_screen.webp" alt="Glacier Client Pause Screen" class="showcase-img" data-frame="2" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="showcase-info">
-                            <div class="showcase-topline">
-                                <span class="showcase-eyebrow" data-i18n="showcase.eyebrow">A peek inside</span>
-                                <span class="showcase-count" aria-hidden="true"><span class="showcase-count-num">01</span><span class="showcase-count-sep">/</span><span class="showcase-count-total">03</span></span>
-                            </div>
-                            <div class="showcase-textstack">
-                                <div class="showcase-text is-active" data-frame="0">
-                                    <h2 class="showcase-heading" data-i18n="showcase.modMenu.heading">Modular menu, your way.</h2>
-                                    <p class="showcase-body" data-i18n="showcase.modMenu.body">Drag, drop, and dial-in 37+ modules in real time. Customize
-                                        the HUD without ever leaving the game.</p>
-                                </div>
-                                <div class="showcase-text" data-frame="1">
-                                    <h2 class="showcase-heading" data-i18n="showcase.startScreen.heading">A custom welcome.</h2>
-                                    <p class="showcase-body" data-i18n="showcase.startScreen.body">Branded main menu with crisp typography and smooth
-                                        animation, every launch.</p>
-                                </div>
-                                <div class="showcase-text" data-frame="2">
-                                    <h2 class="showcase-heading" data-i18n="showcase.pauseScreen.heading">QOL-first pause.</h2>
-                                    <p class="showcase-body" data-i18n="showcase.pauseScreen.body">Quick toggles and rich information without breaking your
-                                        flow.</p>
-                                </div>
-                            </div>
-                            <div class="showcase-controls">
-                                <button class="showcase-arrow" data-dir="-1" aria-label="Previous screen">
-                                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
-                                </button>
-                                <div class="showcase-progress" role="tablist" aria-label="Choose screen">
-                                    <button class="showcase-tick is-active" data-frame="0" role="tab" aria-label="Mod menu"></button>
-                                    <button class="showcase-tick" data-frame="1" role="tab" aria-label="Start screen"></button>
-                                    <button class="showcase-tick" data-frame="2" role="tab" aria-label="Pause screen"></button>
-                                </div>
-                                <button class="showcase-arrow" data-dir="1" aria-label="Next screen">
-                                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                                </button>
-                            </div>
+                <section class="showcase sc" aria-label="Glacier Client interface showcase">
+                    <p class="sc-eyebrow" data-i18n="showcase.eyebrow">A peek inside</p>
+                    <div class="sc-stage">
+                        <div class="sc-panel" role="tabpanel" id="sc-panel" aria-labelledby="sc-tab-0" data-dir="next">
+                            <img src="assets/mod_menu.webp" alt="Glacier Client Mod Menu" class="sc-img is-on" width="1110" height="659" loading="lazy" decoding="async" />
+                            <img src="assets/start_screen.webp" alt="Glacier Client Start Screen" class="sc-img" width="1915" height="1077" loading="lazy" decoding="async" aria-hidden="true" />
+                            <img src="assets/pause_screen.webp" alt="Glacier Client Pause Screen" class="sc-img" width="1920" height="1080" loading="lazy" decoding="async" aria-hidden="true" />
                         </div>
                     </div>
-                    <div class="showcase-trigger" data-frame="0" aria-hidden="true"></div>
-                    <div class="showcase-trigger" data-frame="1" aria-hidden="true"></div>
-                    <div class="showcase-trigger" data-frame="2" aria-hidden="true"></div>
+                    <div class="sc-nav">
+                        <div class="sc-tablist" role="tablist" aria-label="Choose a screen">
+                            <span class="sc-indicator" aria-hidden="true"></span>
+                            <button class="sc-tab" type="button" role="tab" id="sc-tab-0" aria-controls="sc-panel" aria-selected="true" tabindex="0">
+                                <span class="sc-long">Mod menu</span><span class="sc-short">Menu</span>
+                                <span class="sc-bar" aria-hidden="true"><span class="sc-fill"></span></span>
+                            </button>
+                            <button class="sc-tab" type="button" role="tab" id="sc-tab-1" aria-controls="sc-panel" aria-selected="false" tabindex="-1">
+                                <span class="sc-long">Start screen</span><span class="sc-short">Start</span>
+                                <span class="sc-bar" aria-hidden="true"><span class="sc-fill"></span></span>
+                            </button>
+                            <button class="sc-tab" type="button" role="tab" id="sc-tab-2" aria-controls="sc-panel" aria-selected="false" tabindex="-1">
+                                <span class="sc-long">Pause screen</span><span class="sc-short">Pause</span>
+                                <span class="sc-bar" aria-hidden="true"><span class="sc-fill"></span></span>
+                            </button>
+                        </div>
+                        <button class="sc-toggle" type="button" aria-label="Pause autoplay">
+                            <svg class="sc-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                            <svg class="sc-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
+                    </div>
+                    <div class="sc-captions">
+                        <div class="sc-cap is-on" id="sc-cap-0">
+                            <h2 class="sc-heading" data-i18n="showcase.modMenu.heading">Modular menu, your way.</h2>
+                            <p class="sc-body" data-i18n="showcase.modMenu.body">Drag, drop, and dial-in 37+ modules in real time. Customize
+                                the HUD without ever leaving the game.</p>
+                        </div>
+                        <div class="sc-cap" id="sc-cap-1" aria-hidden="true">
+                            <h2 class="sc-heading" data-i18n="showcase.startScreen.heading">A custom welcome.</h2>
+                            <p class="sc-body" data-i18n="showcase.startScreen.body">Branded main menu with crisp typography and smooth
+                                animation, every launch.</p>
+                        </div>
+                        <div class="sc-cap" id="sc-cap-2" aria-hidden="true">
+                            <h2 class="sc-heading" data-i18n="showcase.pauseScreen.heading">QOL-first pause.</h2>
+                            <p class="sc-body" data-i18n="showcase.pauseScreen.body">Quick toggles and rich information without breaking your
+                                flow.</p>
+                        </div>
+                    </div>
                 </section>
 
                 <div class="container">
@@ -513,7 +513,7 @@
                                 <li data-i18n="community.li3">Participate in events and giveaways</li>
                                 <li data-i18n="community.li4">Chat directly with the developers</li>
                             </ul>
-                            <a href="https://discord.glacierclient.xyz/" class="btn btn-primary" style="background:#5865F2;" target="_blank" rel="noopener">
+                            <a href="https://discord.glacierclient.xyz/" class="btn btn-primary" target="_blank" rel="noopener">
                                 <i class="fab fa-discord" aria-hidden="true"></i> <span data-i18n="btn.joinDiscord">Join Discord</span>
                             </a>
                         </div>
@@ -1217,7 +1217,7 @@
                     <div class="badge-row">
                         <span class="btn btn-primary copy-css-item" data-copy-kind="component"><i class="fas fa-download" aria-hidden="true"></i> Download</span>
                         <span class="btn btn-secondary copy-css-item" data-copy-kind="component"><i class="fas fa-sliders-h" aria-hidden="true"></i> Learn more</span>
-                        <span class="btn btn-secondary copy-css-item" data-copy-kind="component" style="opacity:.45;cursor:not-allowed;">Disabled</span>
+                        <span class="btn btn-secondary copy-css-item" data-copy-kind="component" aria-disabled="true">Disabled</span>
                     </div>
                     <div class="badge-row" style="margin-top:16px;">
                         <span class="btn btn-secondary copy-css-item" data-copy-kind="component" style="background:#5865F2;"><i class="fab fa-discord" aria-hidden="true"></i> <span data-i18n="btn.joinDiscord">Join Discord</span></span>
@@ -1278,7 +1278,7 @@
                             <img src="assets/icons/kofi.png" alt="Ko-fi" class="donate-icon" loading="lazy" decoding="async" />
                             <h3 data-i18n="donate.kofi.title">Ko-fi</h3>
                             <p data-i18n="donate.kofi.desc">Buy us a coffee to show your appreciation and support our work.</p>
-                            <a href="https://ko-fi.com/pepeonkofi" class="btn btn-primary" style="background:#FF5E5B;" target="_blank" rel="noopener">
+                            <a href="https://ko-fi.com/pepeonkofi" class="btn btn-secondary" target="_blank" rel="noopener">
                                 <i class="fas fa-mug-hot" aria-hidden="true"></i> <span data-i18n="donate.kofi.btn">Donate via Ko-fi</span>
                             </a>
                         </div>
