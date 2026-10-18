@@ -183,9 +183,11 @@ export function filterFAQCategory(cat) {
 }
 
 // ── Downloads ─────────────────────────────────────────────────────────────
-const btnClass = name => name === 'Download' ? 'btn-primary' : 'btn-secondary';
+// Only the latest version's main Download is primary, so each view has one
+// primary CTA. Every other button is secondary.
+const btnClass = (name, primary) => (primary && name === 'Download') ? 'btn-primary' : 'btn-secondary';
 
-function buttonsHtml(opts) {
+function buttonsHtml(opts, primary = false) {
     let s = '';
     const lang = currentLang();
     // Options flagged with "monetize" hold a raw file URL (e.g. Mediafire) and
@@ -196,7 +198,7 @@ function buttonsHtml(opts) {
     for (const o of opts) {
         const href = o.monetize ? getMonetizedUrl(o.url) : o.url;
         const label = o.name === 'Download' ? t(lang, 'btn.download') : o.name;
-        s += '<a href="' + href + '" class="btn ' + btnClass(o.name) + '" target="_blank" rel="noopener">' + label + '</a>';
+        s += '<a href="' + href + '" class="btn ' + btnClass(o.name, primary) + '" target="_blank" rel="noopener">' + label + '</a>';
     }
     return s;
 }
@@ -301,7 +303,7 @@ function clientCard(item, slug, exts) {
               + '<span class="dl-count-num">' + formatCount(item.downloads) + '</span> ' + t(lang, 'dl.downloadsWord') + '</span>'
             : '')
         + '</div>'
-        + '<div class="download-buttons">' + buttonsHtml(item.options) + '</div>'
+        + '<div class="download-buttons">' + buttonsHtml(item.options, item.tag === 'Latest') + '</div>'
         + mirrorsHtml(item.mirrors)
         + changelogHtml(item.changelog)
         + extDropdownHtml(exts)
@@ -476,7 +478,7 @@ export function initLauncher() {
                 const date = new Date(rel.published_at).toISOString().slice(0, 10);
                 const assets = rel.assets || [];
                 let btns = '';
-                for (const a of assets) btns += '<a href="' + getMonetizedUrl(a.browser_download_url) + '" class="btn btn-primary" target="_blank" rel="noopener"><i class="fas fa-download" aria-hidden="true"></i> ' + a.name + '</a>';
+                for (let j = 0; j < assets.length; j++) { const a = assets[j]; btns += '<a href="' + getMonetizedUrl(a.browser_download_url) + '" class="btn ' + (i === 0 && j === 0 ? 'btn-primary' : 'btn-secondary') + '" target="_blank" rel="noopener"><i class="fas fa-download" aria-hidden="true"></i> ' + a.name + '</a>'; }
                 const size = assets.length ? formatBytes(assets[0].size) : '';
                 const tagSlug = slugify(rel.tag_name);
                 html += '<div id="dl-launcher-' + tagSlug + '" class="download-card reveal">'

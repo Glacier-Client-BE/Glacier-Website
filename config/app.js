@@ -41,14 +41,15 @@
      shipped mods (the boss bar, the scoreboard, the text-visibility
      switches) fall back to a Font Awesome glyph. */
   const MODULE_ART = {
-    armorhud: 1, bowindicator: 1, chat: 1, chunkmap: 1, clockcompass: 1, coordinates: 1,
+    armorhud: 1, bowindicator: 1, chat: 1, clockcompass: 1, coordinates: 1,
     daycounter: 1, dayevent: 1, debughud: 1, directionhud: 1, expcalculator: 1, forcecoords: 1,
-    fpscounter: 1, hotbar: 1, hudpopup: 1, inventoryhud: 1, itemcounters: 1, lowdurability: 1,
+    fpscounter: 1, hotbar: 1, hudpopup: 1, inventoryhud: 1, lowdurability: 1,
     mainhandhud: 1, mobileshortcuts: 1, offhandhud: 1, playerlist: 1, safezoneviewer: 1,
     serverdisplay: 1, shinypotions: 1, slotcounter: 1, speedometer: 1, statushud: 1,
     targethud: 1, timerhud: 1, walkdistance: 1,
     // Group id → the icon that actually depicts it.
-    arrowcounter: 'itemcounter', potioncounter: 'itemcounter', totemcounter: 'itemcounter',
+    arrowcounter: 'itemcounter', potioncounter: 'itemcounter', totemcounter: 'itemcounter', itemcounters: 'itemcounter',
+    chunkmap: 'chunkborder',
     crosshair: 'crosshairs', saturation_display: 'display', nightshift: 'display',
   };
   const MODULE_GLYPH = {

@@ -2366,3 +2366,27 @@ main :focus-visible,
         display: none;
     }
 }
+
+/* ── Touch targets (phone width) ──────────────────────────────────
+   Tabs, pills and icon buttons reach 44px; the switch keeps its look and
+   extends only its hit area through ::before (its knob uses ::after). */
+@media (max-width: 640px) {
+    .version-tab,
+    #mobileSwitch > button,
+    .branding,
+    .section-pill,
+    .chip-btn,
+    .icon-btn-sm {
+        min-height: 44px;
+    }
+
+    .icon-btn-sm {
+        min-width: 44px;
+    }
+
+    .toggle::before {
+        content: '';
+        position: absolute;
+        inset: -11px -2px;
+    }
+}

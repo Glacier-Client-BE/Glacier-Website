@@ -5,7 +5,6 @@ import { $, markCopyableCode, prefersReducedMotion } from './utils.js?v=20260902
 import { ALL, META, TITLES, MERGED } from './config.js?v=20260902203329';
 import { observeReveals } from './reveal.js?v=20260902203329';
 import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js?v=20260902203329';
-import { showCopiedToast } from './feedback.js?v=20260902203329';
 
 // Shows the custom 404 page for a path that doesn't match any known section.
 // Leaves the URL as-is (whatever the visitor actually landed on).
@@ -148,7 +147,6 @@ function copyText(el, text) {
         clearTimeout(el._copyTimer);
         el.classList.add('code-copied');
         el._copyTimer = setTimeout(() => el.classList.remove('code-copied'), 1400);
-        showCopiedToast();
     }).catch(() => {});
 }
 

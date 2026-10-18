@@ -142,14 +142,14 @@
 
     <header id="mainHeader">
         <div class="top-bar">
-            <div class="branding">
+            <a href="/" class="branding" data-section="home" aria-label="Glacier Client home">
                 <img src="assets/logo.png" alt="Glacier Client Logo" class="logo-icon" width="34" height="34" />
                 <div class="branding-text">
                     <div class="branding-title">Glacier Client</div>
                     <div class="branding-sub">Glacier Productions</div>
                 </div>
                 <span class="version-pill">v6.2</span>
-            </div>
+            </a>
 
             <div class="top-bar-spacer"></div>
 
@@ -283,15 +283,15 @@
                         <div class="sc-tablist" role="tablist" aria-label="Choose a screen">
                             <span class="sc-indicator" aria-hidden="true"></span>
                             <button class="sc-tab" type="button" role="tab" id="sc-tab-0" aria-controls="sc-panel" aria-selected="true" tabindex="0">
-                                <span class="sc-long">Mod menu</span><span class="sc-short">Menu</span>
+                                <span class="sc-long" data-i18n="showcase.tabs.modMenu">Mod menu</span><span class="sc-short" data-i18n="showcase.tabs.modMenuShort">Menu</span>
                                 <span class="sc-bar" aria-hidden="true"><span class="sc-fill"></span></span>
                             </button>
                             <button class="sc-tab" type="button" role="tab" id="sc-tab-1" aria-controls="sc-panel" aria-selected="false" tabindex="-1">
-                                <span class="sc-long">Start screen</span><span class="sc-short">Start</span>
+                                <span class="sc-long" data-i18n="showcase.tabs.startScreen">Start screen</span><span class="sc-short" data-i18n="showcase.tabs.startScreenShort">Start</span>
                                 <span class="sc-bar" aria-hidden="true"><span class="sc-fill"></span></span>
                             </button>
                             <button class="sc-tab" type="button" role="tab" id="sc-tab-2" aria-controls="sc-panel" aria-selected="false" tabindex="-1">
-                                <span class="sc-long">Pause screen</span><span class="sc-short">Pause</span>
+                                <span class="sc-long" data-i18n="showcase.tabs.pauseScreen">Pause screen</span><span class="sc-short" data-i18n="showcase.tabs.pauseScreenShort">Pause</span>
                                 <span class="sc-bar" aria-hidden="true"><span class="sc-fill"></span></span>
                             </button>
                         </div>
@@ -681,9 +681,11 @@
                         <div class="docs-content">
                             <div class="docs-card card-base reveal" id="docs-install">
                                 <h3><i class="fas fa-download" aria-hidden="true"></i> <span data-i18n="docs.install.title">Installation</span></h3>
-                                <p data-i18n-html="docs.install.body">Download the <code>.mcpack</code> file, rename it if needed with ZArchiver so it
-                                    ends in <code>.mcpack</code>, then open it to import into Minecraft. Activate it
-                                    in <strong>Global Resources</strong> afterward.</p>
+                                <ol class="install-steps" aria-label="Installation steps">
+                                    <li><span data-i18n="docs.install.s1">Download the Glacier .mcpack from the Downloads page.</span></li>
+                                    <li><span data-i18n="docs.install.s2">If the file doesn't end in .mcpack, rename it (ZArchiver on Android can do this).</span></li>
+                                    <li><span data-i18n="docs.install.s3">Open it to import into Minecraft, then activate it under Global Resources.</span></li>
+                                </ol>
                                 <p data-i18n-html="docs.install.faqLink">Full step-by-step instructions for Mobile, PC, and Console are in the
                                     <a href="/faq" data-section="faq">FAQ</a>.</p>
                             </div>

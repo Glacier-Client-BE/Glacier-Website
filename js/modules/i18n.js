@@ -33,6 +33,7 @@ export const LANGS = [
 
 const STRINGS = {
     en: {
+        'docs.install.s1': 'Download the Glacier .mcpack from the Downloads page.', 'docs.install.s2': 'If the file doesn\'t end in .mcpack, rename it (ZArchiver on Android can do this).', 'docs.install.s3': 'Open it to import into Minecraft, then activate it under Global Resources.',
         // Navigation
         'nav.home': 'Home', 'nav.features': 'Features', 'nav.gallery': 'Gallery', 'nav.community': 'Community',
         'nav.downloads': 'Downloads', 'nav.faq': 'FAQ', 'nav.docs': 'Docs', 'nav.mods': 'All Mods',
@@ -166,6 +167,9 @@ const STRINGS = {
         'feat.lightweight.desc': 'A tiny download that stays out of your frame budget, even on older phones.',
         'creators.sub': 'Hand-picked reviews and showcases from the Minecraft Bedrock community',
         'showcase.eyebrow': 'A peek inside',
+        'showcase.tabs.modMenu': 'Mod menu', 'showcase.tabs.modMenuShort': 'Menu',
+        'showcase.tabs.startScreen': 'Start screen', 'showcase.tabs.startScreenShort': 'Start',
+        'showcase.tabs.pauseScreen': 'Pause screen', 'showcase.tabs.pauseScreenShort': 'Pause',
         'showcase.modMenu.heading': 'Modular menu, your way.',
         'showcase.modMenu.body': 'Drag, drop, and dial-in 37+ modules in real time. Customize the HUD without ever leaving the game.',
         'showcase.modMenu.label': 'Mod menu',
@@ -255,6 +259,7 @@ const STRINGS = {
         'footer.onlineDiscord': 'online on Discord',
     },
     de: {
+        'docs.install.s1': 'Lade die .mcpack-Datei von der Downloads-Seite herunter.', 'docs.install.s2': 'Endet die Datei nicht auf .mcpack, benenne sie um (ZArchiver auf Android kann das).', 'docs.install.s3': 'Öffne sie, um sie in Minecraft zu importieren, und aktiviere sie dann unter Globale Ressourcen.',
         // Navigation
         'nav.home': 'Startseite', 'nav.features': 'Funktionen', 'nav.gallery': 'Galerie', 'nav.community': 'Community',
         'nav.downloads': 'Downloads', 'nav.faq': 'FAQ', 'nav.docs': 'Doku', 'nav.mods': 'Alle Mods',
@@ -378,6 +383,9 @@ const STRINGS = {
         'feat.lightweight.desc': 'Nur 2 MB bei null Performance-Verlust, für flüssiges Gameplay auch auf schwächeren Geräten.',
         'creators.sub': 'Handverlesene Rezensionen und Showcases aus der Minecraft-Bedrock-Community',
         'showcase.eyebrow': 'Ein Blick hinein',
+        'showcase.tabs.modMenu': 'Mod-Menü', 'showcase.tabs.modMenuShort': 'Menü',
+        'showcase.tabs.startScreen': 'Startbildschirm', 'showcase.tabs.startScreenShort': 'Start',
+        'showcase.tabs.pauseScreen': 'Pausenbildschirm', 'showcase.tabs.pauseScreenShort': 'Pause',
         'showcase.modMenu.heading': 'Modulares Menü, ganz nach deinem Geschmack.',
         'showcase.modMenu.body': 'Ziehe, platziere und stelle 37+ Module in Echtzeit ein. Passe das HUD an, ohne das Spiel je zu verlassen.',
         'showcase.modMenu.label': 'Mod-Menü',
@@ -467,6 +475,7 @@ const STRINGS = {
         'footer.onlineDiscord': 'online auf Discord',
     },
     es: {
+        'docs.install.s1': 'Descarga el archivo .mcpack desde la página de Descargas.', 'docs.install.s2': 'Si el archivo no termina en .mcpack, cámbiale el nombre (ZArchiver en Android puede hacerlo).', 'docs.install.s3': 'Ábrelo para importarlo a Minecraft y luego actívalo en Recursos globales.',
         'nav.home': 'Inicio', 'nav.features': 'Funciones', 'nav.gallery': 'Galería', 'nav.community': 'Comunidad',
         'nav.downloads': 'Descargas', 'nav.faq': 'FAQ', 'nav.docs': 'Docs', 'nav.mods': 'Todos los mods',
         'nav.license': 'Licencia', 'nav.donate': 'Donar',
@@ -538,6 +547,9 @@ const STRINGS = {
         'feat.lightweight.desc': 'Solo 2 MB con cero impacto en el rendimiento, garantizando un juego fluido incluso en dispositivos de gama baja.',
         'creators.sub': 'Reseñas y muestras seleccionadas de la comunidad de Minecraft Bedrock',
         'showcase.eyebrow': 'Un vistazo por dentro',
+        'showcase.tabs.modMenu': 'Menú de mods', 'showcase.tabs.modMenuShort': 'Menú',
+        'showcase.tabs.startScreen': 'Pantalla de inicio', 'showcase.tabs.startScreenShort': 'Inicio',
+        'showcase.tabs.pauseScreen': 'Pantalla de pausa', 'showcase.tabs.pauseScreenShort': 'Pausa',
         'showcase.modMenu.heading': 'Menú modular, a tu manera.',
         'showcase.modMenu.body': 'Arrastra, suelta y ajusta 37+ módulos en tiempo real. Personaliza el HUD sin salir nunca del juego.',
         'showcase.modMenu.label': 'Menú de mods',
@@ -627,6 +639,7 @@ const STRINGS = {
         'footer.onlineDiscord': 'en línea en Discord',
     },
     'es-MX': {
+        'docs.install.s1': 'Descarga el archivo .mcpack desde la página de Descargas.', 'docs.install.s2': 'Si el archivo no termina en .mcpack, cámbiale el nombre (ZArchiver en Android puede hacerlo).', 'docs.install.s3': 'Ábrelo para importarlo a Minecraft y luego actívalo en Recursos globales.',
         'nav.home': 'Inicio', 'nav.features': 'Funciones', 'nav.gallery': 'Galería', 'nav.community': 'Comunidad',
         'nav.downloads': 'Descargas', 'nav.faq': 'FAQ', 'nav.docs': 'Docs', 'nav.mods': 'Todos los mods',
         'nav.license': 'Licencia', 'nav.donate': 'Donar',
@@ -698,6 +711,9 @@ const STRINGS = {
         'feat.lightweight.desc': 'Solo 2 MB con cero impacto en el rendimiento, garantizando un juego fluido incluso en dispositivos de gama baja.',
         'creators.sub': 'Reseñas y muestras seleccionadas de la comunidad de Minecraft Bedrock',
         'showcase.eyebrow': 'Un vistazo por dentro',
+        'showcase.tabs.modMenu': 'Menú de mods', 'showcase.tabs.modMenuShort': 'Menú',
+        'showcase.tabs.startScreen': 'Pantalla de inicio', 'showcase.tabs.startScreenShort': 'Inicio',
+        'showcase.tabs.pauseScreen': 'Pantalla de pausa', 'showcase.tabs.pauseScreenShort': 'Pausa',
         'showcase.modMenu.heading': 'Menú modular, a tu manera.',
         'showcase.modMenu.body': 'Arrastra, suelta y ajusta 37+ módulos en tiempo real. Personaliza el HUD sin salir nunca del juego.',
         'showcase.modMenu.label': 'Menú de mods',
@@ -787,6 +803,7 @@ const STRINGS = {
         'footer.onlineDiscord': 'en línea en Discord',
     },
     fr: {
+        'docs.install.s1': 'Téléchargez le fichier .mcpack depuis la page Téléchargements.', 'docs.install.s2': 'Si le fichier ne se termine pas par .mcpack, renommez-le (ZArchiver sur Android le permet).', 'docs.install.s3': 'Ouvrez-le pour l\'importer dans Minecraft, puis activez-le dans Ressources globales.',
         'nav.home': 'Accueil', 'nav.features': 'Fonctionnalités', 'nav.gallery': 'Galerie', 'nav.community': 'Communauté',
         'nav.downloads': 'Téléchargements', 'nav.faq': 'FAQ', 'nav.docs': 'Docs', 'nav.mods': 'Tous les mods',
         'nav.license': 'Licence', 'nav.donate': 'Donner',
@@ -841,6 +858,9 @@ const STRINGS = {
         'feat.lightweight.desc': 'Seulement 2 Mo avec zéro impact sur les performances, garantissant un jeu fluide même sur les appareils bas de gamme.',
         'creators.sub': 'Avis et présentations triés sur le volet de la communauté Minecraft Bedrock',
         'showcase.eyebrow': 'Un aperçu de l\'intérieur',
+        'showcase.tabs.modMenu': 'Menu des mods', 'showcase.tabs.modMenuShort': 'Menu',
+        'showcase.tabs.startScreen': 'Écran d\'accueil', 'showcase.tabs.startScreenShort': 'Accueil',
+        'showcase.tabs.pauseScreen': 'Écran de pause', 'showcase.tabs.pauseScreenShort': 'Pause',
         'showcase.modMenu.heading': 'Menu modulaire, à votre façon.',
         'showcase.modMenu.body': 'Glissez, déposez et ajustez 37+ modules en temps réel. Personnalisez le HUD sans jamais quitter le jeu.',
         'showcase.modMenu.label': 'Menu des mods',
@@ -930,6 +950,7 @@ const STRINGS = {
         'footer.onlineDiscord': 'en ligne sur Discord',
     },
     'it': {
+        'docs.install.s1': 'Scarica il file .mcpack dalla pagina Download.', 'docs.install.s2': 'Se il file non termina con .mcpack, rinominalo (ZArchiver su Android può farlo).', 'docs.install.s3': 'Aprilo per importarlo in Minecraft, poi attivalo in Risorse globali.',
         'nav.home': 'Home', 'nav.features': 'Funzioni', 'nav.gallery': 'Galleria', 'nav.community': 'Community',
         'nav.downloads': 'Download', 'nav.faq': 'FAQ', 'nav.docs': 'Docs', 'nav.mods': 'Tutti i mod',
         'nav.license': 'Licenza', 'nav.donate': 'Dona',
@@ -984,6 +1005,9 @@ const STRINGS = {
         'feat.lightweight.desc': 'Solo 2 MB con zero impatto sulle prestazioni, garantendo un gameplay fluido anche su dispositivi di fascia bassa.',
         'creators.sub': 'Recensioni e showcase selezionati dalla community Minecraft Bedrock',
         'showcase.eyebrow': 'Uno sguardo dentro',
+        'showcase.tabs.modMenu': 'Menu mod', 'showcase.tabs.modMenuShort': 'Menu',
+        'showcase.tabs.startScreen': 'Schermata iniziale', 'showcase.tabs.startScreenShort': 'Start',
+        'showcase.tabs.pauseScreen': 'Schermata di pausa', 'showcase.tabs.pauseScreenShort': 'Pausa',
         'showcase.modMenu.heading': 'Menu modulare, a modo tuo.',
         'showcase.modMenu.body': 'Trascina, rilascia e configura 37+ moduli in tempo reale. Personalizza l\'HUD senza mai lasciare il gioco.',
         'showcase.modMenu.label': 'Menu mod',
@@ -1073,6 +1097,7 @@ const STRINGS = {
         'footer.onlineDiscord': 'online su Discord',
     },
     pt: {
+        'docs.install.s1': 'Baixe o arquivo .mcpack na página de Downloads.', 'docs.install.s2': 'Se o arquivo não terminar em .mcpack, renomeie-o (o ZArchiver no Android faz isso).', 'docs.install.s3': 'Abra-o para importar no Minecraft e depois ative-o em Recursos globais.',
         'nav.home': 'Início', 'nav.features': 'Funcionalidades', 'nav.gallery': 'Galeria', 'nav.community': 'Comunidade',
         'nav.downloads': 'Transferências', 'nav.faq': 'FAQ', 'nav.docs': 'Docs', 'nav.mods': 'Todos os mods',
         'nav.license': 'Licença', 'nav.donate': 'Doar',
@@ -1144,6 +1169,9 @@ const STRINGS = {
         'feat.lightweight.desc': 'Apenas 2 MB com zero impacto no desempenho, garantindo um jogo fluido mesmo em dispositivos mais antigos.',
         'creators.sub': 'Análises e showcases selecionados da comunidade Minecraft Bedrock',
         'showcase.eyebrow': 'Uma espreitadela por dentro',
+        'showcase.tabs.modMenu': 'Menu de mods', 'showcase.tabs.modMenuShort': 'Menu',
+        'showcase.tabs.startScreen': 'Ecrã inicial', 'showcase.tabs.startScreenShort': 'Início',
+        'showcase.tabs.pauseScreen': 'Ecrã de pausa', 'showcase.tabs.pauseScreenShort': 'Pausa',
         'showcase.modMenu.heading': 'Menu modular, à tua maneira.',
         'showcase.modMenu.body': 'Arrasta, larga e ajusta 37+ módulos em tempo real. Personaliza o HUD sem nunca saíres do jogo.',
         'showcase.modMenu.label': 'Menu de mods',
@@ -1233,6 +1261,7 @@ const STRINGS = {
         'footer.onlineDiscord': 'online no Discord',
     },
     'pt-BR': {
+        'docs.install.s1': 'Baixe o arquivo .mcpack na página de Downloads.', 'docs.install.s2': 'Se o arquivo não terminar em .mcpack, renomeie-o (o ZArchiver no Android faz isso).', 'docs.install.s3': 'Abra-o para importar no Minecraft e depois ative-o em Recursos globais.',
         'nav.home': 'Início', 'nav.features': 'Recursos', 'nav.gallery': 'Galeria', 'nav.community': 'Comunidade',
         'nav.downloads': 'Downloads', 'nav.faq': 'FAQ', 'nav.docs': 'Docs', 'nav.mods': 'Todos os mods',
         'nav.license': 'Licença', 'nav.donate': 'Doar',
@@ -1304,6 +1333,9 @@ const STRINGS = {
         'feat.lightweight.desc': 'Apenas 2 MB com zero impacto no desempenho, garantindo jogabilidade fluida mesmo em dispositivos mais fracos.',
         'creators.sub': 'Avaliações e showcases selecionados da comunidade Minecraft Bedrock',
         'showcase.eyebrow': 'Uma espiada por dentro',
+        'showcase.tabs.modMenu': 'Menu de mods', 'showcase.tabs.modMenuShort': 'Menu',
+        'showcase.tabs.startScreen': 'Tela inicial', 'showcase.tabs.startScreenShort': 'Início',
+        'showcase.tabs.pauseScreen': 'Tela de pausa', 'showcase.tabs.pauseScreenShort': 'Pausa',
         'showcase.modMenu.heading': 'Menu modular, do seu jeito.',
         'showcase.modMenu.body': 'Arraste, solte e ajuste 37+ módulos em tempo real. Personalize o HUD sem nunca sair do jogo.',
         'showcase.modMenu.label': 'Menu de mods',
@@ -1393,6 +1425,10 @@ const STRINGS = {
         'footer.onlineDiscord': 'online no Discord',
     },
     hi: {
+        'docs.install.s1': '.mcpack फ़ाइल Downloads पेज से डाउनलोड करें।', 'docs.install.s2': 'अगर फ़ाइल .mcpack पर खत्म नहीं होती, तो उसका नाम बदलें (Android पर ZArchiver यह कर सकता है)।', 'docs.install.s3': 'Minecraft में इम्पोर्ट करने के लिए उसे खोलें, फिर Global Resources में उसे चालू करें।',
+        'showcase.tabs.modMenu': 'मॉड मेनू', 'showcase.tabs.modMenuShort': 'मेनू',
+        'showcase.tabs.startScreen': 'स्टार्ट स्क्रीन', 'showcase.tabs.startScreenShort': 'स्टार्ट',
+        'showcase.tabs.pauseScreen': 'पॉज़ स्क्रीन', 'showcase.tabs.pauseScreenShort': 'पॉज़',
         'nav.home': 'होम', 'nav.features': 'फ़ीचर्स', 'nav.gallery': 'गैलरी', 'nav.community': 'कम्युनिटी',
         'nav.downloads': 'डाउनलोड', 'nav.faq': 'FAQ', 'nav.docs': 'डॉक्स', 'nav.mods': 'सभी मॉड्स',
         'nav.license': 'लाइसेंस', 'nav.donate': 'दान करें',
@@ -1447,6 +1483,10 @@ const STRINGS = {
         'btn.download': 'डाउनलोड', 'btn.learn': 'अधिक जानें'
     },
     id: {
+        'docs.install.s1': 'Unduh file .mcpack dari halaman Downloads.', 'docs.install.s2': 'Jika file tidak berakhiran .mcpack, ganti namanya (ZArchiver di Android bisa melakukannya).', 'docs.install.s3': 'Buka untuk mengimpor ke Minecraft, lalu aktifkan di Global Resources.',
+        'showcase.tabs.modMenu': 'Menu mod', 'showcase.tabs.modMenuShort': 'Menu',
+        'showcase.tabs.startScreen': 'Layar mulai', 'showcase.tabs.startScreenShort': 'Mulai',
+        'showcase.tabs.pauseScreen': 'Layar jeda', 'showcase.tabs.pauseScreenShort': 'Jeda',
         'nav.home': 'Beranda', 'nav.features': 'Fitur', 'nav.gallery': 'Galeri', 'nav.community': 'Komunitas',
         'nav.downloads': 'Unduhan', 'nav.faq': 'FAQ', 'nav.docs': 'Dokumen', 'nav.mods': 'Semua Mod',
         'nav.license': 'Lisensi', 'nav.donate': 'Donasi',
@@ -1501,6 +1541,10 @@ const STRINGS = {
         'btn.download': 'Unduh', 'btn.learn': 'Pelajari Lebih Lanjut'
     },
     tl: {
+        'docs.install.s1': 'I-download ang .mcpack file mula sa Downloads page.', 'docs.install.s2': 'Kung hindi nagtatapos sa .mcpack ang file, palitan ang pangalan nito (kaya ito ng ZArchiver sa Android).', 'docs.install.s3': 'Buksan ito para i-import sa Minecraft, saka i-activate sa Global Resources.',
+        'showcase.tabs.modMenu': 'Menu ng mod', 'showcase.tabs.modMenuShort': 'Menu',
+        'showcase.tabs.startScreen': 'Screen ng simula', 'showcase.tabs.startScreenShort': 'Simula',
+        'showcase.tabs.pauseScreen': 'Screen ng pause', 'showcase.tabs.pauseScreenShort': 'Pause',
         'nav.home': 'Home', 'nav.features': 'Mga Feature', 'nav.gallery': 'Gallery', 'nav.community': 'Komunidad',
         'nav.downloads': 'Mga Download', 'nav.faq': 'FAQ', 'nav.docs': 'Docs', 'nav.mods': 'Lahat ng Mods',
         'nav.license': 'Lisensya', 'nav.donate': 'Mag-donate',
@@ -1555,6 +1599,10 @@ const STRINGS = {
         'btn.download': 'I-download', 'btn.learn': 'Matuto ng Higit Pa'
     },
     vi: {
+        'docs.install.s1': 'Tải tệp .mcpack từ trang Tải xuống.', 'docs.install.s2': 'Nếu tệp không kết thúc bằng .mcpack, hãy đổi tên (ZArchiver trên Android làm được).', 'docs.install.s3': 'Mở tệp để nhập vào Minecraft, sau đó kích hoạt trong Global Resources.',
+        'showcase.tabs.modMenu': 'Menu mod', 'showcase.tabs.modMenuShort': 'Menu',
+        'showcase.tabs.startScreen': 'Màn hình khởi động', 'showcase.tabs.startScreenShort': 'Khởi động',
+        'showcase.tabs.pauseScreen': 'Màn hình tạm dừng', 'showcase.tabs.pauseScreenShort': 'Tạm dừng',
         'nav.home': 'Trang chủ', 'nav.features': 'Tính năng', 'nav.gallery': 'Thư viện ảnh', 'nav.community': 'Cộng đồng',
         'nav.downloads': 'Tải xuống', 'nav.faq': 'FAQ', 'nav.docs': 'Tài liệu', 'nav.mods': 'Tất cả Mod',
         'nav.license': 'Giấy phép', 'nav.donate': 'Ủng hộ',
@@ -1609,6 +1657,10 @@ const STRINGS = {
         'btn.download': 'Tải xuống', 'btn.learn': 'Tìm hiểu thêm'
     },
     ja: {
+        'docs.install.s1': '.mcpackファイルをダウンロードページから入手します。', 'docs.install.s2': 'ファイルの拡張子が.mcpackでない場合は名前を変更します（AndroidならZArchiverで可能）。', 'docs.install.s3': '開いてMinecraftにインポートし、Global Resourcesで有効にします。',
+        'showcase.tabs.modMenu': 'モッドメニュー', 'showcase.tabs.modMenuShort': 'メニュー',
+        'showcase.tabs.startScreen': 'スタート画面', 'showcase.tabs.startScreenShort': 'スタート',
+        'showcase.tabs.pauseScreen': 'ポーズ画面', 'showcase.tabs.pauseScreenShort': 'ポーズ',
         'nav.home': 'ホーム', 'nav.features': '機能', 'nav.gallery': 'ギャラリー', 'nav.community': 'コミュニティ',
         'nav.downloads': 'ダウンロード', 'nav.faq': 'FAQ', 'nav.docs': 'ドキュメント', 'nav.mods': '全MOD',
         'nav.license': 'ライセンス', 'nav.donate': '寄付',
@@ -1664,6 +1716,10 @@ const STRINGS = {
         'tag.hud': 'HUD', 'tag.utility': 'ユーティリティ', 'tag.pvp': 'PvP', 'tag.visual': 'ビジュアル', 'tag.cosmetic': 'コスメティック', 'tag.mobile': 'モバイル'
     },
     'ru': {
+        'docs.install.s1': 'Скачайте файл .mcpack со страницы загрузок.', 'docs.install.s2': 'Если файл не заканчивается на .mcpack, переименуйте его (на Android это можно сделать в ZArchiver).', 'docs.install.s3': 'Откройте его, чтобы импортировать в Minecraft, а затем включите в Global Resources.',
+        'showcase.tabs.modMenu': 'Меню модов', 'showcase.tabs.modMenuShort': 'Меню',
+        'showcase.tabs.startScreen': 'Стартовый экран', 'showcase.tabs.startScreenShort': 'Старт',
+        'showcase.tabs.pauseScreen': 'Экран паузы', 'showcase.tabs.pauseScreenShort': 'Пауза',
         'nav.home': 'Главная', 'nav.features': 'Возможности', 'nav.gallery': 'Галерея', 'nav.community': 'Сообщество',
         'nav.downloads': 'Загрузки', 'nav.faq': 'ЧаВО', 'nav.docs': 'Документация', 'nav.mods': 'Все моды',
         'nav.license': 'Лицензия', 'nav.donate': 'Пожертвовать',
@@ -1699,6 +1755,10 @@ const STRINGS = {
         'tag.hud': 'HUD', 'tag.utility': 'Утилита', 'tag.pvp': 'PvP', 'tag.visual': 'Визуальный', 'tag.cosmetic': 'Косметический', 'tag.mobile': 'Мобильный'
     },
     'zh': {
+        'docs.install.s1': '从下载页面下载 .mcpack 文件。', 'docs.install.s2': '如果文件不以 .mcpack 结尾，请重命名（Android 上可用 ZArchiver）。', 'docs.install.s3': '打开它以导入 Minecraft，然后在 Global Resources 中启用。',
+        'showcase.tabs.modMenu': '模组菜单', 'showcase.tabs.modMenuShort': '菜单',
+        'showcase.tabs.startScreen': '开始界面', 'showcase.tabs.startScreenShort': '开始',
+        'showcase.tabs.pauseScreen': '暂停界面', 'showcase.tabs.pauseScreenShort': '暂停',
         'nav.home': '首页', 'nav.features': '功能', 'nav.gallery': '图库', 'nav.community': '社区',
         'nav.downloads': '下载', 'nav.faq': '常见问题', 'nav.docs': '文档', 'nav.mods': '所有模组',
         'nav.license': '许可证', 'nav.donate': '捐献',
@@ -1734,6 +1794,10 @@ const STRINGS = {
         'tag.hud': 'HUD', 'tag.utility': '实用工具', 'tag.pvp': 'PvP', 'tag.visual': '视觉', 'tag.cosmetic': '美化', 'tag.mobile': '移动'
     },
     'zh-TW': {
+        'docs.install.s1': '從下載頁面下載 .mcpack 檔案。', 'docs.install.s2': '如果檔案不是以 .mcpack 結尾，請重新命名（Android 上可用 ZArchiver）。', 'docs.install.s3': '開啟它以匯入 Minecraft，然後在 Global Resources 中啟用。',
+        'showcase.tabs.modMenu': '模組選單', 'showcase.tabs.modMenuShort': '選單',
+        'showcase.tabs.startScreen': '開始畫面', 'showcase.tabs.startScreenShort': '開始',
+        'showcase.tabs.pauseScreen': '暫停畫面', 'showcase.tabs.pauseScreenShort': '暫停',
         'nav.home': '首頁', 'nav.features': '功能', 'nav.gallery': '圖庫', 'nav.community': '社群',
         'nav.downloads': '下載', 'nav.faq': '常見問題', 'nav.docs': '文檔', 'nav.mods': '所有模組',
         'nav.license': '授權', 'nav.donate': '捐獻',
@@ -1769,6 +1833,10 @@ const STRINGS = {
         'tag.hud': 'HUD', 'tag.utility': '實用工具', 'tag.pvp': 'PvP', 'tag.visual': '視覺', 'tag.cosmetic': '美化', 'tag.mobile': '行動'
     },
     'ko': {
+        'docs.install.s1': '다운로드 페이지에서 .mcpack 파일을 받으세요.', 'docs.install.s2': '파일이 .mcpack으로 끝나지 않으면 이름을 바꾸세요(Android에서는 ZArchiver로 가능).', 'docs.install.s3': '열어서 Minecraft로 가져온 뒤 Global Resources에서 활성화하세요.',
+        'showcase.tabs.modMenu': '모드 메뉴', 'showcase.tabs.modMenuShort': '메뉴',
+        'showcase.tabs.startScreen': '시작 화면', 'showcase.tabs.startScreenShort': '시작',
+        'showcase.tabs.pauseScreen': '일시정지 화면', 'showcase.tabs.pauseScreenShort': '일시정지',
         'nav.home': '홈', 'nav.features': '기능', 'nav.gallery': '갤러리', 'nav.community': '커뮤니티',
         'nav.downloads': '다운로드', 'nav.faq': '자주 묻는 질문', 'nav.docs': '문서', 'nav.mods': '모든 모드',
         'nav.license': '라이선스', 'nav.donate': '기부',
@@ -1804,6 +1872,10 @@ const STRINGS = {
         'tag.hud': 'HUD', 'tag.utility': '유틸리티', 'tag.pvp': 'PvP', 'tag.visual': '시각', 'tag.cosmetic': '화장품', 'tag.mobile': '모바일'
     },
     'th': {
+        'docs.install.s1': 'ดาวน์โหลดไฟล์ .mcpack จากหน้าดาวน์โหลด', 'docs.install.s2': 'หากไฟล์ไม่ลงท้ายด้วย .mcpack ให้เปลี่ยนชื่อ (บน Android ใช้ ZArchiver ได้)', 'docs.install.s3': 'เปิดไฟล์เพื่อนำเข้า Minecraft แล้วเปิดใช้งานใน Global Resources',
+        'showcase.tabs.modMenu': 'เมนูม็อด', 'showcase.tabs.modMenuShort': 'เมนู',
+        'showcase.tabs.startScreen': 'หน้าจอเริ่มต้น', 'showcase.tabs.startScreenShort': 'เริ่ม',
+        'showcase.tabs.pauseScreen': 'หน้าจอหยุดชั่วคราว', 'showcase.tabs.pauseScreenShort': 'หยุด',
         'nav.home': 'หน้าแรก', 'nav.features': 'คุณสมบัติ', 'nav.gallery': 'แกลเลอรี่', 'nav.community': 'ชุมชน',
         'nav.downloads': 'ดาวน์โหลด', 'nav.faq': 'คำถามที่พบบ่อย', 'nav.docs': 'เอกสาร', 'nav.mods': 'โมดทั้งหมด',
         'nav.license': 'ใบอนุญาต', 'nav.donate': 'บริจาค',
@@ -1839,6 +1911,10 @@ const STRINGS = {
         'tag.hud': 'HUD', 'tag.utility': 'ยูทิลิตี้', 'tag.pvp': 'PvP', 'tag.visual': 'ภาพ', 'tag.cosmetic': 'เสริมสวย', 'tag.mobile': 'มือถือ'
     },
     'pl': {
+        'docs.install.s1': 'Pobierz plik .mcpack ze strony Pobrane.', 'docs.install.s2': 'Jeśli plik nie kończy się na .mcpack, zmień nazwę (na Androidzie zrobi to ZArchiver).', 'docs.install.s3': 'Otwórz go, aby zaimportować do Minecrafta, a następnie włącz w Global Resources.',
+        'showcase.tabs.modMenu': 'Menu modów', 'showcase.tabs.modMenuShort': 'Menu',
+        'showcase.tabs.startScreen': 'Ekran startowy', 'showcase.tabs.startScreenShort': 'Start',
+        'showcase.tabs.pauseScreen': 'Ekran pauzy', 'showcase.tabs.pauseScreenShort': 'Pauza',
         'nav.home': 'Strona główna', 'nav.features': 'Funkcje', 'nav.gallery': 'Galeria', 'nav.community': 'Społeczność',
         'nav.downloads': 'Pobierz', 'nav.faq': 'Często zadawane pytania', 'nav.docs': 'Dokumentacja', 'nav.mods': 'Wszystkie mody',
         'nav.license': 'Licencja', 'nav.donate': 'Darowizna',
@@ -1874,6 +1950,10 @@ const STRINGS = {
         'tag.hud': 'HUD', 'tag.utility': 'Narzędzie', 'tag.pvp': 'PvP', 'tag.visual': 'Wizualny', 'tag.cosmetic': 'Kosmetyka', 'tag.mobile': 'Mobilny'
     },
     'tr': {
+        'docs.install.s1': '.mcpack dosyasını İndirmeler sayfasından indirin.', 'docs.install.s2': 'Dosya .mcpack ile bitmiyorsa adını değiştirin (Android\'de ZArchiver bunu yapabilir).', 'docs.install.s3': 'Minecraft\'a aktarmak için açın, ardından Global Resources altında etkinleştirin.',
+        'showcase.tabs.modMenu': 'Mod menüsü', 'showcase.tabs.modMenuShort': 'Menü',
+        'showcase.tabs.startScreen': 'Başlangıç ekranı', 'showcase.tabs.startScreenShort': 'Başlangıç',
+        'showcase.tabs.pauseScreen': 'Duraklatma ekranı', 'showcase.tabs.pauseScreenShort': 'Duraklat',
         'nav.home': 'Ana Sayfa', 'nav.features': 'Özellikler', 'nav.gallery': 'Galeri', 'nav.community': 'Topluluk',
         'nav.downloads': 'İndir', 'nav.faq': 'Sıkça Sorulan Sorular', 'nav.docs': 'Belgeler', 'nav.mods': 'Tüm Modlar',
         'nav.license': 'Lisans', 'nav.donate': 'Bağış Yap',
@@ -1909,6 +1989,10 @@ const STRINGS = {
         'tag.hud': 'HUD', 'tag.utility': 'Yardımcı Program', 'tag.pvp': 'PvP', 'tag.visual': 'Görsel', 'tag.cosmetic': 'Kozmetik', 'tag.mobile': 'Mobil'
     },
     'ar': {
+        'docs.install.s1': 'نزّل ملف .mcpack من صفحة التنزيلات.', 'docs.install.s2': 'إذا لم ينتهِ الملف بـ .mcpack فغيّر اسمه (يمكن لـ ZArchiver على أندرويد فعل ذلك).', 'docs.install.s3': 'افتحه لاستيراده إلى Minecraft ثم فعّله من Global Resources.',
+        'showcase.tabs.modMenu': 'قائمة المود', 'showcase.tabs.modMenuShort': 'القائمة',
+        'showcase.tabs.startScreen': 'شاشة البداية', 'showcase.tabs.startScreenShort': 'البداية',
+        'showcase.tabs.pauseScreen': 'شاشة الإيقاف المؤقت', 'showcase.tabs.pauseScreenShort': 'إيقاف',
         'nav.home': 'الرئيسية', 'nav.features': 'الميزات', 'nav.gallery': 'المعرض', 'nav.community': 'المجتمع',
         'nav.downloads': 'التحميلات', 'nav.faq': 'الأسئلة الشائعة', 'nav.docs': 'الوثائق', 'nav.mods': 'جميع الرموز',
         'nav.license': 'الترخيص', 'nav.donate': 'تبرع',
