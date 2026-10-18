@@ -1,0 +1,211 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   Showcase motion
+   Layered on top of the .showcase rules in styles.css (loaded after it).
+   - Directional frame swap: the outgoing frame lifts away (or drops, under
+     data-dir="prev") with blur; the incoming frame rises in with a slight
+     rotation and a spring settle.
+   - Per-frame accent: --sc-accent is set by the showcase JS and eased here
+     (registered via @property) to tint the panel, glow, ticks and counter.
+   - One-shot skeleton → colour reveal on first view (.is-skeleton/.is-revealing).
+   - Text swap: outgoing copy fades up; incoming copy rises in, heading then body.
+   Reduced motion strips all of it to a short opacity change.
+   ────────────────────────────────────────────────────────────────────────── */
+
+@property --sc-accent {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #7289da;
+}
+
+/* ── Accent-driven panel ─────────────────────────────────────────────────── */
+
+.showcase .showcase-pin {
+    --sc-accent: #7289da;
+    background-image: linear-gradient(color-mix(in srgb, var(--sc-accent) 18%, transparent),
+                                      color-mix(in srgb, var(--sc-accent) 18%, transparent));
+    transition: box-shadow var(--t), --gp .9s var(--ease), --sc-accent .7s ease;
+}
+
+/* Glow sits behind the product: --gp moves its centre, --sc-accent tints it.
+   Replaces the fixed blurple/green pair from styles.css. */
+.showcase .showcase-pin::before {
+    background: radial-gradient(60% 60% at calc(8% + var(--gp, 0) * 78%) 22%,
+                                color-mix(in srgb, var(--sc-accent) 26%, transparent) 0%, transparent 60%),
+                radial-gradient(55% 55% at calc(92% - var(--gp, 0) * 70%) 82%,
+                                color-mix(in srgb, var(--sc-accent) 14%, transparent) 0%, transparent 60%);
+}
+
+.showcase .showcase-stage {
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6),
+                0 0 60px -8px color-mix(in srgb, var(--sc-accent) 45%, transparent);
+}
+
+@media (hover: hover) {
+    .showcase .showcase-stage:hover {
+        box-shadow: 0 42px 96px rgba(0, 0, 0, 0.66),
+                    0 0 72px -6px color-mix(in srgb, var(--sc-accent) 60%, transparent);
+    }
+}
+
+.showcase .showcase-count-num {
+    color: var(--sc-accent);
+    transition: color .7s ease;
+}
+
+.showcase .showcase-tick::after {
+    background: linear-gradient(90deg, var(--sc-accent),
+                                color-mix(in srgb, var(--sc-accent) 55%, #fff));
+}
+
+.showcase .showcase-tick.is-active::after {
+    box-shadow: 0 0 10px color-mix(in srgb, var(--sc-accent) 70%, transparent);
+}
+
+/* ── Directional frame swap ──────────────────────────────────────────────── */
+
+/* Hidden frames wait below (next) or above (prev), rotated and blurred. */
+.showcase .showcase-img {
+    opacity: 0;
+    transform: translate3d(0, 22%, 0) rotate(-4deg) scale(.94);
+    filter: blur(14px);
+    transition: opacity .6s ease, transform .75s cubic-bezier(.34, 1.56, .64, 1), filter .75s cubic-bezier(.22, 1, .36, 1);
+    will-change: auto;
+}
+
+.showcase .showcase-stage[data-dir="prev"] .showcase-img:not(.is-active):not(.is-leaving) {
+    transform: translate3d(0, -22%, 0) rotate(4deg) scale(.94);
+}
+
+/* Incoming frame settles with the spring overshoot. */
+.showcase .showcase-stage .showcase-img.is-active {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: opacity .8s ease, transform .75s cubic-bezier(.34, 1.56, .64, 1), filter .75s cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Outgoing frame lifts up and dissolves into blur (mirrored under prev). */
+.showcase .showcase-stage .showcase-img.is-leaving {
+    opacity: 0;
+    transform: translate3d(0, -18%, 0) scale(.92);
+    filter: blur(12px);
+    transition: opacity .6s ease, transform .7s cubic-bezier(.22, 1, .36, 1), filter .7s ease-in;
+}
+
+.showcase .showcase-stage[data-dir="prev"] .showcase-img.is-leaving {
+    transform: translate3d(0, 18%, 0) scale(.92);
+}
+
+/* GPU hint only while a frame is actually moving. */
+.showcase .showcase-stage .showcase-img.is-moving {
+    will-change: transform, filter, opacity;
+}
+
+/* ── Wireframe → colour reveal ───────────────────────────────────────────── */
+
+.showcase .showcase-stage.is-skeleton .showcase-img.is-active {
+    filter: grayscale(1) blur(18px) brightness(1.6);
+    opacity: .6;
+}
+
+@keyframes sc-shimmer {
+    from { background-position: 150% 0, 0 0; }
+    to   { background-position: -50% 0, 0 0; }
+}
+
+/* Shimmer rides on the existing glass-sheen ::after while skeletal, then fades. */
+.showcase .showcase-stage.is-skeleton::after,
+.showcase .showcase-stage.is-revealing::after {
+    background-image: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .18) 50%, transparent 65%),
+                      linear-gradient(160deg, rgba(255, 255, 255, .16) 0%, transparent 28%);
+    background-size: 250% 100%, 100% 100%;
+    background-repeat: no-repeat;
+    mix-blend-mode: normal;
+    animation: sc-shimmer 1.6s linear infinite;
+}
+
+.showcase .showcase-stage.is-revealing::after {
+    opacity: 0;
+    transition: opacity .9s ease;
+}
+
+.showcase .showcase-stage::after {
+    transition: opacity .9s ease;
+}
+
+/* ── Text swap ───────────────────────────────────────────────────────────── */
+
+/* Outgoing copy fades up and away. */
+.showcase .showcase-text {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .3s ease, transform .35s ease;
+}
+
+.showcase .showcase-text.is-active {
+    opacity: 1;
+    transform: none;
+    transition: none;
+}
+
+.showcase .showcase-text.is-leaving {
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity .3s ease, transform .35s ease;
+}
+
+/* Incoming copy rises in after the frame starts, heading first, body 60ms later. */
+@keyframes sc-text-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.showcase .showcase-text.is-active .showcase-heading {
+    animation: sc-text-in .6s cubic-bezier(.22, 1, .36, 1) .12s both;
+}
+
+.showcase .showcase-text.is-active .showcase-body {
+    animation: sc-text-in .6s cubic-bezier(.22, 1, .36, 1) .18s both;
+}
+
+/* ── Reduced motion: no blur, transforms or skeleton; plain short fades ──── */
+
+@media (prefers-reduced-motion: reduce) {
+    .showcase .showcase-img,
+    .showcase .showcase-stage .showcase-img.is-active,
+    .showcase .showcase-stage .showcase-img.is-leaving,
+    .showcase .showcase-stage[data-dir] .showcase-img:not(.is-active):not(.is-leaving) {
+        transform: none !important;
+        filter: none !important;
+        transition: opacity .15s ease !important;
+        will-change: auto !important;
+    }
+
+    .showcase .showcase-stage .showcase-img.is-active { opacity: 1 !important; }
+    .showcase .showcase-stage .showcase-img:not(.is-active) { opacity: 0 !important; }
+
+    .showcase .showcase-stage.is-skeleton .showcase-img.is-active {
+        filter: none !important;
+        opacity: 1 !important;
+    }
+
+    .showcase .showcase-stage.is-skeleton::after,
+    .showcase .showcase-stage.is-revealing::after {
+        animation: none !important;
+    }
+
+    .showcase .showcase-pin,
+    .showcase .showcase-count-num { transition: none !important; }
+
+    .showcase .showcase-text,
+    .showcase .showcase-text.is-active,
+    .showcase .showcase-text.is-leaving {
+        transform: none !important;
+        transition: opacity .15s ease !important;
+    }
+
+    .showcase .showcase-text .showcase-heading,
+    .showcase .showcase-text .showcase-body {
+        animation: none !important;
+    }
+}
