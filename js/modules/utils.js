@@ -6,6 +6,11 @@ import { USE_MONETIZATION, LINKVERTISE_USER_ID } from './config.js?v=20260902203
 
 export const $ = id => document.getElementById(id);
 
+// Reduced-motion preference, read once at load. Every JS animation checks this
+// and skips itself; the CSS hard-resets its own transitions separately.
+const REDUCED_MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+export const prefersReducedMotion = () => REDUCED_MOTION;
+
 export function debounce(fn, ms) {
     let t = 0;
     return function (...a) {

@@ -1,10 +1,11 @@
 'use strict';
 
 import { state } from './state.js?v=20260902203329';
-import { $, markCopyableCode } from './utils.js?v=20260902203329';
+import { $, markCopyableCode, prefersReducedMotion } from './utils.js?v=20260902203329';
 import { ALL, META, TITLES, MERGED } from './config.js?v=20260902203329';
 import { observeReveals } from './reveal.js?v=20260902203329';
 import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js?v=20260902203329';
+import { showCopiedToast } from './feedback.js?v=20260902203329';
 
 // Shows the custom 404 page for a path that doesn't match any known section.
 // Leaves the URL as-is (whatever the visitor actually landed on).
@@ -34,12 +35,15 @@ export function showSection(id, sub) {
     const sectionId = merged ? merged.into : id;
 
     const targetEl = $(sectionId + '-section');
+    // Read before writing: only a section that was not already showing animates in.
+    const wasActive = !targetEl || targetEl.classList.contains('active');
     for (const s of state.dom.sections) {
         s.classList.toggle('active', s === targetEl);
     }
     for (const l of state.dom.navLinks) {
         l.classList.toggle('active', l.dataset.section === sectionId);
     }
+    if (!wasActive) animateSectionIn(targetEl);
 
     const hasDeepLink = id === 'downloads' && sub;
 
@@ -80,6 +84,15 @@ export function showSection(id, sub) {
     }
 
     requestAnimationFrame(observeReveals);
+}
+
+// Short enter for the newly active section (WAAPI, so no CSS class juggling).
+function animateSectionIn(el) {
+    if (prefersReducedMotion() || !el.animate) return;
+    el.animate([
+        { opacity: 0, transform: 'translateY(8px)' },
+        { opacity: 1, transform: 'translateY(0)' }
+    ], { duration: 300, easing: 'cubic-bezier(.22,1,.36,1)' });
 }
 
 export function parsePath() {
@@ -135,6 +148,7 @@ function copyText(el, text) {
         clearTimeout(el._copyTimer);
         el.classList.add('code-copied');
         el._copyTimer = setTimeout(() => el.classList.remove('code-copied'), 1400);
+        showCopiedToast();
     }).catch(() => {});
 }
 

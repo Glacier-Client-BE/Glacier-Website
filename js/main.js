@@ -19,6 +19,8 @@ import { applyVersioning, applyTheme, setupGlobalSearch, fetchDiscord, retransla
 import { setupDocsToc } from './modules/docs.js?v=20260902203329';
 import { setupI18n } from './modules/i18n.js?v=20260902203329';
 import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js?v=20260902203329';
+import { setupFeedback } from './modules/feedback.js?v=20260902203329';
+import { observeCounts } from './modules/countup.js?v=20260902203329';
 
 function init() {
     state.dom = {
@@ -48,6 +50,7 @@ function init() {
     setupParallax();
     setupTilt('.feature-card, .gallery-item, .donate-card, .social-card, .license-card, .hero-image, .showcase-video-card');
     setupDelegation();
+    setupFeedback();
     markCopyableCode(document);
     setupDocsToc();
     setupI18n();
@@ -88,6 +91,7 @@ function init() {
         initDownloads();
         initLauncher();
         observeReveals();
+        observeCounts();
 
         // Data-driven sections (mods, FAQ, downloads) render from JSON via
         // translation keys, not data-i18n, so they need an explicit re-render
@@ -100,6 +104,7 @@ function init() {
             retranslateToast();
             retranslateUpdateBar();
             observeReveals();
+            observeCounts();
         });
     });
 }
