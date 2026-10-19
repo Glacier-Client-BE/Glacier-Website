@@ -1,10 +1,10 @@
 'use strict';
 
-import { state } from './state.js?v=20261018220946';
-import { $, markCopyableCode, prefersReducedMotion } from './utils.js?v=20261018220946';
-import { ALL, META, TITLES, MERGED } from './config.js?v=20261018220946';
-import { observeReveals } from './reveal.js?v=20261018220946';
-import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js?v=20261018220946';
+import { state } from './state.js?v=20261019120000';
+import { $, markCopyableCode, prefersReducedMotion } from './utils.js?v=20261019120000';
+import { ALL, META, TITLES, MERGED } from './config.js?v=20261019120000';
+import { observeReveals } from './reveal.js?v=20261019120000';
+import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js?v=20261019120000';
 
 // Shows the custom 404 page for a path that doesn't match any known section.
 // Leaves the URL as-is (whatever the visitor actually landed on).
@@ -215,7 +215,7 @@ function setActiveFAQCategory(cat) {
 }
 
 function setActiveCategory(cat) {
-    for (const b of document.querySelectorAll('#mods-section .filter-button')) {
+    for (const b of document.querySelectorAll('.filter-button[data-category]')) {
         b.classList.toggle('active', b.dataset.category === cat);
     }
     state.modFilter.cat = cat;

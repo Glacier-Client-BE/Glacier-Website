@@ -5983,3 +5983,193 @@ textarea {
         max-height: 220px;
     }
 }
+
+/* ── Site search: grouped results, active row, flash, mobile sheet ───────────
+ Builds on the search rules above. Rows keep a 44px touch target on phones,
+ long titles wrap instead of widening the sheet, and the motion is short and
+ skipped under reduced motion. */
+
+.search-results {
+    max-height: min(62vh, 520px);
+    scroll-padding-block: 8px;
+}
+
+.search-idle-hint {
+    font-size: .8rem;
+    color: var(--text-muted);
+    padding: 6px 12px 2px;
+}
+
+.search-result-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.search-label-btn {
+    background: none;
+    border: 0;
+    border-radius: 6px;
+    padding: 2px 6px;
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+    text-transform: none;
+    color: var(--accent-hover);
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .search-label-btn:hover {
+        background: var(--bg-item-hover);
+    }
+}
+
+.search-result-item {
+    min-width: 0;
+    min-height: 40px;
+}
+
+.search-result-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex: 1;
+    min-width: 0;
+}
+
+.search-result-title,
+.search-result-desc {
+    overflow-wrap: anywhere;
+}
+
+.search-result-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.search-result-item .search-result-icon-box {
+    background: var(--accent-bg);
+    color: var(--accent-hover);
+    border-radius: var(--r-xs);
+}
+
+.search-result-item.is-active .search-result-icon-box {
+    background: rgba(114, 137, 218, .24);
+}
+
+.search-result-more .search-result-title {
+    color: var(--text-dim);
+    font-weight: 500;
+}
+
+.search-try {
+    color: var(--text-muted);
+    font-size: .78rem;
+    opacity: .85;
+}
+
+.search-foot-msg {
+    margin-left: auto;
+    color: var(--green);
+    font-weight: 600;
+}
+
+.search-modal-foot > span {
+    white-space: nowrap;
+}
+
+/* Results rise in one after another, a few ms apart. */
+.search-results.is-entering .search-result-item {
+    animation: search-row-in 240ms var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 14ms);
+}
+
+@keyframes search-row-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+}
+
+/* Brief ring on the card a result opened (mod, feature, FAQ item, docs card). */
+.search-flash {
+    animation: search-flash 1.8s var(--ease-out);
+}
+
+@keyframes search-flash {
+    0% { box-shadow: 0 0 0 0 rgba(114, 137, 218, .6); }
+    40% { box-shadow: 0 0 0 10px rgba(114, 137, 218, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(114, 137, 218, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .search-results.is-entering .search-result-item {
+        animation: none;
+    }
+
+    .search-flash {
+        animation: none;
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+    }
+}
+
+/* Phones: a full-height sheet with 44px rows, nothing wider than the screen. */
+@media (max-width: 640px) {
+    #searchModal {
+        padding: 0;
+        align-items: stretch;
+        overflow: hidden;
+    }
+
+    #searchModal .search-modal-box {
+        max-width: none;
+        width: 100%;
+        height: 100%;
+        min-width: 0;
+        border-radius: 0;
+        border: 0;
+        display: flex;
+        flex-direction: column;
+        transform: none;
+    }
+
+    #searchModal.open .search-modal-box {
+        transform: none;
+    }
+
+    .search-modal-top {
+        padding: 10px 12px 10px 16px;
+    }
+
+    .search-modal-top input {
+        min-width: 0;
+        font-size: 16px;
+    }
+
+    #searchClose {
+        min-width: 44px;
+        min-height: 44px;
+        display: grid;
+        place-items: center;
+    }
+
+    #searchModal .search-results {
+        flex: 1 1 auto;
+        min-height: 0;
+        max-height: none;
+        padding: 6px;
+    }
+
+    .search-result-item {
+        min-height: 44px;
+        padding: 8px 10px;
+    }
+
+    .search-result-label {
+        padding: 10px 10px 4px;
+    }
+}
