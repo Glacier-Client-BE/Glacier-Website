@@ -2399,3 +2399,57 @@ main :focus-visible,
         inset: -11px -10px;
     }
 }
+
+/* ── Shared polish with the main site ──
+   BG backdrop behind the title block (same treatment as the home hero), and
+   light-mode contrast fixes for accent-coloured controls. */
+
+#main-content {
+    position: relative;
+}
+
+#main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 340px;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(180deg, rgba(8, 10, 22, .55) 0%, rgba(8, 10, 22, .78) 100%),
+        url('/assets/BG.webp') center / cover no-repeat;
+    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+}
+
+[data-theme="light"] #main-content::before {
+    background:
+        linear-gradient(180deg, rgba(246, 247, 251, .8) 0%, rgba(246, 247, 251, .72) 100%),
+        url('/assets/BG.webp') center / cover no-repeat;
+}
+
+#main-content > .container {
+    position: relative;
+    z-index: 1;
+}
+
+[data-theme="light"] {
+    --accent-strong: #4559b0;
+}
+
+[data-theme="light"] .version-tab.active,
+[data-theme="light"] .section-pill.active,
+[data-theme="light"] button[data-view].active {
+    background: var(--accent-strong);
+    color: #fff;
+}
+
+[data-theme="light"] .chip-btn.accent {
+    color: var(--accent-strong);
+}
+
+[data-theme="light"] .chip-btn.danger {
+    color: #b3261e;
+}
