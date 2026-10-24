@@ -230,11 +230,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <img src="assets/mod_menu.webp"
-                        alt="Glacier Client mod menu open in Minecraft Bedrock Edition, showing the draggable module list"
-                        loading="eager" decoding="async"
-                        fetchpriority="high" width="1110" height="659" />
+                <div class="hero-image" id="heroMedia">
+                    <div class="hero-stage">
+                        <video class="hero-motion is-on" src="assets/peek-inside.mp4" poster="assets/mod_menu.webp" width="1280" height="720"
+                            autoplay muted playsinline preload="auto"
+                            aria-label="Animated tour of the Glacier mod menu, start screen and pause screen"></video>
+                        <div class="hero-teaser" id="heroTeaser" aria-hidden="true"></div>
+                    </div>
+                    <div class="hero-media-bar">
+                        <button type="button" class="hero-pill is-on" data-media="tour">Tour</button>
+                        <button type="button" class="hero-pill" data-media="teaser">v7 Teaser</button>
+                        <button type="button" class="hero-media-toggle" aria-label="Pause video"><i class="fas fa-pause" aria-hidden="true"></i></button>
+                    </div>
                 </div>
             </div>
         </section>
