@@ -6250,3 +6250,55 @@ textarea {
 [data-theme="light"] .hero-trust i {
     color: var(--accent-strong);
 }
+
+.hero-platform {
+    margin: 12px 0 0;
+    font-size: var(--fs-xs, .78rem);
+    color: var(--text-dim);
+}
+
+.header-cta {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: var(--pill);
+    background: var(--accent);
+    color: #fff;
+    font-size: .85rem;
+    font-weight: 700;
+    text-decoration: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+[data-theme="light"] .header-cta {
+    background: var(--accent-strong);
+}
+
+@media (min-width: 640px) {
+    .header-cta { display: inline-flex; }
+}
+
+.header-cta.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dl-safety {
+    max-width: 640px;
+    margin: 0 auto 20px;
+    text-align: center;
+    font-size: .85rem;
+    color: var(--text-dim);
+}
+
+.dl-safety i {
+    color: var(--accent);
+    margin-right: 4px;
+}
+
+[data-theme="light"] .dl-safety i {
+    color: var(--accent-strong);
+}

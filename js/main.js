@@ -20,8 +20,11 @@ import { setupI18n } from './modules/i18n.js?v=20261024204450';
 import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js?v=20261024204450';
 import { setupFeedback } from './modules/feedback.js?v=20261024204450';
 import { observeCounts } from './modules/countup.js?v=20261024204450';
+import { setupPlatformHint, setupStickyCta } from './modules/platform.js?v=20261024204450';
 
 function init() {
+    setupPlatformHint();
+    setupStickyCta();
     state.dom = {
         headerEl: $('mainHeader'),
         navMenu: $('navMenu'),
