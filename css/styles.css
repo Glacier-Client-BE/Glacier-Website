@@ -6173,3 +6173,80 @@ textarea {
         padding: 10px 10px 4px;
     }
 }
+
+/* ── Light-mode readability pass ──
+   The light theme has no photo behind the page, so text must use dark/accent-strong
+   colours (the old white-on-image rules left the docs TOC and counts invisible),
+   and accent text/buttons need ≥4.5:1 contrast on white. */
+
+[data-theme="light"] {
+    --accent-strong: #4559b0;
+}
+
+[data-theme="light"] .docs-toc-label,
+[data-theme="light"] .mods-count {
+    color: var(--text-dim);
+}
+
+[data-theme="light"] .docs-toc-link {
+    color: var(--text-dim);
+}
+
+[data-theme="light"] .docs-toc-link:hover {
+    color: var(--text);
+    background: var(--bg-item-hover);
+}
+
+[data-theme="light"] .docs-toc-link.active {
+    color: var(--accent-strong);
+    background: var(--accent-bg);
+    border-left-color: var(--accent-strong);
+}
+
+[data-theme="light"] .subsection-eyebrow,
+[data-theme="light"] .brand-name,
+[data-theme="light"] .showcase-video-channel,
+[data-theme="light"] .filter-button.active,
+[data-theme="light"] .docs-card a:not(.btn),
+[data-theme="light"] .hero-stat-num {
+    color: var(--accent-strong);
+}
+
+[data-theme="light"] .showcase-video-sep {
+    opacity: .8;
+    color: var(--text-dim);
+}
+
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .toast-cta,
+[data-theme="light"] .skip-link {
+    background: var(--accent-strong);
+    color: #fff;
+}
+
+[data-theme="light"] .docs-card code,
+[data-theme="light"] .copyable-code {
+    color: #2f3a78;
+}
+
+/* Hero trust strip: platform + fair-play reassurance next to the CTAs. */
+.hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    font-size: var(--fs-xs, .78rem);
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.hero-trust i {
+    color: var(--accent);
+    margin-right: 4px;
+}
+
+[data-theme="light"] .hero-trust i {
+    color: var(--accent-strong);
+}
