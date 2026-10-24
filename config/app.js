@@ -9,7 +9,7 @@
   const { VERSIONS, HUD_SIZES, DEFAULT_CONFIGS } = window.GC_DATA;
   const HISTORY_LIMIT = 30;
   const HUD_SECTION = 'mod_menu_config@gc.pnl';
-  const REFERENCE_WIDTH = 1920;
+  const DEVICE_W = { pc: 1280, mobile: 2000 };
   const MIN_SCALE = 1.05;
   const MIN_SCALE_TOUCH = 1.35;
 
@@ -110,7 +110,7 @@
   let searchTerm = '';
   let enabledOnly = false;
   let previewDevice = 'pc';   // 'pc' | 'mobile'
-  let guiScale = 2;           // 1 | 2 | 3
+  let guiScale = 3;           // 1 | 2 | 3
   let expandedGroups = {};
   let selectedId = null;
   let showBackground = true;
@@ -586,7 +586,8 @@
     if (!hudRefs) return 1;
     const w = hudRefs.canvas.clientWidth;
     if (!w) return 1;
-    return Math.max(coarse() ? MIN_SCALE_TOUCH : MIN_SCALE, (w / REFERENCE_WIDTH) * (guiScale / 2));
+    // Real Minecraft maths: the screen is DEVICE_W device px wide and one GUI px is `guiScale` of them.
+    return w / (DEVICE_W[previewDevice] / guiScale);
   }
 
   let drag = null; // { id, anchor, offset } preview during drag
@@ -596,8 +597,7 @@
     const stage = h('div', { class: 'hud-stage', 'data-device': previewDevice });
     const canvas = h('div', { class: 'hud-canvas' });
     if (showBackground) {
-      canvas.appendChild(h('div', { class: 'hud-bg', style: "background-image:url('img/HUD.png')" }));
-      canvas.appendChild(h('div', { class: 'hud-bg-dim' }));
+      canvas.appendChild(h('div', { class: 'hud-scene-host', style: 'position:absolute;inset:0;overflow:hidden;pointer-events:none' }));
     } else {
       canvas.appendChild(h('div', { class: 'hud-grid-dots' }));
     }
@@ -628,6 +628,29 @@
   // alias used by syncDerived without rebuilding DOM
   function updateHUD() { if (hudRefs && activeView === 'visual') { drawModules(); drawStatus(); } }
 
+  // Vanilla scene behind the modules, rebuilt only when the GUI-pixel size changes.
+  function syncScene(canvas, scale, refW, refH) {
+    const host = canvas.querySelector('.hud-scene-host');
+    if (!host || !window.GlacierHud) return;
+    const key = Math.round(refW * 100) + 'x' + Math.round(refH * 100);
+    if (host.dataset.key !== key) {
+      host.dataset.key = key;
+      host.innerHTML = '';
+      host.appendChild(window.GlacierHud.buildScene(refW, refH));
+    }
+    host.firstChild.style.transform = 'scale(' + scale + ')';
+  }
+
+  // The module's real drawing (GUI px, scaled), or the generic icon when no renderer is available.
+  function modContent(m, scale, settings) {
+    if (!window.GlacierHud) return h('i', { class: 'fas ' + m.icon, style: 'font-size:' + Math.max(8, 10 * scale) + 'px' });
+    const get = (k, d) => (settings[k] !== undefined ? settings[k] : d);
+    const node = window.GlacierHud.drawModule(m.id, { w: m.width, h: m.height }, get);
+    const wrap = h('div', { class: 'hs-mod', style: 'width:' + m.width + 'px;height:' + m.height + 'px;transform:scale(' + scale + ')' });
+    wrap.appendChild(node);
+    return wrap;
+  }
+
   function drawModules() {
     const { canvas, layer, anchorGrid } = hudRefs;
     const settings = config[HUD_SECTION];
@@ -653,6 +676,7 @@
     }
 
     const refW = cw / scale, refH = ch / scale;
+    syncScene(canvas, scale, refW, refH);
     mods.forEach((m) => {
       const isDragging = drag && drag.id === m.id;
       const anchor = isDragging ? drag.anchor : (settings[m.anchorKey] || 'top_left');
@@ -661,9 +685,9 @@
       const w = m.width * scale, hh = m.height * scale;
       const sel = selectedId === m.id;
       const node = h('div', {
-        class: 'hud-module' + (isDragging ? ' dragging' : sel ? ' selected' : ''),
+        class: 'hud-module has-render' + (isDragging ? ' dragging' : sel ? ' selected' : ''),
         style: 'width:' + w + 'px;height:' + hh + 'px;transform:translate3d(' + Math.round(x * scale) + 'px,' + Math.round(y * scale) + 'px,0);z-index:' + (isDragging ? 200 : sel ? 150 : 50),
-      }, [h('i', { class: 'fas ' + m.icon, style: 'font-size:' + Math.max(8, 10 * scale) + 'px' })]);
+      }, [modContent(m, scale, settings)]);
       if (isDragging || sel) node.appendChild(h('div', { class: 'hud-tag', style: 'top:' + (hh + 6) + 'px', text: m.id }));
       node.addEventListener('pointerdown', (e) => onModulePointerDown(e, m));
       layer.appendChild(node);

@@ -2657,6 +2657,48 @@ main :focus-visible,
 }
 
 .hud-stage[data-device="mobile"] .hud-canvas {
-    width: min(100cqw, 100cqh * 2.1667);
-    aspect-ratio: 19.5 / 9;
+    width: min(100cqw, 100cqh * 2.2222);
+    aspect-ratio: 20 / 9;
 }
+
+/* ── HUD preview scene (config/hud-scene.js) ── */
+.hs-scene, .hs-mod { image-rendering: pixelated; font-family: 'Pixelify Sans', ui-monospace, Consolas, monospace; font-size: 8px; line-height: 9px; color: #fff; }
+.hs-scene { position: absolute; left: 0; top: 0; transform-origin: 0 0; overflow: hidden; pointer-events: none; }
+.hs-scene *, .hs-mod * { box-sizing: border-box; }
+.hs-px { image-rendering: pixelated; display: block; }
+.hs-sky { position: absolute; inset: 0; background: linear-gradient(#7aa5ee, #bcd3f7 56%); }
+.hs-ground { position: absolute; left: 0; right: 0; bottom: 0; background-color: #6ca84e; background-image: url(img/mc/blocks__grass_carried.png); background-size: 24px 24px; background-blend-mode: multiply; image-rendering: pixelated; }
+.hs-abs { position: absolute; }
+.hs-lvl { color: #80ff20; text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000; }
+.hs-cross { position: absolute; width: 9px; height: 9px; mix-blend-mode: difference; }
+.hs-ch-h, .hs-ch-v { position: absolute; background: #fff; }
+.hs-ch-h { left: 0; top: 4px; width: 9px; height: 1px; }
+.hs-ch-v { left: 4px; top: 0; width: 1px; height: 9px; }
+
+/* Modules are drawn in GUI px inside a scaled wrapper. */
+.hs-mod { position: absolute; left: 0; top: 0; transform-origin: 0 0; pointer-events: none; }
+.hs-ub { position: relative; display: flex; align-items: center; padding: 0 3px; border-radius: 2px 2px 0 0; overflow: hidden; white-space: pre; }
+.hs-ub::before { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--a, .7); }
+.hs-ub::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: #7289da; }
+.hs-ub > * { position: relative; text-shadow: 1px 1px 0 #3f3f3f; }
+.hs-black { position: relative; width: max-content; padding: 1px 3px; }
+.hs-black::before { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--a, .7); }
+.hs-black > * { position: relative; text-shadow: 1px 1px 0 #3f3f3f; }
+.hs-row { display: flex; align-items: center; gap: 3px; }
+.hs-col { display: flex; flex-direction: column; gap: 1px; }
+.hs-t { white-space: pre; }
+.hs-center { display: flex; align-items: center; justify-content: center; gap: 2px; width: 100%; }
+.hs-fill { position: relative; }
+.hs-invgrid { display: grid; grid-template-columns: repeat(9, 7px); gap: 1px; }
+.hs-slot { width: 7px; height: 7px; background: rgba(255, 255, 255, .18); display: flex; align-items: center; justify-content: center; }
+.hs-tape { position: relative; height: 100%; overflow: hidden; }
+.hs-tick { position: absolute; top: 0; width: 1px; background: #fff; opacity: .8; }
+.hs-needle { position: absolute; top: 0; width: 1px; height: 100%; background: #7289da; }
+.hs-dur-bg { position: absolute; width: 13px; height: 2px; background: #000; }
+.hs-dur { position: absolute; height: 1px; }
+.hs-chunks { position: relative; display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr); border: 1px solid #000; }
+.hs-player-dot { position: absolute; left: 50%; top: 50%; width: 3px; height: 3px; margin: -1px 0 0 -1px; background: #fff; box-shadow: 0 0 0 1px #000; }
+
+/* Selection chrome only: the real drawing replaces the placeholder icon box. */
+.hud-module.has-render { background: none; border-color: transparent; box-shadow: none; }
+.hud-module.has-render:hover, .hud-module.has-render.selected, .hud-module.has-render.dragging { outline: 1px dashed var(--accent, #7289da); outline-offset: 2px; }
