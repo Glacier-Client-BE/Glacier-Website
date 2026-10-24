@@ -7,11 +7,11 @@
 // more letters, takes prefixes and a few synonyms, and ranks title > keyword >
 // body text, with a small boost for mods, pages and actions.
 
-import { state } from './state.js?v=20261024211110';
-import { $, debounce, emptyStateHtml, escAttr, formatBytes, prefersReducedMotion, slugify } from './utils.js?v=20261024211110';
-import { showSection, showNotFound, searchMods, setActiveTab, toggleMobileMenu } from './navigation.js?v=20261024211110';
-import { applyTheme } from './ui.js?v=20261024211110';
-import { t, currentLang } from './i18n.js?v=20261024211110';
+import { state } from './state.js?v=20261024211522';
+import { $, debounce, emptyStateHtml, escAttr, formatBytes, prefersReducedMotion, slugify } from './utils.js?v=20261024211522';
+import { showSection, showNotFound, searchMods, setActiveTab, toggleMobileMenu } from './navigation.js?v=20261024211522';
+import { applyTheme } from './ui.js?v=20261024211522';
+import { t, currentLang } from './i18n.js?v=20261024211522';
 
 const RECENT_KEY = 'gc-search-recent';
 const RECENT_MAX = 5;
