@@ -6488,7 +6488,7 @@ textarea {
 
 [data-theme="light"] .hero::after {
     background:
-        linear-gradient(180deg, rgba(246, 247, 251, .82) 0%, rgba(246, 247, 251, .94) 100%),
+        linear-gradient(90deg, rgba(246, 247, 251, .9) 0%, rgba(246, 247, 251, .62) 50%, rgba(246, 247, 251, .22) 100%),
         url('../assets/BG.webp') center / cover no-repeat;
 }
 
@@ -6498,5 +6498,21 @@ textarea {
         align-self: start;
         margin-top: clamp(8px, 2.5vw, 36px);
         max-width: 700px;
+    }
+}
+
+/* Light mode: keep the backdrop visible but the copy readable. */
+[data-theme="light"] .hero-subtitle,
+[data-theme="light"] .hero-platform,
+[data-theme="light"] .hero-trust,
+[data-theme="light"] .hero-stat-label {
+    color: #2b3050;
+}
+
+@media (max-width: 900px) {
+    [data-theme="light"] .hero::after {
+        background:
+            linear-gradient(180deg, rgba(246, 247, 251, .8) 0%, rgba(246, 247, 251, .72) 100%),
+            url('../assets/BG.webp') center / cover no-repeat;
     }
 }
