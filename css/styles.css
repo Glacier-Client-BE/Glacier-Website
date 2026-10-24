@@ -6354,3 +6354,10 @@ textarea {
     cursor: pointer;
     backdrop-filter: blur(6px);
 }
+
+/* Four videos: a 2×2 grid reads better than 3 + 1 orphan. */
+@media (min-width: 700px) {
+    .showcase-video-grid:has(> :nth-child(4):last-child) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
