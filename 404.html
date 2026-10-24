@@ -266,58 +266,15 @@
                     </div>
                 </div>
 
-                <section class="showcase sc" aria-label="Glacier Client interface showcase">
-                    <p class="sc-eyebrow" data-i18n="showcase.eyebrow">A peek inside</p>
-                    <div class="sc-stage">
-                        <div class="sc-panel" role="tabpanel" id="sc-panel" aria-labelledby="sc-tab-0" data-dir="next">
-                            <img src="assets/mod_menu.webp" alt="Glacier Client Mod Menu" class="sc-img is-on" width="1110" height="659" loading="lazy" decoding="async" />
-                            <img src="assets/start_screen.webp" alt="Glacier Client Start Screen" class="sc-img" width="1915" height="1077" loading="lazy" decoding="async" aria-hidden="true" />
-                            <img src="assets/pause_screen.webp" alt="Glacier Client Pause Screen" class="sc-img" width="1920" height="1080" loading="lazy" decoding="async" aria-hidden="true" />
-                            <div class="sc-chip" aria-hidden="true">
-                                <span class="sc-chip-item is-on"><i class="fas fa-sliders-h sc-chip-ico"></i><span data-i18n="showcase.tabs.modMenuShort">Menu</span></span>
-                                <span class="sc-chip-item"><i class="fas fa-house sc-chip-ico"></i><span data-i18n="showcase.tabs.startScreenShort">Start</span></span>
-                                <span class="sc-chip-item"><i class="fas fa-pause sc-chip-ico"></i><span data-i18n="showcase.tabs.pauseScreenShort">Pause</span></span>
-                            </div>
-                        </div>
+                <section class="peek" aria-label="Glacier Client interface preview">
+                    <p class="peek-eyebrow" data-i18n="showcase.eyebrow">A peek inside</p>
+                    <div class="peek-frame">
+                        <video class="peek-video" src="assets/peek-inside.mp4" poster="assets/mod_menu.webp" width="1280" height="720"
+                            autoplay muted loop playsinline preload="metadata"
+                            aria-label="Animated tour of the Glacier mod menu, start screen and pause screen"></video>
+                        <button class="peek-toggle" type="button" aria-label="Pause video"><i class="fas fa-pause" aria-hidden="true"></i></button>
                     </div>
-                    <div class="sc-nav">
-                        <div class="sc-tablist" role="tablist" aria-label="Choose a screen">
-                            <span class="sc-indicator" aria-hidden="true"></span>
-                            <button class="sc-tab" type="button" role="tab" id="sc-tab-0" aria-controls="sc-panel" aria-selected="true" tabindex="0">
-                                <span class="sc-long" data-i18n="showcase.tabs.modMenu">Mod menu</span><span class="sc-short" data-i18n="showcase.tabs.modMenuShort">Menu</span>
-                                <span class="sc-bar" aria-hidden="true"><span class="sc-fill"></span></span>
-                            </button>
-                            <button class="sc-tab" type="button" role="tab" id="sc-tab-1" aria-controls="sc-panel" aria-selected="false" tabindex="-1">
-                                <span class="sc-long" data-i18n="showcase.tabs.startScreen">Start screen</span><span class="sc-short" data-i18n="showcase.tabs.startScreenShort">Start</span>
-                                <span class="sc-bar" aria-hidden="true"><span class="sc-fill"></span></span>
-                            </button>
-                            <button class="sc-tab" type="button" role="tab" id="sc-tab-2" aria-controls="sc-panel" aria-selected="false" tabindex="-1">
-                                <span class="sc-long" data-i18n="showcase.tabs.pauseScreen">Pause screen</span><span class="sc-short" data-i18n="showcase.tabs.pauseScreenShort">Pause</span>
-                                <span class="sc-bar" aria-hidden="true"><span class="sc-fill"></span></span>
-                            </button>
-                        </div>
-                        <button class="sc-toggle" type="button" aria-label="Pause autoplay">
-                            <i class="fas fa-pause sc-icon-pause" aria-hidden="true"></i>
-                            <i class="fas fa-play sc-icon-play" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <div class="sc-captions">
-                        <div class="sc-cap is-on" id="sc-cap-0">
-                            <h2 class="sc-heading" data-i18n="showcase.modMenu.heading">Modular menu, your way.</h2>
-                            <p class="sc-body" data-i18n="showcase.modMenu.body">Drag, drop, and dial-in 37+ modules in real time. Customize
-                                the HUD without ever leaving the game.</p>
-                        </div>
-                        <div class="sc-cap" id="sc-cap-1" aria-hidden="true">
-                            <h2 class="sc-heading" data-i18n="showcase.startScreen.heading">A custom welcome.</h2>
-                            <p class="sc-body" data-i18n="showcase.startScreen.body">Branded main menu with crisp typography and smooth
-                                animation, every launch.</p>
-                        </div>
-                        <div class="sc-cap" id="sc-cap-2" aria-hidden="true">
-                            <h2 class="sc-heading" data-i18n="showcase.pauseScreen.heading">QOL-first pause.</h2>
-                            <p class="sc-body" data-i18n="showcase.pauseScreen.body">Quick toggles and rich information without breaking your
-                                flow.</p>
-                        </div>
-                    </div>
+                    <p class="visually-hidden">Modular menu with 37+ modules you drag, drop and tune live; a branded start screen; and a quality-of-life pause screen.</p>
                 </section>
 
                 <div class="container">
