@@ -6362,74 +6362,111 @@ textarea {
     }
 }
 
-/* Hero media: motion tour <-> official teaser. */
-.hero-stage {
+/* Hero deck: two stacked 16:9 cards that trade places. */
+#heroMedia.hero-deck,
+#heroMedia.hero-deck:hover {
     position: relative;
     aspect-ratio: 16 / 9;
-    border-radius: var(--r-inner, 12px);
-    overflow: hidden;
-    background: #07080f;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    overflow: visible;
+    transform: none;
+    width: 100%;
+    max-width: 640px;
+    margin-inline: auto;
 }
 
-.hero-motion,
-.hero-teaser {
+#heroMedia.hero-deck::before {
+    display: none;
+}
+
+.hero-card {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #07080f;
+    border: 1px solid rgba(255, 255, 255, .14);
+    box-shadow: 0 30px 70px -24px rgba(0, 0, 0, .6);
+    cursor: pointer;
+    transition: transform .8s cubic-bezier(.22, 1, .36, 1), opacity .8s ease, filter .8s ease;
+}
+
+.hero-card[data-pos="front"] {
+    z-index: 2;
+    transform: translate(0, 0) scale(1);
+    cursor: default;
+}
+
+.hero-card[data-pos="back"] {
+    z-index: 1;
+    transform: translate(7%, -9%) scale(.9);
+    opacity: .75;
+    filter: brightness(.7) saturate(.9);
+}
+
+@media (hover: hover) {
+    .hero-card[data-pos="back"]:hover {
+        transform: translate(8%, -10%) scale(.91);
+        opacity: .95;
+    }
+}
+
+.hero-card video,
+.hero-teaser,
+.hero-teaser img,
+.hero-teaser iframe {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .5s var(--ease-out, ease);
-}
-
-.hero-motion {
-    object-fit: cover;
-}
-
-.hero-motion.is-on,
-.hero-teaser.is-on {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.hero-teaser iframe {
-    width: 100%;
-    height: 100%;
     border: 0;
+    object-fit: cover;
+    display: block;
 }
 
-.hero-media-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 4px 2px;
+.hero-card[data-pos="back"] .hero-teaser iframe,
+.hero-card[data-pos="back"] video {
+    pointer-events: none;
 }
 
-.hero-pill {
-    padding: 6px 14px;
+.hero-card-tag {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    padding: 4px 12px;
     border-radius: var(--pill);
-    border: 1px solid var(--glass-border);
-    background: var(--glass);
-    color: var(--text-dim);
-    font: inherit;
-    font-size: .8rem;
-    font-weight: 600;
-    cursor: pointer;
+    background: rgba(7, 8, 15, .65);
+    border: 1px solid rgba(255, 255, 255, .18);
+    color: #fff;
+    font-size: .75rem;
+    font-weight: 700;
+    transition: opacity .4s ease;
 }
 
-.hero-pill.is-on {
-    background: var(--accent-bg);
-    border-color: var(--accent);
-    color: var(--text);
+.hero-card[data-pos="front"] .hero-card-tag {
+    opacity: 0;
 }
 
 .hero-media-toggle {
-    margin-left: auto;
-    width: 32px;
-    height: 32px;
+    position: absolute;
+    right: 4px;
+    bottom: -46px;
+    z-index: 3;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     border: 1px solid var(--glass-border);
-    background: var(--glass);
+    background: var(--glass-strong);
     color: var(--text);
     cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    #heroMedia.hero-deck {
+        margin-top: 24px;
+        margin-bottom: 56px;
+    }
 }

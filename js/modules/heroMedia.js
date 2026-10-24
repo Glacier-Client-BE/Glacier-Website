@@ -1,6 +1,6 @@
-// Hero media: the motion tour plays once, swaps to the official v7 teaser
-// (YouTube, muted), and swaps back when the teaser ends. Always playing unless
-// the viewer pauses; the pills switch manually.
+// Hero deck: two stacked cards (motion tour, official v7 teaser). The front card
+// plays; when it ends the cards trade places. Always playing unless the viewer
+// pauses. Clicking the card behind brings it forward.
 const TEASER_ID = 'vkaY68eebOA';
 
 let ytReady;
@@ -21,63 +21,70 @@ function loadYT() {
 export function setupHeroMedia() {
     const root = document.getElementById('heroMedia');
     if (!root) return;
-    const video = root.querySelector('.hero-motion');
-    const teaser = root.querySelector('.hero-teaser');
-    const pills = [...root.querySelectorAll('.hero-pill')];
+    const cards = Object.fromEntries([...root.querySelectorAll('.hero-card')].map(c => [c.dataset.card, c]));
+    const video = cards.tour.querySelector('video');
+    const teaser = cards.teaser.querySelector('.hero-teaser');
     const toggle = root.querySelector('.hero-media-toggle');
     const icon = toggle.querySelector('i');
-    let mode = 'tour';
+    let front = 'tour';
     let paused = false;
     let player = null;
 
     const paint = () => {
-        pills.forEach(p => p.classList.toggle('is-on', p.dataset.media === mode));
+        for (const [name, el] of Object.entries(cards)) el.dataset.pos = name === front ? 'front' : 'back';
         icon.className = `fas fa-${paused ? 'play' : 'pause'}`;
         toggle.setAttribute('aria-label', paused ? 'Play video' : 'Pause video');
-        video.classList.toggle('is-on', mode === 'tour');
-        teaser.classList.toggle('is-on', mode === 'teaser');
-        teaser.setAttribute('aria-hidden', String(mode !== 'teaser'));
     };
 
-    async function showTeaser() {
-        mode = 'teaser';
-        video.pause();
-        paint();
+    async function playTeaser() {
         const YT = await loadYT();
-        if (mode !== 'teaser') return;
+        if (front !== 'teaser') return;
         if (!player) {
             teaser.innerHTML = '<div id="heroTeaserFrame"></div>';
             player = new YT.Player('heroTeaserFrame', {
                 videoId: TEASER_ID,
                 host: 'https://www.youtube-nocookie.com',
-                playerVars: { autoplay: 1, mute: 1, playsinline: 1, rel: 0, modestbranding: 1 },
+                playerVars: { autoplay: 1, mute: 1, playsinline: 1, rel: 0, modestbranding: 1, controls: 0 },
                 events: {
-                    onReady: e => { e.target.mute(); if (!paused) e.target.playVideo(); },
-                    onStateChange: e => { if (e.data === YT.PlayerState.ENDED) showTour(); },
+                    onReady: e => { e.target.mute(); if (!paused && front === 'teaser') e.target.playVideo(); },
+                    onStateChange: e => { if (e.data === YT.PlayerState.ENDED) bring('tour'); },
                 },
             });
         } else if (!paused) {
+            player.seekTo?.(0);
             player.playVideo();
         }
     }
 
-    function showTour() {
-        mode = 'tour';
-        player?.pauseVideo?.();
-        video.currentTime = 0;
-        if (!paused) video.play().catch(() => {});
+    function bring(name) {
+        if (name === front) return;
+        front = name;
         paint();
+        if (name === 'tour') {
+            player?.pauseVideo?.();
+            video.currentTime = 0;
+            if (!paused) video.play().catch(() => {});
+        } else {
+            video.pause();
+            playTeaser();
+        }
     }
 
-    video.addEventListener('ended', () => { if (!paused) showTeaser(); });
-    pills.forEach(p => p.addEventListener('click', () => (p.dataset.media === 'teaser' ? showTeaser() : showTour())));
+    video.addEventListener('ended', () => { if (!paused) bring('teaser'); });
+    for (const [name, el] of Object.entries(cards)) {
+        const act = () => { if (front !== name) bring(name); };
+        el.addEventListener('click', act);
+        el.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); act(); }
+        });
+    }
     toggle.addEventListener('click', () => {
         paused = !paused;
-        if (mode === 'tour') (paused ? video.pause() : video.play().catch(() => {}));
+        if (front === 'tour') (paused ? video.pause() : video.play().catch(() => {}));
         else if (player?.getPlayerState) (paused ? player.pauseVideo() : player.playVideo());
         paint();
     });
-    const start = () => { if (mode === 'tour' && !paused) video.play().catch(() => {}); };
+    const start = () => { if (front === 'tour' && !paused) video.play().catch(() => {}); };
     video.addEventListener('canplay', start);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) start(); });
     start();
