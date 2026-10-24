@@ -2583,3 +2583,80 @@ main :focus-visible,
 [data-theme="light"] .group-reset {
     color: var(--text-dim);
 }
+
+/* ── Preview controls (PC / Mobile, GUI scale) + device-shaped canvas ── */
+.preview-ctl {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.seg-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    border-radius: var(--pill);
+    background: var(--bg-item);
+    border: 1px solid var(--surface-border);
+}
+
+.seg-pill .seg-label {
+    padding: 0 8px 0 10px;
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.seg-pill button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border: 0;
+    border-radius: var(--pill);
+    background: none;
+    color: var(--text-dim);
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.seg-pill button:hover {
+    color: var(--text);
+}
+
+.seg-pill button.active {
+    background: var(--accent);
+    color: #fff;
+}
+
+[data-theme="light"] .seg-pill button.active {
+    background: var(--accent-strong);
+}
+
+.ws-preview-body {
+    container-type: size;
+}
+
+/* Canvas takes the shape of the chosen device, centred in the stage. */
+.hud-stage {
+    align-items: center;
+    justify-content: center;
+}
+
+.hud-stage .hud-canvas {
+    flex: none;
+    width: min(100cqw, 100cqh * 1.7778);
+    aspect-ratio: 16 / 9;
+    height: auto;
+}
+
+.hud-stage[data-device="mobile"] .hud-canvas {
+    width: min(100cqw, 100cqh * 2.1667);
+    aspect-ratio: 19.5 / 9;
+}

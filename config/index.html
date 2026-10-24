@@ -216,6 +216,18 @@
                             <button class="view-tab" data-view="raw"><i class="fas fa-code" aria-hidden="true"></i>
                                 Code</button>
                         </div>
+                        <div class="preview-ctl" id="previewCtl">
+                            <div class="seg-pill" id="deviceSeg" role="group" aria-label="Preview device">
+                                <button type="button" class="active" data-device="pc"><i class="fas fa-desktop" aria-hidden="true"></i> PC</button>
+                                <button type="button" data-device="mobile"><i class="fas fa-mobile-screen" aria-hidden="true"></i> Mobile</button>
+                            </div>
+                            <div class="seg-pill" id="scaleSeg" role="group" aria-label="GUI scale">
+                                <span class="seg-label">GUI scale</span>
+                                <button type="button" data-scale="1">1x</button>
+                                <button type="button" class="active" data-scale="2">2x</button>
+                                <button type="button" data-scale="3">3x</button>
+                            </div>
+                        </div>
                         <div class="ws-preview-actions">
                             <button class="chip-btn accent" id="copyBtn" style="display:none"><i class="fas fa-copy"
                                     aria-hidden="true"></i> Copy</button>

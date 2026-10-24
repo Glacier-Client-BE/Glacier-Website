@@ -109,6 +109,8 @@
   let redoStack = [];
   let searchTerm = '';
   let enabledOnly = false;
+  let previewDevice = 'pc';   // 'pc' | 'mobile'
+  let guiScale = 2;           // 1 | 2 | 3
   let expandedGroups = {};
   let selectedId = null;
   let showBackground = true;
@@ -530,6 +532,7 @@
     $('copyBtn').style.display = isRaw ? '' : 'none';
     $('bgToggle').style.display = isRaw ? 'none' : '';
     $('fsToggle').style.display = isRaw ? 'none' : '';
+    $('previewCtl').style.display = isRaw ? 'none' : '';
     if (isRaw) wrap.appendChild(buildRaw());
     else wrap.appendChild(buildHUD());
   }
@@ -583,14 +586,14 @@
     if (!hudRefs) return 1;
     const w = hudRefs.canvas.clientWidth;
     if (!w) return 1;
-    return Math.max(coarse() ? MIN_SCALE_TOUCH : MIN_SCALE, w / REFERENCE_WIDTH);
+    return Math.max(coarse() ? MIN_SCALE_TOUCH : MIN_SCALE, (w / REFERENCE_WIDTH) * (guiScale / 2));
   }
 
   let drag = null; // { id, anchor, offset } preview during drag
   let dragState = null;
 
   function buildHUD() {
-    const stage = h('div', { class: 'hud-stage' });
+    const stage = h('div', { class: 'hud-stage', 'data-device': previewDevice });
     const canvas = h('div', { class: 'hud-canvas' });
     if (showBackground) {
       canvas.appendChild(h('div', { class: 'hud-bg', style: "background-image:url('img/HUD.png')" }));
@@ -1180,6 +1183,18 @@
     $('optJson').addEventListener('click', () => { closeExportMenu(); exportJSON(); });
 
     // Preview toolbar: background + fullscreen
+    const bindSeg = (id, attr, apply) => {
+      const seg = $(id);
+      seg.addEventListener('click', (e) => {
+        const b = e.target.closest('button[' + attr + ']');
+        if (!b) return;
+        seg.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
+        apply(b.getAttribute(attr));
+        renderView();
+      });
+    };
+    bindSeg('deviceSeg', 'data-device', (v) => { previewDevice = v; });
+    bindSeg('scaleSeg', 'data-scale', (v) => { guiScale = Number(v); });
     $('bgToggle').addEventListener('click', () => {
       showBackground = !showBackground;
       $('bgToggle').classList.toggle('active', showBackground);
