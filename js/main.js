@@ -20,12 +20,14 @@ import { setupI18n } from './modules/i18n.js?v=20261024211110';
 import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js?v=20261024211110';
 import { setupFeedback } from './modules/feedback.js?v=20261024211110';
 import { observeCounts } from './modules/countup.js?v=20261024211110';
+import { setupHeroMedia } from './modules/heroMedia.js?v=20261024211110';
 import { setupPeek } from './modules/peek.js?v=20261024211110';
 import { setupPlatformHint, setupStickyCta } from './modules/platform.js?v=20261024211110';
 
 function init() {
     setupPlatformHint();
     setupPeek();
+    setupHeroMedia();
     setupStickyCta();
     state.dom = {
         headerEl: $('mainHeader'),
