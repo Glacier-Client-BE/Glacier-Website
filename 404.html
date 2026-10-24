@@ -230,18 +230,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="hero-image" id="heroMedia">
-                    <div class="hero-stage">
-                        <video class="hero-motion is-on" src="assets/peek-inside.mp4" poster="assets/mod_menu.webp" width="1280" height="720"
+                <div class="hero-image hero-deck" id="heroMedia">
+                    <div class="hero-card" data-card="teaser" data-pos="back" role="button" tabindex="0" aria-label="Show the Glacier v7 teaser">
+                        <div class="hero-teaser" id="heroTeaser">
+                            <img src="https://i.ytimg.com/vi/vkaY68eebOA/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+                        </div>
+                        <span class="hero-card-tag">v7 Teaser</span>
+                    </div>
+                    <div class="hero-card" data-card="tour" data-pos="front" role="button" tabindex="0" aria-label="Show the Glacier tour">
+                        <video class="hero-motion" src="assets/hero-tour.mp4" poster="assets/mod_menu.webp" width="1280" height="720"
                             autoplay muted playsinline preload="auto"
                             aria-label="Animated tour of the Glacier mod menu, start screen and pause screen"></video>
-                        <div class="hero-teaser" id="heroTeaser" aria-hidden="true"></div>
+                        <span class="hero-card-tag">Tour</span>
                     </div>
-                    <div class="hero-media-bar">
-                        <button type="button" class="hero-pill is-on" data-media="tour">Tour</button>
-                        <button type="button" class="hero-pill" data-media="teaser">v7 Teaser</button>
-                        <button type="button" class="hero-media-toggle" aria-label="Pause video"><i class="fas fa-pause" aria-hidden="true"></i></button>
-                    </div>
+                    <button type="button" class="hero-media-toggle" aria-label="Pause video"><i class="fas fa-pause" aria-hidden="true"></i></button>
                 </div>
             </div>
         </section>
