@@ -20,10 +20,12 @@ import { setupI18n } from './modules/i18n.js?v=20261024204806';
 import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js?v=20261024204806';
 import { setupFeedback } from './modules/feedback.js?v=20261024204806';
 import { observeCounts } from './modules/countup.js?v=20261024204806';
+import { setupPeek } from './modules/peek.js?v=20261024204806';
 import { setupPlatformHint, setupStickyCta } from './modules/platform.js?v=20261024204806';
 
 function init() {
     setupPlatformHint();
+    setupPeek();
     setupStickyCta();
     state.dom = {
         headerEl: $('mainHeader'),
