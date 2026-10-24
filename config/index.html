@@ -84,13 +84,45 @@
     </header>
 
     <main id="main-content" tabindex="-1">
-        <div class="container">
-
-            <div class="section-header">
-                <h2 class="section-title">Config Editor</h2>
-                <p class="section-subtitle">Toggle modules, drag the HUD where you want it, and export a ready-to-import
-                    pack &mdash; no JSON editing required.</p>
+        <section class="hero" id="hero-section">
+            <div class="hero-container container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Build your Glacier config. No JSON.</h1>
+                    <p class="hero-subtitle">Toggle modules, drag the HUD where you want it, and export a
+                        ready-to-import pack &mdash; no JSON editing required.</p>
+                    <div class="hero-buttons">
+                        <a href="#editorStart" class="btn btn-primary" id="heroStartBtn">
+                            <i class="fas fa-sliders-h" aria-hidden="true"></i> <span>Start editing</span>
+                        </a>
+                        <a href="https://glacierclient.xyz/downloads" class="btn btn-secondary">
+                            <i class="fas fa-download" aria-hidden="true"></i> <span>Get Glacier</span>
+                        </a>
+                    </div>
+                    <ul class="hero-trust" aria-label="Highlights">
+                        <li><i class="fas fa-eye" aria-hidden="true"></i> Live preview</li>
+                        <li><i class="fas fa-arrows-up-down-left-right" aria-hidden="true"></i> Drag the HUD</li>
+                        <li><i class="fas fa-file-export" aria-hidden="true"></i> One-click export</li>
+                    </ul>
+                </div>
+                <div class="hero-image hero-deck" id="heroMedia">
+                    <div class="hero-card" data-card="teaser" data-pos="back" role="button" tabindex="0" aria-label="Show the Glacier v7 teaser">
+                        <div class="hero-teaser" id="heroTeaser">
+                            <img src="https://i.ytimg.com/vi/vkaY68eebOA/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+                        </div>
+                        <span class="hero-card-tag">v7 Teaser</span>
+                    </div>
+                    <div class="hero-card" data-card="tour" data-pos="front" role="button" tabindex="0" aria-label="Show the Glacier tour">
+                        <video class="hero-motion" src="/assets/hero-tour.mp4" poster="/assets/mod_menu.webp" width="1280" height="720"
+                            autoplay muted playsinline preload="auto"
+                            aria-label="Animated tour of the Glacier mod menu, start screen and pause screen"></video>
+                        <span class="hero-card-tag">Tour</span>
+                    </div>
+                    <button type="button" class="hero-media-toggle" aria-label="Pause video"><i class="fas fa-pause" aria-hidden="true"></i></button>
+                </div>
             </div>
+        </section>
+
+        <div class="container" id="editorStart">
 
             <!-- Editor toolbar: everything that acts on the document lives here
                  rather than in the header, so the header stays the site's. -->
@@ -312,7 +344,11 @@
     <div class="editor-toast" id="toast" role="status" aria-live="polite"><i class="fas fa-check-circle" aria-hidden="true"></i><span
             id="toastMsg"></span></div>
 
-    <script src="config-data.js?v=20261024212749"></script>
+    <script type="module">
+        import { setupHeroMedia } from '/js/modules/heroMedia.js';
+        setupHeroMedia();
+    </script>
+        <script src="config-data.js?v=20261024212749"></script>
     <script src="app.js?v=20261024212749"></script>
 </body>
 
