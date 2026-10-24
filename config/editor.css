@@ -2449,3 +2449,137 @@ main :focus-visible,
     color: var(--text-dim);
     font-variant-numeric: tabular-nums;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Desktop layout, after Pepe's Assets Pack Customizer:
+   toolbar on top → full-width live preview → settings as a card grid.
+   Same DOM and IDs as before; the sidebar wrapper just dissolves into the
+   workspace grid. Below 1000px the original stacked / switched layout stays.
+   ═══════════════════════════════════════════════════════════════ */
+@media (min-width: 1000px) {
+    .workspace {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "head foot"
+            "preview preview"
+            "list list";
+        gap: 18px;
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        overflow: visible;
+        background: none;
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .ws-sidebar {
+        display: contents;
+    }
+
+    /* Toolbar: search + filters left, actions right, as one sticky card. */
+    .ws-sidebar-head,
+    .ws-sidebar-foot {
+        position: sticky;
+        top: 76px;
+        z-index: 20;
+        background: var(--glass-strong);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(var(--blur));
+        -webkit-backdrop-filter: blur(var(--blur));
+    }
+
+    .ws-sidebar-head {
+        grid-area: head;
+        display: grid;
+        grid-template-columns: auto minmax(220px, 1fr) auto;
+        grid-template-areas:
+            "title search filter"
+            "pills pills pills";
+        align-items: center;
+        gap: 12px 16px;
+        padding: 14px 18px;
+        border-radius: 16px;
+    }
+
+    .ws-sidebar-head .panel-head-row { grid-area: title; gap: 12px; }
+    .ws-sidebar-head .search-bar { grid-area: search; margin: 0; }
+    .ws-sidebar-head .filter-row { grid-area: filter; margin: 0; gap: 14px; }
+    .ws-sidebar-head .section-pills { grid-area: pills; }
+
+    .ws-sidebar-foot {
+        grid-area: foot;
+        align-self: start;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background-image: none;
+    }
+
+    /* The menu drops down from the toolbar instead of opening upward. */
+    .export-menu {
+        top: calc(100% + 10px);
+        bottom: auto;
+        left: auto;
+        right: 0;
+        width: 340px;
+    }
+
+    .ws-preview {
+        grid-area: preview;
+        height: clamp(380px, 62vh, 620px);
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    /* Settings flow with the page, as a two-column grid of cards. */
+    .scroll-body {
+        grid-area: list;
+        overflow: visible;
+        padding: 0;
+    }
+
+    .scroll-body .controls-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        align-items: start;
+    }
+
+    .scroll-body .controls-list > .group,
+    .scroll-body .controls-list > .chunk {
+        margin: 0;
+    }
+
+    .scroll-body .controls-list .controls-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .mobile-switch { display: none; }
+}
+
+@media (min-width: 1000px) and (max-width: 1200px) {
+    .ws-sidebar-head {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "title filter"
+            "search search"
+            "pills pills";
+    }
+}
+
+.group-reset {
+    margin-left: auto;
+    margin-right: 10px;
+    padding: 4px 12px;
+    font-size: .72rem;
+}
+
+[data-theme="light"] .group-reset {
+    color: var(--text-dim);
+}

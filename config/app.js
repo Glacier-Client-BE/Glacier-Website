@@ -318,7 +318,8 @@
   function renderGroup(groupId, data) {
     const sec = config[activeSection];
     const enabled = data.root ? sec[data.root] === true : true;
-    const open = !!expandedGroups[groupId];
+    // Enabled modules start expanded (like the reference customizer's cards); locked ones stay collapsed.
+    const open = expandedGroups[groupId] !== undefined ? !!expandedGroups[groupId] : enabled;
 
     const wrap = h('div', { class: 'group' + (open ? ' open' : ''), 'data-key': groupId });
     const head = h('div', { class: 'group-head', tabindex: '0' });
@@ -335,6 +336,22 @@
       h('span', { class: 'group-count', text: data.children.length + ' ' + (data.children.length === 1 ? 'parameter' : 'parameters') }),
     ]));
     head.appendChild(left);
+    // Per-card reset (only offered once the card differs from its defaults).
+    const def = (DEFAULT_CONFIGS[version] || {})[activeSection] || {};
+    const cardKeys = (data.root ? [data.root] : []).concat(data.children);
+    const modified = cardKeys.some((k) => JSON.stringify(sec[k]) !== JSON.stringify(def[k]));
+    if (modified) {
+      const rb = h('button', { class: 'chip-btn group-reset', type: 'button', title: 'Reset ' + groupId.replace(/_/g, ' ') + ' to defaults', text: 'Reset' });
+      rb.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const next = clone(config[activeSection]);
+        cardKeys.forEach((k) => { if (k in def) next[k] = clone(def[k]); else delete next[k]; });
+        updateConfig([activeSection], next, false, 'controls');
+        renderView();
+        toast('Module reset to defaults');
+      });
+      head.appendChild(rb);
+    }
     head.appendChild(h('i', { class: 'fas fa-chevron-down group-chevron' }));
     const toggleOpen = () => { expandedGroups[groupId] = !open; renderControls(); };
     head.addEventListener('click', toggleOpen);
