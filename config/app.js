@@ -550,7 +550,7 @@
       const anchorKey = '$' + base + '_anchor|default';
       const offsetKey = '$' + base + '_offset|default';
       if (mm[anchorKey] === undefined || mm[offsetKey] === undefined) continue;
-      const size = HUD_SIZES[base] || { w: 64, h: 32, icon: 'fa-cube' };
+      const size = Object.assign({ w: 64, h: 32, icon: 'fa-cube' }, HUD_SIZES[base] || {}, (window.GlacierHud && window.GlacierHud.sizeFor(version, base)) ? { w: window.GlacierHud.sizeFor(version, base).w, h: window.GlacierHud.sizeFor(version, base).h } : {});
       mods.push({ id: base, toggleKey: key, anchorKey, offsetKey, width: size.w, height: size.h, icon: size.icon });
     }
     return mods;
@@ -645,7 +645,7 @@
   function modContent(m, scale, settings) {
     if (!window.GlacierHud) return h('i', { class: 'fas ' + m.icon, style: 'font-size:' + Math.max(8, 10 * scale) + 'px' });
     const get = (k, d) => (settings[k] !== undefined ? settings[k] : d);
-    const node = window.GlacierHud.drawModule(m.id, { w: m.width, h: m.height }, get);
+    const node = window.GlacierHud.drawModule(m.id, version, get);
     const wrap = h('div', { class: 'hs-mod', style: 'width:' + m.width + 'px;height:' + m.height + 'px;transform:scale(' + scale + ')' });
     wrap.appendChild(node);
     return wrap;
@@ -808,25 +808,40 @@
   // If the config panel is currently showing mod_menu, refresh it so offset fields update.
   function refreshFormForKeys() { if (activeSection === HUD_SECTION) renderControls(); }
 
-  // Real browser fullscreen on the (stable) preview section.
+  // Fullscreen for the preview section. Uses the browser's Fullscreen API where it works; where it is missing or
+  // refused (iPhone Safari, embedded views, blocked by policy) the panel fills the window instead ("pseudo" mode).
+  let pseudoFs = false;
   function fsElement() { return $('previewPanel'); }
-  function isFullscreen() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+  function nativeFullscreen() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+  function isFullscreen() { return nativeFullscreen() || pseudoFs; }
+  function setPseudoFs(on) {
+    pseudoFs = on;
+    fsElement().classList.toggle('is-pfs', on);
+    document.documentElement.classList.toggle('pfs-lock', on);
+    onFsChange();
+  }
   function enterFullscreen() {
     const el = fsElement();
     const req = el.requestFullscreen || el.webkitRequestFullscreen;
-    if (req) { try { const p = req.call(el, { navigationUI: 'hide' }); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
+    if (!req) { setPseudoFs(true); return; }
+    try {
+      const p = req.call(el, { navigationUI: 'hide' });
+      if (p && p.catch) p.catch(() => setPseudoFs(true));
+    } catch (e) { setPseudoFs(true); }
   }
   function exitFullscreen() {
+    if (pseudoFs) { setPseudoFs(false); return; }
     const ex = document.exitFullscreen || document.webkitExitFullscreen;
-    if (isFullscreen() && ex) { try { const p = ex.call(document); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
+    if (nativeFullscreen() && ex) { try { const p = ex.call(document); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
   }
   function toggleFullscreen() { if (isFullscreen()) exitFullscreen(); else enterFullscreen(); }
   function onFsChange() {
     const fs = isFullscreen();
     const b = $('fsToggle');
     if (b) { b.innerHTML = '<i class="fas ' + (fs ? 'fa-compress' : 'fa-expand') + '"></i>'; b.classList.toggle('active', fs); b.title = fs ? 'Exit fullscreen (Esc)' : 'Fullscreen'; }
-    requestAnimationFrame(refreshHUD);
+    requestAnimationFrame(() => { refreshHUD(); setTimeout(refreshHUD, 120); });
   }
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && pseudoFs) setPseudoFs(false); });
   document.addEventListener('fullscreenchange', onFsChange);
   document.addEventListener('webkitfullscreenchange', onFsChange);
 

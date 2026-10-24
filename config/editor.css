@@ -2702,3 +2702,53 @@ main :focus-visible,
 /* Selection chrome only: the real drawing replaces the placeholder icon box. */
 .hud-module.has-render { background: none; border-color: transparent; box-shadow: none; }
 .hud-module.has-render:hover, .hud-module.has-render.selected, .hud-module.has-render.dragging { outline: 1px dashed var(--accent, #7289da); outline-offset: 2px; }
+
+/* ── Glacier module look (real packs): Inter Medium labels, 2px accent underline ── */
+@font-face { font-family: 'GlacierInter'; src: url('/assets/Inter_Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+.hs-mod, .hs-scene { font-family: 'GlacierInter', 'Inter', system-ui, sans-serif; font-weight: 500; font-size: 8px; line-height: 9px; }
+.hs-ub { border-radius: 1px; padding: 0 2px; }
+.hs-ub::after { height: 2px; }
+.hs-ub > * { text-shadow: none; }
+.hs-slotbg { position: absolute; padding: 0; }
+.hs-line { display: flex; align-items: center; gap: 3px; }
+.hs-split { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 4px; }
+.hs-gap { height: 4px; }
+.hs-hrow { display: flex; gap: 0; }
+.hs-hrow > .hs-ub:first-child { margin-right: 0; }
+.hs-digits { position: relative; height: 7px; flex: none; }
+.hs-dg { position: absolute; top: 0; width: 36px; height: 7px; background-image: url(img/gl/digits.png); image-rendering: pixelated; }
+.hs-neg { background-image: url(img/gl/negative.png); background-position: 0 0 !important; }
+.hs-digits { overflow: hidden; }
+.hs-ub .hs-t { white-space: pre; }
+.hs-tape .hs-t { text-shadow: none; }
+
+/* ── Fullscreen: native API and the window-filling fallback share one look ── */
+#previewPanel:fullscreen,
+#previewPanel:-webkit-full-screen,
+#previewPanel.is-pfs {
+    height: 100% !important;
+    max-height: none !important;
+    width: 100%;
+    border-radius: 0 !important;
+    border: 0 !important;
+    background: var(--bg);
+}
+
+#previewPanel.is-pfs {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    height: 100dvh !important;
+}
+
+html.pfs-lock, html.pfs-lock body {
+    overflow: hidden;
+}
+
+#previewPanel:fullscreen .ws-preview-body,
+#previewPanel.is-pfs .ws-preview-body {
+    padding: 20px;
+}
+
+html.pfs-lock #mainHeader { visibility: hidden; }
+html.pfs-lock #previewPanel.is-pfs { z-index: 100000; }
