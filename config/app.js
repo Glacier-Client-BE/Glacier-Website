@@ -108,6 +108,7 @@
   let history = [];
   let redoStack = [];
   let searchTerm = '';
+  let enabledOnly = false;
   let expandedGroups = {};
   let selectedId = null;
   let showBackground = true;
@@ -413,6 +414,12 @@
       standaloneKeys = standaloneKeys.filter((k) => k.toLowerCase().includes(s));
     }
 
+    const switchable = Object.keys(groups).filter((id) => groups[id].root);
+    const onCount = switchable.filter((id) => sec[groups[id].root] === true).length;
+    const countEl = $('enabledCount');
+    if (countEl) countEl.textContent = switchable.length ? onCount + ' of ' + switchable.length + ' enabled' : '';
+    if (enabledOnly) groupEntries = groupEntries.filter(([id, d]) => !d.root || sec[d.root] === true);
+
     groupEntries.forEach(([id, d]) => list.appendChild(renderGroup(id, d)));
     chunkStandalones(standaloneKeys).forEach((c) => {
       const body = h('div', { class: 'chunk-body' });
@@ -429,7 +436,7 @@
     if (groupEntries.length + standaloneKeys.length === 0) {
       const empty = h('div', { class: 'empty-state', role: 'status' }, [
         h('span', { class: 'empty-state-ico', 'aria-hidden': 'true' }, [h('i', { class: 'fas fa-magnifying-glass' })]),
-        h('p', { text: searchTerm ? 'No settings match "' + searchTerm + '".' : 'No settings in this section.' }),
+        h('p', { text: searchTerm ? 'No settings match "' + searchTerm + '".' : enabledOnly ? 'No modules enabled yet. Switch one on to see it here.' : 'No settings in this section.' }),
         searchTerm ? h('button', { class: 'btn btn-secondary', type: 'button', text: 'Clear search',
           onclick: () => $('searchClear').click() }) : null,
       ].filter(Boolean));
@@ -1164,6 +1171,13 @@
     $('fsToggle').addEventListener('click', toggleFullscreen);
 
     const si = $('searchInput');
+    const eo = $('enabledOnlyBtn');
+    if (eo) eo.addEventListener('click', () => {
+      enabledOnly = !enabledOnly;
+      eo.setAttribute('aria-pressed', String(enabledOnly));
+      eo.classList.toggle('is-on', enabledOnly);
+      renderControls();
+    });
     si.addEventListener('input', (e) => { searchTerm = e.target.value; $('searchWrap').classList.toggle('has-value', !!searchTerm); renderControls(); });
     $('searchClear').addEventListener('click', () => { searchTerm = ''; si.value = ''; $('searchWrap').classList.remove('has-value'); renderControls(); si.focus(); });
 

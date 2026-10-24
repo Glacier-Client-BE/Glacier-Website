@@ -192,9 +192,9 @@ main#main-content {
 /* ── Workspace: one cohesive surface (sidebar + preview stage) ── */
 .workspace {
     display: flex;
-    height: calc(100dvh - 210px);
-    min-height: 540px;
-    max-height: 900px;
+    height: calc(100dvh - 120px);
+    min-height: 600px;
+    max-height: 960px;
     overflow: hidden;
 }
 
@@ -2426,4 +2426,26 @@ main :focus-visible,
 
 [data-theme="light"] .chip-btn.danger {
     color: #b3261e;
+}
+
+/* Enabled-only filter + live count under the module search. */
+.filter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.filter-row .chip-btn.is-on {
+    background: var(--accent-bg);
+    border-color: var(--accent);
+    color: var(--text);
+}
+
+.enabled-count {
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
 }
