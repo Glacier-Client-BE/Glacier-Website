@@ -1,21 +1,24 @@
-// "A peek inside" video: autoplays muted; plays only while on screen, and the
-// toggle lets reduced-motion users (or anyone) stop it.
+// "A peek inside" video: always plays (muted, looping) until the viewer
+// pauses it with the toggle. Their choice is kept for the page session.
 export function setupPeek() {
     const video = document.querySelector('.peek-video');
     const btn = document.querySelector('.peek-toggle');
     if (!video || !btn) return;
-    let userPaused = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const icon = btn.querySelector('i');
+    let userPaused = false;
     const paint = () => {
         icon.className = `fas fa-${userPaused ? 'play' : 'pause'}`;
         btn.setAttribute('aria-label', userPaused ? 'Play video' : 'Pause video');
     };
-    const sync = visible => {
-        if (visible && !userPaused) video.play().catch(() => {});
-        else video.pause();
-    };
-    let visible = false;
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(visible); }, { threshold: 0.25 }).observe(video);
-    btn.addEventListener('click', () => { userPaused = !userPaused; paint(); sync(visible); });
+    const play = () => { if (!userPaused) video.play().catch(() => {}); };
+    play();
+    video.addEventListener('canplay', play);
+    // Autoplay can be deferred by the browser until the tab is shown.
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) play(); });
+    btn.addEventListener('click', () => {
+        userPaused = !userPaused;
+        if (userPaused) video.pause(); else play();
+        paint();
+    });
     paint();
 }
