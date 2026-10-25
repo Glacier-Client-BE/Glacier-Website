@@ -2987,3 +2987,15 @@ html.pfs-lock #previewPanel.is-pfs { z-index: 100000; }
 .ju-root { position: relative; }
 .ju-t { white-space: pre; overflow: visible; }
 .ju-img { position: absolute; inset: 0; box-sizing: border-box; image-rendering: pixelated; }
+
+/* Selection bar under the preview: the stage stacks canvas + bar, the canvas keeps its aspect in what's left. */
+.hud-stage { flex-direction: column; gap: 10px; }
+.hud-stage .hud-canvas { width: min(100cqw, (100cqh - 52px) * 1.7778); }
+.hud-stage[data-device="mobile"] .hud-canvas { width: min(100cqw, (100cqh - 52px) * 2.2222); }
+.hud-stage > .hud-inspector {
+    position: static;
+    flex: none;
+    width: min(100cqw, (100cqh - 52px) * 1.7778);
+    box-sizing: border-box;
+}
+.hud-stage[data-device="mobile"] > .hud-inspector { width: min(100cqw, (100cqh - 52px) * 2.2222); }

@@ -663,10 +663,11 @@
     canvas.appendChild(anchorGrid);
 
     const inspector = h('div', { class: 'hud-inspector' });
-    canvas.appendChild(inspector);
+    // The selection bar sits under the preview, not over the HUD.
 
     canvas.addEventListener('pointerdown', (e) => { if (e.target === canvas || e.target === layer) { selectedId = null; refreshHUD(); } });
     stage.appendChild(canvas);
+    stage.appendChild(inspector);
 
     hudRefs = { stage, canvas, layer, anchorGrid, inspector };
     // Built while the panel is hidden (phones start on Config) the canvas is 0x0;
