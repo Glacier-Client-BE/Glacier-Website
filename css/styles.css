@@ -6657,3 +6657,14 @@ footer {
     .nav-utils .header-icon-btn i { font-size: 1.1rem; }
     html.menu-open #toastBanner { display: none !important; }
 }
+
+
+/* ── One page, one start ──
+   The big home hero (with its two videos) exists only on the home page. Every other section opens at its own heading,
+   under the fixed header, instead of the page scrolling past the hero. */
+html[data-route]:not([data-route="home"]) #hero-section { display: none; }
+html[data-route]:not([data-route="home"]) .content-container {
+    padding-top: clamp(92px, 22vw, 124px);
+}
+
+html[data-route="downloads"] .header-cta { display: none !important; }

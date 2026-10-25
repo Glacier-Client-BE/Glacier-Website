@@ -18,6 +18,7 @@ export function showNotFound() {
     }
     document.title = 'Page Not Found | Glacier Client';
     document.body.classList.add('is-404');
+    document.documentElement.dataset.route = 'notfound';
     closeMobileMenu();
     requestAnimationFrame(observeReveals);
 }
@@ -32,6 +33,9 @@ export function showSection(id, sub) {
     // title and meta — so the id below drives the DOM, while `id` drives SEO.
     const merged = MERGED[id];
     const sectionId = merged ? merged.into : id;
+
+    // The home hero belongs to the home page only; every other section starts at its own heading (see css: html[data-route]).
+    document.documentElement.dataset.route = sectionId;
 
     const targetEl = $(sectionId + '-section');
     // Read before writing: only a section that was not already showing animates in.
@@ -60,8 +64,8 @@ export function showSection(id, sub) {
                 window.scrollTo({ top, behavior: 'smooth' });
             });
         } else {
-            const cc = state.dom.contentContainer;
-            if (cc) window.scrollTo({ top: cc.offsetTop - state.dom.headerEl.offsetHeight - 16, behavior: 'smooth' });
+            // A new page, not a place further down the home page: start at the top, no long scroll animation.
+            window.scrollTo(0, 0);
         }
     }
 

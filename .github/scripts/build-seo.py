@@ -146,6 +146,14 @@ def page(template, route, title, desc, faqs):
     if '<base ' not in d:
         d = d.replace('<meta charset="UTF-8" />', '<meta charset="UTF-8" />' + chr(10) + '    <base href="/" />', 1)
     if route:
+        # Ship the right section already active so a direct visit never flashes the home page first.
+        sec = MERGED.get(route, route)
+        d = d.replace('<html lang="en" data-theme="dark">', '<html lang="en" data-theme="dark" data-route="' + sec + '">', 1)
+        d = d.replace('<section id="home-section" class="content-section active">', '<section id="home-section" class="content-section">', 1)
+        d = d.replace('<section id="' + sec + '-section" class="content-section">', '<section id="' + sec + '-section" class="content-section active">', 1)
+        d = d.replace('class="nav-tab active"', 'class="nav-tab"')
+        d = re.sub(r'(<a href="[^"]*" class="nav-tab)(" data-section="' + sec + '")', lambda m: m.group(1) + ' active' + m.group(2), d)
+    if route:
         d = re.sub(r'href="#([^"]*)"', lambda m: 'href="/' + route + '/#' + m.group(1) + '"', d)
     return d
 
