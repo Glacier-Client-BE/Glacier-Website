@@ -123,7 +123,7 @@
   const TINTS = [['brighter', [1, 1, 1]], ['red', [1, .333, .333]], ['yellow', [1, 1, .333]], ['aqua', [.333, 1, 1]], ['blue', [.333, .333, 1]],
     ['orange', [1, .5, 0]], ['purple', [.627, .125, .941]], ['green', [.333, 1, .333]]];
   const CROSSHAIR_COUNT = { v4: 27, v5: 33, v6: 33 };
-  const SCENE_KEYS = ['$hotbar_toggle_index', '$exp_bar_color_default_preset_index', '$show_xp_percentage', '$hide_xp_level', '$xp_level_opacity|default',
+  const SCENE_KEYS = ['$hotbar_toggle_index', '$hide_inventory_button', '$exp_bar_color_default_preset_index', '$show_xp_percentage', '$hide_xp_level', '$xp_level_opacity|default',
     '$crosshair_default_preset_index', '$crosshair_size|default', '$crosshair_color_default_preset_index', '$show_crosshair_outlines',
     '$hide_crosshair', '$rgb_crosshair', '$display_opacity|default', '$brighter'].concat(
     TINTS.flatMap(([n]) => ['$' + n + '_display', '$' + n + '_saturation']));
@@ -226,13 +226,21 @@
   }
 
   /* ── vanilla scene + Glacier's hotbar / XP bar / crosshair / screen tint, all driven by the config ── */
-  function buildScene(w, h, get, version) {
+  function buildScene(w, h, get, version, device) {
     get = get || ((k, d) => d);
     const s = el('hs-scene', { width: w + 'px', height: h + 'px' });
     s.append(el('hs-sky'), el('hs-ground', { top: Math.round(h * 0.56) + 'px' }));
     const t = tint(get);
     if (t) s.append(t);
     s.append(hotbar(get), ...xpBar(get));
+    // Touch screens get vanilla's inventory button (•••) right of the hotbar unless the pack hides it.
+    if (device === 'mobile' && !get('$hide_inventory_button', false)) {
+      const vanilla = (Number(get('$hotbar_toggle_index', 1)) || 1) === 1;
+      const inv = place(el('hs-abs hs-invbtn', { width: '20px', height: '22px' }), 'bottom_middle', [(vanilla ? 91 : 90) + 10, 0]);
+      inv.append(mc('ui__hotbar_8.png', 20, 22, { position: 'absolute', left: 0, top: 0 }));
+      inv.append(el('hs-dots', null, el('hs-dot'), el('hs-dot'), el('hs-dot')));
+      s.append(inv);
+    }
 
     const cx = w / 2;
     const row = (n, y, side, bg, fg, half) => {
@@ -348,9 +356,10 @@
     hotbar_left_button: (c) => btn(c, txt('<', { color: '#000' })),
     hotbar_right_button: (c) => btn(c, txt('>', { color: '#000' })),
     playerlist_mobile_button: (c) => btn(c, gl('player_list.png', 9, 9)),
-    bossbar: (c) => ub(c, el('hs-col', { gap: '2px', width: '100%', alignItems: 'center' },
-      txt('Ender Dragon'),
-      el(null, { width: '182px', height: '5px', background: '#000', position: 'relative' },
+    // In game the boss bar has no box behind it: just the name and the bar.
+    bossbar: (c) => el('hs-fill', { width: c.w + 'px', height: c.h + 'px' }, el('hs-col', { gap: '2px', width: '100%', alignItems: 'center' },
+      txt('Ender Dragon', { textShadow: '1px 1px 0 #3f3f3f' }),
+      el(null, { width: '182px', height: '5px', background: '#4a1a52', position: 'relative' },
         el(null, { width: '62%', height: '100%', background: '#b03ec4' })))),
     scoreboard: (c) => {
       const rows = [['Kills', 12], ['Deaths', 3], ['Coins', 450], ['Level', 30]];

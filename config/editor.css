@@ -2999,3 +2999,5 @@ html.pfs-lock #previewPanel.is-pfs { z-index: 100000; }
     box-sizing: border-box;
 }
 .hud-stage[data-device="mobile"] > .hud-inspector { width: min(100cqw, (100cqh - 52px) * 2.2222); }
+.hs-dots { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 2px; }
+.hs-dot { width: 2px; height: 2px; background: #fff; box-shadow: 1px 1px 0 #3f3f3f; }

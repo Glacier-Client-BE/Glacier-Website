@@ -565,6 +565,11 @@
     const node = build(b, key, body, scope, {}, ctx, 0);
     if (!node) return null;
     bindAll(node, ctx);
+    // Buttons and toggles show one state: drop their hover / pressed / locked state controls.
+    (function states(n) {
+      if (n.type === 'button' || n.type === 'toggle') n.kids.forEach((k) => { if (/hover|pressed|locked/.test(k.name)) k.hidden = true; });
+      n.kids.forEach(states);
+    })(node);
     node.hidden = false;
     attachTextures(b, node);
     sizeOf(node, opts.w, opts.h);

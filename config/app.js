@@ -699,11 +699,11 @@
     // Rebuild when the size or any scene setting (hotbar style, XP bar colour, crosshair, screen tint) changes.
     const settings = config[HUD_SECTION] || {};
     const get = (k, d) => (settings[k] !== undefined ? settings[k] : d);
-    const key = Math.round(refW * 100) + 'x' + Math.round(refH * 100) + '|' + version + '|' + window.GlacierHud.sceneKey(get);
+    const key = Math.round(refW * 100) + 'x' + Math.round(refH * 100) + '|' + version + '|' + previewDevice + '|' + window.GlacierHud.sceneKey(get);
     if (host.dataset.key !== key) {
       host.dataset.key = key;
       host.innerHTML = '';
-      host.appendChild(window.GlacierHud.buildScene(refW, refH, get, version));
+      host.appendChild(window.GlacierHud.buildScene(refW, refH, get, version, previewDevice));
     }
     host.firstChild.style.transform = 'scale(' + scale + ')';
   }
