@@ -308,7 +308,44 @@
     ]);
   }
 
+  // Preset indexes the pack picks from a list (index order from the pack's own settings screens). Shown as visual
+  // pickers with the real textures instead of bare numbers.
+  const XP_SWATCH = [null, 'blue', 'red', 'pink', 'yellow', 'orange', 'purple', 'white', 'white'];
+  const PICKERS = {
+    '$crosshair_default_preset_index': { kind: 'crosshair' },
+    '$crosshair_color_default_preset_index': { labels: ['Default', 'Black', 'Red', 'Blue', 'Yellow', 'Orange', 'Purple', 'Green', 'Chroma'],
+      colors: ['#ffffff', '#000000', '#ff0000', '#0000ff', '#ffff00', '#ff8000', '#a020f0', '#00ff00', 'chroma'] },
+    '$exp_bar_color_default_preset_index': { labels: ['Default', 'Blue', 'Red', 'Pink', 'Yellow', 'Orange', 'Purple', 'White', 'Chroma'], kind: 'xp' },
+    '$hotbar_toggle_index': { labels: ['Default', 'Connected', 'RGB', 'Glacier'] },
+  };
+
+  function ctlPicker(section, key, value, isChild) {
+    const spec = PICKERS[key];
+    const grid = h('div', { class: 'picker' + (spec.kind === 'crosshair' ? ' picker-cross' : ''), role: 'radiogroup', 'aria-label': formatLabel(key) });
+    const count = spec.kind === 'crosshair' ? (window.GlacierHud ? window.GlacierHud.crosshairCount(version) : 33) : spec.labels.length;
+    for (let i = 1; i <= count; i++) {
+      const on = Number(value) === i;
+      const b = h('button', { type: 'button', class: 'pick' + (on ? ' on' : ''), role: 'radio', 'aria-checked': String(on),
+        title: spec.kind === 'crosshair' ? 'Crosshair ' + i : spec.labels[i - 1] });
+      if (spec.kind === 'crosshair') {
+        b.appendChild(h('img', { src: 'img/gl/crosshairs/' + i + '.png', alt: '', width: '16', height: '16' }));
+      } else {
+        if (spec.colors) b.appendChild(h('span', { class: 'pick-dot' + (spec.colors[i - 1] === 'chroma' ? ' chroma' : ''),
+          style: spec.colors[i - 1] === 'chroma' ? '' : 'background:' + spec.colors[i - 1] }));
+        if (spec.kind === 'xp') b.appendChild(h('span', { class: 'pick-xp' + (i === 9 ? ' chroma' : ''),
+          style: 'background-image:url(' + (XP_SWATCH[i - 1] ? 'img/gl/xp/' + XP_SWATCH[i - 1] + '_full.png' : 'img/mc/ui__experiencebarfull.png') + ')' }));
+        b.appendChild(h('span', { class: 'pick-label', text: spec.labels[i - 1] }));
+      }
+      b.addEventListener('click', () => { updateConfig([section, key], i, false, 'controls'); flashKey(key); });
+      grid.appendChild(b);
+    }
+    return h('div', { class: 'ctl' + (isChild ? ' child' : ''), 'data-key': key }, [
+      h('label', { class: 'ctl-label dim ctl-sub', text: formatLabel(key) }), grid,
+    ]);
+  }
+
   function renderControl(section, key, value, isChild) {
+    if (PICKERS[key] && typeof value === 'number') return ctlPicker(section, key, value, isChild);
     if (Array.isArray(value) && value.length === 2) return ctlArray(section, key, value, isChild);
     if (typeof value === 'boolean') return ctlToggle(section, key, value, isChild);
     if (key.includes('opacity') && typeof value === 'number') return ctlOpacity(section, key, value, isChild);
@@ -657,11 +694,14 @@
   function syncScene(canvas, scale, refW, refH) {
     const host = canvas.querySelector('.hud-scene-host');
     if (!host || !window.GlacierHud) return;
-    const key = Math.round(refW * 100) + 'x' + Math.round(refH * 100);
+    // Rebuild when the size or any scene setting (hotbar style, XP bar colour, crosshair, screen tint) changes.
+    const settings = config[HUD_SECTION] || {};
+    const get = (k, d) => (settings[k] !== undefined ? settings[k] : d);
+    const key = Math.round(refW * 100) + 'x' + Math.round(refH * 100) + '|' + version + '|' + window.GlacierHud.sceneKey(get);
     if (host.dataset.key !== key) {
       host.dataset.key = key;
       host.innerHTML = '';
-      host.appendChild(window.GlacierHud.buildScene(refW, refH));
+      host.appendChild(window.GlacierHud.buildScene(refW, refH, get, version));
     }
     host.firstChild.style.transform = 'scale(' + scale + ')';
   }

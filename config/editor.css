@@ -2952,3 +2952,32 @@ html.pfs-lock #previewPanel.is-pfs { z-index: 100000; }
 @media (max-width: 768px) {
     .hud-inspector.hint { display: none; }
 }
+
+/* Scene pieces driven by the config: nine-sliced XP bar, tinted textures (crosshair colour, RGB hotbar), chroma. */
+.hs-nine { position: relative; box-sizing: border-box; image-rendering: pixelated; }
+.hs-tint, .hs-cross-img { position: absolute; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; background-size: 100% 100%; image-rendering: pixelated; }
+.hs-chroma { animation: hs-chroma 3s linear infinite; }
+.hs-chroma-overlay { position: absolute; inset: 0; mix-blend-mode: multiply; animation: hs-chroma 3s linear infinite; }
+@keyframes hs-chroma {
+    0% { background: #ff4040; } 17% { background: #ffb040; } 33% { background: #ffff40; }
+    50% { background: #40ff70; } 67% { background: #40c8ff; } 83% { background: #b060ff; } 100% { background: #ff4040; }
+}
+.hs-xppct { color: #80ff20; text-shadow: 1px 1px 0 #3f3f3f; }
+.hs-dirtape { position: absolute; inset: 0; background-repeat: repeat-x; background-size: 192px 14px; image-rendering: pixelated; }
+.hs-ore { background-size: 100% 100%; image-rendering: pixelated; font-family: 'Pixelify Sans', monospace; }
+
+/* Visual pickers for the pack's preset indexes (crosshair, crosshair colour, XP bar colour, hotbar style). */
+.picker { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.picker .pick {
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 36px; padding: 6px 10px;
+    border: 1px solid var(--glass-border); border-radius: 10px;
+    background: var(--bg-item); color: var(--text); font: inherit; font-size: .78rem; font-weight: 600; cursor: pointer;
+}
+.picker .pick.on { border-color: var(--accent); background: var(--accent-bg); box-shadow: 0 0 0 1px var(--accent) inset; }
+.picker-cross { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); }
+.picker-cross .pick { justify-content: center; padding: 0; min-height: 40px; background: #3d4b33; }
+.picker-cross .pick img { width: 22px; height: 22px; image-rendering: pixelated; }
+.pick-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(255,255,255,.35); flex: none; }
+.pick-xp { width: 34px; height: 5px; background-size: 100% 100%; image-rendering: pixelated; flex: none; }
+.pick-dot.chroma, .pick-xp.chroma { background: linear-gradient(90deg, #ff4040, #ffff40, #40ff70, #40c8ff, #b060ff); }

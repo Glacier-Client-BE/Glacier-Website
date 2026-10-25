@@ -98,42 +98,141 @@
   }
 
   /* ── vanilla scene with Glacier's hotbar, XP bar and crosshair ── */
-  function buildScene(w, h) {
-    const s = el('hs-scene', { width: w + 'px', height: h + 'px' });
-    s.append(el('hs-sky'), el('hs-ground', { top: Math.round(h * 0.56) + 'px' }));
+  /* ── scene settings (read from the pack's own config keys) ── */
+  // Exp bar colour preset (glacier_exp_bar_settings): 1 = vanilla, then these folders; 9 = chroma.
+  const XP_COLORS = { 2: 'blue', 3: 'red', 4: 'pink', 5: 'yellow', 6: 'orange', 7: 'purple', 8: 'white', 9: 'rgb' };
+  // Crosshair colour preset (glacier_crosshairs_settings): 1 = texture as drawn; 9 = chroma.
+  const CROSS_COLORS = { 2: '#000000', 3: '#ff0000', 4: '#0000ff', 5: '#ffff00', 6: '#ff8000', 7: '#a020f0', 8: '#00ff00', 9: 'rgb' };
+  // Screen tint ("display") toggles and their colours (glacier_saturation_display.json). V4/V5 call them *_saturation.
+  const TINTS = [['brighter', [1, 1, 1]], ['red', [1, .333, .333]], ['yellow', [1, 1, .333]], ['aqua', [.333, 1, 1]], ['blue', [.333, .333, 1]],
+    ['orange', [1, .5, 0]], ['purple', [.627, .125, .941]], ['green', [.333, 1, .333]]];
+  const CROSSHAIR_COUNT = { v4: 27, v5: 33, v6: 33 };
+  const SCENE_KEYS = ['$hotbar_toggle_index', '$exp_bar_color_default_preset_index', '$show_xp_percentage', '$hide_xp_level', '$xp_level_opacity|default',
+    '$crosshair_default_preset_index', '$crosshair_size|default', '$crosshair_color_default_preset_index', '$show_crosshair_outlines',
+    '$hide_crosshair', '$rgb_crosshair', '$display_opacity|default', '$brighter'].concat(
+    TINTS.flatMap(([n]) => ['$' + n + '_display', '$' + n + '_saturation']));
+  // Anything that changes the scene; the editor rebuilds the scene only when this string changes.
+  const sceneKey = (get) => SCENE_KEYS.map((k) => JSON.stringify(get(k, null))).join('|');
 
-    // Glacier "base bg" hotbar: nine black slots with the accent underline; the selected slot gets the white frame.
-    const bar = place(el('hs-abs', { width: '180px', height: '22px' }), 'bottom_middle', [0, 0]);
+  // Nine-sliced strip like the game draws it (slice = [left, top, right, bottom] from the texture's .json).
+  function nine(src, w, h, slice, css) {
+    const [l, t, r, b] = slice;
+    return el('hs-nine', Object.assign({ width: w + 'px', height: h + 'px',
+      borderStyle: 'solid', borderWidth: t + 'px ' + r + 'px ' + b + 'px ' + l + 'px',
+      borderImage: 'url(' + src + ') ' + t + ' ' + r + ' ' + b + ' ' + l + ' fill stretch' }, css || {}));
+  }
+
+  function hotbar(get) {
+    // Hotbar style (glacier_hotbar_settings): 1 = vanilla, 2 = connected, 3 = RGB, 4 = Glacier.
+    const type = Number(get('$hotbar_toggle_index', 1)) || 1;
     const items = ['items__diamond_sword.png', 'items__apple.png', 'items__apple_golden.png', 'items__beef_cooked.png', 'items__bread.png',
       'items__iron_pickaxe.png', 'items__ender_pearl.png', 'items__experience_bottle.png', 'items__compass_item.png'];
-    items.forEach((f, i) => {
-      const cell = el('hs-abs', { left: i * 20 + 'px', top: 0, width: '20px', height: '22px' });
-      cell.append(el('hs-ub hs-slotbg', { left: '0', top: '1px', width: '19.5px', height: '20px', '--a': .65 }));
-      cell.append(mc(f, 16, 16, { position: 'absolute', left: '2px', top: '3px' }));
-      bar.append(cell);
-    });
-    bar.append(gl('default_hotbar.png', 21, 23, { position: 'absolute', left: '-0.5px', top: '-0.5px', zIndex: 2 }));
-    s.append(bar);
+    const vanilla = type === 1;
+    const bar = place(el('hs-abs', { width: (vanilla ? 182 : 180) + 'px', height: '22px' }), 'bottom_middle', [0, 0]);
+    const x0 = vanilla ? 1 : 0;
+    if (vanilla) {
+      bar.append(mc('ui__hotbar_start_cap.png', 1, 22, { position: 'absolute', left: 0 }));
+      for (let i = 0; i < 9; i++) bar.append(mc('ui__hotbar_' + i + '.png', 20, 22, { position: 'absolute', left: 1 + i * 20 + 'px' }));
+      bar.append(mc('ui__hotbar_end_cap.png', 1, 22, { position: 'absolute', left: '181px' }));
+    } else if (type === 2) {
+      bar.append(gl('connected_hotbar.png', 180, 22, { position: 'absolute', left: 0, opacity: .7 }));
+    } else {
+      const rgb = ['#ff4040', '#ff9f40', '#ffff40', '#40ff70', '#40c8ff', '#9a60ff'];
+      for (let i = 0; i < 9; i++) {
+        if (type === 3) {
+          bar.append(el('hs-tint', { left: i * 20 - .5 + 'px', top: '-.5px', width: '21px', height: '23px',
+            maskImage: 'url(' + GL('default_hotbar.png') + ')', WebkitMaskImage: 'url(' + GL('default_hotbar.png') + ')', background: rgb[(8 - i) % 6] }));
+        } else {
+          bar.append(el('hs-ub hs-slotbg', { left: i * 20 + 'px', top: '1px', width: '19.5px', height: '20px', '--a': .65 }));
+        }
+      }
+    }
+    items.forEach((f, i) => bar.append(mc(f, 16, 16, { position: 'absolute', left: x0 + 2 + i * 20 + 'px', top: '3px', zIndex: 1 })));
+    bar.append(mc('ui__selected_hotbar_slot.png', 24, 24, { position: 'absolute', left: x0 - 1 + 'px', top: '-1px', zIndex: 2 }));
+    return bar;
+  }
 
-    // XP: 14 blue segments (13x5) with a nub; ~42% full
-    const xp = place(el('hs-abs', { width: '182px', height: '5px' }), 'bottom_middle', [0, -26]);
-    for (let i = 0; i < 14; i++) xp.append(gl(i < 6 ? 'blue_full.png' : 'blue_empty.png', 13, 5, { position: 'absolute', left: i * 13 + 'px', top: 0 }));
-    s.append(xp, place(el('hs-lvl', null, String(SAMPLE.level)), 'bottom_middle', [0, -31]));
+  function xpBar(get) {
+    const color = XP_COLORS[Number(get('$exp_bar_color_default_preset_index', 1))];
+    const xp = place(el('hs-abs', { width: '182px', height: '5px' }), 'bottom_middle', [0, -24]);
+    const fill = el('hs-abs', { left: 0, top: 0, width: '77px', height: '5px', overflow: 'hidden' });
+    if (!color) {
+      xp.append(mc('ui__experiencebarempty.png', 182, 5, { position: 'absolute' }));
+      fill.append(mc('ui__experiencebarfull.png', 182, 5));
+    } else {
+      const c = color === 'rgb' ? 'white' : color;
+      xp.append(nine(GL('xp/' + c + '_empty.png'), 182, 5, [6, 1, 6, 1], { position: 'absolute', left: 0, top: 0 }));
+      fill.append(nine(GL('xp/' + c + '_full.png'), 182, 5, [1, 0, 1, 0]));
+      if (color === 'rgb') fill.append(el('hs-chroma-overlay'));
+    }
+    xp.append(fill);
+    const parts = [xp];
+    if (!get('$hide_xp_level', false)) {
+      const lvl = place(el('hs-lvl', null, String(SAMPLE.level)), 'bottom_middle', [0, -29]);
+      const op = get('$xp_level_opacity|default', null);
+      if (op != null) lvl.style.opacity = Math.max(.15, Number(op));
+      parts.push(lvl);
+    }
+    if (get('$show_xp_percentage', false)) parts.push(place(el('hs-t hs-xppct', null, '42%'), 'bottom_middle', [100, -24]));
+    return parts;
+  }
+
+  function crosshair(get, version) {
+    if (get('$hide_crosshair', false)) return null;
+    const max = CROSSHAIR_COUNT[version] || 33;
+    const idx = Math.min(max, Math.max(1, Math.round(Number(get('$crosshair_default_preset_index', 1)) || 1)));
+    const src = GL('crosshairs/' + idx + '.png');
+    const size = Number(get('$crosshair_size|default', .5));
+    const px = Math.max(4, Math.round(15 * (isFinite(size) ? size : .5) * 2));
+    let color = CROSS_COLORS[Number(get('$crosshair_color_default_preset_index', 1))];
+    if (get('$rgb_crosshair', false)) color = 'rgb';
+    const draw = (c, dx, dy) => {
+      const css = { width: px + 'px', height: px + 'px', left: dx + 'px', top: dy + 'px' };
+      if (!c) return el('hs-cross-img', Object.assign(css, { backgroundImage: 'url(' + src + ')' }));
+      return el('hs-tint' + (c === 'rgb' ? ' hs-chroma' : ''), Object.assign(css,
+        { maskImage: 'url(' + src + ')', WebkitMaskImage: 'url(' + src + ')' }, c === 'rgb' ? {} : { background: c }));
+    };
+    const wrap = place(el('hs-abs', { width: px + 'px', height: px + 'px' }), 'center');
+    if (get('$show_crosshair_outlines', false)) [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(([dx, dy]) => wrap.append(draw('#000000', dx, dy)));
+    wrap.append(draw(color, 0, 0));
+    return wrap;
+  }
+
+  function tint(get) {
+    const on = TINTS.filter(([n]) => (n === 'brighter' ? get('$brighter', false) : get('$' + n + '_display', false) || get('$' + n + '_saturation', false)));
+    if (!on.length) return null;
+    const amount = Number(get('$display_opacity|default', 1));
+    const alpha = Math.min(.8, .2 * Math.max(1, isFinite(amount) ? amount : 1));
+    const layer = el('hs-abs', { inset: '0', pointerEvents: 'none' });
+    on.forEach(([, [r, g, b]]) => layer.append(el('hs-abs', { inset: '0',
+      background: 'rgba(' + Math.round(r * 255) + ',' + Math.round(g * 255) + ',' + Math.round(b * 255) + ',' + alpha + ')' })));
+    return layer;
+  }
+
+  /* ── vanilla scene + Glacier's hotbar / XP bar / crosshair / screen tint, all driven by the config ── */
+  function buildScene(w, h, get, version) {
+    get = get || ((k, d) => d);
+    const s = el('hs-scene', { width: w + 'px', height: h + 'px' });
+    s.append(el('hs-sky'), el('hs-ground', { top: Math.round(h * 0.56) + 'px' }));
+    const t = tint(get);
+    if (t) s.append(t);
+    s.append(hotbar(get), ...xpBar(get));
 
     const cx = w / 2;
     const row = (n, y, side, bg, fg, half) => {
       for (let i = 0; i < 10; i++) {
-        const x = side === 'l' ? cx - 90 + i * 8 : cx + 90 - 9 - i * 8;
+        const x = side === 'l' ? cx - 91 + i * 8 : cx + 91 - 9 - i * 8;
         const wrap = el('hs-abs', { left: x + 'px', bottom: y + 'px', width: '9px', height: '9px' }, mc(bg, 9, 9));
         if (i < n) wrap.append(mc(fg, 9, 9, { position: 'absolute', left: 0, top: 0 }));
         else if (half && i === n) wrap.append(mc(half, 9, 9, { position: 'absolute', left: 0, top: 0 }));
         s.append(wrap);
       }
     };
-    row(10, 32, 'l', 'ui__heart_background.png', 'ui__heart.png');
-    row(8, 42, 'l', 'ui__armor_empty.png', 'ui__armor_full.png');
-    row(8, 32, 'r', 'ui__hunger_background.png', 'ui__hunger_full.png', 'ui__hunger_half.png');
-    s.append(place(gl('1.png', 15, 15), 'center'));
+    row(10, 30, 'l', 'ui__heart_background.png', 'ui__heart.png');
+    row(8, 40, 'l', 'ui__armor_empty.png', 'ui__armor_full.png');
+    row(8, 30, 'r', 'ui__hunger_background.png', 'ui__hunger_full.png', 'ui__hunger_half.png');
+    const ch = crosshair(get, version);
+    if (ch) s.append(ch);
     return s;
   }
 
@@ -160,7 +259,7 @@
     dayevent: (c) => ub(c, el('hs-center', null, gl('day.png', 40, 10))),
     statushud: (c) => ub(c, el('hs-center', null, gl('standing.png', 53, 8))),
     timerhud: (c) => ub(c, el('hs-center', null, txt(SAMPLE.timer))),
-    serverdisplay: (c) => ub(c, line(null, txt(SAMPLE.server))),
+    serverdisplay: (c) => ub(c, line(null, el('hs-line', null, gl('server_localhost.png', 12, 12), txt(SAMPLE.server)))),
     expcalculator: (c) => ub(c, el('hs-split', null, lab(c.s.label), txt(String(SAMPLE.level)))),
     creeperrange: (c) => ub(c, el('hs-split', null, lab(c.s.label), digits(7))),
     lowdurability: (c) => ub(c, el('hs-center', null, txt('Item Durability Low!', { color: '#ff5555' }))),
@@ -189,17 +288,13 @@
     },
     directionhud: (c) => {
       // [rotation box 25px] + [compass bar 138px]
-      const names = { 0: 'N', 45: 'NE', 90: 'E', 135: 'SE', 180: 'S', 225: 'SW', 270: 'W', 315: 'NW' };
       const heading = ((SAMPLE.yaw % 360) + 360) % 360;
       const barW = c.w - 25;
       const tape = el('hs-tape', { width: barW + 'px', height: c.h + 'px' });
-      for (let a = Math.ceil((heading - 66) / 5) * 5; a <= heading + 66; a += 5) {
-        const deg = ((a % 360) + 360) % 360;
-        const x = barW / 2 + (a - heading);
-        const major = deg % 45 === 0;
-        tape.append(el('hs-tick', { left: x + 'px', height: major ? '5px' : '3px' }));
-        if (major) tape.append(el('hs-t', { position: 'absolute', left: x + 'px', top: '5px', transform: 'translateX(-50%)', color: deg === 0 ? '#ff5555' : '#fff' }, names[deg]));
-      }
+      // glacier_directionhud.png: 192px wide for a full turn, N at x=0; repeat it and centre the current heading.
+      const px = heading / 360 * 192;
+      tape.append(el('hs-dirtape', { backgroundImage: 'url(' + GL('directionhud.png') + ')',
+        backgroundPosition: (barW / 2 - px) + 'px 2px' }));
       tape.append(el('hs-needle', { left: barW / 2 + 'px', height: c.h + 'px' }));
       const rot = ub({ w: 25, h: c.h, op: c.op }, el('hs-center', null, digits(heading)));
       const bar = ub({ w: barW, h: c.h, op: c.op }, tape);
@@ -236,8 +331,7 @@
     f8button: (c) => btn(c, txt('F8', { color: '#000' })),
     hotbar_left_button: (c) => btn(c, txt('<', { color: '#000' })),
     hotbar_right_button: (c) => btn(c, txt('>', { color: '#000' })),
-    playerlist_mobile_button: (c) => btn(c, el('hs-col', { gap: '2px', alignItems: 'center' },
-      [0, 1, 2].map(() => el(null, { width: '9px', height: '1px', background: '#000' })))),
+    playerlist_mobile_button: (c) => btn(c, gl('player_list.png', 9, 9)),
     bossbar: (c) => ub(c, el('hs-col', { gap: '2px', width: '100%', alignItems: 'center' },
       txt('Ender Dragon'),
       el(null, { width: '182px', height: '5px', background: '#000', position: 'relative' },
@@ -251,8 +345,8 @@
   };
   // ore_ui_button look: light grey face with a dark bevel, centred content
   function btn(c, child) {
-    return el('hs-center', { width: c.w + 'px', height: c.h + 'px', background: '#8b8b8b',
-      boxShadow: 'inset 1px 1px #c6c6c6, inset -1px -1px #373737' }, child);
+    // The pack's ore_ui_button texture, stretched to the button size like the game does.
+    return el('hs-center hs-ore', { width: c.w + 'px', height: c.h + 'px', backgroundImage: 'url(' + GL('ore_ui_button.png') + ')' }, child);
   }
 
   /* drawModule(id, version, get): the module's drawing at its drag size for that Glacier version. */
@@ -265,5 +359,5 @@
     return ub(c, el('hs-center', null, txt(id)));
   }
 
-  window.GlacierHud = { buildScene, drawModule, sizeFor, has: (id) => !!MODS[id] };
+  window.GlacierHud = { buildScene, sceneKey, crosshairCount: (v) => CROSSHAIR_COUNT[v] || 33, drawModule, sizeFor, has: (id) => !!MODS[id] };
 })();
