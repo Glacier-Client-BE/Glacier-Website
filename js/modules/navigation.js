@@ -135,10 +135,21 @@ export function syncScrollProgress() {
     state.dom.progressBar.style.transform = 'scaleX(' + progress.toFixed(4) + ')';
 }
 
+// The phone menu is a full-width sheet under the header. While it is open the page behind it does not scroll.
+function setMenuState(open) {
+    const { navMenu, mobileMenuBtn, headerEl } = state.dom;
+    navMenu.classList.toggle('active', open);
+    document.documentElement.classList.toggle('menu-open', open);
+    if (open) navMenu.style.setProperty('--hdr-h', headerEl.offsetHeight + 'px');
+    mobileMenuBtn.innerHTML = open
+        ? '<i class="fas fa-times" aria-hidden="true"></i>'
+        : '<i class="fas fa-bars" aria-hidden="true"></i>';
+    mobileMenuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    mobileMenuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+}
+
 export function closeMobileMenu() {
-    state.dom.navMenu.classList.remove('active');
-    state.dom.mobileMenuBtn.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
-    state.dom.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    setMenuState(false);
 }
 
 // Below 480px the language and theme controls move into the mobile menu panel
@@ -166,12 +177,16 @@ export function setupHeaderUtilities() {
 }
 
 export function toggleMobileMenu() {
-    const open = state.dom.navMenu.classList.toggle('active');
-    state.dom.mobileMenuBtn.innerHTML = open
-        ? '<i class="fas fa-times" aria-hidden="true"></i>'
-        : '<i class="fas fa-bars" aria-hidden="true"></i>';
-    state.dom.mobileMenuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    setMenuState(!state.dom.navMenu.classList.contains('active'));
 }
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && state.dom.navMenu && state.dom.navMenu.classList.contains('active')) {
+        closeMobileMenu();
+        state.dom.mobileMenuBtn.focus();
+    }
+});
+window.matchMedia('(min-width: 769px)').addEventListener('change', (e) => { if (e.matches) closeMobileMenu(); });
 
 function copyText(el, text) {
     if (!navigator.clipboard) return;

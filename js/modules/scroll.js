@@ -14,6 +14,8 @@ export function setupScroll() {
     const back = $('backToTop');
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let raf = 0;
+    let wasScrolled = null;
+    let wasBack = null;
     state.smoothY = window.scrollY;
 
     function frame() {
@@ -25,8 +27,10 @@ export function setupScroll() {
             state.smoothY += diff * 0.16;
         }
 
-        header.classList.toggle('scrolled', state.smoothY > 50);
-        back.classList.toggle('visible', state.smoothY > 320);
+        // Only touch the DOM when a threshold is crossed, not on every frame of the scroll.
+        const scrolled = state.smoothY > 50, showBack = state.smoothY > 320;
+        if (scrolled !== wasScrolled) { header.classList.toggle('scrolled', scrolled); wasScrolled = scrolled; }
+        if (showBack !== wasBack) { back.classList.toggle('visible', showBack); wasBack = showBack; }
         syncScrollProgress();
 
         if (!reduce && Math.abs(window.scrollY - state.smoothY) >= 0.4) {

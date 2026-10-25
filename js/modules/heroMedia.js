@@ -84,7 +84,17 @@ export function setupHeroMedia() {
         else if (player?.getPlayerState) (paused ? player.pauseVideo() : player.playVideo());
         paint();
     });
-    const start = () => { if (front === 'tour' && !paused) video.play().catch(() => {}); };
+    // Off-screen video is paused (saves decoding on phones) and resumes on its own when it scrolls back into view.
+    let onScreen = true;
+    const start = () => { if (front === 'tour' && !paused && onScreen) video.play().catch(() => {}); };
+    if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([e]) => {
+            onScreen = e.isIntersecting;
+            if (!onScreen) { video.pause(); player?.pauseVideo?.(); return; }
+            if (paused) return;
+            if (front === 'tour') start(); else player?.playVideo?.();
+        }, { threshold: 0.1 }).observe(root);
+    }
     video.addEventListener('canplay', start);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) start(); });
     start();

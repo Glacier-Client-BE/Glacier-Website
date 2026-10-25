@@ -6516,3 +6516,144 @@ textarea {
             url('../assets/BG.webp') center / cover no-repeat;
     }
 }
+
+/* ── Scroll performance ──
+   Blur-behind (backdrop-filter) on dozens of translucent cards forces the GPU to re-blur whatever scrolls under them
+   every frame; on phones that is the main source of scroll jank. Page content sits on a near-solid background, so the
+   blur is invisible there anyway. The sticky header, menus and modals keep theirs. */
+@media (max-width: 900px), (pointer: coarse) {
+    :where(main, footer) * {
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+    }
+
+    /* Entrance blurs and the endless hero glow re-rasterise big layers. */
+    :where(main, footer) .reveal,
+    :where(main, footer) [class*="stagger"] > * {
+        filter: none !important;
+    }
+
+    .hero,
+    .hero::before,
+    .hero::after {
+        animation: none !important;
+        will-change: auto !important;
+    }
+
+    .hero::after {
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+}
+
+/* Skip layout and paint for long blocks that are far off-screen; their size is remembered once rendered. */
+.showcase-video-grid,
+.mods-grid,
+.downloads-grid,
+.docs-content,
+.editor-next-grid,
+.creators-section,
+footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 700px;
+}
+
+/* ═══ Phone menu ═══
+   A full-width sheet under the header instead of a small scrolling dropdown: 56px rows with an icon tile, label
+   and chevron, two big action buttons, and 52px language/theme buttons. Solid surface (no blur) so it is cheap
+   to draw and always readable. */
+.nav-cta-row { display: none; }
+
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        width: 48px; height: 48px; min-width: 48px; min-height: 48px;
+        font-size: 1.05rem;
+    }
+
+    html.menu-open, html.menu-open body { overflow: hidden; }
+
+    .nav-tabs {
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        height: calc(100dvh - var(--hdr-h, 64px));
+        max-height: none;
+        padding: 6px 16px calc(20px + env(safe-area-inset-bottom));
+        gap: 0;
+        border: 0; border-top: 1px solid var(--glass-border); border-radius: 0;
+        background: var(--bg, #0b0d1a);
+        box-shadow: none;
+        backdrop-filter: none; -webkit-backdrop-filter: none;
+        overflow-y: auto; overscroll-behavior: contain;
+        transform: translateY(-8px); transform-origin: top center;
+    }
+    .nav-tabs.active { transform: none; }
+
+    .nav-tabs .nav-tab {
+        position: relative;
+        display: flex; align-items: center; gap: 14px;
+        width: 100%; min-height: 56px;
+        padding: 8px 4px;
+        font-size: 1.08rem; font-weight: 600;
+        border-radius: 0;
+        border-bottom: 1px solid var(--glass-border);
+        color: var(--text);
+        background: none;
+    }
+    .nav-tabs .nav-tab::before {
+        content: "\f15b";
+        font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: .95rem;
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 38px; height: 38px; flex: none;
+        border-radius: 12px;
+        background: var(--bg-item, rgba(255,255,255,.05));
+        color: var(--text-dim);
+    }
+    .nav-tabs .nav-tab[data-section="home"]::before { content: "\f015"; }
+    .nav-tabs .nav-tab[data-section="features"]::before { content: "\f0e7"; }
+    .nav-tabs .nav-tab[data-section="downloads"]::before { content: "\f019"; }
+    .nav-tabs .nav-tab[data-section="community"]::before { content: "\f0c0"; }
+    .nav-tabs .nav-tab[data-section="docs"]::before { content: "\f059"; }
+    .nav-tabs .nav-tab[data-section="donate"]::before { content: "\f004"; }
+    .nav-tabs .nav-tab::after {
+        content: "\f054";
+        font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: .7rem;
+        margin-left: auto; color: var(--text-dim); opacity: .7;
+        position: static; background: none; width: auto; height: auto; transform: none;
+    }
+    .nav-tabs .nav-tab.active { color: var(--accent); }
+    .nav-tabs .nav-tab.active::before { background: var(--accent-bg); color: var(--accent); }
+    [data-theme="light"] .nav-tabs .nav-tab.active,
+    [data-theme="light"] .nav-tabs .nav-tab.active::before { color: var(--accent-strong, #4559b0); }
+    .nav-tabs .nav-tab:active { background: var(--bg-item-hover, rgba(255,255,255,.06)); }
+
+    .nav-cta-row {
+        display: grid; gap: 10px;
+        margin-top: 18px;
+    }
+    .nav-cta-row .nav-cta {
+        min-height: 54px; width: 100%;
+        justify-content: center;
+        font-size: 1rem;
+    }
+
+    /* language + theme: big, labelled targets */
+    .nav-utils {
+        display: flex; gap: 12px; justify-content: stretch;
+        margin-top: 16px; padding-top: 16px;
+        border-top: 1px solid var(--glass-border);
+    }
+    .nav-utils .lang-custom-dropdown,
+    .nav-utils .header-icon-btn { flex: 1; width: auto; }
+    .nav-utils .lang-dropdown-trigger,
+    .nav-utils .header-icon-btn {
+        width: 100%; height: 52px; min-height: 52px; border-radius: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-tabs { scrollbar-width: none; }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-utils .lang-dropdown-trigger i,
+    .nav-utils .header-icon-btn i { font-size: 1.1rem; }
+    html.menu-open #toastBanner { display: none !important; }
+}
