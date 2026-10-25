@@ -755,7 +755,9 @@
         class: 'hud-module has-render' + (isDragging ? ' dragging' : sel ? ' selected' : ''),
         style: 'width:' + w + 'px;height:' + hh + 'px;transform:translate3d(' + Math.round(x * scale) + 'px,' + Math.round(y * scale) + 'px,0);z-index:' + (isDragging ? 200 : sel ? 150 : 50),
       }, [modContent(m, scale, settings)]);
-      if (isDragging || sel) node.appendChild(h('div', { class: 'hud-tag', style: 'top:' + (hh + 6) + 'px', text: m.id }));
+      // While dragging, the tag shows the anchor and offset that will be saved.
+      if (isDragging || sel) node.appendChild(h('div', { class: 'hud-tag', style: 'top:' + (hh + 6) + 'px',
+        text: isDragging ? anchor.replace(/_/g, ' ') + ' · ' + offset[0] + ', ' + offset[1] : m.id }));
       node.addEventListener('pointerdown', (e) => onModulePointerDown(e, m));
       layer.appendChild(node);
     });

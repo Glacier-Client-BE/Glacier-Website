@@ -428,6 +428,11 @@
       const off = Array.isArray(k.p.offset) ? [axis(k.p.offset[0], W, 0, H, 0) || 0, axis(k.p.offset[1], H, 0, W, 0) || 0] : [0, 0];
       k.x = ax * W - tx * k.w + off[0];
       k.y = ay * H - ty * k.h + off[1];
+      // use_anchored_offset: the offset comes from #anchored_offset_value_x/y (bound or in the property bag).
+      if (k.p.use_anchored_offset) {
+        const bag = Object.assign({}, k.p.property_bag, k.bound);
+        k.x += num(bag['#anchored_offset_value_x']); k.y += num(bag['#anchored_offset_value_y']);
+      }
       mw = Math.max(mw, k.w); mh = Math.max(mh, k.h);
     });
     return { w: mw, h: mh };
@@ -489,15 +494,17 @@
         } else {
           d.style.backgroundImage = 'url(' + t.url + ')';
           d.style.backgroundSize = p.keep_ratio ? 'contain' : '100% 100%';
-          if (p.tiled) d.style.backgroundSize = 'auto';
+          if (p.tiled) d.style.backgroundSize = (t.w || 16) + 'px ' + (t.h || 16) + 'px';
           d.style.backgroundRepeat = p.tiled ? 'repeat' : 'no-repeat';
-          d.style.backgroundPosition = 'center';
+          d.style.backgroundPosition = p.tiled ? '0 0' : 'center';
         }
         if (tint && tint !== 'rgb(255,255,255)') {
           // Bedrock multiplies the texture by the colour; a mask of the texture filled with the colour matches it for the pack's white textures.
           d.style.backgroundColor = tint; d.style.backgroundBlendMode = 'multiply';
           d.style.webkitMaskImage = d.style.maskImage = 'url(' + t.url + ')';
-          d.style.webkitMaskSize = d.style.maskSize = '100% 100%';
+          d.style.webkitMaskSize = d.style.maskSize = d.style.backgroundSize || '100% 100%';
+          d.style.webkitMaskRepeat = d.style.maskRepeat = p.tiled ? 'repeat' : 'no-repeat';
+          d.style.webkitMaskPosition = d.style.maskPosition = d.style.backgroundPosition || '0 0';
         }
       }
     } else if (n.type === 'label') {
@@ -538,6 +545,8 @@
         if (b.radios && b.radios[name]) { const [g, i] = b.radios[name]; return { '#toggle_state': num(vars[g] || 0) === num(i) }; }
         if (b.sliders[name]) { const v = vars[b.sliders[name]]; return { '#slider_value': v === undefined ? 7 : num(v) * 10 }; }
         if (/edit_hud/.test(name)) return { '#toggle_state': false };
+        // The pack reads the player's position from this hidden control (sample position 12, 64, -30).
+        if (name === 'glacier_player_position') return { '#coords_x': 12, '#coords_y': 64, '#coords_z': -30, '#pos_chunk_x': 12, '#pos_chunk_y': 0, '#pos_chunk_z': 2 };
         return { '#toggle_state': true, '#slider_value': 7 };
       },
     };

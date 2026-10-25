@@ -2528,7 +2528,7 @@ main :focus-visible,
 
     .ws-preview {
         grid-area: preview;
-        height: clamp(380px, 62vh, 620px);
+        height: clamp(460px, 82vh, 960px);
         background: var(--glass);
         border: 1px solid var(--glass-border);
         border-radius: 16px;

@@ -267,11 +267,11 @@
   const line = (label, value) => el('hs-line', null, label ? lab(label) : null, value);
 
   const MODS = {
-    fpscounter: (c) => ub(c, line(c.s.label, digits(SAMPLE.fps))),
+    fpscounter: (c) => ub(c, el('hs-split', null, lab(c.s.label), digits(SAMPLE.fps))),
     slotcounter: (c) => ub(c, el('hs-split', null, lab(c.s.label), txt(String(SAMPLE.slot)))),
     walkdistance: (c) => ub(c, el('hs-split', null, lab(c.s.label), digits(SAMPLE.walked))),
     speedometer: (c) => ub(c, el('hs-split', null, el('hs-line', null, digits(Math.floor(SAMPLE.speed)), txt('.'), digits(Math.round((SAMPLE.speed % 1) * 100), 2)), lab('m/s'))),
-    daycounter: (c) => ub(c, line(c.s.label, digits(SAMPLE.day))),
+    daycounter: (c) => ub(c, el('hs-split', null, lab(c.s.label), digits(SAMPLE.day))),
     dayevent: (c) => ub(c, el('hs-center', null, gl('day.png', 40, 10))),
     statushud: (c) => ub(c, el('hs-center', null, gl('standing.png', 53, 8))),
     timerhud: (c) => ub(c, el('hs-center', null, txt(SAMPLE.timer))),
@@ -281,10 +281,10 @@
     lowdurability: (c) => ub(c, el('hs-center', null, txt('Item Durability Low!', { color: '#ff5555' }))),
     clockcompass: (c) => ub(c, el('hs-center', { gap: '4px' }, mc('items__clock_item.png', 12, 12), mc('items__compass_item.png', 12, 12))),
     mainhandhud: (c) => ub(c, line(null, el('hs-line', null, mc('items__diamond_sword.png', 13, 13), txt('Diamond Sword')))),
-    targethud: (c) => ub(c, el('hs-col', null,
-      el('hs-line', null, lab('Distance:'), digits(SAMPLE.targetDist)),
+    targethud: (c) => ub(c, el('hs-col', { width: '100%' },
+      el('hs-split', { width: '100%' }, lab('Distance:'), digits(SAMPLE.targetDist)),
       el('hs-gap'),
-      el('hs-line', null, lab('Health:'), digits(SAMPLE.targetHp)))),
+      el('hs-split', { width: '100%' }, lab('Health:'), digits(SAMPLE.targetHp)))),
     forcecoords: (c) => {
       const rows = [['X:', SAMPLE.pos[0]], ['Y:', SAMPLE.pos[1]], ['Z:', SAMPLE.pos[2]]];
       const col = el('hs-col', { gap: '1px' });
@@ -312,7 +312,7 @@
       tape.append(el('hs-dirtape', { backgroundImage: 'url(' + GL('directionhud.png') + ')',
         backgroundPosition: (barW / 2 - px) + 'px 2px' }));
       tape.append(el('hs-needle', { left: barW / 2 + 'px', height: c.h + 'px' }));
-      const rot = ub({ w: 25, h: c.h, op: c.op }, el('hs-center', null, digits(heading)));
+      const rot = ub({ w: 25, h: c.h, op: c.op }, el('hs-split', { width: '100%', justifyContent: 'flex-end' }, digits(heading)));
       const bar = ub({ w: barW, h: c.h, op: c.op }, tape);
       bar.style.padding = '0';
       return el('hs-hrow', { width: c.w + 'px', height: c.h + 'px' }, rot, bar);
@@ -400,15 +400,9 @@
     try { r = J.render(version, b.modules[id], get, { w: s.w, h: s.h, hooks }); } catch (e) { console.warn('jsonui', id, e); return null; }
     if (!r) return null;
     if (paperDoll && ENTITY_VALUE[id]) {
-      // Put the value after the right-most label, centred on the box like the pack's renderer.
-      let right = 2;
-      (function walk(n, ox, oy) {
-        if (n.hidden) return;
-        if (n.type === 'label' && n.p.text) right = Math.max(right, ox + n.x + n.w + 3);
-        n.kids.forEach((k) => walk(k, ox + (n === r.node ? 0 : n.x), oy + (n === r.node ? 0 : n.y)));
-      })(r.node, 0, 0);
+      // Glacier's entity numbers are right aligned in the box, vertically centred.
       const v = ENTITY_VALUE[id]();
-      Object.assign(v.style, { position: 'absolute', left: right + 'px', top: '50%', transform: 'translateY(-50%)', zIndex: 20 });
+      Object.assign(v.style, { position: 'absolute', right: '2px', top: '50%', transform: 'translateY(-50%)', zIndex: 20 });
       r.el.append(v);
     }
     return r.el;
