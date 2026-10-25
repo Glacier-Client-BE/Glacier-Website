@@ -7,7 +7,7 @@
 // that value. Skipped entirely under reduced motion, where numbers render as-is.
 // Digit styling (tabular-nums) belongs to CSS on .dl-count-num.
 
-import { prefersReducedMotion } from './utils.js?v=20261025093058';
+import { prefersReducedMotion } from './utils.js?v=20261025093222';
 
 const DURATION = 800;
 const fmt = new Intl.NumberFormat('en-US');

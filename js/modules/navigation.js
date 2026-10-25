@@ -1,10 +1,10 @@
 'use strict';
 
-import { state } from './state.js?v=20261025093058';
-import { $, markCopyableCode, prefersReducedMotion } from './utils.js?v=20261025093058';
-import { ALL, META, TITLES, MERGED } from './config.js?v=20261025093058';
-import { observeReveals } from './reveal.js?v=20261025093058';
-import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js?v=20261025093058';
+import { state } from './state.js?v=20261025093222';
+import { $, markCopyableCode, prefersReducedMotion } from './utils.js?v=20261025093222';
+import { ALL, META, TITLES, MERGED } from './config.js?v=20261025093222';
+import { observeReveals } from './reveal.js?v=20261025093222';
+import { filterFAQCategory, refreshModsVisibility, toggleModFavorite } from './content.js?v=20261025093222';
 
 // Shows the custom 404 page for a path that doesn't match any known section.
 // Leaves the URL as-is (whatever the visitor actually landed on).
