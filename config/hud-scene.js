@@ -138,13 +138,13 @@
       borderImage: 'url(' + src + ') ' + t + ' ' + r + ' ' + b + ' ' + l + ' fill stretch' }, css || {}));
   }
 
-  function hotbar(get) {
+  function hotbar(get, dx) {
     // Hotbar style (glacier_hotbar_settings): 1 = vanilla, 2 = connected, 3 = RGB, 4 = Glacier.
     const type = Number(get('$hotbar_toggle_index', 1)) || 1;
     const items = ['items__diamond_sword.png', 'items__apple.png', 'items__apple_golden.png', 'items__beef_cooked.png', 'items__bread.png',
       'items__iron_pickaxe.png', 'items__ender_pearl.png', 'items__experience_bottle.png', 'items__compass_item.png'];
     const vanilla = type === 1;
-    const bar = place(el('hs-abs', { width: (vanilla ? 182 : 180) + 'px', height: '22px' }), 'bottom_middle', [0, 0]);
+    const bar = place(el('hs-abs', { width: (vanilla ? 182 : 180) + 'px', height: '22px' }), 'bottom_middle', [dx || 0, 0]);
     const x0 = vanilla ? 1 : 0;
     if (vanilla) {
       bar.append(mc('ui__hotbar_start_cap.png', 1, 22, { position: 'absolute', left: 0 }));
@@ -232,11 +232,13 @@
     s.append(el('hs-sky'), el('hs-ground', { top: Math.round(h * 0.56) + 'px' }));
     const t = tint(get);
     if (t) s.append(t);
-    s.append(hotbar(get), ...xpBar(get));
+    // On touch screens the game centres hotbar + inventory button (20px) together, so the hotbar sits 10px left.
+    const touchInv = device === 'mobile' && !get('$hide_inventory_button', false);
+    s.append(hotbar(get, touchInv ? -10 : 0), ...xpBar(get));
     // Touch screens get vanilla's inventory button (•••) right of the hotbar unless the pack hides it.
-    if (device === 'mobile' && !get('$hide_inventory_button', false)) {
+    if (touchInv) {
       const vanilla = (Number(get('$hotbar_toggle_index', 1)) || 1) === 1;
-      const inv = place(el('hs-abs hs-invbtn', { width: '20px', height: '22px' }), 'bottom_middle', [(vanilla ? 91 : 90) + 10, 0]);
+      const inv = place(el('hs-abs hs-invbtn', { width: '20px', height: '22px' }), 'bottom_middle', [(vanilla ? 91 : 90), 0]);
       inv.append(mc('ui__hotbar_8.png', 20, 22, { position: 'absolute', left: 0, top: 0 }));
       inv.append(el('hs-dots', null, el('hs-dot'), el('hs-dot'), el('hs-dot')));
       s.append(inv);
@@ -429,5 +431,16 @@
     return ub(c, el('hs-center', null, txt(id)));
   }
 
-  window.GlacierHud = { buildScene, sceneKey, crosshairCount: (v) => CROSSHAIR_COUNT[v] || 33, drawModule, sizeFor, has: (id) => !!MODS[id] };
+  // Modules the pack only builds on touch screens ("ignored": "(not $touch)").
+  function touchOnly(v, id) {
+    const b = window.GlacierJsonUi && window.GlacierJsonUi.ready(v);
+    if (b && b.modules[id]) {
+      const e = b.idx[b.modules[id][0].split('.')[0]];
+      const def = e && e[b.modules[id][0].split('.').slice(1).join('.')];
+      if (def && /\$touch/.test(JSON.stringify(def[1].ignored || ''))) return true;
+    }
+    return /^(f1button|f8button|hotbar_left_button|hotbar_right_button|playerlist_mobile_button)$/.test(id);
+  }
+
+  window.GlacierHud = { touchOnly, buildScene, sceneKey, crosshairCount: (v) => CROSSHAIR_COUNT[v] || 33, drawModule, sizeFor, has: (id) => !!MODS[id] };
 })();

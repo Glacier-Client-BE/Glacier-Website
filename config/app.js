@@ -728,7 +728,9 @@
     layer.innerHTML = '';
     if (!settings || !cw || !ch) return;
 
-    const mods = hudModules().filter((m) => modVisible(m, settings));
+    const mods = hudModules().filter((m) => modVisible(m, settings)
+      // touch-only modules (hotbar arrows, F1/F8, player list button) don't exist on PC
+      && !(previewDevice === 'pc' && window.GlacierHud && window.GlacierHud.touchOnly(version, m.id)));
     anchorGrid.style.display = selectedId ? '' : 'none';
     // mark hot anchor cell during drag
     Array.from(anchorGrid.children).forEach((c) => c.classList.toggle('hot', drag && c.getAttribute('data-anchor') === drag.anchor));
