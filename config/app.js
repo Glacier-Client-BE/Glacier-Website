@@ -539,22 +539,33 @@
 
   /* ── HUD canvas ─────────────────────────────────────────────── */
   let hudRefs = null; // { canvas, layer, anchorGrid, status, recenterBtn, bgEl }
+  let hudObserver = null; // ResizeObserver: redraw whenever the canvas gets a new real size
 
+  // Every module with an anchor + offset in the HUD section. Visibility comes from one of three key shapes the packs
+  // use: a "$<id>" on-switch, a "$hide_<id>" off-switch, or none (always shown, e.g. the mobile player-list button).
   function hudModules() {
     const mm = config[HUD_SECTION];
     const mods = [];
     if (!mm) return mods;
+    const SUFFIX = '_anchor|default';
     for (const key of Object.keys(mm)) {
-      if (!key.startsWith('$') || typeof mm[key] !== 'boolean' || key.includes('_')) continue;
-      const base = key.substring(1);
-      const anchorKey = '$' + base + '_anchor|default';
+      if (!key.startsWith('$') || !key.endsWith(SUFFIX)) continue;
+      const base = key.slice(1, -SUFFIX.length);
+      if (base.startsWith('hide_')) continue;
+      const anchorKey = key;
       const offsetKey = '$' + base + '_offset|default';
-      if (mm[anchorKey] === undefined || mm[offsetKey] === undefined) continue;
-      const size = Object.assign({ w: 64, h: 32, icon: 'fa-cube' }, HUD_SIZES[base] || {}, (window.GlacierHud && window.GlacierHud.sizeFor(version, base)) ? { w: window.GlacierHud.sizeFor(version, base).w, h: window.GlacierHud.sizeFor(version, base).h } : {});
-      mods.push({ id: base, toggleKey: key, anchorKey, offsetKey, width: size.w, height: size.h, icon: size.icon });
+      if (mm[offsetKey] === undefined) continue;
+      const onKey = typeof mm['$' + base] === 'boolean' ? '$' + base : null;
+      const hideKey = !onKey && typeof mm['$hide_' + base] === 'boolean' ? '$hide_' + base : null;
+      const spec = window.GlacierHud && window.GlacierHud.sizeFor(version, base);
+      const own = Array.isArray(mm['$' + base + '_size|default']) ? mm['$' + base + '_size|default'] : null;
+      const size = Object.assign({ w: 64, h: 32, icon: 'fa-cube' }, HUD_SIZES[base] || {},
+        spec ? { w: spec.w, h: spec.h } : {}, own ? { w: own[0], h: own[1] } : {});
+      mods.push({ id: base, toggleKey: onKey || hideKey, hideKey: !!hideKey, anchorKey, offsetKey, width: size.w, height: size.h, icon: size.icon });
     }
     return mods;
   }
+  const modVisible = (m, settings) => (!m.toggleKey ? true : m.hideKey ? !settings[m.toggleKey] : !!settings[m.toggleKey]);
 
   function computePosition(anchor, offset, w, h2, cw, ch) {
     let x, y;
@@ -620,6 +631,20 @@
     stage.appendChild(canvas);
 
     hudRefs = { stage, canvas, layer, anchorGrid, inspector };
+    // Built while the panel is hidden (phones start on Config) the canvas is 0x0;
+    // redraw as soon as it gets a size, on rotation, resize or when the panel is shown.
+    if (hudObserver) hudObserver.disconnect();
+    hudObserver = null;
+    if (window.ResizeObserver) {
+      let lastSize = '';
+      hudObserver = new ResizeObserver(() => {
+        const key = canvas.clientWidth + 'x' + canvas.clientHeight;
+        if (key === lastSize) return;
+        lastSize = key;
+        refreshHUD();
+      });
+      hudObserver.observe(canvas);
+    }
     requestAnimationFrame(() => { refreshHUD(); });
     return stage;
   }
@@ -659,7 +684,7 @@
     layer.innerHTML = '';
     if (!settings || !cw || !ch) return;
 
-    const mods = hudModules().filter((m) => settings[m.toggleKey]);
+    const mods = hudModules().filter((m) => modVisible(m, settings));
     anchorGrid.style.display = selectedId ? '' : 'none';
     // mark hot anchor cell during drag
     Array.from(anchorGrid.children).forEach((c) => c.classList.toggle('hot', drag && c.getAttribute('data-anchor') === drag.anchor));
@@ -724,9 +749,11 @@
     const settings = config[HUD_SECTION];
     if (!settings) return;
     e.preventDefault(); e.stopPropagation();
-    const target = e.currentTarget;
+    const rect = e.currentTarget.getBoundingClientRect();
+    // Capture on the canvas, not the module: refreshHUD() re-renders the module
+    // nodes on pointerdown, and a captured node that leaves the DOM drops the touch drag.
+    const target = hudRefs ? hudRefs.canvas : e.currentTarget;
     try { target.setPointerCapture(e.pointerId); } catch (err) {}
-    const rect = target.getBoundingClientRect();
     const sx = curScale() || 1;
     dragState = {
       id: mod.id, pointerId: e.pointerId,
@@ -1066,7 +1093,15 @@
     Array.from($('mobileSwitch').children).forEach((b) => b.classList.toggle('active', b.getAttribute('data-view') === v));
     $('configPanel').classList.toggle('mobile-hidden', v !== 'config');
     $('previewPanel').classList.toggle('mobile-hidden', v !== 'preview');
-    if (v === 'preview') refreshHUD();
+    if (v === 'preview') { refreshHUD(); requestAnimationFrame(refreshHUD); }
+  }
+
+  /* Phones: the sticky bar's Export opens the export menu that lives in the config pane. */
+  function exportFromBar() {
+    setMobileView('config');
+    const btn = $('exportBtn');
+    btn.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    btn.click();
   }
 
   /* ── Tutorial modal ─────────────────────────────────────────── */
@@ -1257,7 +1292,10 @@
       document.querySelectorAll('.view-tab').forEach((x) => x.classList.toggle('active', x === b));
       renderView();
     }));
-    Array.from($('mobileSwitch').children).forEach((b) => b.addEventListener('click', () => setMobileView(b.getAttribute('data-view'))));
+    Array.from($('mobileSwitch').children).forEach((b) => b.addEventListener('click', () => {
+      if (b.id === 'mobileExportBtn') exportFromBar();
+      else setMobileView(b.getAttribute('data-view'));
+    }));
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

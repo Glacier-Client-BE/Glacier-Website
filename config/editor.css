@@ -2752,3 +2752,203 @@ html.pfs-lock, html.pfs-lock body {
 
 html.pfs-lock #mainHeader { visibility: hidden; }
 html.pfs-lock #previewPanel.is-pfs { z-index: 100000; }
+
+/* ═══════════════════════════════════════════════════════════════
+   Phones & tablets (<=900px): one pane at a time, a sticky bottom bar
+   (Config / Preview / Export) and a preview that sizes from its own width.
+   Desktop (>=1000px) is untouched.
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+    #editorStart {
+        padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .editor-toolbar {
+        flex-wrap: wrap;
+        row-gap: 10px;
+    }
+
+    .workspace,
+    .ws-sidebar,
+    .ws-preview {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    /* The canvas takes its width from the stage, not container units, so it
+       has a real size even when it is laid out inside a fresh panel. */
+    .ws-preview-body {
+        container-type: normal;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .hud-stage {
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+    }
+
+    .hud-stage .hud-canvas,
+    .hud-stage[data-device="mobile"] .hud-canvas {
+        flex: none;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+
+    .hud-stage[data-device="mobile"] .hud-canvas {
+        aspect-ratio: 20 / 9;
+    }
+
+    /* Touch drags: the canvas owns the gesture so the page never scrolls mid-drag. */
+    .hud-canvas,
+    .hud-module {
+        touch-action: none;
+    }
+
+    .hud-module::before {
+        content: '';
+        position: absolute;
+        inset: -6px;
+    }
+
+    /* Preview bar: tabs on their own row, controls wrap beneath them. */
+    .ws-preview-bar {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .view-tabs {
+        flex: 1 1 100%;
+        gap: 6px;
+        padding: 4px;
+        background: var(--bg-item);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--pill);
+    }
+
+    .view-tab {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-height: 44px;
+        border-radius: var(--pill);
+    }
+
+    .view-tab.active {
+        background: var(--accent);
+        color: #fff;
+    }
+
+    [data-theme="light"] .view-tab.active {
+        background: var(--accent-strong);
+    }
+
+    .preview-ctl {
+        flex: 1 1 100%;
+        margin-left: 0;
+        gap: 8px;
+    }
+
+    .seg-pill {
+        flex-wrap: wrap;
+        max-width: 100%;
+    }
+
+    .seg-pill button {
+        min-height: 40px;
+        padding: 0 12px;
+    }
+
+    .ws-preview-actions {
+        margin-left: auto;
+    }
+
+    .tool-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* Module cards: larger labels, comfortable row height. */
+    .ctl {
+        padding: 12px 10px;
+    }
+
+    .ctl-label {
+        font-size: 0.92rem;
+    }
+
+    .ctl-sub {
+        font-size: 0.8rem;
+        line-height: 1.45;
+    }
+
+    /* Sticky bottom bar. */
+    .mobile-switch {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+        z-index: 900;
+        margin: 0;
+        padding: 6px;
+        gap: 6px;
+        background: rgba(18, 22, 28, 0.94);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .mobile-switch button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-height: 48px;
+        padding: 10px 8px;
+        font-size: 0.78rem;
+    }
+
+    .mobile-switch .mobile-export {
+        flex: 0 0 auto;
+        padding: 10px 16px;
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .mobile-switch .mobile-export:active {
+        background: rgba(255, 255, 255, 0.16);
+    }
+}
+
+@media (max-width: 768px) {
+    .ws-preview-bar {
+        padding: 10px;
+    }
+
+    .ws-preview-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+[data-theme="light"] .mobile-switch {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(20, 30, 50, 0.1);
+    box-shadow: 0 10px 30px rgba(20, 30, 50, 0.18);
+}
+
+[data-theme="light"] .mobile-switch .mobile-export {
+    color: var(--text);
+    background: #fff;
+    border-color: rgba(20, 30, 50, 0.14);
+}
+
+/* Phones: the drag hint covers half of the small canvas; the selected-module inspector still shows. */
+@media (max-width: 768px) {
+    .hud-inspector.hint { display: none; }
+}

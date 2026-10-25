@@ -46,6 +46,11 @@
       playerlist: { w: 18, h: 18 },
       f1button: { w: 18, h: 18 },
       f8button: { w: 18, h: 18 },
+      hotbar_left_button: { w: 22, h: 22 },
+      hotbar_right_button: { w: 22, h: 22 },
+      playerlist_mobile_button: { w: 18, h: 18 },
+      bossbar: { w: 200, h: 20 },
+      scoreboard: { w: 90, h: 60 },
     };
     return s;
   }
@@ -226,10 +231,29 @@
       for (let i = 0; i < 27; i++) g.append(el('hs-slot', null, i % 5 === 0 ? mc('items__bread.png', 10, 10) : null));
       return el('hs-fill', { width: c.w + 'px', height: c.h + 'px' }, g);
     },
-    f1button: (c) => ub(c, el('hs-center', null, txt('F1'))),
-    f8button: (c) => ub(c, el('hs-center', null, txt('F8'))),
-    playerlist: (c) => ub(c, el('hs-center', null, txt('TAB'))),
+    // touch buttons use the pack's ore_ui_button (grey bevel), not the underlined base
+    f1button: (c) => btn(c, txt('F1', { color: '#000' })),
+    f8button: (c) => btn(c, txt('F8', { color: '#000' })),
+    hotbar_left_button: (c) => btn(c, txt('<', { color: '#000' })),
+    hotbar_right_button: (c) => btn(c, txt('>', { color: '#000' })),
+    playerlist_mobile_button: (c) => btn(c, el('hs-col', { gap: '2px', alignItems: 'center' },
+      [0, 1, 2].map(() => el(null, { width: '9px', height: '1px', background: '#000' })))),
+    bossbar: (c) => ub(c, el('hs-col', { gap: '2px', width: '100%', alignItems: 'center' },
+      txt('Ender Dragon'),
+      el(null, { width: '182px', height: '5px', background: '#000', position: 'relative' },
+        el(null, { width: '62%', height: '100%', background: '#b03ec4' })))),
+    scoreboard: (c) => {
+      const rows = [['Kills', 12], ['Deaths', 3], ['Coins', 450], ['Level', 30]];
+      const col = el('hs-col', { gap: '1px', width: '100%' }, el('hs-center', { fontWeight: 'bold' }, txt('SCOREBOARD')));
+      rows.forEach(([l, v]) => col.append(el('hs-split', { width: '100%' }, lab(l), txt(num(v), { color: '#ff5555' }))));
+      return ub(c, col);
+    },
   };
+  // ore_ui_button look: light grey face with a dark bevel, centred content
+  function btn(c, child) {
+    return el('hs-center', { width: c.w + 'px', height: c.h + 'px', background: '#8b8b8b',
+      boxShadow: 'inset 1px 1px #c6c6c6, inset -1px -1px #373737' }, child);
+  }
 
   /* drawModule(id, version, get): the module's drawing at its drag size for that Glacier version. */
   function drawModule(id, version, get) {

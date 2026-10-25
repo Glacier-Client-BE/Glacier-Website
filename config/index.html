@@ -37,8 +37,8 @@
     </noscript>
     <!-- Root-absolute so the one stylesheet resolves both here (deployed at the
          subdomain root) and at glacierclient.xyz/config/ during development. -->
-    <link rel="stylesheet" href="/css/styles.css?v=20261025083023" />
-    <link rel="stylesheet" href="editor.css?v=20261025083023" />
+    <link rel="stylesheet" href="/css/styles.css?v=20261025130000" />
+    <link rel="stylesheet" href="editor.css?v=20261025130000" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
 </head>
 
@@ -146,6 +146,7 @@
             <div class="mobile-switch" id="mobileSwitch">
                 <button data-view="config" class="active"><i class="fas fa-cog" aria-hidden="true"></i> Config</button>
                 <button data-view="preview"><i class="fas fa-eye" aria-hidden="true"></i> Preview</button>
+                <button type="button" class="mobile-export" id="mobileExportBtn" aria-label="Export config"><i class="fas fa-download" aria-hidden="true"></i> Export</button>
             </div>
 
             <div class="workspace card-base">
@@ -364,9 +365,9 @@
         import { setupHeroMedia } from '/js/modules/heroMedia.js';
         setupHeroMedia();
     </script>
-    <script src="hud-scene.js?v=20261024213736"></script>
-    <script src="config-data.js?v=20261025083023"></script>
-    <script src="app.js?v=20261025083023"></script>
+    <script src="hud-scene.js?v=20261025130000"></script>
+    <script src="config-data.js?v=20261025130000"></script>
+    <script src="app.js?v=20261025130000"></script>
 </body>
 
 </html>
