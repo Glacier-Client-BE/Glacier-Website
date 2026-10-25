@@ -24,6 +24,10 @@ on:
       - 'assets/BG.webp'
       - 'assets/logo.png'
       - 'assets/mods/**'
+      - 'assets/hero-tour.mp4'
+      - 'assets/mod_menu.webp'
+      - 'assets/Inter_Medium.ttf'
+      - 'js/modules/heroMedia.js'
       - '.github/workflows/deploy-config-editor.yml'
   workflow_dispatch:
 
@@ -57,8 +61,26 @@ jobs:
           mkdir -p dist/css dist/assets dist/assets/mods
           cp css/styles.css dist/css/styles.css
           cp assets/BG.webp assets/logo.png dist/assets/
+          # Hero video + poster, the HUD preview font, and the shared hero script.
+          cp assets/hero-tour.mp4 assets/mod_menu.webp assets/Inter_Medium.ttf dist/assets/
+          mkdir -p dist/js/modules
+          cp js/modules/heroMedia.js dist/js/modules/
           # Per-module artwork, shared with the main site's mods grid.
           cp assets/mods/*.png dist/assets/mods/
+
+          # Crawlers: allow everything, point at the sitemap.
+          {
+            echo 'User-agent: *'
+            echo 'Allow: /'
+            echo ''
+            echo 'Sitemap: https://config.glacierclient.xyz/sitemap.xml'
+          } > dist/robots.txt
+          {
+            echo '<?xml version="1.0" encoding="UTF-8"?>'
+            echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+            echo '  <url><loc>https://config.glacierclient.xyz/</loc><priority>0.8</priority></url>'
+            echo '</urlset>'
+          } > dist/sitemap.xml
 
           # Owns the subdomain on GitHub Pages.
           echo 'config.glacierclient.xyz' > dist/CNAME

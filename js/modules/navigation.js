@@ -65,8 +65,9 @@ export function showSection(id, sub) {
         }
     }
 
-    const path = id === 'home' ? '/' : '/' + id + (hasDeepLink ? '/' + sub : '');
-    if (location.pathname !== path) history.pushState(null, '', path);
+    // Section URLs end in a slash (/downloads/) to match the real pages the SEO build generates.
+    const path = id === 'home' ? '/' : '/' + id + '/' + (hasDeepLink ? sub : '');
+    if (location.pathname !== path && location.pathname !== path.replace(/\/$/, '')) history.pushState(null, '', path);
     closeMobileMenu();
 
     document.title = TITLES[id] || TITLES.home;
@@ -74,6 +75,13 @@ export function showSection(id, sub) {
     if (state.dom.metaOgDesc) state.dom.metaOgDesc.setAttribute('content', desc);
     if (state.dom.metaTwDesc) state.dom.metaTwDesc.setAttribute('content', desc);
     if (state.dom.metaOgUrl) state.dom.metaOgUrl.setAttribute('content', 'https://glacierclient.xyz' + path);
+    // Keep the rest of the head in step with the section (matters for tab titles, shares and JS-rendering crawlers).
+    const setMeta = (sel, v) => { const m = document.querySelector(sel); if (m) m.setAttribute('content', v); };
+    setMeta('meta[name="description"]', desc);
+    setMeta('meta[property="og:title"]', document.title);
+    setMeta('meta[name="twitter:title"]', document.title);
+    const canon = document.querySelector('link[rel="canonical"]');
+    if (canon) canon.setAttribute('href', 'https://glacierclient.xyz' + path);
 
     if (hasDeepLink) {
         if (state.dlIndex.size) applyDeepLink(sub);

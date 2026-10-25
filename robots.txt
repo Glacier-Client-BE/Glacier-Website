@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /cloudflare-worker.js
+
+Sitemap: https://glacierclient.xyz/sitemap.xml

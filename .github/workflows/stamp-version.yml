@@ -28,10 +28,17 @@ jobs:
           set -euo pipefail
           VERSION=$(date -u +%Y%m%d%H%M%S) node .github/scripts/stamp-version.js
 
+      # Per-section pages (/downloads/, /features/ ...), sitemap.xml and robots.txt are generated from index.html so
+      # search engines get a real 200 page, unique metadata and structured data for every section. Runs after the
+      # stamp so the generated pages carry the same cache-busting version.
+      - name: Build SEO pages
+        run: python3 .github/scripts/build-seo.py
+
       - name: Commit and push
         run: |
           set -euo pipefail
-          git add index.html 404.html js config/index.html
+          git add index.html 404.html js config/index.html sitemap.xml robots.txt
+          for r in $(python3 .github/scripts/build-seo.py --list); do git add "$r"; done
           if git diff --cached --quiet; then
             echo "No version bump needed."
             exit 0
