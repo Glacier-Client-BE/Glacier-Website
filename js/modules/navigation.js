@@ -274,3 +274,18 @@ export function setupDelegation() {
         if (!path.includes(state.dom.navMenu) && !path.includes(state.dom.mobileMenuBtn)) closeMobileMenu();
     });
 }
+
+
+// In-page hash links. The document has <base href="/">, so a bare href="#section" would navigate to "/#section"
+// (a full page load of the home page) from any other section URL. Scroll to the target instead.
+document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+    e.preventDefault();
+    const id = decodeURIComponent(a.getAttribute('href').slice(1));
+    const target = id ? document.getElementById(id) : null;
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+});

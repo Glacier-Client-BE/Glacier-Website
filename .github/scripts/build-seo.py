@@ -140,10 +140,12 @@ def page(template, route, title, desc, faqs):
     d = re.sub(r'\s*<!-- seo:jsonld:start -->.*?<!-- seo:jsonld:end -->', '', d, flags=re.S)
     block = '    <!-- seo:jsonld:start -->\n    ' + jsonld_for(route, title, desc, faqs) + '\n    <!-- seo:jsonld:end -->\n'
     d = d.replace('    <link rel="icon"', block + '    <link rel="icon"', 1)
+    # Every page (home included, because the router later moves it to /downloads/ etc.) resolves relative URLs from "/":
+    # assets, modules and data fetches would otherwise 404 under /<route>/. In-page "#" links are handled by a click
+    # handler in js/modules/navigation.js, and rewritten per route page below so they also work without JS.
+    if '<base ' not in d:
+        d = d.replace('<meta charset="UTF-8" />', '<meta charset="UTF-8" />' + chr(10) + '    <base href="/" />', 1)
     if route:
-        # Served from /<route>/index.html: every relative URL (assets, modules, data fetches) must still resolve from "/".
-        if '<base ' not in d:
-            d = d.replace('<meta charset="UTF-8" />', '<meta charset="UTF-8" />\n    <base href="/" />', 1)
         d = re.sub(r'href="#([^"]*)"', lambda m: 'href="/' + route + '/#' + m.group(1) + '"', d)
     return d
 
