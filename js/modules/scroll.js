@@ -1,8 +1,8 @@
 'use strict';
 
-import { state } from './state.js?v=20261025092856';
-import { $ } from './utils.js?v=20261025092856';
-import { syncScrollProgress } from './navigation.js?v=20261025092856';
+import { state } from './state.js?v=20261025093058';
+import { $ } from './utils.js?v=20261025093058';
+import { syncScrollProgress } from './navigation.js?v=20261025093058';
 
 // Single eased-scroll loop. One rAF drives every scroll-linked effect from one
 // value (state.smoothY): the sticky header, the back-to-top button, the top

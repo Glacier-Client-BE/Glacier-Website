@@ -10,8 +10,8 @@
 //     its own after a while.
 // Every motion is skipped under prefers-reduced-motion. Listeners are passive.
 
-import { prefersReducedMotion } from './utils.js?v=20261025092856';
-import { t, currentLang } from './i18n.js?v=20261025092856';
+import { prefersReducedMotion } from './utils.js?v=20261025093058';
+import { t, currentLang } from './i18n.js?v=20261025093058';
 
 const RIPPLE_SEL = '.btn, button, .nav-tab';
 const DL_SEL = '.download-card a.btn';
