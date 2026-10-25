@@ -718,6 +718,8 @@
 
   function drawModules() {
     const { canvas, layer, anchorGrid } = hudRefs;
+    // The version's JSON UI bundle loads once; redraw with the pack's own modules when it arrives.
+    if (window.GlacierJsonUi && !window.GlacierJsonUi.ready(version)) window.GlacierJsonUi.load(version).then(refreshHUD, () => {});
     const settings = config[HUD_SECTION];
     const scale = curScale();
     const cw = canvas.clientWidth, ch = canvas.clientHeight;

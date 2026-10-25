@@ -54,7 +54,23 @@
     };
     return s;
   }
-  const sizeFor = (v, id) => { const s = specFor(v)[id]; return s ? { w: s.w, h: s.h } : null; };
+  // Drag size: from the pack's own JSON UI when it's loaded (the module's root control), else the table above.
+  const jsonSizes = {};
+  function sizeFor(v, id) {
+    const s = specFor(v)[id];
+    const J = window.GlacierJsonUi;
+    const b = J && J.ready(v);
+    if (b && b.modules[id] && !ENTITY_DRAWN.has(id)) {
+      const k = v + '|' + id;
+      if (!(k in jsonSizes)) {
+        let r = null;
+        try { r = J.render(v, b.modules[id], (key, d) => d, { w: s ? s.w : 64, h: s ? s.h : 16, hooks: {} }); } catch (e) { /* keep the table size */ }
+        jsonSizes[k] = r && r.node.w > 0 && r.node.h > 0 ? { w: Math.round(r.node.w), h: Math.round(r.node.h) } : null;
+      }
+      if (jsonSizes[k]) return jsonSizes[k];
+    }
+    return s ? { w: s.w, h: s.h } : null;
+  }
 
   /* ── tiny DOM helpers ── */
   function el(cls, css, ...kids) {
@@ -349,9 +365,60 @@
     return el('hs-center hs-ore', { width: c.w + 'px', height: c.h + 'px', backgroundImage: 'url(' + GL('ore_ui_button.png') + ')' }, child);
   }
 
+  /* ── modules from the pack's own JSON UI (jsonui.js) ──
+     Entity modules draw their number with a paper doll renderer (an entity whose geometry shows the value); the
+     browser can't run that, so the value is drawn with the pack's digit strip right after the module's label.
+     Entity modules that are mostly entity geometry keep the hand-made drawing above. */
+  const ENTITY_VALUE = {
+    fpscounter: () => digits(SAMPLE.fps),
+    walkdistance: () => digits(SAMPLE.walked),
+    daycounter: () => digits(SAMPLE.day),
+    creeperrange: () => digits(7),
+  };
+  const ENTITY_DRAWN = new Set(['directionhud', 'targethud', 'forcecoords', 'dayevent', 'statushud', 'bowindicator', 'offhandhud', 'speedometer', 'timerhud',
+    // drawn by the game itself (live player renderer, vanilla boss bar / scoreboard factories)
+    'armorhud', 'bossbar', 'scoreboard']);
+  const ITEM_ICON = (name) => MC('items__' + name + '.png');
+
+  function fromJsonUi(id, version, get, s) {
+    const J = window.GlacierJsonUi;
+    const b = J && J.ready(version);
+    if (!b || !b.modules[id] || ENTITY_DRAWN.has(id)) return null;
+    let paperDoll = false;
+    const hooks = {
+      custom(renderer, n) {
+        if (renderer === 'paper_doll_renderer' || renderer === 'live_player_renderer') { paperDoll = true; return null; }
+        if (renderer === 'inventory_item_renderer') {
+          // Collection slots carry their sample item; fixed renderers (clock & compass) are named after their item.
+          const item = (n.data && n.data['#item_id_aux'] !== -1 && n.data['#item']) || (/clock/.test(n.name) ? 'clock_item' : /compass/.test(n.name) ? 'compass_item' : null);
+          if (item) return img(ITEM_ICON(item), n.w, n.h, { position: 'absolute', inset: 0, width: '100%', height: '100%' });
+        }
+        return null;
+      },
+    };
+    let r;
+    try { r = J.render(version, b.modules[id], get, { w: s.w, h: s.h, hooks }); } catch (e) { console.warn('jsonui', id, e); return null; }
+    if (!r) return null;
+    if (paperDoll && ENTITY_VALUE[id]) {
+      // Put the value after the right-most label, centred on the box like the pack's renderer.
+      let right = 2;
+      (function walk(n, ox, oy) {
+        if (n.hidden) return;
+        if (n.type === 'label' && n.p.text) right = Math.max(right, ox + n.x + n.w + 3);
+        n.kids.forEach((k) => walk(k, ox + (n === r.node ? 0 : n.x), oy + (n === r.node ? 0 : n.y)));
+      })(r.node, 0, 0);
+      const v = ENTITY_VALUE[id]();
+      Object.assign(v.style, { position: 'absolute', left: right + 'px', top: '50%', transform: 'translateY(-50%)', zIndex: 20 });
+      r.el.append(v);
+    }
+    return r.el;
+  }
+
   /* drawModule(id, version, get): the module's drawing at its drag size for that Glacier version. */
   function drawModule(id, version, get) {
     const s = specFor(version)[id] || { w: 64, h: 16 };
+    const ju = fromJsonUi(id, version, get, s);
+    if (ju) return ju;
     const fn = MODS[id];
     const op = Number(get('$' + id + '_opacity|default', 0.7));
     const c = { get, v: version, s, w: s.w, h: s.h, op: isFinite(op) ? op : 0.7 };

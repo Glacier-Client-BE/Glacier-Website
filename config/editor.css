@@ -2981,3 +2981,9 @@ html.pfs-lock #previewPanel.is-pfs { z-index: 100000; }
 .pick-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(255,255,255,.35); flex: none; }
 .pick-xp { width: 34px; height: 5px; background-size: 100% 100%; image-rendering: pixelated; flex: none; }
 .pick-dot.chroma, .pick-xp.chroma { background: linear-gradient(90deg, #ff4040, #ffff40, #40ff70, #40c8ff, #b060ff); }
+
+/* JSON UI interpreter output (jsonui.js): every control is an absolutely placed box in GUI px. */
+.ju { position: absolute; box-sizing: border-box; image-rendering: pixelated; }
+.ju-root { position: relative; }
+.ju-t { white-space: pre; overflow: visible; }
+.ju-img { position: absolute; inset: 0; box-sizing: border-box; image-rendering: pixelated; }
