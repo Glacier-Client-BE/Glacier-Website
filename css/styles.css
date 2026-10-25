@@ -6533,7 +6533,7 @@ textarea {
         filter: none !important;
     }
 
-    .hero,
+    /* The hero itself must keep its entrance animation: it starts at opacity 0 and the animation is what fades it in. */
     .hero::before,
     .hero::after {
         animation: none !important;
