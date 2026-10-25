@@ -546,7 +546,7 @@
         if (b.sliders[name]) { const v = vars[b.sliders[name]]; return { '#slider_value': v === undefined ? 7 : num(v) * 10 }; }
         if (/edit_hud/.test(name)) return { '#toggle_state': false };
         // The pack reads the player's position from this hidden control (sample position 12, 64, -30).
-        if (name === 'glacier_player_position') return { '#coords_x': 12, '#coords_y': 64, '#coords_z': -30, '#pos_chunk_x': 12, '#pos_chunk_y': 0, '#pos_chunk_z': 2 };
+        if (name === 'glacier_player_position') return { '#coords_x': 12, '#coords_y': 64, '#coords_z': -30, '#pos_x': 12, '#pos_z': -30, '#pos_chunk_x': 12, '#pos_chunk_y': 0, '#pos_chunk_z': 2 };
         return { '#toggle_state': true, '#slider_value': 7 };
       },
     };

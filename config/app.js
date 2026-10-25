@@ -9,18 +9,19 @@
   const { VERSIONS, HUD_SIZES, DEFAULT_CONFIGS } = window.GC_DATA;
   const HISTORY_LIMIT = 30;
   const HUD_SECTION = 'mod_menu_config@gc.pnl';
-  const DEVICE_W = { pc: 1280, mobile: 2000 };
+  // Reference screens: a 1080p PC and a 2400x1080 phone (GUI px = device px / GUI scale, like the game).
+  const DEVICE_W = { pc: 1920, mobile: 2400 };
   const MIN_SCALE = 1.05;
   const MIN_SCALE_TOUCH = 1.35;
 
   const ANCHORS = [
     'top_left', 'top_middle', 'top_right',
-    'left_middle', 'middle', 'right_middle',
+    'left_middle', 'center', 'right_middle',
     'bottom_left', 'bottom_middle', 'bottom_right',
   ];
   const ANCHOR_LABELS = {
     top_left: 'TL', top_middle: 'TM', top_right: 'TR',
-    left_middle: 'LM', middle: 'MID', right_middle: 'RM',
+    left_middle: 'LM', center: 'MID', right_middle: 'RM',
     bottom_left: 'BL', bottom_middle: 'BM', bottom_right: 'BR',
   };
   const SECTION_LABELS = [
@@ -620,7 +621,7 @@
     const hZone = cx < cw / 3 ? 'left' : cx > (cw * 2) / 3 ? 'right' : 'middle';
     const vZone = cy < ch / 3 ? 'top' : cy > (ch * 2) / 3 ? 'bottom' : 'middle';
     let anchor;
-    if (vZone === 'middle' && hZone === 'middle') anchor = 'middle';
+    if (vZone === 'middle' && hZone === 'middle') anchor = 'center'; // JSON UI has no plain 'middle' anchor
     else if (vZone === 'middle') anchor = hZone + '_middle';
     else if (hZone === 'middle') anchor = vZone + '_middle';
     else anchor = vZone + '_' + hZone;
