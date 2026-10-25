@@ -1,11 +1,11 @@
 'use strict';
 
-import { state } from './state.js?v=20261025092617';
-import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl, markCopyableCode, liveDelta, emptyStateHtml } from './utils.js?v=20261025092617';
-import { COUNTER_API } from './config.js?v=20261025092617';
-import { applyDeepLink } from './navigation.js?v=20261025092617';
-import { observeReveals } from './reveal.js?v=20261025092617';
-import { t, currentLang } from './i18n.js?v=20261025092617';
+import { state } from './state.js?v=20261025092856';
+import { $, escAttr, formatBytes, formatCount, countKey, slugify, getMonetizedUrl, markCopyableCode, liveDelta, emptyStateHtml } from './utils.js?v=20261025092856';
+import { COUNTER_API } from './config.js?v=20261025092856';
+import { applyDeepLink } from './navigation.js?v=20261025092856';
+import { observeReveals } from './reveal.js?v=20261025092856';
+import { t, currentLang } from './i18n.js?v=20261025092856';
 
 // ── Data loading ──────────────────────────────────────────────────────────
 export function loadData() {

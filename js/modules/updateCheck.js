@@ -13,7 +13,7 @@
 // This check re-fetches the page itself (bypassing cache) periodically
 // and compares the stamped build id against the one baked into this tab.
 
-import { t, currentLang } from './i18n.js?v=20261025092617';
+import { t, currentLang } from './i18n.js?v=20261025092856';
 
 const CHECK_INTERVAL = 5 * 60 * 1000; // 5 minutes
 let dismissed = false;
