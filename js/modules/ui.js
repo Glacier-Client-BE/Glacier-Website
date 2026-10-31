@@ -1,10 +1,10 @@
 'use strict';
 
-import { $ } from './utils.js?v=20261031133611';
-import { NOTIFICATION } from './config.js?v=20261031133611';
-import { showSection } from './navigation.js?v=20261031133611';
-import { latestVersionLabel, latestPackSize } from './content.js?v=20261031133611';
-import { t, currentLang } from './i18n.js?v=20261031133611';
+import { $ } from './utils.js?v=20261031133728';
+import { NOTIFICATION } from './config.js?v=20261031133728';
+import { showSection } from './navigation.js?v=20261031133728';
+import { latestVersionLabel, latestPackSize } from './content.js?v=20261031133728';
+import { t, currentLang } from './i18n.js?v=20261031133728';
 
 let toastKey = '';
 let toastVersion = null;
