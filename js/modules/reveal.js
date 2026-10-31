@@ -1,7 +1,7 @@
 'use strict';
 
-import { state } from './state.js?v=20261025093222';
-import { prefersReducedMotion } from './utils.js?v=20261025093222';
+import { state } from './state.js?v=20261031133611';
+import { prefersReducedMotion } from './utils.js?v=20261031133611';
 
 // Scroll-into-view reveals. Prefers the native CSS scroll-driven animations
 // (animation-timeline: view()) when supported; otherwise falls back to an
