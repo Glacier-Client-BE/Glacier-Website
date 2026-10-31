@@ -6407,7 +6407,18 @@ textarea {
     filter: brightness(.7) saturate(.9);
 }
 
+.hero-card[data-pos="back2"] {
+    z-index: 0;
+    transform: translate(14%, -18%) scale(.8);
+    opacity: .5;
+    filter: brightness(.55) saturate(.85);
+}
+
 @media (hover: hover) {
+    .hero-card[data-pos="back2"]:hover {
+        transform: translate(15%, -19%) scale(.81);
+        opacity: .8;
+    }
     .hero-card[data-pos="back"]:hover {
         transform: translate(8%, -10%) scale(.91);
         opacity: .95;
@@ -6427,8 +6438,8 @@ textarea {
     display: block;
 }
 
-.hero-card[data-pos="back"] .hero-teaser iframe,
-.hero-card[data-pos="back"] video {
+.hero-card:not([data-pos="front"]) .hero-teaser iframe,
+.hero-card:not([data-pos="front"]) video {
     pointer-events: none;
 }
 
