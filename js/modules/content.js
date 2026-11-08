@@ -203,7 +203,8 @@ function buttonsHtml(opts, primary = false) {
     // only the generic "Download" label is localized.
     const hasLoot = opts.some(o => o.name === 'LootLabs');
     const hasDownload = opts.some(o => o.name === 'Download') && !hasLoot;
-    for (const o of opts) {
+    // LootLabs first, Linkvertise (or plain Download) second.
+    for (const o of [...opts].sort((x, y) => (y.name === 'LootLabs') - (x.name === 'LootLabs'))) {
         const href = o.monetize ? getMonetizedUrl(o.url) : o.url;
         // With LootLabs present, the plain Download is the Linkvertise alternative.
         const label = o.name === 'Download' ? (hasLoot ? 'Linkvertise' : t(lang, 'btn.download')) : o.name;

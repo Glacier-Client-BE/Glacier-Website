@@ -26,11 +26,6 @@
           {
             "name": "CurseForge",
             "url": "https://www.curseforge.com/minecraft-bedrock/texture-packs/glacier-client-v6-for-mcbe"
-          },
-          {
-            "name": "BetterBedrock",
-            "url": "https://betterbedrock.com/project/preview/glacier_client_v6",
-            "outdated": true
           }
         ],
         "changelog": [
@@ -109,10 +104,6 @@
           {
             "name": "CurseForge",
             "url": "https://www.curseforge.com/minecraft-bedrock/texture-packs/glacier-client-v5"
-          },
-          {
-            "name": "BetterBedrock",
-            "url": "https://betterbedrock.com/project/preview/glacier_client_v5"
           }
         ]
       },
