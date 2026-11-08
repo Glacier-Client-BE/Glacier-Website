@@ -5,24 +5,24 @@
 // data-driven sections. Loaded as an ES module (see index.html), so it runs
 // after the document is parsed.
 
-import { state } from './modules/state.js?v=20261108121038';
-import { $, debounce, markCopyableCode } from './modules/utils.js?v=20261108121038';
-import { ALL } from './modules/config.js?v=20261108121038';
-import { setupScroll } from './modules/scroll.js?v=20261108121038';
-import { setupReveal, observeReveals } from './modules/reveal.js?v=20261108121038';
-import { setupShowcase } from './modules/showcase.js?v=20261108121038';
-import { showSection, showNotFound, parsePath, setupDelegation, setupHeaderUtilities, toggleMobileMenu, searchMods } from './modules/navigation.js?v=20261108121038';
-import { loadData, initSkeletons, initFAQ, initMods, initDownloads, initLauncher, showDataError } from './modules/content.js?v=20261108121038';
-import { applyVersioning, applyTheme, fetchDiscord, retranslateToast } from './modules/ui.js?v=20261108121038';
-import { setupGlobalSearch } from './modules/search.js?v=20261108121038';
-import { setupDocsToc } from './modules/docs.js?v=20261108121038';
-import { setupI18n } from './modules/i18n.js?v=20261108121038';
-import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js?v=20261108121038';
-import { setupFeedback } from './modules/feedback.js?v=20261108121038';
-import { observeCounts } from './modules/countup.js?v=20261108121038';
-import { setupHeroMedia } from './modules/heroMedia.js?v=20261108121038';
-import { setupPeek } from './modules/peek.js?v=20261108121038';
-import { setupPlatformHint, setupStickyCta } from './modules/platform.js?v=20261108121038';
+import { state } from './modules/state.js?v=20261108121222';
+import { $, debounce, markCopyableCode } from './modules/utils.js?v=20261108121222';
+import { ALL } from './modules/config.js?v=20261108121222';
+import { setupScroll } from './modules/scroll.js?v=20261108121222';
+import { setupReveal, observeReveals } from './modules/reveal.js?v=20261108121222';
+import { setupShowcase } from './modules/showcase.js?v=20261108121222';
+import { showSection, showNotFound, parsePath, setupDelegation, setupHeaderUtilities, toggleMobileMenu, searchMods } from './modules/navigation.js?v=20261108121222';
+import { loadData, initSkeletons, initFAQ, initMods, initDownloads, initLauncher, showDataError } from './modules/content.js?v=20261108121222';
+import { applyVersioning, applyTheme, fetchDiscord, retranslateToast } from './modules/ui.js?v=20261108121222';
+import { setupGlobalSearch } from './modules/search.js?v=20261108121222';
+import { setupDocsToc } from './modules/docs.js?v=20261108121222';
+import { setupI18n } from './modules/i18n.js?v=20261108121222';
+import { setupUpdateCheck, retranslateUpdateBar } from './modules/updateCheck.js?v=20261108121222';
+import { setupFeedback } from './modules/feedback.js?v=20261108121222';
+import { observeCounts } from './modules/countup.js?v=20261108121222';
+import { setupHeroMedia } from './modules/heroMedia.js?v=20261108121222';
+import { setupPeek } from './modules/peek.js?v=20261108121222';
+import { setupPlatformHint, setupStickyCta } from './modules/platform.js?v=20261108121222';
 
 function init() {
     setupPlatformHint();
