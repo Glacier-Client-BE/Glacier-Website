@@ -54,6 +54,33 @@ def walk(node):
 
 
 walk(data)
+
+# Launcher releases: add "loot_url" to each release asset (preserved across
+# update-launcher runs by the workflow).
+LAUNCHER = 'assets/data/launcher.json'
+if os.path.exists(LAUNCHER):
+    with open(LAUNCHER, encoding='utf-8') as f:
+        rels = json.load(f)
+    changed = False
+    for rel in rels:
+        for a in rel.get('assets', []):
+            if a.get('loot_url'):
+                continue
+            try:
+                link = make_link('Glacier Launcher ' + rel['tag_name'], a['browser_download_url'])
+            except Exception as e:
+                link = None
+                print('  failed', a.get('name'), e)
+            if link:
+                a['loot_url'] = link
+                changed = True
+                added += 1
+                print('  +', a['name'], link)
+    if changed:
+        with open(LAUNCHER, 'w', encoding='utf-8') as f:
+            json.dump(rels, f, indent=2, ensure_ascii=False)
+            f.write('
+')
 with open(PATH, 'w', encoding='utf-8') as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
     f.write('\n')

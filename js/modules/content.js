@@ -503,7 +503,9 @@ export function initLauncher() {
                 const date = new Date(rel.published_at).toISOString().slice(0, 10);
                 const assets = rel.assets || [];
                 let btns = '';
-                for (let j = 0; j < assets.length; j++) { const a = assets[j]; btns += '<a href="' + getMonetizedUrl(a.browser_download_url) + '" class="btn ' + (i === 0 && j === 0 ? 'btn-primary' : (j === 0 ? 'btn-secondary' : 'btn-ghost')) + '" target="_blank" rel="noopener"><i class="fas fa-download" aria-hidden="true"></i> ' + a.name + '</a>'; }
+                for (let j = 0; j < assets.length; j++) { const a = assets[j]; const cls = i === 0 && j === 0 ? 'btn-primary' : (j === 0 ? 'btn-secondary' : 'btn-ghost');
+                    if (a.loot_url) btns += '<a href="' + a.loot_url + '" class="btn ' + cls + '" target="_blank" rel="noopener"><i class="fas fa-download" aria-hidden="true"></i> LootLabs</a>';
+                    btns += '<a href="' + getMonetizedUrl(a.browser_download_url) + '" class="btn ' + (a.loot_url ? 'btn-secondary' : cls) + '" target="_blank" rel="noopener"><i class="fas fa-download" aria-hidden="true"></i> ' + (a.loot_url ? 'Linkvertise' : a.name) + '</a>'; }
                 const size = assets.length ? formatBytes(assets[0].size) : '';
                 const tagSlug = slugify(rel.tag_name);
                 html += '<div id="dl-launcher-' + tagSlug + '" class="download-card reveal">'

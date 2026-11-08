@@ -54,9 +54,24 @@ jobs:
             exit 1
           fi
 
+          # Keep LootLabs links already generated for each asset (matched by name).
+          if [ -f assets/data/launcher.json ]; then
+            jq --slurpfile old assets/data/launcher.json '
+              ([$old[0][]?.assets[]? | select(.loot_url) | {key: .name, value: .loot_url}] | from_entries) as $m
+              | map(.assets |= map(if $m[.name] then . + {loot_url: $m[.name]} else . end))
+            ' releases.clean.json > releases.merged.json
+            mv releases.merged.json releases.clean.json
+          fi
+
           mkdir -p assets/data
           mv releases.clean.json assets/data/launcher.json
           rm -f releases.raw.json
+
+      - name: Generate LootLabs links for new releases
+        continue-on-error: true
+        env:
+          LOOTLABS_API_TOKEN: ${{ secrets.LOOTLABS_API_TOKEN }}
+        run: python .github/scripts/generate-lootlabs.py
 
       - name: Commit and push
         run: |
