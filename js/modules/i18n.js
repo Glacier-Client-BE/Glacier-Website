@@ -5,7 +5,7 @@
 // in-place when the language changes; everything else (FAQ/mod data, legal
 // pages) intentionally stays English. Unknown keys fall back to English.
 
-import { FAQ_STRINGS } from './i18nFaq.js?v=20261108120900';
+import { FAQ_STRINGS } from './i18nFaq.js?v=20261108121038';
 
 export const LANGS = [
     ['en', 'English'],
