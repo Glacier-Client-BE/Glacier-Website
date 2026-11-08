@@ -1,6 +1,6 @@
 'use strict';
 
-import { USE_MONETIZATION, LINKVERTISE_USER_ID } from './config.js?v=20261031133728';
+import { USE_MONETIZATION, LINKVERTISE_USER_ID } from './config.js?v=20261108120558';
 
 // Small shared helpers — DOM lookup, string/number formatting, escaping.
 
