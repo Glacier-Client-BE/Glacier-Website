@@ -188,6 +188,7 @@ export function filterFAQCategory(cat) {
 // One clear call to action per card: the plain Download is the main button, and
 // ad-gated providers beside it are demoted to ghost buttons.
 const btnClass = (name, primary, hasDownload) => {
+    if (name === 'LootLabs') return primary ? 'btn-primary' : 'btn-secondary';
     if (name === 'Download') return primary ? 'btn-primary' : 'btn-secondary';
     return hasDownload ? 'btn-ghost' : 'btn-secondary';
 };
@@ -200,11 +201,13 @@ function buttonsHtml(opts, primary = false) {
     // launcher releases. Pre-made Linkvertise links are used as-is. Provider
     // names (Linkvertise, LootLabs) are proper nouns and stay untranslated;
     // only the generic "Download" label is localized.
-    const hasDownload = opts.some(o => o.name === 'Download');
+    const hasLoot = opts.some(o => o.name === 'LootLabs');
+    const hasDownload = opts.some(o => o.name === 'Download') && !hasLoot;
     for (const o of opts) {
         const href = o.monetize ? getMonetizedUrl(o.url) : o.url;
-        const label = o.name === 'Download' ? t(lang, 'btn.download') : o.name;
-        s += '<a href="' + href + '" class="btn ' + btnClass(o.name, primary, hasDownload) + '" target="_blank" rel="noopener">' + label + '</a>';
+        // With LootLabs present, the plain Download is the Linkvertise alternative.
+        const label = o.name === 'Download' ? (hasLoot ? 'Linkvertise' : t(lang, 'btn.download')) : o.name;
+        s += '<a href="' + href + '" class="btn ' + btnClass(hasLoot && o.name === 'Download' ? 'Linkvertise' : o.name, primary, hasDownload) + '" target="_blank" rel="noopener">' + label + '</a>';
     }
     return s;
 }
