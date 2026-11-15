@@ -1,5 +1,5 @@
 // Page-specific behavior: mod filters and favorites, FAQ filter, docs table of contents, gallery lightbox, search palette trigger.
-import { $, $$, store, mk } from './util.js?v=20261115194304';
+import { $, $$, store, mk } from './util.js?v=20261115202409';
 
 export function initMods() {
   const grid = $('#mods');

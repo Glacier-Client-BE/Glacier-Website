@@ -1,5 +1,5 @@
 // Site shell: theme, header, full-screen mobile menu, language, reveals, small affordances.
-import { $, $$, reduce, mk, store } from './util.js?v=20261115194304';
+import { $, $$, reduce, mk, store } from './util.js?v=20261115202409';
 
 const SUN = '<i class="fa-solid fa-sun ico" aria-hidden="true"></i>';
 const MOON = '<i class="fa-solid fa-moon ico" aria-hidden="true"></i>';
