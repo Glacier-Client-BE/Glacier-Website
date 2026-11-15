@@ -145,7 +145,7 @@ h2{font-size:clamp(28px,5vw,48px)}
 .win-tabs button[aria-selected=true]::after{transform:scaleX(1)}
 .bear-wrap{position:absolute;right:-6px;top:-26px;width:120px;height:120px;perspective:900px;z-index:2;pointer-events:none}
 .bear-box{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(8deg) rotateY(-22deg)}
-.bear{position:absolute;inset:0;-webkit-mask:url(../assets/logo.png) center/contain no-repeat;mask:url(../assets/logo.png) center/contain no-repeat;transform:translateZ(calc(var(--i) * var(--dz,-2.4px)));background:linear-gradient(160deg,hsl(220 76% calc(66% - var(--i) * 3.6%)),hsl(223 62% calc(52% - var(--i) * 3.2%)))}
+.bear{position:absolute;inset:0;-webkit-mask:url(../assets/logo.png) center/contain no-repeat;mask:url(../assets/logo.png) center/contain no-repeat;transform:translateZ(calc(var(--i) * var(--dz,-2.4px)));background:linear-gradient(160deg,hsl(220 76% calc(64% - var(--t) * 30%)),hsl(223 64% calc(54% - var(--t) * 28%)))}
 .bear-fall{position:absolute;inset:0;opacity:.9}
 .has-3d .bear-fall{display:none}
 .strip{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}

@@ -41,8 +41,10 @@ function carousel(tabs, slides, ms) {
 // Every .bear-box becomes a stack of masked slices of the logo, forming a real 3D bear that turns.
 function bears() {
   $$('.bear-box').forEach(box => {
-    const n = 10;
-    for (let i = 0; i < n; i++) { const l = mk('i', 'bear'); l.style.setProperty('--i', i); box.append(l); }
+    const n = 48;
+    for (let i = 0; i < n; i++) { const l = mk('i', 'bear'); l.style.setProperty('--i', i); l.style.setProperty('--t', (i / (n - 1)).toFixed(3)); box.append(l); }
+    // solid extrusion: depth is a fixed share of the logo size, spread over many hairline slices so no layer edges show
+    box.style.setProperty('--dz', (-(box.offsetWidth * .15) / n).toFixed(3) + 'px');
     box.parentElement.classList.add('has-3d');
     const host = box.closest('.hero2') || box.parentElement || box.parentElement;
     let ry = 0, tilt = 0, tiltT = 0, tr = 0, raf = 0, phase = Math.random() * 6;
