@@ -76,7 +76,7 @@ const STRINGS = {
         'sub.follow': 'Stay in the loop',
         // Hero
         'hero.title': 'A full mod menu that installs like a texture pack.',
-        'hero.subtitle': 'Drag, drop, and tune 37+ modules without leaving your game. Glacier never touches game logic — so it installs like any resource pack, runs on Mobile, PC, and Console, and stays free forever.',
+        'hero.subtitle': 'Drag, drop, and tune 37+ modules without leaving your game. Glacier never touches game logic, so it installs like any resource pack, runs on Mobile, PC, and Console, and stays free forever.',
         'dl.starting': 'Starting download…', 'dl.next.lead': 'Download started!', 'dl.next.body': 'Next: import the .mcpack/.zip into Minecraft.', 'dl.next.link': 'Install steps', 'dl.next.close': 'Dismiss', 'empty.mods': 'No modules match these filters.', 'empty.faq': 'No questions match this filter.', 'empty.search': 'Nothing matches your search.', 'empty.downloads': 'Downloads are unavailable right now.', 'empty.config': 'No settings match your search.', 'empty.clear': 'Clear filters', 'empty.clearSearch': 'Clear search', 'empty.retry': 'Retry', 'err.load': 'Couldn\'t load this right now.',
         'hero.download': 'Download Now', 'hero.config': 'Config Editor',
         'hero.downloads': 'Downloads',
@@ -102,7 +102,7 @@ const STRINGS = {
         // Downloads
         'downloads.title': 'Downloads',
         'downloads.desc': 'Get Glacier Client for your platform',
-        'downloads.sub': 'Grab the latest pack client for your platform — MCBE DLL and Java builds are on the way.',
+        'downloads.sub': 'Grab the latest pack client for your platform, MCBE DLL and Java builds are on the way.',
         'downloads.stable': 'Stable Release',
         'downloads.beta': 'Beta Version',
         'downloads.coming': 'Coming Soon',
@@ -1693,7 +1693,7 @@ const STRINGS = {
         'nav.downloads': 'डाउनलोड', 'nav.faq': 'FAQ', 'nav.docs': 'डॉक्स', 'nav.mods': 'सभी मॉड्स',
         'nav.license': 'लाइसेंस', 'nav.donate': 'दान करें',
         'hero.title': 'अगली पीढ़ी का Minecraft अनुभव',
-        'hero.subtitle': 'Minecraft Bedrock Edition के लिए ऑप्टिमाइज़्ड टेक्सचर पैक क्लाइंट — ढेरों मॉड्यूल, ड्रैग करने लायक GUI और हल्का परफ़ॉर्मेंस। स्मूद एनिमेशन और साफ़ इंटरफ़ेस के साथ Minecraft का भविष्य अनुभव करें।',
+        'hero.subtitle': 'Minecraft Bedrock Edition के लिए ऑप्टिमाइज़्ड टेक्सचर पैक क्लाइंट, ढेरों मॉड्यूल, ड्रैग करने लायक GUI और हल्का परफ़ॉर्मेंस। स्मूद एनिमेशन और साफ़ इंटरफ़ेस के साथ Minecraft का भविष्य अनुभव करें।',
         'dl.starting': 'डाउनलोड शुरू हो रहा है…', 'dl.next.lead': 'डाउनलोड शुरू हुआ!', 'dl.next.body': 'अगला कदम: .mcpack/.zip को Minecraft में इंपोर्ट करें।', 'dl.next.link': 'इंस्टॉल के चरण', 'dl.next.close': 'बंद करें', 'empty.mods': 'इन फ़िल्टर से कोई मॉड्यूल नहीं मिला।', 'empty.faq': 'इस फ़िल्टर से कोई प्रश्न नहीं मिला।', 'empty.search': 'आपकी खोज से कुछ नहीं मिला।', 'empty.downloads': 'डाउनलोड अभी उपलब्ध नहीं हैं।', 'empty.config': 'आपकी खोज से कोई सेटिंग नहीं मिली।', 'empty.clear': 'फ़िल्टर हटाएँ', 'empty.clearSearch': 'खोज साफ़ करें', 'empty.retry': 'फिर से कोशिश करें', 'err.load': 'अभी लोड नहीं हो सका।',
         'hero.download': 'अभी डाउनलोड करें', 'hero.config': 'कॉन्फ़िग एडिटर',
         'hero.online': 'Discord पर ऑनलाइन', 'hero.modules': 'मॉड्यूल', 'hero.packSize': 'पैक साइज़',
@@ -2096,7 +2096,7 @@ const STRINGS = {
         'search.placeholder': 'Поиск по модам, FAQ, загрузкам, docs…', 'search.idle': 'Поиск по модам, FAQ, загрузкам, docs и страницам', 'search.try': 'Попробуйте "FPS", "установка" или "скачать"',
         'search.recent': 'Недавние запросы', 'search.clearRecent': 'Очистить', 'search.suggested': 'Рекомендуем',
         'search.popular': 'Популярные моды', 'search.showAll': 'Показать все ({n})', 'search.count': 'Результатов: {n}',
-        'search.copied': 'Путь скопирован в буфер обмена', 'search.esc': 'Esc — закрыть', 'search.foot.move': 'перейти',
+        'search.copied': 'Путь скопирован в буфер обмена', 'search.esc': 'Esc, закрыть', 'search.foot.move': 'перейти',
         'search.foot.open': 'открыть', 'search.foot.close': 'закрыть', 'search.title': 'Поиск по сайту',
         'search.kind.actions': 'Действия', 'search.kind.pages': 'Страницы', 'search.kind.mods': 'Моды',
         'search.kind.features': 'Возможности', 'search.kind.faq': 'FAQ', 'search.kind.docs': 'Docs',
@@ -2115,7 +2115,7 @@ const STRINGS = {
         'search.pd.donate': 'Поддержите разработку через PayPal или Ko-fi', 'search.pd.faq': 'Частые вопросы и ответы', 'search.pd.config': 'Редактируйте настройки config.json онлайн',
         'search.pd.mediakit': 'Логотипы, цвета, шрифты и UI-компоненты', 'search.pd.notfound': 'Этой страницы не существует', 'search.pd.gallery': 'Меню модов, стартовый и экран паузы',
         'search.pd.mods': 'Все модули', 'search.pd.license': 'Разрешённое и запрещённое использование', 'search.pd.tos': 'Правила использования клиента и сообщества',
-        'search.pd.privacy': 'Какие данные собираются и как используются', 'search.pd.best': 'Почему Glacier — один из лучших бесплатных клиентов Bedrock', 'search.pk.home': 'главная старт hero',
+        'search.pd.privacy': 'Какие данные собираются и как используются', 'search.pd.best': 'Почему Glacier, один из лучших бесплатных клиентов Bedrock', 'search.pk.home': 'главная старт hero',
         'search.pk.features': 'модули hud меню мод темы автообновление конфиг', 'search.pk.downloads': 'скачать загрузка получить установить mcpack launcher версия apk', 'search.pk.community': 'discord youtube соцсети showcase видео креаторы tiktok',
         'search.pk.docs': 'помощь docs документация установка настройка устранение неполадок гайд версии', 'search.pk.donate': 'донат пожертвование paypal kofi поддержка деньги', 'search.pk.faq': 'faq вопросы ответы помощь частые',
         'search.pk.config': 'конфиг редактор настройки json переключатели', 'search.pk.mediakit': 'бренд логотип медиакит цвета шрифты типографика', 'search.pk.notfound': '404 ошибка не найдено сломано отсутствует',
@@ -2764,7 +2764,7 @@ export function setupI18n() {
     let saved = null;
     try { saved = localStorage.getItem(LANG_KEY); } catch { }
     const lang = saved || detectLang();
-    // English pages already carry the right copy — only rewrite when needed.
+    // English pages already carry the right copy, only rewrite when needed.
     if (lang !== 'en' || saved) applyLang(lang);
     else syncLangDropdown('en');
 }

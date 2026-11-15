@@ -3,7 +3,7 @@ name: Stamp Asset Versions
 # Cache-busts every same-origin JS module import, the entry script/
 # stylesheet, and the <meta name="site-build"> marker on every push to
 # main — see .github/scripts/stamp-version.js for why this needs to cover
-# the whole module graph, not just js/main.js's own URL.
+# the whole module graph, not just js/site.js's own URL.
 
 on:
   push:
@@ -28,17 +28,11 @@ jobs:
           set -euo pipefail
           VERSION=$(date -u +%Y%m%d%H%M%S) node .github/scripts/stamp-version.js
 
-      # Per-section pages (/downloads/, /features/ ...), sitemap.xml and robots.txt are generated from index.html so
-      # search engines get a real 200 page, unique metadata and structured data for every section. Runs after the
-      # stamp so the generated pages carry the same cache-busting version.
-      - name: Build SEO pages
-        run: python3 .github/scripts/build-seo.py
-
       - name: Commit and push
         run: |
           set -euo pipefail
-          git add index.html 404.html js config/index.html sitemap.xml robots.txt
-          for r in $(python3 .github/scripts/build-seo.py --list); do git add "$r"; done
+          git add js config/index.html
+          find . -name '*.html' -not -path './.git/*' -not -path './config/*' -not -path './node_modules/*' -print0 | xargs -0 git add
           if git diff --cached --quiet; then
             echo "No version bump needed."
             exit 0
