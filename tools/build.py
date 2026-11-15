@@ -92,7 +92,6 @@ def socials():
 def head_scripts():
     return ('<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=%s" crossorigin="anonymous"></script>\n'
             '<script src="https://publisher.linkvertise.com/cdn/linkvertise.js" defer></script>\n'
-            '<script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1732675"></script>\n'
             '<script>\n  // linkvertise.js is deferred; ad blockers may block it entirely, so guard the call.\n'
             "  document.addEventListener('DOMContentLoaded', function () {\n    if (typeof linkvertise === 'function') { linkvertise(499358, { whitelist: [\"github.com\"], blacklist: [] }); }\n  });\n</script>\n") % AD_CLIENT
 
