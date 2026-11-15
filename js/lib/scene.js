@@ -1,6 +1,6 @@
 // Home scenes: the in-game window carousel (video + screenshots), the 3D bear, the feature explorer,
 // the launcher theme swatches, click-to-play YouTube players and in-view video playback.
-import { $, $$, reduce, fine, mk } from './util.js?v=20261115152333';
+import { $, $$, reduce, fine, mk } from './util.js?v=20261115194304';
 
 const isVideo = el => el && el.tagName === 'VIDEO';
 
