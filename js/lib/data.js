@@ -1,6 +1,6 @@
 // Live data: downloads page, stats, Discord presence, announcement bar. Everything reads the JSON that the workflows keep fresh.
-import { $, $$, mk, esc, json, nf, slug, liveDelta, monetize, store, reduce, tt, COUNTER_API, DISCORD_GUILD } from './util.js?v=20261115202409';
-import { snack } from './shell.js?v=20261115202409';
+import { $, $$, mk, esc, json, nf, slug, liveDelta, monetize, store, reduce, tt, COUNTER_API, DISCORD_GUILD } from './util.js?v=20261115202616';
+import { snack } from './shell.js?v=20261115202616';
 
 const CHEV = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
 const MB = n => (n / 1048576).toFixed(1) + ' MB';
