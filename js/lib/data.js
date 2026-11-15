@@ -148,13 +148,19 @@ function announce(dl) {
 }
 
 // Download clicks: count them, then point to the next step.
+let lastScroll = -1e4;
 function trackClicks() {
+  window.addEventListener('scroll', () => { lastScroll = performance.now(); }, { passive: true });
   ['mouseover', 'mouseenter', 'pointerover', 'pointerenter'].forEach(t => window.addEventListener(t, e => { if (e.target.closest && e.target.closest('[data-go]')) e.stopPropagation(); }, true));
   document.addEventListener('click', e => {
     const a = e.target.closest('[data-dl]');
     if (!a) return;
     // Gates open only on a real press, never on hover: they are buttons, not links, so no script can follow them early.
-    if (a.dataset.go) window.open(a.dataset.go, '_blank', 'noopener');
+    if (a.dataset.go) {
+      // A tap that lands while a scroll is still coasting is the finger stopping the page, not a press on the button.
+      if (!e.isTrusted || performance.now() - lastScroll < 450) return;
+      window.open(a.dataset.go, '_blank', 'noopener');
+    }
     const key = a.dataset.dl;
     if (key && /^v[0-9.]{1,10}$/.test(key)) { try { fetch(COUNTER_API + '/increment/' + key, { method: 'POST', keepalive: true }); } catch {} }
     snack(`${tt('dl.next.lead', 'Download started!')} ${tt('dl.next.body', 'Next: import the .mcpack/.zip into Minecraft.')} <a href="/docs/#installation">${tt('dl.next.link', 'Install steps')}</a>`, 9000);
