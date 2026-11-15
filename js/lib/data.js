@@ -15,7 +15,7 @@ function buttons(opts, primary, key) {
   return sorted.map((o, i) => {
     const href = o.monetize ? monetize(o.url) : o.url;
     const label = o.name === 'Download' ? (hasLoot ? 'Linkvertise' : tt('btn.download', 'Download')) : o.name;
-    return `<a class="${btnClass(o.name, primary && i === 0)}" href="${esc(href)}" target="_blank" rel="noopener" data-dl="${esc(key || '')}">${label}</a>`;
+    return `<button type="button" class="${btnClass(o.name, primary && i === 0)}" data-go="${esc(href)}" data-dl="${esc(key || '')}">${label}</button>`;
   }).join('');
 }
 
@@ -78,7 +78,7 @@ function renderLauncher(rels) {
   const row = (r, big) => {
     const a = (r.assets || []).find(x => /\.exe$/i.test(x.name)) || (r.assets || [])[0];
     if (!a) return '';
-    const btns = `${a.loot_url ? `<a class="btn ${big ? 'p lg' : 'g'}" href="${esc(a.loot_url)}" target="_blank" rel="noopener" data-dl="launcher">LootLabs</a>` : ''}<a class="btn ${big && !a.loot_url ? 'p lg' : 'g'}" href="${esc(monetize(a.browser_download_url))}" target="_blank" rel="noopener" data-dl="launcher">Linkvertise</a>`;
+    const btns = `${a.loot_url ? `<button type="button" class="btn ${big ? 'p lg' : 'g'}" data-go="${esc(a.loot_url)}" data-dl="launcher">LootLabs</button>` : ''}<button type="button" class="btn ${big && !a.loot_url ? 'p lg' : 'g'}" data-go="${esc(monetize(a.browser_download_url))}" data-dl="launcher">Linkvertise</button>`;
     const gh = `https://github.com/Glacier-Client-BE/Glacier-Launcher/releases/tag/${encodeURIComponent(r.tag_name)}`;
     const date = new Date(r.published_at).toISOString().slice(0, 10);
     if (big) return `<article class="card rel feature"><div class="head"><span class="lbl"><i class="dot"></i>${tt('dl.tagLatest', 'Latest')} · Windows</span><span class="tag">${date} · ${MB(a.size)} · Windows</span></div><h3 class="v">Glacier Launcher ${esc(r.tag_name)}</h3><p>Install and launch Glacier on Windows, with the config editor, themes and auto-updates built in.</p><div class="btns">${btns}</div><div class="mirrors"><a href="${gh}" target="_blank" rel="noopener">${tt('dl.viewOnGithub', 'View on GitHub')}</a></div></article>`;
@@ -149,9 +149,12 @@ function announce(dl) {
 
 // Download clicks: count them, then point to the next step.
 function trackClicks() {
+  ['mouseover', 'mouseenter', 'pointerover', 'pointerenter'].forEach(t => window.addEventListener(t, e => { if (e.target.closest && e.target.closest('[data-go]')) e.stopPropagation(); }, true));
   document.addEventListener('click', e => {
-    const a = e.target.closest('a[data-dl]');
+    const a = e.target.closest('[data-dl]');
     if (!a) return;
+    // Gates open only on a real press, never on hover: they are buttons, not links, so no script can follow them early.
+    if (a.dataset.go) window.open(a.dataset.go, '_blank', 'noopener');
     const key = a.dataset.dl;
     if (key && /^v[0-9.]{1,10}$/.test(key)) { try { fetch(COUNTER_API + '/increment/' + key, { method: 'POST', keepalive: true }); } catch {} }
     snack(`${tt('dl.next.lead', 'Download started!')} ${tt('dl.next.body', 'Next: import the .mcpack/.zip into Minecraft.')} <a href="/docs/#installation">${tt('dl.next.link', 'Install steps')}</a>`, 9000);

@@ -250,7 +250,6 @@ a.card:hover,.card.h:hover{box-shadow:var(--shadow-h)}
 .choose a:hover{background:var(--s1)}
 .choose a[aria-current]{background:var(--s1);box-shadow:var(--shadow)}
 .choose a.rec small{color:var(--green)}
-.choose .ad{display:none}
 .dsec{display:flex;flex-direction:column;gap:16px;scroll-margin-top:140px}
 .dsec+.dsec{margin-top:48px}
 .dsec>h2{font-size:clamp(26px,3.4vw,34px)}
@@ -457,7 +456,6 @@ dialog.lb .ib{position:absolute;right:8px;top:8px;background:rgba(10,11,20,.7);c
   .dlayout{grid-template-columns:260px minmax(0,1fr);gap:48px}
   .choose{flex-direction:column;position:sticky;top:96px;overflow:visible;background:none;backdrop-filter:none;padding:0}
   .choose a{flex:auto}
-  .choose .ad{display:block;margin-top:16px}
   .mlayout{grid-template-columns:260px minmax(0,1fr);gap:40px}
   .mside{position:sticky;top:96px}
   .mcats{flex-direction:column;overflow:visible}
@@ -581,3 +579,5 @@ body{font-weight:500}
 h1,h2,h3,h4,b,strong,th,summary,.btn,.brand,.num,.big,.v,.heart{font-family:var(--disp);font-weight:700}
 .btn small,.btn.two small{font-family:var(--sans);font-weight:500}
 .lbl,.chip,.tag,small,code,kbd,.mut{font-family:var(--sans);font-weight:500}
+.ad:has(ins[data-ad-status="unfilled"]){display:none}
+.ad-wrap:has(ins[data-ad-status="unfilled"]){padding:0}

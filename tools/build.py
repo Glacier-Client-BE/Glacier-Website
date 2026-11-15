@@ -98,7 +98,7 @@ def head_scripts():
 
 
 def ad(slot, cls=''):
-    return '<div class="ad %s"><div class="ad-in"><small>Advertisement</small><ins class="adsbygoogle" style="display:block" data-ad-client="%s" data-ad-slot="%s" data-ad-format="auto" data-full-width-responsive="true"></ins></div></div>' % (cls, AD_CLIENT, slot)
+    return '<div class="ad %s"><div class="ad-in"><small>Advertisement</small><ins class="adsbygoogle" style="display:block" data-ad-client="%s" data-ad-slot="%s" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div>' % (cls, AD_CLIENT, slot)
 
 
 def adw(slot):
@@ -267,7 +267,6 @@ def hero():
     chips = ''.join('<span class="chip">%s</span>' % m['name'] for m in [{'name': mod_title(x)} for x in MODS[:16]])
     return f"""<section class="hero2" id="top"><div class="wrap">
 <div class="hero-t">
-<div class="chips-row"><span class="chip ok"><span {ta('hero.free')}>{tx('hero.free')}</span> <span {ta('hero.forever')}>{tx('hero.forever')}</span></span><span class="chip">{ic('mobile')} Mobile</span><span class="chip">{ic('desktop')} PC</span><span class="chip">{ic('gamepad')} Console</span></div>
 <h1 {ta('hero.title')}>{title}</h1>
 <p class="lead" {ta('hero.subtitle')}>{tx('hero.subtitle')}</p>
 <div class="cta">{launcher_btn('p')}<a class="btn g lg" href="/downloads/#pack">{ic('mobile')}<span>Get the pack</span></a></div>
@@ -384,7 +383,7 @@ def gallery():
 def downloads():
     ex = LATEST
     pack_fb = f'<article class="card rel"><div class="head"><span class="lbl"><i class="dot"></i>{tx("dl.tagLatest")}</span><span class="tag">{esc(ex["release"])} · {esc(ex["size"])}</span></div><h3 class="v">{esc(ex["version"])}</h3><div class="btns"><a class="btn p" href="{DISCORD}">Discord</a></div></article>'
-    choose = f"""<nav class="choose" aria-label="Downloads"><a class="rec" href="#launcher"><span>Launcher for Windows</span><small>Recommended</small></a><a href="#pack"><span>Pack for Mobile and Console</span><small>.mcpack</small></a><a href="#dev"><span>In development</span><small>DLL, Java</small></a>{ad(AD['downloads'])}</nav>"""
+    choose = f"""<nav class="choose" aria-label="Downloads"><a class="rec" href="#launcher"><span>Launcher for Windows</span><small>Recommended</small></a><a href="#pack"><span>Pack for Mobile and Console</span><small>.mcpack</small></a><a href="#dev"><span>In development</span><small>DLL, Java</small></a></nav>"""
     body = f"""{page_head(tx('nav.downloads'), 'Download Glacier', 'Windows players get the launcher. Mobile and Console players import the pack like any resource pack.', tx('nav.downloads'))}
 <div class="wrap"><div class="dlayout">{choose}
 <div>
@@ -393,7 +392,8 @@ def downloads():
 <section class="dsec" id="dev" style="padding:0"><h2>In development</h2><div class="grid c2"><article class="card rel"><span class="lbl"><i class="dot warn"></i>In development</span><h3 class="v" style="font-size:26px" {ta('dl.dll.title')}>{tx('dl.dll.title')}</h3><p {ta('dl.dll.desc')}>{tx('dl.dll.desc')}</p><div class="btns"><a class="btn g" href="{DISCORD}" target="_blank" rel="noopener">{tx('btn.joinDiscord')}</a></div></article><article class="card rel"><span class="lbl"><i class="dot warn"></i>In development</span><h3 class="v" style="font-size:26px" {ta('dl.java.title')}>{tx('dl.java.title')}</h3><p {ta('dl.java.desc')}>{tx('dl.java.desc')}</p><div class="btns"><a class="btn g" href="{DISCORD}" target="_blank" rel="noopener">{tx('btn.joinDiscord')}</a></div></article></div></section>
 <div class="card" style="margin-top:48px"><span class="lbl" {ta('docs.install.title')}>{tx('docs.install.title')}</span><ol class="steps"><li {ta('docs.install.s1')}>{tx('docs.install.s1')}</li><li {ta('docs.install.s2')}>{tx('docs.install.s2')}</li><li {ta('docs.install.s3')}>{tx('docs.install.s3')}</li></ol><p class="mut" style="font-size:14.5px">{th('docs.install.faqLink')}</p></div>
 <div class="support rv" style="margin-top:32px;padding:28px"><div><span class="lbl">{ic('heart')} {tx('nav.donate')}</span><h3 style="font-size:28px;margin-top:6px">Enjoying Glacier?</h3><p class="mut" {ta('donate.toastText')}>{tx('donate.toastText')}</p></div><div><a class="btn amber" href="/donate/">{tx('nav.donate')}</a></div></div>
-</div></div></div><div style="height:48px"></div>"""
+</div></div></div>
+{adw(AD['downloads'])}<div style="height:48px"></div>"""
     SEARCH.append({'t': 'Downloads', 'd': 'Page · Latest ' + LATEST['version'], 'u': '/downloads/', 'k': 'download install mcpack launcher'})
     return page('/downloads/', 'downloads', body, 'downloads')
 

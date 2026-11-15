@@ -154,17 +154,7 @@ function staleCheck() {
 }
 
 // AdSense units load when they are close to the viewport.
-function ads() {
-  const slots = $$('ins.adsbygoogle');
-  if (!slots.length) return;
-  const go = s => { try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch {} };
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { io.unobserve(e.target); go(e.target); } }), { rootMargin: '400px' });
-    slots.forEach(s => io.observe(s));
-  } else slots.forEach(go);
-}
-
 export function initShell() {
   document.documentElement.classList.remove('nojs');
-  theme(); header(); current(); menu(); language(); reveals(); copy(); prefetch(); staleCheck(); ads();
+  theme(); header(); current(); menu(); language(); reveals(); copy(); prefetch(); staleCheck();
 }
