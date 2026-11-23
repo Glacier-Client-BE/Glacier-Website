@@ -6,7 +6,7 @@
         "tag": "Latest",
         "release": "2026-06-18",
         "size": "3.41 MB",
-        "downloads": 39646,
+        "downloads": 39672,
         "options": [
           {
             "name": "Download",
@@ -51,7 +51,7 @@
         "tag": "Archived",
         "release": "2026-03-08",
         "size": "3.38 MB",
-        "downloads": 18771,
+        "downloads": 18773,
         "options": [
           {
             "name": "Download",
@@ -85,7 +85,7 @@
         "tag": "Archived",
         "release": "2025-07-06",
         "size": "2.77 MB",
-        "downloads": 131575,
+        "downloads": 131581,
         "options": [
           {
             "name": "Linkvertise",
@@ -112,7 +112,7 @@
         "tag": "Archived",
         "release": "2024-10-26",
         "size": "1.75 MB",
-        "downloads": 19086,
+        "downloads": 19087,
         "options": [
           {
             "name": "Download",
@@ -155,7 +155,8 @@
             "name": "LootLabs",
             "url": "https://loot-link.com/s?jZgmFpp9"
           }
-        ]
+        ],
+        "downloads": 1
       },
       {
         "version": "Glacier v1",
@@ -172,7 +173,7 @@
             "url": "https://loot-link.com/s?bOM52mSi"
           }
         ],
-        "downloads": 1
+        "downloads": 2
       }
     ]
   },
